@@ -19,11 +19,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef PYGMVECTOR3_H
+#ifndef PYGMMATRIX3_H
 #define PYGMVECTOR3_H
 
-#include "../includes/gmVector3.h"
+#include "gmMatrix3.h"
 
-void wrapVector3();
+void wrapMatrix3();
 
-#endif //PYGMVECTOR3_H
+#endif //PYGMMATRIX3_H

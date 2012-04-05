@@ -162,22 +162,22 @@ TypeReal Vector3<TypeReal>::operator[] (int i) const
 template <class TypeReal>
 TypeReal& Vector3<TypeReal>::operator[] (int i)
 {
-	if (i>2) {
-		throw out_of_range("gmath::Vector3:\n\t index out of range");
-	}
-	return *(&x+i);
+    if (i>2) {
+        throw out_of_range("gmath::Vector3:\n\t index out of range");
+    }
+    return *(&x+i);
 }
 /*--------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal* Vector3<TypeReal>::ptr()
 {
-	return &x;
+    return &x;
 }
 /*--------------------------------------------------------------------------------*/
 template <class TypeReal>
 const TypeReal* Vector3<TypeReal>::ptr() const
 {
-	return &x;
+    return &x;
 }
 
 /*------ Comparisons ------*/
@@ -185,16 +185,18 @@ const TypeReal* Vector3<TypeReal>::ptr() const
 template <class TypeReal>
 bool Vector3<TypeReal>::operator == (const Vector3<TypeReal> & other) const
 {
-    TypeReal e = Math<TypeReal>::EPSILON;
-    return (fabs(x-other.x)<e && fabs(y-other.y)<e && fabs(z-other.z)<e);
+    return (fabs(x-other.x) < Math<TypeReal>::EPSILON && 
+            fabs(y-other.y) < Math<TypeReal>::EPSILON && 
+            fabs(z-other.z) < Math<TypeReal>::EPSILON);
 }
 /*--------------------------------------------------------------------------------*/
 
 template <class TypeReal>
 bool Vector3<TypeReal>::operator != (const Vector3<TypeReal> & other) const
 {
-    TypeReal e = Math<TypeReal>::EPSILON;
-    return (fabs(x-other.x)>e || fabs(y-other.y)>e || fabs(z-other.z)>e);
+    return (fabs(x-other.x) > Math<TypeReal>::EPSILON || 
+            fabs(y-other.y) > Math<TypeReal>::EPSILON || 
+            fabs(z-other.z) > Math<TypeReal>::EPSILON);
 }
 /*--------------------------------------------------------------------------------*/
 
@@ -232,7 +234,7 @@ template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::cross(const Vector3<TypeReal> & other) const
 {
     Vector3<TypeReal> retVec(
-    		y*other.z - z*other.y,
+            y*other.z - z*other.y,
             z*other.x - x*other.z,
             x*other.y - y*other.x);
     return retVec;
@@ -373,7 +375,7 @@ void Vector3<TypeReal>::refractInPlace(const Vector3<TypeReal> & normal, TypeRea
     }
     else
     {
-    	this->set(TypeReal(0.0), TypeReal(0.0), TypeReal(0.0));
+        this->set(TypeReal(0.0), TypeReal(0.0), TypeReal(0.0));
     }
 }
 /*--------------------------------------------------------------------------------*/

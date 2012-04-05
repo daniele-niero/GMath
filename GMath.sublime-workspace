@@ -1,0 +1,643 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"delta",
+				"deltaX"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "references/openGLViewport.py",
+			"settings":
+			{
+				"buffer_size": 5932,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 924,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "SConstruct",
+			"settings":
+			{
+				"buffer_size": 2162,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "GMath.sublime-project",
+			"settings":
+			{
+				"buffer_size": 344,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sub_projects/gmath_py/SConscript.py",
+			"settings":
+			{
+				"buffer_size": 1882,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/danieleniero/Documents/Programming/buildEnv.py",
+			"settings":
+			{
+				"buffer_size": 6097,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sub_projects/gmath_py/buildEnvironment.py",
+			"settings":
+			{
+				"buffer_size": 300,
+				"line_ending": "Unix",
+				"name": "Environment.py"
+			}
+		},
+		{
+			"file": "SConscript.py",
+			"settings":
+			{
+				"buffer_size": 1207,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 347.0,
+		"selected_items":
+		[
+			[
+				"Snippet: ",
+				"Snippet: #!/usr/bin/env"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 325.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": true,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/danieleniero/Documents/Programming/GMath/GMath.sublime-project",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - DefaultModified/DefaultModified.sublime-theme",
+		"/Users/danieleniero/Downloads/Theme - Soda/Soda Light.sublime-theme",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - DefaultModified/Widget.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default/Default.sublime-theme",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default copy/Widgets.stTheme",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default/Widget.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default copy/Default.sublime-theme",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default copy/Widget.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Base File.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/danieleniero/Documents/Programming/GMath/SConstruct",
+		"/Users/danieleniero/Documents/Programming/GMath/resources/doxygen/doxy_config",
+		"/Users/danieleniero/Documents/Programming/GMath/.hgignore",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testVector3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/matrix4.py",
+		"/Users/danieleniero/Documents/Programming/GMath/SConscript.py",
+		"/Users/danieleniero/Documents/Programming/GMath/compile.py",
+		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/_nurbsCurve.py",
+		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/constants.py",
+		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/epsilon.py",
+		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/matrix3.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo/launchApp.sh",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/buildEnv.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/geoCylinderNodeWrapper.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCylinder.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCylinder.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCone.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCone.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/py/coral/builtinNodes.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/pythonWrapper.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/geoConeNodeWrapper.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/geoCubeNodeWrapper.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/builtinNodes/GeoCone.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo/coral/builtinNodes/GeoCone.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo/compile.sh",
+		"/Users/danieleniero/Documents/Programming/coral-repo-svn/buildEnv.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo/.git/info/exclude",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
+		"/Users/danieleniero/Documents/yasvn2hg/user.map",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/ArithmeticNodes.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/MathNodes.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/pythonWrapper.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/geoJointNodeWrapper.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/py/coral/builtinNodes.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/geoSphereNodeWrapper.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/ArithmeticNodes.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/src/NumericDrawNode.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/src/NumericDrawNode.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/GeoSphere.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/GeoSphere.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/geoJointWrapper.h",
+		"/Users/danieleniero/Desktop/nodeBox.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/py/coralUi/nodeBox.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/src/DrawNode.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/MathNodes.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/mathNodesWrapper.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/builtinNodes.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/mathNode.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/mathNodes.py",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Global.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Python.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Global.sublime-settings",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examples/simplePyNode/simplePyNode.py",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Base File.sublime-settings",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/timeNode.py",
+		"/Users/danieleniero/Desktop/Joint.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/CoralNodes/Collapsed/__init__.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/src/Node.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/src/Node.h",
+		"/Users/danieleniero/Documents/Programming/Python User Tests/test_00.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/py/coral/inOutNode.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/coralUi/nodeBox.py",
+		"/Users/danieleniero/Desktop/widgetTest.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/buildEnv.py",
+		"/Users/danieleniero/Desktop/launchApp.sh",
+		"/Users/danieleniero/Downloads/buymeasoda-soda-theme-8f544d8/README.md",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/skeletonNode/skeletonNode.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/skeletonPrimitive.h",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/testNode.cpp",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/skeletonPrimitive",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/jitternNode/SConstruct",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/SConstruct",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/testNodePlugin.py",
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/testNode.cp",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/styles/main-style.css",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/sideBar.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/articles/views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/index.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/siteMain/models.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/header.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/articles/models.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/siteMain/views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/galleries/models.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/mainTabs.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/settings.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/siteMain/admin.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/scripts/overlay.js",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/scripts/main_script.js",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/models.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/jobViews.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/educationViews.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/articles/imagesAndVideosView.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/articles/images_and_videos_view.py",
+		"/Users/danieleniero/Documents/Programming/pytml/htmlPage.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/site_main/views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/errorView.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/urls.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/generic_page.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/views/main_menu.py",
+		"/Users/danieleniero/Documents/Programming/pytml/script.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/scripts/pippo.js",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/index.html",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/.hgignore",
+		"/Users/danieleniero/Desktop/test.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/data_views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/styles/curriculum.css",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/education_views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/curriculum/skill_views.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/site_main/models.py",
+		"/Users/danieleniero/Documents/Programming/pytml/doctype.py",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/scripts/AC_QuickTime.js",
+		"/Users/danieleniero/Documents/Programming/html_stuff/danieleniero/media/videos/articles/Article1/eva_5.jpeg"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"pat",
+			"sidebar",
+			"font",
+			"label",
+			"arrow",
+			"console",
+			"arrow",
+			"Theme - Default",
+			"sidebar",
+			"side",
+			"Qt",
+			"PyQt4",
+			"shift+super+e",
+			"find",
+			"QApplication",
+			"QtCore",
+			"super",
+			"super+h",
+			"ctrl+h",
+			"control+h",
+			"QtCore",
+			"PyQt4",
+			"Project_brief",
+			"gmath documentation",
+			"length",
+			"Cone",
+			"M44f",
+			"identity",
+			"cube",
+			"node",
+			"ArraySize",
+			"JointA",
+			"_nodeShelfItemClicked",
+			"site_main",
+			"generic_page",
+			"jobModel",
+			"anim_in",
+			"controller",
+			"ref",
+			"getLatest",
+			"Theme - Default",
+			"bufferName",
+			"sublime_plugin",
+			"args[0]",
+			"sublimeplugin"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Theme - DefaultModified",
+			"PySide",
+			"PyQt4",
+			"find",
+			"QtCore",
+			"super",
+			"PySide",
+			"height",
+			"Cylinder",
+			"Cone",
+			"CONE",
+			"Joint",
+			"genericPage",
+			"eduModel",
+			"Theme - Daniele",
+			"fileName",
+			"mercurial_command",
+			"sublime_plugin"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "references/openGLViewport.py",
+					"settings":
+					{
+						"buffer_size": 5932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1064,
+								1064
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+					"settings":
+					{
+						"buffer_size": 924,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "SConstruct",
+					"settings":
+					{
+						"buffer_size": 2162,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								847,
+								847
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "GMath.sublime-project",
+					"settings":
+					{
+						"buffer_size": 344,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								344,
+								344
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "sub_projects/gmath_py/SConscript.py",
+					"settings":
+					{
+						"buffer_size": 1882,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1265,
+								1265
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 240.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/danieleniero/Documents/Programming/buildEnv.py",
+					"settings":
+					{
+						"buffer_size": 6097,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2131,
+								1572
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 199.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "sub_projects/gmath_py/buildEnvironment.py",
+					"settings":
+					{
+						"buffer_size": 300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								281,
+								225
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Environment.py",
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "SConscript.py",
+					"settings":
+					{
+						"buffer_size": 1207,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								964,
+								964
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 28.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"draw",
+				"coralUi/src/DrawNode.cpp"
+			],
+			[
+				"math",
+				"coral/builtinNodes/MathNodes.cpp"
+			],
+			[
+				"builtin",
+				"coral/py/coral/builtinNodes.py"
+			],
+			[
+				"",
+				"untitled"
+			],
+			[
+				"mainmenu",
+				"danieleniero/views/main_menu.py"
+			],
+			[
+				"comm",
+				"mercurialCommands.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 673.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/danieleniero/Documents/Programming/ClayPuppet/core/ClayPuppet.sublime-project"
+			]
+		],
+		"width": 1120.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 230.0,
+	"status_bar_visible": true
+}

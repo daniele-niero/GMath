@@ -1,0 +1,19 @@
+syntax: glob
+
+
+*~
+*.o
+*.pyc
+*.pyo
+*.a
+*.so
+*.orig
+*.DS_Store
+*.sconsign.dblite
+*.tmproj
+*.mchg
+
+
+compile.py
+lib
+documentation

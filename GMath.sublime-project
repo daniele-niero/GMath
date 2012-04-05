@@ -1,0 +1,25 @@
+{
+	"folders":
+	[
+		{
+			"path": "include"
+		},
+		{
+			"path": "source"
+		},
+		{
+			"path": "sub_projects"
+		},
+		{
+			"path": "references"
+		},
+		{
+			"folder_exclude_patterns":
+			[
+				"*"
+			],
+			"name": "global_files",
+			"path": "/Users/danieleniero/Documents/Programming/GMath"
+		}
+	]
+}

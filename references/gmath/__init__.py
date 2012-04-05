@@ -17,3 +17,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+from vector3 import Vector3
+from vector4 import Vector4
+from matrix3 import Matrix3
+from matrix4 import Matrix4
+from quaternion import Quaternion

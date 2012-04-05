@@ -22,13 +22,10 @@ import os, sys
 Import('env')
 install_path = env['install_path']
 
-def buildLibrary():
-	if env['library']=='static':
-	   lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
-	elif env['library']=='dynamic':
-		lib = env.SharedLibrary('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
-	env.Install(install_path, lib)
 
+if env['library']=='static' :
+   lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
+elif env['library']=='shared' :
+	lib = env.SharedLibrary('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 
-buildLibrary()
-
+env.Install(install_path, lib)

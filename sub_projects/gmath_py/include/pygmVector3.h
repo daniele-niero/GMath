@@ -19,8 +19,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#ifndef GMATH_PY_H
-#define GMATH_PY_H
+#ifndef PYGMVECTOR3_H
+#define PYGMVECTOR3_H
 
-#endif //GMATH_PY_H
+#include "gmVector3.h"
 
+void wrapVector3();
+
+#endif //PYGMVECTOR3_H

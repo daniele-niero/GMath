@@ -19,45 +19,16 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <python2.5/Python.h>
+
 #include <boost/python.hpp>
+#include "pygmVector3.h"
 #include "pygmMatrix3.h"
 
-using namespace boost::python;
-using namespace gmath;
 
 
-
-list matrix4_getdata_wrap(Matrix3f* self)
+BOOST_PYTHON_MODULE(gmath)
 {
-	list retData;
-	for (int i=0; i<9; i++)
-	{
-		retData.append(&(self->data[i]));
-	}
-	return retData;
+    wrapVector3();
+    wrapMatrix3();
 }
 
-void matrix4_setdata_wrap(Matrix3f* self, list &inlist)
-{
-	for (int i=0; i<9; i++)
-	{
-		self->data[i] = extract<float>(inlist[i]);
-	}
-}
-
-void wrapMatrix3()
-{
-	class_<Matrix3f>("Matrix3")
-		.def( init<>() )
-		.def( init<float, float, float, float, float, float, float, float, float>() )
-		.def( init<const Matrix3f &>() )
-		.def( init<const Vector3f &, const Vector3f &, const Vector3f &>() )
-
-		.def("getData", &matrix4_getdata_wrap)
-		.def("setData", &matrix4_setdata_wrap)
-
-
-		.def("__str__", &Matrix3f::toString)
-		;
-}

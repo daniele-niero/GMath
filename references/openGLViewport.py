@@ -18,14 +18,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import sys, math
-from PyQt4.QtOpenGL import QGLWidget, QGLFormat
-from PyQt4.QtGui import QApplication
-from PyQt4 import QtCore
-from PyQt4.Qt import *
+from PySide.QtOpenGL import QGLWidget, QGLFormat
+from PySide.QtGui import QApplication
+from PySide import QtCore
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-
 
 
 from gmath import Matrix4, Matrix3, Vector3

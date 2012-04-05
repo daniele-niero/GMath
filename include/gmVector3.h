@@ -107,7 +107,7 @@ namespace gmath
 			TypeReal length() const;
 			TypeReal squaredLength() const;
 
-			/** Find the distance between this vector and teh given vector */
+			/** Find the distance between this vector and the given vector */
 			TypeReal distance(const Vector3<TypeReal> & other) const;
 
 			Vector3<TypeReal> normalize() const;
