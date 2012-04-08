@@ -40,7 +40,7 @@ if dependenciesCheck(('BOOST_INCLUDE', 'PYTHON_INCLUDE', "GMATH_INCLUDE", 'PYTHO
     raise EnvironmentError, 'please correct the above problem(s)\n'
 
 
-env.Append(CCFLAGS = '-DBOOST_PYTHON_STATIC_LIB')
+env.Append(CCFLAGS = '-DBOOST_PYTHON_STATIC_LIB -DBOOST_PYTHON_MAX_ARITY=17')
                   
 env.Append(CPPPATH=['include',
                     os.environ['PYTHON_INCLUDE'],

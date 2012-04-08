@@ -54,23 +54,23 @@ void wrapVector4()
         .def( self * float() )
         .def( self / float() )
 
-        // .def( self += Vector4f() )
-        // .def( self -= Vector4f() )
-        // .def( self *= float() )
-        // .def( self /= float() )
+        .def( self += Vector4f() )
+        .def( self -= Vector4f() )
+        .def( self *= float() )
+        .def( self /= float() )
 
-        // .def( self == Vector4f() )
-        // .def( self != Vector4f() )
+        .def( self == Vector4f() )
+        .def( self != Vector4f() )
 
-        // .def("set", &Vector4f::set)
-        // .def("duplicate", &Vector4f::duplicate)
+        .def("set", &Vector4f::set)
+        .def("duplicate", &Vector4f::duplicate)
 
-        // .def("dot", &Vector4f::dot)
-        // .def("length", &Vector4f::length)
-        // .def("squaredLength", &Vector4f::squaredLength)
+        .def("dot", &Vector4f::dot)
+        .def("length", &Vector4f::length)
+        .def("squaredLength", &Vector4f::squaredLength)
         
-        // .def("normalize", &Vector4f::normalize)
-        // .def("normalizeInPlace", &Vector4f::normalizeInPlace)
+        .def("normalize", &Vector4f::normalize)
+        .def("normalizeInPlace", &Vector4f::normalizeInPlace)
         ;
 }
 

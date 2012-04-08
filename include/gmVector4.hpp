@@ -134,6 +134,156 @@ Vector4<TypeReal> Vector4<TypeReal>::operator / (TypeReal scalar) const
 
     return newVector4;
 }
+/*------ Arithmetic updates ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector4<TypeReal>::operator += (const Vector4<TypeReal> & other)
+{
+    x += other.x;
+    y += other.y;
+    z += other.z;
+    w += other.w;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector4<TypeReal>::operator -= (const Vector4<TypeReal> & other)
+{
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
+    w -= other.w;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector4<TypeReal>::operator *= (TypeReal scalar)
+{
+    x *= scalar;
+    y *= scalar;
+    z *= scalar;
+    w *= scalar;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector4<TypeReal>::operator /= (TypeReal scalar)
+{
+    if (scalar == (TypeReal)0.0)
+    {
+        x = NAN; //Math<TypeReal>::MIN;
+        y = NAN; //Math<TypeReal>::MIN;
+        z = NAN; //Math<TypeReal>::MIN;
+        w = NAN;
+    }
+    else
+    {
+        x /= scalar;
+        y /= scalar;
+        z /= scalar;
+        w /= scalar;
+    }
+}
+/*------ Comparisons ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+bool Vector4<TypeReal>::operator == (const Vector4<TypeReal> & other) const
+{
+    return (fabs(x-other.x) < Math<TypeReal>::EPSILON && 
+            fabs(y-other.y) < Math<TypeReal>::EPSILON && 
+            fabs(z-other.z) < Math<TypeReal>::EPSILON &&
+            fabs(w-other.w) < Math<TypeReal>::EPSILON);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+bool Vector4<TypeReal>::operator != (const Vector4<TypeReal> & other) const
+{
+    return (fabs(x-other.x) > Math<TypeReal>::EPSILON || 
+            fabs(y-other.y) > Math<TypeReal>::EPSILON || 
+            fabs(z-other.z) > Math<TypeReal>::EPSILON ||
+            fabs(w-other.w) < Math<TypeReal>::EPSILON);
+}
+/*------ Assignments ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector4<TypeReal>::operator = (const Vector4<TypeReal> & other)
+{
+    x = other.x;
+    y = other.y;
+    z = other.z;
+    w = other.z;
+}
+/*------ Methods ------*/
+template <class TypeReal>
+void Vector4<TypeReal>::set(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal inW)
+{
+    x = inX;
+    y = inY;
+    z = inZ;
+    w = inW;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Vector4<TypeReal> Vector4<TypeReal>::duplicate() const
+{
+    Vector4<TypeReal> retVec(x, y, z, w);
+    return retVec;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal Vector4<TypeReal>::dot(const Vector4<TypeReal> & other) const
+{
+    return x*other.x + y*other.y + z*other.z + w*other.w;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal Vector4<TypeReal>::length() const
+{
+    TypeReal dot = x*x + y*y + z*z + w*w;
+    return (TypeReal)sqrt( (double)dot );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal Vector4<TypeReal>::squaredLength() const
+{
+    return x*x + y*y + z*z + w*w;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Vector4<TypeReal> Vector4<TypeReal>::normalize() const
+{
+    TypeReal len = length();
+
+    TypeReal nlen;
+    if (len < Math<TypeReal>::EPSILON)
+    {
+        nlen = 1.0;
+    }
+    else
+    {
+        nlen = 1.0/len;
+    }
+
+    return Vector4<TypeReal>(x*nlen, y*nlen, z*nlen, w*nlen);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector4<TypeReal>::normalizeInPlace()
+{
+    TypeReal len = length();
+    
+    TypeReal nlen;
+    if (len < Math<TypeReal>::EPSILON)
+    {
+        nlen = 1.0;
+    }
+    else
+    {
+        nlen = 1.0/len;
+    }
+
+    x *= nlen;
+    y *= nlen;
+    z *= nlen;
+    w *= nlen;
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 std::string Vector4<TypeReal>::toString() const

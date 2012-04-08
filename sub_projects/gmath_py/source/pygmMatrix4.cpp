@@ -85,10 +85,10 @@ void matrix4_setdata_wrap(Matrix4f* self, list &inlist)
 void wrapMatrix4()
 {
     class_<Matrix4f>("Matrix4", init<>())
-        // .def( init<float, float, float, float,  
-        //            float, float, float, float,
-        //            float, float, float, float,
-        //            float, float, float, float>() )
+        .def( init<float, float, float, float,  
+                   float, float, float, float,
+                   float, float, float, float,
+                   float, float, float, float>() )
         .def( init<const Matrix4f &>() )
         .def( init<const Vector4f &, const Vector4f &, const Vector4f &, const Vector4f &>() )
 

@@ -109,12 +109,12 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator + (TypeReal value) const
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator + (const Matrix3<TypeReal> &other) const
 {
-    const TypeReal* a = ptr();
+    
     const TypeReal* b = other.ptr();
     Matrix3<TypeReal> retMatrix(
-        a[0]+b[0], a[1]+b[1], a[2]+b[2],
-        a[3]+b[3], a[4]+b[4], a[5]+b[5],
-        a[6]+b[6], a[7]+b[7], a[8]+b[8]
+        data[0]+b[0], data[1]+b[1], data[2]+b[2],
+        data[3]+b[3], data[4]+b[4], data[5]+b[5],
+        data[6]+b[6], data[7]+b[7], data[8]+b[8]
         );
     return retMatrix;
 }
@@ -133,12 +133,12 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator - (TypeReal value) const
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator - (const Matrix3<TypeReal> &other) const
 {
-    const TypeReal* a = ptr();
+    
     const TypeReal* b = other.ptr();
     Matrix3<TypeReal> retMatrix(
-        a[0]-b[0], a[1]-b[1], a[2]-b[2],
-        a[3]-b[3], a[4]-b[4], a[5]-b[5],
-        a[6]-b[6], a[7]-b[7], a[8]-b[8]
+        data[0]-b[0], data[1]-b[1], data[2]-b[2],
+        data[3]-b[3], data[4]-b[4], data[5]-b[5],
+        data[6]-b[6], data[7]-b[7], data[8]-b[8]
         );
     return retMatrix;
 }
@@ -170,20 +170,19 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator * (TypeReal value) const
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator * (const Matrix3<TypeReal> &other) const
 {
-    const TypeReal* a = ptr();
     const TypeReal* b = other.ptr();
     Matrix3<TypeReal> retMatrix(
-        a[0]*b[0] + a[1]*b[3] + a[2]*b[6],
-        a[0]*b[1] + a[1]*b[4] + a[2]*b[7],
-        a[0]*b[2] + a[1]*b[5] + a[2]*b[8],
+        data[0]*b[0] + data[1]*b[3] + data[2]*b[6],
+        data[0]*b[1] + data[1]*b[4] + data[2]*b[7],
+        data[0]*b[2] + data[1]*b[5] + data[2]*b[8],
 
-        a[3]*b[0] + a[4]*b[3] + a[5]*b[6],
-        a[3]*b[1] + a[4]*b[4] + a[5]*b[7],
-        a[3]*b[2] + a[4]*b[5] + a[5]*b[8],
+        data[3]*b[0] + data[4]*b[3] + data[5]*b[6],
+        data[3]*b[1] + data[4]*b[4] + data[5]*b[7],
+        data[3]*b[2] + data[4]*b[5] + data[5]*b[8],
 
-        a[6]*b[0] + a[7]*b[3] + a[8]*b[6],
-        a[6]*b[1] + a[7]*b[4] + a[8]*b[7],
-        a[6]*b[2] + a[7]*b[5] + a[8]*b[8]
+        data[6]*b[0] + data[7]*b[3] + data[8]*b[6],
+        data[6]*b[1] + data[7]*b[4] + data[8]*b[7],
+        data[6]*b[2] + data[7]*b[5] + data[8]*b[8]
         );
     return retMatrix;
 }
@@ -213,9 +212,9 @@ void Matrix3<TypeReal>::operator += (const Matrix3<TypeReal> &other)
 {
     TypeReal* a = ptr();
     const TypeReal* b = other.ptr();
-    a[0]+=b[0]; a[1]+=b[1]; a[2]+=b[2];
-    a[3]+=b[3]; a[4]+=b[4]; a[5]+=b[5];
-    a[6]+=b[6]; a[7]+=b[7]; a[8]+=b[8];
+    data[0]+=b[0]; data[1]+=b[1]; data[2]+=b[2];
+    data[3]+=b[3]; data[4]+=b[4]; data[5]+=b[5];
+    data[6]+=b[6]; data[7]+=b[7]; data[8]+=b[8];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
@@ -232,9 +231,9 @@ void Matrix3<TypeReal>::operator -= (const Matrix3<TypeReal> &other)
     TypeReal* a = ptr();
     const TypeReal* b = other.ptr();
 
-    a[0]-=b[0]; a[1]-=b[1]; a[2]-=b[2];
-    a[3]-=b[3]; a[4]-=b[4]; a[5]-=b[5];
-    a[6]-=b[6]; a[7]-=b[7]; a[8]-=b[8];
+    data[0]-=b[0]; data[1]-=b[1]; data[2]-=b[2];
+    data[3]-=b[3]; data[4]-=b[4]; data[5]-=b[5];
+    data[6]-=b[6]; data[7]-=b[7]; data[8]-=b[8];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
@@ -260,15 +259,15 @@ void Matrix3<TypeReal>::operator *= (const Matrix3<TypeReal> &other)
     const TypeReal* b = &other.data[0];
     TypeReal c[9];
 
-    c[0] = a[0]*b[0] + a[1]*b[3] + a[2]*b[6];
-    c[1] = a[0]*b[1] + a[1]*b[4] + a[2]*b[7];
-    c[2] = a[0]*b[2] + a[1]*b[5] + a[2]*b[8];
-    c[3] = a[3]*b[0] + a[4]*b[3] + a[5]*b[6];
-    c[4] = a[3]*b[1] + a[4]*b[4] + a[5]*b[7];
-    c[5] = a[3]*b[2] + a[4]*b[5] + a[5]*b[8];
-    c[6] = a[6]*b[0] + a[7]*b[3] + a[8]*b[6];
-    c[7] = a[6]*b[1] + a[7]*b[4] + a[8]*b[7];
-    c[8] = a[6]*b[2] + a[7]*b[5] + a[8]*b[8];
+    c[0] = data[0]*b[0] + data[1]*b[3] + data[2]*b[6];
+    c[1] = data[0]*b[1] + data[1]*b[4] + data[2]*b[7];
+    c[2] = data[0]*b[2] + data[1]*b[5] + data[2]*b[8];
+    c[3] = data[3]*b[0] + data[4]*b[3] + data[5]*b[6];
+    c[4] = data[3]*b[1] + data[4]*b[4] + data[5]*b[7];
+    c[5] = data[3]*b[2] + data[4]*b[5] + data[5]*b[8];
+    c[6] = data[6]*b[0] + data[7]*b[3] + data[8]*b[6];
+    c[7] = data[6]*b[1] + data[7]*b[4] + data[8]*b[7];
+    c[8] = data[6]*b[2] + data[7]*b[5] + data[8]*b[8];
 
     memcpy(data, c, 9*sizeof(TypeReal));
 }
@@ -277,23 +276,21 @@ void Matrix3<TypeReal>::operator *= (const Matrix3<TypeReal> &other)
 template <class TypeReal>
 bool Matrix3<TypeReal>::operator == (const Matrix3<TypeReal> &other) const
 {
-    const TypeReal* a = &data[0];
     const TypeReal* b = &other.data[0];
     TypeReal e = Math<TypeReal>::EPSILON;
-    return (fabs(a[0]-b[0])<e && fabs(a[1]-b[1])<e && fabs(a[2]-b[2])<e &&
-    		fabs(a[3]-b[3])<e && fabs(a[4]-b[4])<e && fabs(a[5]-b[5])<e &&
-    		fabs(a[6]-b[6])<e && fabs(a[7]-b[7])<e && fabs(a[8]-b[8])<e);
+    return (fabs(data[0]-b[0])<e && fabs(data[1]-b[1])<e && fabs(data[2]-b[2])<e &&
+    		fabs(data[3]-b[3])<e && fabs(data[4]-b[4])<e && fabs(data[5]-b[5])<e &&
+    		fabs(data[6]-b[6])<e && fabs(data[7]-b[7])<e && fabs(data[8]-b[8])<e);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 bool Matrix3<TypeReal>::operator != (const Matrix3<TypeReal> &other) const
 {
-	const TypeReal* a = &data[0];
     const TypeReal* b = &other.data[0];
     TypeReal e = Math<TypeReal>::EPSILON;
-    return (fabs(a[0]-b[0])>e || fabs(a[1]-b[1])>e || fabs(a[2]-b[3])>e ||
-    		fabs(a[3]-b[3])>e || fabs(a[0]-b[0])>e || fabs(a[0]-b[0])>e ||
-    		fabs(a[0]-b[0])>e || fabs(a[0]-b[0])>e || fabs(a[0]-b[0])>e);
+    return (fabs(data[0]-b[0])>e || fabs(data[1]-b[1])>e || fabs(data[2]-b[3])>e ||
+    		fabs(data[3]-b[3])>e || fabs(data[0]-b[0])>e || fabs(data[0]-b[0])>e ||
+    		fabs(data[0]-b[0])>e || fabs(data[0]-b[0])>e || fabs(data[0]-b[0])>e);
 }
 /*------ Assignment ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -488,8 +485,8 @@ Matrix3<TypeReal> Matrix3<TypeReal>::addScale(const Vector3<TypeReal> &scale)
 {
     Matrix3<TypeReal> mat(
         data[0]+scale.x, data[1]+scale.x, data[2]+scale.x,
-        data[3]+scale.z, data[4]+scale.z, data[5]+scale.z,
-        data[6]+scale.y, data[7]+scale.y, data[8]+scale.y
+        data[3]+scale.y, data[4]+scale.y, data[5]+scale.y,
+        data[6]+scale.z, data[7]+scale.z, data[8]+scale.z
         );
     return mat;
 }
@@ -508,17 +505,17 @@ Matrix3<TypeReal> Matrix3<TypeReal>::addScale(TypeReal sX, TypeReal sY, TypeReal
 template <class TypeReal>
 void Matrix3<TypeReal>::addScaleInPlace(const Vector3<TypeReal> &scale)
 {
-	data[0]*=scale.x; data[1]*=scale.x; data[2]*=scale.x;
-	data[3]*=scale.y; data[4]*=scale.y; data[5]*=scale.y;
-	data[6]*=scale.z; data[7]*=scale.z; data[8]*=scale.z;
+	data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
+	data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
+	data[6]+=scale.z; data[7]+=scale.z; data[8]+=scale.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::addScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
 {
-	data[0]*=sX; data[1]*=sX; data[2]*=sX;
-	data[3]*=sY; data[4]*=sY; data[5]*=sY;
-	data[6]*=sZ; data[7]*=sZ; data[8]*=sZ;
+	data[0]+=sX; data[1]+=sX; data[2]+=sX;
+	data[3]+=sY; data[4]+=sY; data[5]+=sY;
+	data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>

@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import os, sys
+import SConsOutputColors as output_colors
 
 vars = Variables()
 vars.AddVariables( EnumVariable('build', 'Set the build type', 'release', allowed_values=('release', 'debug')),
@@ -26,17 +27,9 @@ vars.AddVariables( EnumVariable('build', 'Set the build type', 'release', allowe
                    BoolVariable('docs', 'Set to "yes" or "t" to build documentation with Doxygen.', 0),
                    PathVariable('install_path', 'Set where to install the library', '.', PathVariable.PathIsDirCreate) )
 
-env = Environment(
-    CCCOMSTR = "Compiling static $TARGET",
-    CXXCOMSTR = "$CCCOMSTR",
-    SHCCCOMSTR = "Compiling shared $TARGET",
-    SHCXXCOMSTR = "$SHCCCOMSTR",
-    LINKCOMSTR = "Linking $TARGET",
-    SHLINKCOMSTR = "Linking $TARGET",
-    INSTALLSTR = """.\nInstallation:\n\t$SOURCE  ---->  $TARGET\n.""",
-    variables = vars
-    )
 
+env = Environment(variables = vars)
+output_colors.appen_to_environment(env)
 
 if env['install_path'] == ".":
     env['install_path'] = os.path.join('./lib', sys.platform, env['build'], env['library'])

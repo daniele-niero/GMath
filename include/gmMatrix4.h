@@ -72,27 +72,28 @@ namespace gmath
 			TypeReal& operator[] (int i);
 
 			/*------ Arithmetic operations ------*/
-//			Matrix4<TypeReal> operator + (TypeReal value) const;
-//			Matrix4<TypeReal> operator + (const Matrix4<TypeReal> &other) const;
-//			Matrix4<TypeReal> operator - (TypeReal value) const;
-//			Matrix4<TypeReal> operator - (const Matrix4<TypeReal> &other) const;
-//			Matrix4<TypeReal> operator / (TypeReal value) const;
-//			Matrix4<TypeReal> operator * (TypeReal value) const;
+			Matrix4<TypeReal> operator + (const TypeReal &value) const;
+			Matrix4<TypeReal> operator + (const Matrix4<TypeReal> &other) const;
+			Matrix4<TypeReal> operator - (const TypeReal &value) const;
+			Matrix4<TypeReal> operator - (const Matrix4<TypeReal> &other) const;
+			Matrix4<TypeReal> operator / (const TypeReal &value) const;
+			Matrix4<TypeReal> operator * (const TypeReal &value) const;
 			Matrix4<TypeReal> operator * (const Matrix4<TypeReal> &other) const;
-//			Vector4<TypeReal> operator * (const Vector4<TypeReal> &vector) const;
+			Vector4<TypeReal> operator * (const Vector4<TypeReal> &vector) const;
+			Vector3<TypeReal> operator * (const Vector3<TypeReal> &vector) const;
 
 			/*------ Arithmetic updates ------*/
-//			void operator += (TypeReal value);
-//			void operator += (const Matrix4<TypeReal> &other);
-//			void operator -= (TypeReal value);
-//			void operator -= (const Matrix4<TypeReal> &other);
-//			void operator /= (TypeReal value);
-//			void operator *= (TypeReal value);
+			void operator += (const TypeReal &value);
+			void operator += (const Matrix4<TypeReal> &other);
+			void operator -= (const TypeReal &value);
+			void operator -= (const Matrix4<TypeReal> &other);
+			void operator /= (const TypeReal &value);
+			void operator *= (const TypeReal &value);
 			void operator *= (const Matrix4<TypeReal> &other);
 
 			/*------ Comparisons ------*/
-//			bool operator == (const Matrix4<TypeReal> &other) const;
-//			bool operator != (const Matrix4<TypeReal> &other) const;
+			bool operator == (const Matrix4<TypeReal> &other) const;
+			bool operator != (const Matrix4<TypeReal> &other) const;
 
 			/*------ Assignment ------*/
 			void operator = (const Matrix4<TypeReal> &other);
@@ -116,23 +117,21 @@ namespace gmath
 			TypeReal determinant() const;
 
 			Matrix4<TypeReal> inverse() const;
-//			void inverseInPlace();
+			void inverseInPlace();
 
 //			Matrix4<TypeReal> orthogonal() const;
 //			void orthogonalInPlace();
-//
-//			Vector4<TypeReal> getScale() const;
-//			Matrix4<TypeReal> addScale(const Vector3<TypeReal> &scale);
-//			Matrix4<TypeReal> addScale(TypeReal sX, TypeReal sY, TypeReal sZ);
-//			void addScaleInPlace(const Vector3<TypeReal> &scale);
-//			void addScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ);
-//			Matrix4<TypeReal> setScale(const Vector3<TypeReal> &scale);
-//			Matrix4<TypeReal> setScale(TypeReal sX, TypeReal sY, TypeReal sZ);
-//			void setScaleInPlace(const Vector4<TypeReal> &scale);
-//			void setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ);
-//			static Matrix4<TypeReal> createScale(const Vector3<TypeReal> &scale);
-//			static Matrix4<TypeReal> createScale(TypeReal sX, TypeReal sY, TypeReal sZ);
-//
+
+			Vector3<TypeReal> getScale() const;
+			Matrix4<TypeReal> addScale(const Vector3<TypeReal> &scale);
+			Matrix4<TypeReal> addScale(TypeReal sX, TypeReal sY, TypeReal sZ);
+			void addScaleInPlace(const Vector3<TypeReal> &scale);
+			void addScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ);
+			Matrix4<TypeReal> setScale(const Vector3<TypeReal> &scale);
+			Matrix4<TypeReal> setScale(TypeReal sX, TypeReal sY, TypeReal sZ);
+			void setScaleInPlace(const Vector3<TypeReal> &scale);
+			void setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ);
+
 //			void setFromEuler(const TypeReal& angleX, const TypeReal& angleY, const TypeReal& angleZ, RotationOrder order=XYZ);
 //			void setFromEuler(const Euler<TypeReal> &rotation, RotationOrder order=XYZ);
 //			static Matrix4<TypeReal> createFromEuler(const Euler<TypeReal> &rotation, RotationOrder order=XYZ);

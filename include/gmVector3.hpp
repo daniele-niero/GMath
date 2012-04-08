@@ -163,9 +163,9 @@ void Vector3<TypeReal>::operator /= (TypeReal scalar)
     }
     else
     {
-        x = x/scalar;
-        y = y/scalar;
-        z = z/scalar;
+        x /= scalar;
+        y /= scalar;
+        z /= scalar;
     }
 }
 /*------ Comparisons ------*/
@@ -258,7 +258,7 @@ TypeReal Vector3<TypeReal>::length() const
 template <class TypeReal>
 TypeReal Vector3<TypeReal>::squaredLength() const
 {
-    return x*x + y*y + z*z;;
+    return x*x + y*y + z*z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
@@ -271,16 +271,15 @@ TypeReal Vector3<TypeReal>::distance(const Vector3<TypeReal> & other) const
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::normalize() const
 {
-    TypeReal dot = x*x + y*y + z*z;
-
+    TypeReal len = length();
     TypeReal nlen;
-    if (dot < Math<TypeReal>::EPSILON)
+    if (len < Math<TypeReal>::EPSILON)
     {
         nlen = 1.0;
     }
     else
     {
-        nlen = 1.0/(TypeReal)sqrt( (double)dot );
+        nlen = 1.0/len;
     }
 
     return Vector3<TypeReal>(x*nlen, y*nlen, z*nlen);
@@ -289,16 +288,16 @@ Vector3<TypeReal> Vector3<TypeReal>::normalize() const
 template <class TypeReal>
 void Vector3<TypeReal>::normalizeInPlace()
 {
-    TypeReal dot = x*x + y*y + z*z;
+    TypeReal len = length();
 
     TypeReal nlen;
-    if (dot < Math<TypeReal>::EPSILON)
+    if (len < Math<TypeReal>::EPSILON)
     {
         nlen = 1.0;
     }
     else
     {
-        nlen = 1.0/(TypeReal)sqrt( (double)dot );
+        nlen = 1.0/len;
     }
 
     x*=nlen;

@@ -34,7 +34,6 @@ using namespace std;
 
 namespace gmath
 {
-
 	/**
 	Three-dimensional vector.
 
