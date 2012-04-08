@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 /*------ Constructors ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal>::Vector3()
 { }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal>::Vector3(TypeReal inX, TypeReal inY, TypeReal inZ)
 {
@@ -33,8 +33,7 @@ Vector3<TypeReal>::Vector3(TypeReal inX, TypeReal inY, TypeReal inZ)
     y = inY;
     z = inZ;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal>::Vector3(const Vector3<TypeReal> & other)
 {
@@ -42,8 +41,7 @@ Vector3<TypeReal>::Vector3(const Vector3<TypeReal> & other)
     y = other.y;
     z = other.z;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal>::Vector3(const TypeReal* list)
 {
@@ -51,10 +49,39 @@ Vector3<TypeReal>::Vector3(const TypeReal* list)
     y = list[1];
     z = list[2];
 }
-/*--------------------------------------------------------------------------------*/
-
+/*------ Coordinate access ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal Vector3<TypeReal>::operator[] (int i) const
+{
+    if (i>2) {
+        throw out_of_range("gmath::Vector3:\n\t index out of range");
+    }
+    return *(&x+i);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal& Vector3<TypeReal>::operator[] (int i)
+{
+    if (i>2) {
+        throw out_of_range("gmath::Vector3:\n\t index out of range");
+    }
+    return *(&x+i);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal* Vector3<TypeReal>::ptr()
+{
+    return &x;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+const TypeReal* Vector3<TypeReal>::ptr() const
+{
+    return &x;
+}
 /*------ Arithmetic operations ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::operator + (const Vector3<TypeReal> & other) const
 {
@@ -62,7 +89,7 @@ Vector3<TypeReal> Vector3<TypeReal>::operator + (const Vector3<TypeReal> & other
 
     return newVector3;
 }
-/*--------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::operator - (const Vector3<TypeReal> & other) const
@@ -70,7 +97,7 @@ Vector3<TypeReal> Vector3<TypeReal>::operator - (const Vector3<TypeReal> & other
     Vector3<TypeReal> newVector3(x-other.x, y-other.y, z-other.z);
     return newVector3;
 }
-/*--------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::operator * (TypeReal scalar) const
@@ -79,8 +106,7 @@ Vector3<TypeReal> Vector3<TypeReal>::operator * (TypeReal scalar) const
 
     return newVector3;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::operator / (TypeReal scalar) const
 {
@@ -100,10 +126,8 @@ Vector3<TypeReal> Vector3<TypeReal>::operator / (TypeReal scalar) const
 
     return newVector3;
 }
-/*--------------------------------------------------------------------------------*/
-
 /*------ Arithmetic updates ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::operator += (const Vector3<TypeReal> & other)
 {
@@ -111,8 +135,7 @@ void Vector3<TypeReal>::operator += (const Vector3<TypeReal> & other)
     y += other.y;
     z += other.z;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::operator -= (const Vector3<TypeReal> & other)
 {
@@ -120,8 +143,7 @@ void Vector3<TypeReal>::operator -= (const Vector3<TypeReal> & other)
     y -= other.y;
     z -= other.z;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::operator *= (TypeReal scalar)
 {
@@ -129,8 +151,7 @@ void Vector3<TypeReal>::operator *= (TypeReal scalar)
     y *= scalar;
     z *= scalar;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::operator /= (TypeReal scalar)
 {
@@ -147,41 +168,8 @@ void Vector3<TypeReal>::operator /= (TypeReal scalar)
         z = z/scalar;
     }
 }
-/*--------------------------------------------------------------------------------*/
-
-/*------ Coordinate access ------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::operator[] (int i) const
-{
-    if (i>2) {
-        throw out_of_range("gmath::Vector3:\n\t index out of range");
-    }
-    return *(&x+i);
-}
-/*--------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal& Vector3<TypeReal>::operator[] (int i)
-{
-    if (i>2) {
-        throw out_of_range("gmath::Vector3:\n\t index out of range");
-    }
-    return *(&x+i);
-}
-/*--------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal* Vector3<TypeReal>::ptr()
-{
-    return &x;
-}
-/*--------------------------------------------------------------------------------*/
-template <class TypeReal>
-const TypeReal* Vector3<TypeReal>::ptr() const
-{
-    return &x;
-}
-
 /*------ Comparisons ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 bool Vector3<TypeReal>::operator == (const Vector3<TypeReal> & other) const
 {
@@ -189,8 +177,7 @@ bool Vector3<TypeReal>::operator == (const Vector3<TypeReal> & other) const
             fabs(y-other.y) < Math<TypeReal>::EPSILON && 
             fabs(z-other.z) < Math<TypeReal>::EPSILON);
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 bool Vector3<TypeReal>::operator != (const Vector3<TypeReal> & other) const
 {
@@ -198,10 +185,8 @@ bool Vector3<TypeReal>::operator != (const Vector3<TypeReal> & other) const
             fabs(y-other.y) > Math<TypeReal>::EPSILON || 
             fabs(z-other.z) > Math<TypeReal>::EPSILON);
 }
-/*--------------------------------------------------------------------------------*/
-
 /*------ Assignments ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::operator = (const Vector3<TypeReal> & other)
 {
@@ -209,10 +194,8 @@ void Vector3<TypeReal>::operator = (const Vector3<TypeReal> & other)
     y = other.y;
     z = other.z;
 }
-/*--------------------------------------------------------------------------------*/
-
 /*------ Methods ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::set(TypeReal inX, TypeReal inY, TypeReal inZ)
 {
@@ -220,16 +203,14 @@ void Vector3<TypeReal>::set(TypeReal inX, TypeReal inY, TypeReal inZ)
     y = inY;
     z = inZ;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::duplicate() const
 {
     Vector3<TypeReal> retVec(x, y, z);
     return retVec;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::cross(const Vector3<TypeReal> & other) const
 {
@@ -239,7 +220,18 @@ Vector3<TypeReal> Vector3<TypeReal>::cross(const Vector3<TypeReal> & other) cons
             x*other.y - y*other.x);
     return retVec;
 }
-/*--------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Vector3<TypeReal>::crossInPlace(const Vector3<TypeReal> & other)
+{
+    float newx = y*other.z - z*other.y;
+    float newy = z*other.x - x*other.z;
+    float newz = x*other.y - y*other.x;
+    x = newx;
+    y = newy;
+    z = newz;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::crossNormalized(const Vector3<TypeReal> & other) const
 {
@@ -249,38 +241,33 @@ Vector3<TypeReal> Vector3<TypeReal>::crossNormalized(const Vector3<TypeReal> & o
     retVec.normalizeInPlace();
     return retVec;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal Vector3<TypeReal>::dot(const Vector3<TypeReal> & other) const
 {
     return x*other.x + y*other.y + z*other.z;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal Vector3<TypeReal>::length() const
 {
     TypeReal dot = x*x + y*y + z*z;
     return (TypeReal)sqrt( (double)dot );
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal Vector3<TypeReal>::squaredLength() const
 {
     return x*x + y*y + z*z;;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal Vector3<TypeReal>::distance(const Vector3<TypeReal> & other) const
 {
     Vector3<TypeReal> distVec(operator - (other));
     return distVec.length();
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::normalize() const
 {
@@ -298,8 +285,7 @@ Vector3<TypeReal> Vector3<TypeReal>::normalize() const
 
     return Vector3<TypeReal>(x*nlen, y*nlen, z*nlen);
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::normalizeInPlace()
 {
@@ -319,8 +305,7 @@ void Vector3<TypeReal>::normalizeInPlace()
     y*=nlen;
     z*=nlen;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal Vector3<TypeReal>::angle(const Vector3<TypeReal> & other) const
 {
@@ -328,24 +313,21 @@ TypeReal Vector3<TypeReal>::angle(const Vector3<TypeReal> & other) const
     Vector3<TypeReal> otherNorm( other.normalize() );
     return (TypeReal)acos((double)(thisNorm.dot(otherNorm)) / (thisNorm.length()*thisNorm.length()));
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::reflect(const Vector3<TypeReal> & normal) const
 {
     TypeReal dot = this->dot(normal);
     return ( normal * (2.0*dot) ) - *this;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::reflectInPlace(const Vector3<TypeReal> & normal)
 {
     TypeReal dot = this->dot(normal);
     *this = ( normal * (2.0*dot) ) - *this;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::refract(const Vector3<TypeReal> & normal, TypeReal eta) const
 {
@@ -360,8 +342,7 @@ Vector3<TypeReal> Vector3<TypeReal>::refract(const Vector3<TypeReal> & normal, T
     }
     return retVec;
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Vector3<TypeReal>::refractInPlace(const Vector3<TypeReal> & normal, TypeReal eta)
 {
@@ -378,8 +359,7 @@ void Vector3<TypeReal>::refractInPlace(const Vector3<TypeReal> & normal, TypeRea
         this->set(TypeReal(0.0), TypeReal(0.0), TypeReal(0.0));
     }
 }
-/*--------------------------------------------------------------------------------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 std::string Vector3<TypeReal>::toString() const
 {
@@ -388,4 +368,4 @@ std::string Vector3<TypeReal>::toString() const
     std::string str(buffer);
     return str;
 }
-/*--------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/

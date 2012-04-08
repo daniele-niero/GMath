@@ -63,6 +63,10 @@ namespace gmath
 			TypeReal* ptr();
 			const TypeReal* ptr() const;
 
+			/*------ coordinate access ------*/
+			TypeReal operator[] (int i) const;
+			TypeReal& operator[] (int i);
+
 			/*------ Arithmetic operations ------*/
 			Matrix3<TypeReal> operator + (TypeReal value) const;
 			Matrix3<TypeReal> operator + (const Matrix3<TypeReal> &other) const;

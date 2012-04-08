@@ -61,7 +61,7 @@ namespace gmath
 
 		/*------ Arithmetic updates ------*/
 		void operator += (const Vector4<TypeReal> & other);
-		void operator -= (const Vector3<TypeReal> & other);
+		void operator -= (const Vector4<TypeReal> & other);
 		void operator *= (TypeReal scalar);
 		void operator /= (TypeReal scalar);
 

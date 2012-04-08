@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace gmath
 {
 	template <class TypeReal>
-	class Math
+	struct Math
 	{
 		public:
 			/** The acos and asin

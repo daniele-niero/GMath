@@ -19,12 +19,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Constructors ------*/
 template <class TypeReal>
 Vector4<TypeReal>::Vector4()
 {}
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector4<TypeReal>::Vector4(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal inW)
 {
@@ -33,7 +33,7 @@ Vector4<TypeReal>::Vector4(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal in
     z = inZ;
     w = inW;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector4<TypeReal>::Vector4(const Vector4<TypeReal> & other)
 {
@@ -42,7 +42,7 @@ Vector4<TypeReal>::Vector4(const Vector4<TypeReal> & other)
     z = other.z;
     w = other.w;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector4<TypeReal>::Vector4(const TypeReal* list)
 {
@@ -51,8 +51,7 @@ Vector4<TypeReal>::Vector4(const TypeReal* list)
     z = list[2];
     w = list[3];
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Coordinates access ------*/
 template <class TypeReal>
 TypeReal Vector4<TypeReal>::operator[] (int i) const
@@ -62,10 +61,10 @@ TypeReal Vector4<TypeReal>::operator[] (int i) const
     else if (i==2) { return z; }
     else if (i==3) { return w; }
     else {
-        throw out_of_range("gmath::Vector4:\n\t index out of range");
+        throw out_of_range("gmath::Vector4: index out of range");
     }
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal& Vector4<TypeReal>::operator[] (int i)
 {
@@ -74,24 +73,22 @@ TypeReal& Vector4<TypeReal>::operator[] (int i)
     else if (i==2) { return z; }
     else if (i==3) { return w; }
     else {
-        throw out_of_range("gmath::Vector4:\n\t index out of range");
+        throw out_of_range("gmath::Vector4: index out of range");
     }
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal* Vector4<TypeReal>::ptr()
 {
 	return &x;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 const TypeReal* Vector4<TypeReal>::ptr() const
 {
 	return &x;
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Arithmetic operations ------*/
 template <class TypeReal>
 Vector4<TypeReal> Vector4<TypeReal>::operator + (const Vector4<TypeReal> & other) const
@@ -100,14 +97,14 @@ Vector4<TypeReal> Vector4<TypeReal>::operator + (const Vector4<TypeReal> & other
 
     return newVector4;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector4<TypeReal> Vector4<TypeReal>::operator - (const Vector4<TypeReal> & other) const
 {
     Vector4<TypeReal> newVector4(x-other.x, y-other.y, z-other.z, w-other.w);
     return newVector4;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector4<TypeReal> Vector4<TypeReal>::operator * (TypeReal scalar) const
 {
@@ -115,7 +112,7 @@ Vector4<TypeReal> Vector4<TypeReal>::operator * (TypeReal scalar) const
 
     return newVector4;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector4<TypeReal> Vector4<TypeReal>::operator / (TypeReal scalar) const
 {
@@ -137,4 +134,14 @@ Vector4<TypeReal> Vector4<TypeReal>::operator / (TypeReal scalar) const
 
     return newVector4;
 }
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+std::string Vector4<TypeReal>::toString() const
+{
+    char buffer[200];
+    sprintf( buffer, "gmath::Vector4(%f, %f, %f, %f);", x, y, z, w );
+    std::string str(buffer);
+    return str;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 

@@ -19,12 +19,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 /*------ constructors ------*/
 template <class TypeReal>
 Matrix3<TypeReal>::Matrix3()
 {}
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal>::Matrix3(
     TypeReal xx, TypeReal xy, TypeReal xz,
@@ -33,13 +33,13 @@ Matrix3<TypeReal>::Matrix3(
 {
 	set(xx, xy, xz, yx, yy, yz, zx, zy, zz);
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal>::Matrix3(const Matrix3<TypeReal> & other)
 {
 	memcpy(data, other.data, 9*sizeof(TypeReal));
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal>::Matrix3(
 		const Vector3<TypeReal> &axisX,
@@ -50,28 +50,51 @@ Matrix3<TypeReal>::Matrix3(
 	memcpy(&data[3], axisY.ptr(), 3*sizeof(TypeReal));
 	memcpy(&data[6], axisZ.ptr(), 3*sizeof(TypeReal));
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal>::Matrix3(const TypeReal* list)
 {
 	memcpy(data, list, 9*sizeof(TypeReal));
 }
-
-/*--------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal* Matrix3<TypeReal>::ptr()
 {
 	return &data[0];
 }
-/*--------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 const TypeReal* Matrix3<TypeReal>::ptr() const
 {
 	return &data[0];
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
+/*------ Coordinates access ------*/
+template <class TypeReal>
+TypeReal Matrix3<TypeReal>::operator[] (int i) const
+{
+    if (i>=0 && i<9)
+    {
+        return this->data[i];
+    }
+    else {
+        throw out_of_range("gmath::Matrix3: index out of range");
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal& Matrix3<TypeReal>::operator[] (int i)
+{
+    if (i>=0 && i<9)
+    {
+        return this->data[i];
+    }
+    else {
+        throw out_of_range("gmath::Vector4: index out of range");
+    }
+}
 /*------ Arithmetic operations ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator + (TypeReal value) const
 {
@@ -82,7 +105,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator + (TypeReal value) const
         );
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator + (const Matrix3<TypeReal> &other) const
 {
@@ -95,7 +118,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator + (const Matrix3<TypeReal> &other)
         );
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator - (TypeReal value) const
 {
@@ -106,7 +129,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator - (TypeReal value) const
         );
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator - (const Matrix3<TypeReal> &other) const
 {
@@ -119,7 +142,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator - (const Matrix3<TypeReal> &other)
         );
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator / (TypeReal value) const
 {
@@ -131,7 +154,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator / (TypeReal value) const
 
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator * (TypeReal value) const
 {
@@ -143,7 +166,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator * (TypeReal value) const
 
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::operator * (const Matrix3<TypeReal> &other) const
 {
@@ -164,7 +187,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator * (const Matrix3<TypeReal> &other)
         );
     return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Matrix3<TypeReal>::operator * (const Vector3<TypeReal> &vector) const
 {
@@ -175,10 +198,8 @@ Vector3<TypeReal> Matrix3<TypeReal>::operator * (const Vector3<TypeReal> &vector
         );
     return retVec;
 }
-
-
 /*------ Arithmetic updates ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator += (TypeReal value)
 {
@@ -186,7 +207,7 @@ void Matrix3<TypeReal>::operator += (TypeReal value)
     data[3]+=value; data[4]+=value; data[5]+=value;
     data[6]+=value; data[7]+=value; data[8]+=value;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator += (const Matrix3<TypeReal> &other)
 {
@@ -196,7 +217,7 @@ void Matrix3<TypeReal>::operator += (const Matrix3<TypeReal> &other)
     a[3]+=b[3]; a[4]+=b[4]; a[5]+=b[5];
     a[6]+=b[6]; a[7]+=b[7]; a[8]+=b[8];
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator -= (TypeReal value)
 {
@@ -204,7 +225,7 @@ void Matrix3<TypeReal>::operator -= (TypeReal value)
     data[3]-=value; data[4]-=value; data[5]-=value;
     data[6]-=value; data[7]-=value; data[8]-=value;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator -= (const Matrix3<TypeReal> &other)
 {
@@ -215,7 +236,7 @@ void Matrix3<TypeReal>::operator -= (const Matrix3<TypeReal> &other)
     a[3]-=b[3]; a[4]-=b[4]; a[5]-=b[5];
     a[6]-=b[6]; a[7]-=b[7]; a[8]-=b[8];
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator /= (TypeReal value)
 {
@@ -223,7 +244,7 @@ void Matrix3<TypeReal>::operator /= (TypeReal value)
     data[3]/=value; data[4]/=value; data[5]/=value;
     data[6]/=value; data[7]/=value; data[8]/=value;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator *= (TypeReal value)
 {
@@ -231,7 +252,7 @@ void Matrix3<TypeReal>::operator *= (TypeReal value)
     data[3]*=value; data[4]*=value; data[5]*=value;
     data[6]*=value; data[7]*=value; data[8]*=value;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator *= (const Matrix3<TypeReal> &other)
 {
@@ -251,9 +272,8 @@ void Matrix3<TypeReal>::operator *= (const Matrix3<TypeReal> &other)
 
     memcpy(data, c, 9*sizeof(TypeReal));
 }
-
-
 /*------ Comparisons ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 bool Matrix3<TypeReal>::operator == (const Matrix3<TypeReal> &other) const
 {
@@ -264,7 +284,7 @@ bool Matrix3<TypeReal>::operator == (const Matrix3<TypeReal> &other) const
     		fabs(a[3]-b[3])<e && fabs(a[4]-b[4])<e && fabs(a[5]-b[5])<e &&
     		fabs(a[6]-b[6])<e && fabs(a[7]-b[7])<e && fabs(a[8]-b[8])<e);
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 bool Matrix3<TypeReal>::operator != (const Matrix3<TypeReal> &other) const
 {
@@ -275,24 +295,21 @@ bool Matrix3<TypeReal>::operator != (const Matrix3<TypeReal> &other) const
     		fabs(a[3]-b[3])>e || fabs(a[0]-b[0])>e || fabs(a[0]-b[0])>e ||
     		fabs(a[0]-b[0])>e || fabs(a[0]-b[0])>e || fabs(a[0]-b[0])>e);
 }
-
-
 /*------ Assignment ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::operator = (const Matrix3<TypeReal> &other)
 {
 	memcpy(data, other.data, 9*sizeof(TypeReal));
 }
-
-
 /*------ methods ------*/
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::setToIdentity()
 {
 	memcpy(data, Matrix3<TypeReal>::IDENTITY.data, 9*sizeof(TypeReal));
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::set(
     TypeReal xx, TypeReal xy, TypeReal xz,
@@ -303,7 +320,7 @@ void Matrix3<TypeReal>::set(
     data[3]=yx; data[4]=yy; data[5]=yz;
     data[6]=zx; data[7]=zy; data[8]=zz;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::transpose() const
 {
@@ -312,7 +329,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::transpose() const
             data[1], data[4], data[7],
             data[2], data[5], data[8] );
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::transposeInPlace()
 {
@@ -322,7 +339,7 @@ void Matrix3<TypeReal>::transposeInPlace()
             data[2], data[5], data[8] };
     memcpy(data, newData, 9*sizeof(TypeReal));
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal Matrix3<TypeReal>::determinant() const
 {
@@ -332,7 +349,7 @@ TypeReal Matrix3<TypeReal>::determinant() const
 	    + data[2] * ( data[3]*data[7] - data[6]*data[4] );
 	return det;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::inverse() const
 {
@@ -361,7 +378,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::inverse() const
 
 	return retMatrix;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::inverseInPlace()
 {
@@ -389,7 +406,7 @@ void Matrix3<TypeReal>::inverseInPlace()
 		memcpy(data, m, 9*sizeof(TypeReal));
 	}
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::orthogonal() const
 {
@@ -397,7 +414,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::orthogonal() const
 	m.orthogonalInPlace();
 	return m;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
 {
@@ -455,8 +472,7 @@ void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[7] *= invLength;
     data[8] *= invLength;
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Vector3<TypeReal> Matrix3<TypeReal>::getScale() const
 {
@@ -466,7 +482,29 @@ Vector3<TypeReal> Matrix3<TypeReal>::getScale() const
 
 	return Vector3<TypeReal>(x.length(), y.length(), z.length());
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Matrix3<TypeReal> Matrix3<TypeReal>::addScale(const Vector3<TypeReal> &scale)
+{
+    Matrix3<TypeReal> mat(
+        data[0]+scale.x, data[1]+scale.x, data[2]+scale.x,
+        data[3]+scale.z, data[4]+scale.z, data[5]+scale.z,
+        data[6]+scale.y, data[7]+scale.y, data[8]+scale.y
+        );
+    return mat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Matrix3<TypeReal> Matrix3<TypeReal>::addScale(TypeReal sX, TypeReal sY, TypeReal sZ)
+{
+    Matrix3<TypeReal> mat(
+        data[0]+sX, data[1]+sX, data[2]+sX,
+        data[3]+sY, data[4]+sY, data[5]+sY,
+        data[6]+sZ, data[7]+sZ, data[8]+sZ
+        );
+    return mat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::addScaleInPlace(const Vector3<TypeReal> &scale)
 {
@@ -474,7 +512,7 @@ void Matrix3<TypeReal>::addScaleInPlace(const Vector3<TypeReal> &scale)
 	data[3]*=scale.y; data[4]*=scale.y; data[5]*=scale.y;
 	data[6]*=scale.z; data[7]*=scale.z; data[8]*=scale.z;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::addScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
 {
@@ -482,7 +520,7 @@ void Matrix3<TypeReal>::addScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
 	data[3]*=sY; data[4]*=sY; data[5]*=sY;
 	data[6]*=sZ; data[7]*=sZ; data[8]*=sZ;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::setScale(const Vector3<TypeReal> &scale)
 {
@@ -501,7 +539,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::setScale(const Vector3<TypeReal> &scale)
 			y.x, y.y, y.z,
 			z.x, z.y, z.z );
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::setScale(TypeReal sX, TypeReal sY, TypeReal sZ)
 {
@@ -520,7 +558,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::setScale(TypeReal sX, TypeReal sY, TypeReal
 			y.x, y.y, y.z,
 			z.x, z.y, z.z );
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::setScaleInPlace(const Vector3<TypeReal> &scale)
 {
@@ -538,7 +576,7 @@ void Matrix3<TypeReal>::setScaleInPlace(const Vector3<TypeReal> &scale)
 	data[3]=y.x; data[4]=y.y; data[5]=y.z;
 	data[6]=z.x; data[7]=z.y; data[8]=z.z;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
 {
@@ -556,7 +594,7 @@ void Matrix3<TypeReal>::setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
 	data[3]=y.x; data[4]=y.y; data[5]=y.z;
 	data[6]=z.x; data[7]=z.y; data[8]=z.z;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createScale(const Vector3<TypeReal> &scale)
 {
@@ -564,7 +602,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createScale(const Vector3<TypeReal> &scale)
                          (TypeReal)0.0, scale.y, (TypeReal)0.0,
                          (TypeReal)0.0, (TypeReal)0.0, scale.z);
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createScale(TypeReal sX, TypeReal sY, TypeReal sZ)
 {
@@ -572,7 +610,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createScale(TypeReal sX, TypeReal sY, TypeR
                          (TypeReal)0.0, sY, (TypeReal)0.0,
                          (TypeReal)0.0, (TypeReal)0.0, sZ);
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::setFromEuler(const TypeReal& angleX, const TypeReal& angleY, const TypeReal& angleZ, RotationOrder order)
 {
@@ -623,13 +661,13 @@ void Matrix3<TypeReal>::setFromEuler(const TypeReal& angleX, const TypeReal& ang
 		break;
 	}
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix3<TypeReal>::setFromEuler(const Euler<TypeReal> &rotation, RotationOrder order)
 {
 	setFromEuler(rotation.x, rotation.y, rotation.z, order);
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createFromEuler(const Euler<TypeReal> &rotation, RotationOrder order)
 {
@@ -637,7 +675,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createFromEuler(const Euler<TypeReal> &rota
 	newMat.setFromEuler(rotation.x, rotation.y, rotation.z, order);
 	return newMat;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createFromEuler(const TypeReal& angleX, const TypeReal& angleY, const TypeReal& angleZ, RotationOrder order)
 {
@@ -645,7 +683,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createFromEuler(const TypeReal& angleX, con
 	newMat.setFromEuler(angleX, angleY, angleZ, order);
 	return newMat;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 Euler<TypeReal> Matrix3<TypeReal>::toEuler(RotationOrder order)
 {
@@ -653,7 +691,7 @@ Euler<TypeReal> Matrix3<TypeReal>::toEuler(RotationOrder order)
 	toEuler(retAngles, order);
 	return retAngles;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
 {
@@ -762,8 +800,7 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
 		}
 	}
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 void Matrix3<TypeReal>::setFromVectorToVector(const Vector3<TypeReal> &fromVec, const Vector3<TypeReal> &toVec)
 {
@@ -818,7 +855,7 @@ void Matrix3<TypeReal>::setFromVectorToVector(const Vector3<TypeReal> &fromVec, 
 	}
 	else  // the most common case, unless "from"="to", or "from"=-"to"
 	{
-		v.cross(fromVec, toVec);
+		v = fromVec.cross(toVec);
 		TypeReal h = (TypeReal)1.0/((TypeReal)1.0 + e);    // optimization by Gottfried Chen
 		TypeReal hvx = h*v.x;
 		TypeReal hvz = h*v.z;
@@ -827,20 +864,20 @@ void Matrix3<TypeReal>::setFromVectorToVector(const Vector3<TypeReal> &fromVec, 
 		TypeReal hvyz = hvz*v.y;
 
 
-		this->data[0] = e + hvx*v.getX();
-		this->data[1] = hvxy - v.getZ();
-		this->data[2] = hvxz + v.getY();
+		this->data[0] = e + hvx*v.x;
+		this->data[1] = hvxy - v.z;
+		this->data[2] = hvxz + v.y;
 
-		this->data[3] = hvxy + v.getZ();
-		this->data[4] = e + h*v.getY()*v.getY();
-		this->data[5] = hvyz - v.getX();
+		this->data[3] = hvxy + v.z;
+		this->data[4] = e + h*v.y*v.y;
+		this->data[5] = hvyz - v.x;
 
-		this->data[6] = hvxz - v.getY();
-		this->data[7] = hvyz + v.getX();
-		this->data[8] = e + hvz*v.getZ();
+		this->data[6] = hvxz - v.y;
+		this->data[7] = hvyz + v.x;
+		this->data[8] = e + hvz*v.z;
 	}
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createFromVectorToVector(const Vector3<TypeReal> &fromVec, const Vector3<TypeReal> &toVec)
 {
@@ -848,8 +885,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createFromVectorToVector(const Vector3<Type
 	retMat.setFromVectorToVector(fromVec, toVec);
 	return retMat;
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 void Matrix3<TypeReal>::lookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
@@ -935,7 +971,7 @@ void Matrix3<TypeReal>::lookAt(const Vector3<TypeReal> &pointAt, const Vector3<T
 	data[3]=yVec.x; data[4]=yVec.y; data[5]=yVec.z;
 	data[6]=zVec.x; data[7]=zVec.y; data[8]=zVec.z;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createLookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
@@ -943,7 +979,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createLookAt(const Vector3<TypeReal> &point
 	mat.lookAt(pointAt, normal, primaryAxis, secondaryAxis);
 	return mat;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 void Matrix3<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle)
 {
@@ -966,7 +1002,7 @@ void Matrix3<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal
 	data[3] = k1ab-k3c;    data[4] = k1*sqr_b+k2; data[5] = k1bc+k3a;
 	data[6] = k1ac+k3b;    data[7] = k1bc-k3a;    data[8] = k1*sqr_c+k2;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<class TypeReal>
 Matrix3<TypeReal> Matrix3<TypeReal>::createFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle)
 {
@@ -974,8 +1010,7 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createFromAxisAngle(const Vector3<TypeReal>
 	mat.setFromAxisAngle(axis, angle);
 	return mat;
 }
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 std::string Matrix3<TypeReal>::toString() const
 {
@@ -985,3 +1020,4 @@ std::string Matrix3<TypeReal>::toString() const
     std::string str(buffer);
     return str;
 }
+/*-----------------------------------------------------------------------------------------------------------------*/

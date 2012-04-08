@@ -43,6 +43,25 @@ Euler<TypeReal>::Euler(const Vector3<TypeReal>& vec)
 	memcpy(&x, vec.ptr(), 3*sizeof(TypeReal));
 }
 
+/*------ Coordinate access ------*/
+template <class TypeReal>
+TypeReal Euler<TypeReal>::operator[] (int i) const
+{
+    if (i>2) {
+        throw out_of_range("gmath::Euler:\n\t index out of range");
+    }
+    return *(&x+i);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+TypeReal& Euler<TypeReal>::operator[] (int i)
+{
+    if (i>2) {
+        throw out_of_range("gmath::Euler:\n\t index out of range");
+    }
+    return *(&x+i);
+}
+
 /*-----------------------------------------------------------------------------------*/
 template <class TypeReal>
 bool Euler<TypeReal>::operator == (const Euler<TypeReal> &other) const

@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "gmRoot.h"
 #include "gmMath.h"
 #include "gmVector3.h"
-//#include "gmVector4.h"
-//#include "gmMatrix3.h"
-//#include "gmEuler.h"
+#include "gmVector4.h"
+#include "gmMatrix3.h"
+#include "gmEuler.h"
 
 namespace gmath
 {
@@ -54,10 +54,10 @@ namespace gmath
 					TypeReal zx, TypeReal zy, TypeReal zz, TypeReal zw,
 					TypeReal px, TypeReal py, TypeReal pz, TypeReal pw);
 			Matrix4(const Matrix4<TypeReal> &other);
-//			Matrix4(const Vector4<TypeReal> &row0,
-//					const Vector4<TypeReal> &row1,
-//					const Vector4<TypeReal> &row2,
-//					const Vector4<TypeReal> &row3);
+			Matrix4(const Vector4<TypeReal> &row0,
+					const Vector4<TypeReal> &row1,
+					const Vector4<TypeReal> &row2,
+					const Vector4<TypeReal> &row3);
 //			Matrix4(const TypeReal* list);
 
 			/*------ properties ------*/
@@ -66,6 +66,10 @@ namespace gmath
 			/** Pointer access for direct copying. */
 			TypeReal* ptr();
 			const TypeReal* ptr() const;
+
+			/*------ coordinate access ------*/
+			TypeReal operator[] (int i) const;
+			TypeReal& operator[] (int i);
 
 			/*------ Arithmetic operations ------*/
 //			Matrix4<TypeReal> operator + (TypeReal value) const;

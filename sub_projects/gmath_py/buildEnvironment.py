@@ -5,6 +5,3 @@ os.environ["PYTHON_LIB"] = "/System/Library/Frameworks/Python.framework/Versions
 
 os.environ["BOOST_INCLUDE"] = "/usr/local/include"
 os.environ["BOOST_LIB"] = "/usr/local/lib"
-
-os.environ["GMATH_INCLUDE"] = "../../include"
-os.environ["GMATH_LIB"] = "../../lib/release"

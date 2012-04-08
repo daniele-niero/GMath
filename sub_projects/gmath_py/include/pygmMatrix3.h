@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #ifndef PYGMMATRIX3_H
-#define PYGMVECTOR3_H
+#define PYGMMATRIX3_H
 
 #include "gmMatrix3.h"
 

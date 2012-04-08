@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 /*------ constructors ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix4<TypeReal>::Matrix4()
 {
@@ -29,7 +30,7 @@ Matrix4<TypeReal>::Matrix4()
 	 data[8]=(TypeReal)0;  data[9]=(TypeReal)0; data[10]=(TypeReal)1; data[11]=(TypeReal)0;
 	data[12]=(TypeReal)0; data[13]=(TypeReal)0; data[14]=(TypeReal)0; data[15]=(TypeReal)1;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix4<TypeReal>::Matrix4(
     TypeReal xx, TypeReal xy, TypeReal xz, TypeReal xw,
@@ -42,96 +43,70 @@ Matrix4<TypeReal>::Matrix4(
     data[8]=zx;  data[9]=zy;  data[10]=zz; data[11]=zw;
     data[12]=px; data[13]=py; data[14]=pz; data[15]=pw;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix4<TypeReal>::Matrix4(const Matrix4<TypeReal> & other)
 {
 	memcpy(data, other.data, 16*sizeof(TypeReal));
 }
-
-//template <class TypeReal>
-//Matrix4<TypeReal>::Matrix4(
-//	const Vector4<TypeReal> &row0,
-//	const Vector4<TypeReal> &row1,
-//	const Vector4<TypeReal> &row2,
-//	const Vector4<TypeReal> &row3)
-//{
-//	memcpy(&data[0],  row0.ptr(), 4*sizeof(TypeReal));
-//	memcpy(&data[4],  row1.ptr(), 4*sizeof(TypeReal));
-//	memcpy(&data[8],  row2.ptr(), 4*sizeof(TypeReal));
-//	memcpy(&data[12], row3.ptr(), 4*sizeof(TypeReal));
-//}
-//
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Matrix4<TypeReal>::Matrix4(
+	const Vector4<TypeReal> &row0,
+	const Vector4<TypeReal> &row1,
+	const Vector4<TypeReal> &row2,
+	const Vector4<TypeReal> &row3)
+{
+	memcpy(&data[0],  row0.ptr(), 4*sizeof(TypeReal));
+	memcpy(&data[4],  row1.ptr(), 4*sizeof(TypeReal));
+	memcpy(&data[8],  row2.ptr(), 4*sizeof(TypeReal));
+	memcpy(&data[12], row3.ptr(), 4*sizeof(TypeReal));
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 //template <class TypeReal>
 //Matrix4<TypeReal>::Matrix4(const TypeReal* list)
 //{
 //	memcpy(data, list, 16*sizeof(TypeReal));
 //}
-
-
-
-
+/*------ Coordinates access ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 TypeReal* Matrix4<TypeReal>::ptr()
 {
-	return &data[0];
+    return &data[0];
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 const TypeReal* Matrix4<TypeReal>::ptr() const
 {
-	return &data[0];
+    return &data[0];
 }
-
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
-void Matrix4<TypeReal>::set(
-    TypeReal xx, TypeReal xy, TypeReal xz, TypeReal xw,
-	TypeReal yx, TypeReal yy, TypeReal yz, TypeReal yw,
-	TypeReal zx, TypeReal zy, TypeReal zz, TypeReal zw,
-	TypeReal px, TypeReal py, TypeReal pz, TypeReal pw)
+TypeReal Matrix4<TypeReal>::operator[] (int i) const
 {
-    data[0]=xx;  data[1]=xy;  data[2]=xz;  data[3]=xw;
-    data[4]=yx;  data[5]=yy;  data[6]=yz;  data[7]=yw;
-    data[8]=zx;  data[9]=zy;  data[10]=zz; data[11]=zw;
-    data[12]=px; data[13]=py; data[14]=pz; data[15]=pw;
+    if (i>=0 && i<16)
+    {
+        return this->data[i];
+    }
+    else {
+        throw out_of_range("gmath::Matrix3: index out of range");
+    }
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
-void Matrix4<TypeReal>::setPosition(const Vector3<TypeReal> &pos)
+TypeReal& Matrix4<TypeReal>::operator[] (int i)
 {
-	data[12] = pos.x;
-	data[13] = pos.y;
-	data[14] = pos.z;
+    if (i>=0 && i<16)
+    {
+        return this->data[i];
+    }
+    else {
+        throw out_of_range("gmath::Vector4: index out of range");
+    }
 }
-
-template <class TypeReal>
-void Matrix4<TypeReal>::addPosition(const Vector3<TypeReal> &pos)
-{
-	data[12] += pos.x;
-	data[13] += pos.y;
-	data[14] += pos.z;
-}
-
-template <class TypeReal>
-void Matrix4<TypeReal>::translate (const Vector3<TypeReal> &pos)
-{
-    data[12] += pos.x * data[0] + pos.y * data[4] + pos.z * data[8];
-    data[13] += pos.x * data[1] + pos.y * data[5] + pos.z * data[9];
-    data[14] += pos.x * data[2] + pos.y * data[6] + pos.z * data[10];
-    //data[12] += pos.x * data[3] + pos.y * data[4] + pos.z * data[8];
-}
-
-template <class TypeReal>
-void Matrix4<TypeReal>::setToIdentity()
-{
-    data[0] =(TypeReal)1;  data[1]=(TypeReal)0;  data[2]=(TypeReal)0;  data[3]=(TypeReal)0;
-    data[4] =(TypeReal)0;  data[5]=(TypeReal)1;  data[6]=(TypeReal)0;  data[7]=(TypeReal)0;
-    data[8] =(TypeReal)0;  data[9]=(TypeReal)0; data[10]=(TypeReal)1; data[11]=(TypeReal)0;
-    data[12]=(TypeReal)0; data[13]=(TypeReal)0; data[14]=(TypeReal)0; data[15]=(TypeReal)1;
-}
-
+/*------ Arithmetic operations ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix4<TypeReal> Matrix4<TypeReal>::operator * (const Matrix4<TypeReal> &other) const
 {
@@ -160,8 +135,8 @@ Matrix4<TypeReal> Matrix4<TypeReal>::operator * (const Matrix4<TypeReal> &other)
         );
     return retMatrix;
 }
-
-
+/*------ Arithmetic updates ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix4<TypeReal>::operator *= (const Matrix4<TypeReal> &other)
 {
@@ -191,9 +166,8 @@ void Matrix4<TypeReal>::operator *= (const Matrix4<TypeReal> &other)
 
     set(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10], c[11], c[12], c[13], c[14], c[15]);
 }
-
-
 /*------ Assignment ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix4<TypeReal>::operator = (const Matrix4<TypeReal> &other)
 {
@@ -214,8 +188,55 @@ void Matrix4<TypeReal>::operator = (const Matrix4<TypeReal> &other)
 	data[14] = other.data[14];
 	data[15] = other.data[15];
 }
-
-
+/*------ Methods ------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Matrix4<TypeReal>::set(
+    TypeReal xx, TypeReal xy, TypeReal xz, TypeReal xw,
+    TypeReal yx, TypeReal yy, TypeReal yz, TypeReal yw,
+    TypeReal zx, TypeReal zy, TypeReal zz, TypeReal zw,
+    TypeReal px, TypeReal py, TypeReal pz, TypeReal pw)
+{
+    data[0]=xx;  data[1]=xy;  data[2]=xz;  data[3]=xw;
+    data[4]=yx;  data[5]=yy;  data[6]=yz;  data[7]=yw;
+    data[8]=zx;  data[9]=zy;  data[10]=zz; data[11]=zw;
+    data[12]=px; data[13]=py; data[14]=pz; data[15]=pw;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Matrix4<TypeReal>::setPosition(const Vector3<TypeReal> &pos)
+{
+    data[12] = pos.x;
+    data[13] = pos.y;
+    data[14] = pos.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Matrix4<TypeReal>::addPosition(const Vector3<TypeReal> &pos)
+{
+    data[12] += pos.x;
+    data[13] += pos.y;
+    data[14] += pos.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Matrix4<TypeReal>::translate (const Vector3<TypeReal> &pos)
+{
+    data[12] += pos.x * data[0] + pos.y * data[4] + pos.z * data[8];
+    data[13] += pos.x * data[1] + pos.y * data[5] + pos.z * data[9];
+    data[14] += pos.x * data[2] + pos.y * data[6] + pos.z * data[10];
+    //data[12] += pos.x * data[3] + pos.y * data[4] + pos.z * data[8];
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Matrix4<TypeReal>::setToIdentity()
+{
+    data[0] =(TypeReal)1;  data[1]=(TypeReal)0;  data[2]=(TypeReal)0;  data[3]=(TypeReal)0;
+    data[4] =(TypeReal)0;  data[5]=(TypeReal)1;  data[6]=(TypeReal)0;  data[7]=(TypeReal)0;
+    data[8] =(TypeReal)0;  data[9]=(TypeReal)0; data[10]=(TypeReal)1; data[11]=(TypeReal)0;
+    data[12]=(TypeReal)0; data[13]=(TypeReal)0; data[14]=(TypeReal)0; data[15]=(TypeReal)1;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 //template <class TypeReal>
 //TypeReal Matrix4<TypeReal>::determinant() const
 //{
@@ -235,8 +256,7 @@ void Matrix4<TypeReal>::operator = (const Matrix4<TypeReal> &other)
 //    TypeReal det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
 //    return det;
 //}
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix4<TypeReal> Matrix4<TypeReal>::inverse() const
 {
@@ -304,7 +324,7 @@ Matrix4<TypeReal> Matrix4<TypeReal>::inverse() const
 
     return inverseMat;
 }
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 //template <class TypeReal>
 //void Matrix4<TypeReal>::inverseInPlace()
 //{
@@ -372,7 +392,7 @@ Matrix4<TypeReal> Matrix4<TypeReal>::inverse() const
 //    		(TypeReal)0, (TypeReal)0, (TypeReal)0, (TypeReal)0 );
 //    }
 //}
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 void Matrix4<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle)
 {
@@ -395,10 +415,7 @@ void Matrix4<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal
 	data[4] = k1ab-k3c;    data[5] = k1*sqr_b+k2; data[6] = k1bc+k3a;
 	data[8] = k1ac+k3b;    data[9] = k1bc-k3a;    data[10] = k1*sqr_c+k2;
 }
-
-
-
-
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 std::string Matrix4<TypeReal>::toString() const
 {
@@ -408,3 +425,4 @@ std::string Matrix4<TypeReal>::toString() const
     std::string str(buffer);
     return str;
 }
+/*-----------------------------------------------------------------------------------------------------------------*/

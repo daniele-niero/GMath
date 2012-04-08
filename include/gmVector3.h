@@ -54,13 +54,13 @@ namespace gmath
 			/*------ properties ------*/
 			TypeReal x, y, z;
 
-			/*------ coordinate access ------*/
-			TypeReal operator[] (int i) const;
-			TypeReal& operator[] (int i);
-
 			/** Pointer access for direct copying. */
 			TypeReal* ptr();
 			const TypeReal* ptr() const;
+
+			/*------ coordinate access ------*/
+			TypeReal operator[] (int i) const;
+			TypeReal& operator[] (int i);
 
 			/*------ Arithmetic operations ------*/
 			Vector3<TypeReal> operator + (const Vector3<TypeReal> & other) const;
@@ -94,6 +94,7 @@ namespace gmath
 
 			/** Perform the cross product between this vector and the given vector */
 			Vector3<TypeReal> cross(const Vector3<TypeReal> & other) const;
+			void crossInPlace(const Vector3<TypeReal> & other);
 
 			/** Perform the cross product between this vector and the given vector,
 			 *  and always return a normalised vector.

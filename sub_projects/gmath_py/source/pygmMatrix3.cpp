@@ -46,6 +46,40 @@ void matrix4_setdata_wrap(Matrix3f* self, list &inlist)
     }
 }
 
+Matrix3f (Matrix3f::*addScale1)(float, float, float)= &Matrix3f::addScale;
+Matrix3f (Matrix3f::*addScale2)(const Vector3f&) = &Matrix3f::addScale;
+void (Matrix3f::*addScaleInPlace1)(float, float, float)= &Matrix3f::addScaleInPlace;
+void (Matrix3f::*addScaleInPlace2)(const Vector3f&) = &Matrix3f::addScaleInPlace;
+Matrix3f (Matrix3f::*setScale1)(float, float, float)= &Matrix3f::setScale;
+Matrix3f (Matrix3f::*setScale2)(const Vector3f&) = &Matrix3f::setScale;
+void (Matrix3f::*setScaleInPlace1)(float, float, float)= &Matrix3f::setScaleInPlace;
+void (Matrix3f::*setScaleInPlace2)(const Vector3f&) = &Matrix3f::setScaleInPlace;
+Matrix3f (*createScale1)(float, float, float)= &Matrix3f::createScale;
+Matrix3f (*createScale2)(const Vector3f&) = &Matrix3f::createScale;
+
+void (Matrix3f::*setFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::setFromEuler;
+void (Matrix3f::*setFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::setFromEuler;
+// to ensure RotationOrder with default argument...
+void matrix4_setFromEuler1_wrap(Matrix3f* self, const float& x, const float& y, const float& z)
+{
+    self->setFromEuler(x, y, z);
+}
+void matrix4_setFromEuler2_wrap(Matrix3f* self, const Eulerf& euler)
+{
+    self->setFromEuler(euler);
+}
+
+Matrix3f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::createFromEuler;
+Matrix3f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::createFromEuler;
+// to ensure RotationOrder with default argument...
+Matrix3f matrix4_createFromEuler1_wrap(const float& x, const float& y, const float& z)
+{
+    return Matrix3f::createFromEuler(x, y, z);
+}
+Matrix3f matrix4_createFromEuler2_wrap(const Eulerf& euler)
+{
+    return Matrix3f::createFromEuler(euler);
+}
 
 
 void wrapMatrix3()
@@ -58,7 +92,75 @@ void wrapMatrix3()
         .def("getData", &matrix4_getdata_wrap)
         .def("setData", &matrix4_setdata_wrap)
 
-
         .def("__str__", &Matrix3f::toString)
+
+        .def( self + float() )
+        .def( self + Matrix3f() )
+        .def( self - float() )
+        .def( self - Matrix3f() )
+        .def( self / float() )
+        .def( self * float() )
+        .def( self * Matrix3f() )
+        .def( self * Vector3f() )
+
+        .def( self += float() )
+        .def( self += Matrix3f() )
+        .def( self -= float() )
+        .def( self -= Matrix3f() )
+        .def( self /= float() )
+        .def( self *= float() )
+        .def( self *= Matrix3f() )
+
+        .def( self == Matrix3f() )
+        .def( self != Matrix3f() )
+
+        .def("setToIdentity", &Matrix3f::setToIdentity)
+        .def("set", &Matrix3f::set)
+
+        .def("transpose", &Matrix3f::transpose)
+        .def("transposeInPlace", &Matrix3f::transposeInPlace)
+
+        .def("determinant", &Matrix3f::determinant)
+
+        .def("inverse", &Matrix3f::inverse)
+        .def("inverseInPlace", &Matrix3f::inverseInPlace)
+
+        .def("orthogonal", &Matrix3f::orthogonal)
+        .def("orthogonalInPlace", &Matrix3f::orthogonalInPlace)
+
+        .def("getScale", &Matrix3f::getScale)
+        .def("addScale", addScale1)
+        .def("addScale", addScale2)
+        .def("addScaleInPlace", addScaleInPlace1)
+        .def("addScaleInPlace", addScaleInPlace2)
+        .def("setScale", setScale1)
+        .def("setScale", setScale2)
+        .def("setScaleInPlace", setScaleInPlace1)
+        .def("setScaleInPlace", setScaleInPlace2)
+        .def("createScale", createScale1)
+        .def("createScale", createScale2)
+        .staticmethod("createScale")
+
+        .def("setFromEuler", setFromEuler1)
+        .def("setFromEuler", setFromEuler2)
+        .def("setFromEuler", &matrix4_setFromEuler1_wrap)
+        .def("setFromEuler", &matrix4_setFromEuler2_wrap)
+
+        .def("createFromEuler", createFromEuler1)
+        .def("createFromEuler", createFromEuler2)
+        .def("createFromEuler", &matrix4_createFromEuler1_wrap)
+        .def("createFromEuler", &matrix4_createFromEuler2_wrap)
+        .staticmethod("createFromEuler")
+
+        .def("setFromVectorToVector", &Matrix3f::setFromVectorToVector)
+        .def("createFromVectorToVector", &Matrix3f::createFromVectorToVector)
+        .staticmethod("createFromVectorToVector")
+
+        .def("lookAt", &Matrix3f::lookAt)
+        .def("createLookAt", &Matrix3f::createLookAt)
+        .staticmethod("createLookAt")
+
+        .add_static_property("IDENTITY", &Matrix3f::IDENTITY)
+
         ;
 }

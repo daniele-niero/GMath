@@ -41,6 +41,10 @@ namespace gmath
 
 			TypeReal x, y, z;
 
+			/*------ coordinate access ------*/
+			TypeReal operator[] (int i) const;
+			TypeReal& operator[] (int i);
+
 			/*------ Comparisons ------*/
 			bool operator == (const Euler<TypeReal> &other) const;
 			bool operator != (const Euler<TypeReal> &other) const;

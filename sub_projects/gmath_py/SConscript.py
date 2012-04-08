@@ -53,7 +53,7 @@ env.Append(LIBPATH = [os.environ['PYTHON_LIB'],
 
 python_binding = env.SharedLibrary(
     target='gmath',
-    source=Glob('source/*.cpp'),#+Glob('../../source/*.cpp')+,
+    source=Glob('source/*.cpp'),
     CPPDEFINES='BUILD_BINDINGS',
     LIBS=['boost_python', 'gmath', 'python2.7'],
     SHLIBPREFIX='',
