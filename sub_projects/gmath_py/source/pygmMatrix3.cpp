@@ -27,60 +27,60 @@ using namespace boost::python;
 using namespace gmath;
 
 
+namespace {
+        list matrix4_getdata_wrap(Matrix3f* self)
+        {
+            list retData;
+            for (int i=0; i<9; i++)
+            {
+                retData.append(&(self->data[i]));
+            }
+            return retData;
+        }
 
-list matrix4_getdata_wrap(Matrix3f* self)
-{
-    list retData;
-    for (int i=0; i<9; i++)
-    {
-        retData.append(&(self->data[i]));
-    }
-    return retData;
-}
+        void matrix4_setdata_wrap(Matrix3f* self, list &inlist)
+        {
+            for (int i=0; i<9; i++)
+            {
+                self->data[i] = extract<float>(inlist[i]);
+            }
+        }
 
-void matrix4_setdata_wrap(Matrix3f* self, list &inlist)
-{
-    for (int i=0; i<9; i++)
-    {
-        self->data[i] = extract<float>(inlist[i]);
-    }
-}
+        Matrix3f (Matrix3f::*addScale1)(float, float, float)= &Matrix3f::addScale;
+        Matrix3f (Matrix3f::*addScale2)(const Vector3f&) = &Matrix3f::addScale;
+        void (Matrix3f::*addScaleInPlace1)(float, float, float)= &Matrix3f::addScaleInPlace;
+        void (Matrix3f::*addScaleInPlace2)(const Vector3f&) = &Matrix3f::addScaleInPlace;
+        Matrix3f (Matrix3f::*setScale1)(float, float, float)= &Matrix3f::setScale;
+        Matrix3f (Matrix3f::*setScale2)(const Vector3f&) = &Matrix3f::setScale;
+        void (Matrix3f::*setScaleInPlace1)(float, float, float)= &Matrix3f::setScaleInPlace;
+        void (Matrix3f::*setScaleInPlace2)(const Vector3f&) = &Matrix3f::setScaleInPlace;
+        Matrix3f (*createScale1)(float, float, float)= &Matrix3f::createScale;
+        Matrix3f (*createScale2)(const Vector3f&) = &Matrix3f::createScale;
 
-Matrix3f (Matrix3f::*addScale1)(float, float, float)= &Matrix3f::addScale;
-Matrix3f (Matrix3f::*addScale2)(const Vector3f&) = &Matrix3f::addScale;
-void (Matrix3f::*addScaleInPlace1)(float, float, float)= &Matrix3f::addScaleInPlace;
-void (Matrix3f::*addScaleInPlace2)(const Vector3f&) = &Matrix3f::addScaleInPlace;
-Matrix3f (Matrix3f::*setScale1)(float, float, float)= &Matrix3f::setScale;
-Matrix3f (Matrix3f::*setScale2)(const Vector3f&) = &Matrix3f::setScale;
-void (Matrix3f::*setScaleInPlace1)(float, float, float)= &Matrix3f::setScaleInPlace;
-void (Matrix3f::*setScaleInPlace2)(const Vector3f&) = &Matrix3f::setScaleInPlace;
-Matrix3f (*createScale1)(float, float, float)= &Matrix3f::createScale;
-Matrix3f (*createScale2)(const Vector3f&) = &Matrix3f::createScale;
+        void (Matrix3f::*setFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::setFromEuler;
+        void (Matrix3f::*setFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::setFromEuler;
+        // to ensure RotationOrder with default argument...
+        void matrix4_setFromEuler1_wrap(Matrix3f* self, const float& x, const float& y, const float& z)
+        {
+            self->setFromEuler(x, y, z);
+        }
+        void matrix4_setFromEuler2_wrap(Matrix3f* self, const Eulerf& euler)
+        {
+            self->setFromEuler(euler);
+        }
 
-void (Matrix3f::*setFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::setFromEuler;
-void (Matrix3f::*setFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::setFromEuler;
-// to ensure RotationOrder with default argument...
-void matrix4_setFromEuler1_wrap(Matrix3f* self, const float& x, const float& y, const float& z)
-{
-    self->setFromEuler(x, y, z);
+        Matrix3f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::createFromEuler;
+        Matrix3f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::createFromEuler;
+        // to ensure RotationOrder with default argument...
+        Matrix3f matrix4_createFromEuler1_wrap(const float& x, const float& y, const float& z)
+        {
+            return Matrix3f::createFromEuler(x, y, z);
+        }
+        Matrix3f matrix4_createFromEuler2_wrap(const Eulerf& euler)
+        {
+            return Matrix3f::createFromEuler(euler);
+        }
 }
-void matrix4_setFromEuler2_wrap(Matrix3f* self, const Eulerf& euler)
-{
-    self->setFromEuler(euler);
-}
-
-Matrix3f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::createFromEuler;
-Matrix3f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::createFromEuler;
-// to ensure RotationOrder with default argument...
-Matrix3f matrix4_createFromEuler1_wrap(const float& x, const float& y, const float& z)
-{
-    return Matrix3f::createFromEuler(x, y, z);
-}
-Matrix3f matrix4_createFromEuler2_wrap(const Eulerf& euler)
-{
-    return Matrix3f::createFromEuler(euler);
-}
-
 
 void wrapMatrix3()
 {

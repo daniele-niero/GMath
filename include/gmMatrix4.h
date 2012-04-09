@@ -109,8 +109,8 @@ namespace gmath
 			void addPosition(const Vector3<TypeReal> &pos);
 			void translate(const Vector3<TypeReal> &pos);
 
-//			Matrix4<TypeReal> transpose() const;
-//			void transposeInPlace();
+			Matrix4<TypeReal> transpose() const;
+			void transposeInPlace();
 
 			/** The deterMINant of a matrix is a floating point value which is used to
 			    indicate whether the matrix has an inverse or not. If zero, then no inverse exists. */

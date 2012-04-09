@@ -422,6 +422,26 @@ void Matrix4<TypeReal>::translate (const Vector3<TypeReal> &pos)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
+Matrix4<TypeReal> Matrix4<TypeReal>::transpose() const
+{
+    return Matrix4<TypeReal>(
+        data[0], data[4], data[ 8], data[12],
+        data[1], data[5], data[ 9], data[13],
+        data[2], data[6], data[10], data[14],
+        data[3], data[7], data[11], data[15] );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+void Matrix4<TypeReal>::transposeInPlace()
+{
+    set(
+        data[0], data[4], data[ 8], data[12],
+        data[1], data[5], data[ 9], data[13],
+        data[2], data[6], data[10], data[14],
+        data[3], data[7], data[11], data[15] );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
 TypeReal Matrix4<TypeReal>::determinant() const
 {
     cout << "determinant" << endl;
@@ -590,7 +610,7 @@ Vector3<TypeReal> Matrix4<TypeReal>::getScale() const
 template <class TypeReal>
 Matrix4<TypeReal> Matrix4<TypeReal>::addScale(const Vector3<TypeReal> &scale)
 {
-    Matrix3<TypeReal> mat(
+    Matrix4<TypeReal> mat(
         data[0]+scale.x, data[1]+scale.x, data[2]+scale.x, data[3],
         data[4]+scale.y, data[5]+scale.y, data[6]+scale.y, data[7],
         data[8]+scale.z, data[9]+scale.z, data[10]+scale.z, data[11],
@@ -602,7 +622,7 @@ Matrix4<TypeReal> Matrix4<TypeReal>::addScale(const Vector3<TypeReal> &scale)
 template <class TypeReal>
 Matrix4<TypeReal> Matrix4<TypeReal>::addScale(TypeReal sX, TypeReal sY, TypeReal sZ)
 {
-    Matrix3<TypeReal> mat(
+    Matrix4<TypeReal> mat(
         data[0]+sX, data[1]+sX, data[2]+sX, data[3],
         data[4]+sY, data[5]+sY, data[6]+sY, data[7],
         data[8]+sZ, data[9]+sZ, data[10]+sZ, data[11],

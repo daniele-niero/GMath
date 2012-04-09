@@ -27,7 +27,7 @@ using namespace boost::python;
 using namespace gmath;
 
 
-
+namespace {
 list matrix4_getdata_wrap(Matrix4f* self)
 {
     list retData;
@@ -46,14 +46,14 @@ void matrix4_setdata_wrap(Matrix4f* self, list &inlist)
     }
 }
 
-// Matrix4f (Matrix4f::*addScale1)(float, float, float)= &Matrix4f::addScale;
-// Matrix4f (Matrix4f::*addScale2)(const Vector3f&) = &Matrix4f::addScale;
-// void (Matrix4f::*addScaleInPlace1)(float, float, float)= &Matrix4f::addScaleInPlace;
-// void (Matrix4f::*addScaleInPlace2)(const Vector3f&) = &Matrix4f::addScaleInPlace;
-// Matrix4f (Matrix4f::*setScale1)(float, float, float)= &Matrix4f::setScale;
-// Matrix4f (Matrix4f::*setScale2)(const Vector3f&) = &Matrix4f::setScale;
-// void (Matrix4f::*setScaleInPlace1)(float, float, float)= &Matrix4f::setScaleInPlace;
-// void (Matrix4f::*setScaleInPlace2)(const Vector3f&) = &Matrix4f::setScaleInPlace;
+Matrix4f (Matrix4f::*addScale1)(float, float, float)= &Matrix4f::addScale;
+Matrix4f (Matrix4f::*addScale2)(const Vector3f&) = &Matrix4f::addScale;
+void (Matrix4f::*addScaleInPlace1)(float, float, float)= &Matrix4f::addScaleInPlace;
+void (Matrix4f::*addScaleInPlace2)(const Vector3f&) = &Matrix4f::addScaleInPlace;
+Matrix4f (Matrix4f::*setScale1)(float, float, float)= &Matrix4f::setScale;
+Matrix4f (Matrix4f::*setScale2)(const Vector3f&) = &Matrix4f::setScale;
+void (Matrix4f::*setScaleInPlace1)(float, float, float)= &Matrix4f::setScaleInPlace;
+void (Matrix4f::*setScaleInPlace2)(const Vector3f&) = &Matrix4f::setScaleInPlace;
 // Matrix4f (*createScale1)(float, float, float)= &Matrix4f::createScale;
 // Matrix4f (*createScale2)(const Vector3f&) = &Matrix4f::createScale;
 
@@ -80,7 +80,7 @@ void matrix4_setdata_wrap(Matrix4f* self, list &inlist)
 // {
 //     return Matrix4f::createFromEuler(euler);
 // }
-
+}
 
 void wrapMatrix4()
 {
@@ -92,32 +92,45 @@ void wrapMatrix4()
         .def( init<const Matrix4f &>() )
         .def( init<const Vector4f &, const Vector4f &, const Vector4f &, const Vector4f &>() )
 
-        // .def("getData", &matrix4_getdata_wrap)
-        // .def("setData", &matrix4_setdata_wrap)
+        .def("getData", &matrix4_getdata_wrap)
+        .def("setData", &matrix4_setdata_wrap)
 
-        // .def("__str__", &Matrix4f::toString)
+        .def("__str__", &Matrix4f::toString)
 
-        // .def( self * Matrix4f() )
+        .def( self * Matrix4f() )
+        .def( self *= Matrix4f() )
 
-        // .def( self *= Matrix4f() )
+        .def( self == Matrix4f() )
+        .def( self != Matrix4f() )
 
-        // // .def( self == Matrix4f() )
-        // // .def( self != Matrix4f() )
+        .def("setToIdentity", &Matrix4f::setToIdentity)
+        .def("set", &Matrix4f::set)
 
-        // .def("setToIdentity", &Matrix4f::setToIdentity)
-        // .def("set", &Matrix4f::set)
+        .def("setPosition", &Matrix4f::setPosition)
+        .def("addPosition", &Matrix4f::addPosition)
+        .def("translate", &Matrix4f::translate)
 
-        // .def("setPosition", &Matrix4f::setPosition)
-        // .def("addPosition", &Matrix4f::addPosition)
-        // .def("translate", &Matrix4f::translate)
+        .def("transpose", &Matrix4f::transpose)
+        .def("transposeInPlace", &Matrix4f::transposeInPlace)
 
-        // .def("determinant", &Matrix4f::determinant)
+        .def("determinant", &Matrix4f::determinant)
 
-        // .def("inverse", &Matrix4f::inverse)
+        .def("inverse", &Matrix4f::inverse)
+        .def("inverseInPlace", &Matrix4f::inverseInPlace)
 
-        // .def("setFromAxisAngle", &Matrix4f::setFromAxisAngle)
+        .def("getScale", &Matrix4f::getScale)
+        .def("addScale", addScale1)
+        .def("addScale", addScale2)
+        .def("addScaleInPlace", addScaleInPlace1)
+        .def("addScaleInPlace", addScaleInPlace2)
+        .def("setScale", setScale1)
+        .def("setScale", setScale2)
+        .def("setScaleInPlace", setScaleInPlace1)
+        .def("setScaleInPlace", setScaleInPlace2)
 
-        // .add_static_property("IDENTITY", &Matrix4f::IDENTITY)
+        .def("setFromAxisAngle", &Matrix4f::setFromAxisAngle)
+
+        .add_static_property("IDENTITY", &Matrix4f::IDENTITY)
 
         ;
 }
