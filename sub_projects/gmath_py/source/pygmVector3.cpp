@@ -20,17 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include <boost/python.hpp>
+#include "pygmRoot.h"
 #include "pygmVector3.h"
 
 using namespace boost::python;
 using namespace gmath;
-
-
-void vector3f_setitem_wrap(Vector3f* self, int index, float value){
-    self->operator[](index) = value;
-}
-
-float  (Vector3f::*vector3f_getitem_wrap)(int) const = &Vector3f::operator[];
 
 
 void wrapVector3()
@@ -45,8 +39,8 @@ void wrapVector3()
         .def_readwrite("z", &Vector3f::z)
 
         .def( "__str__", &Vector3f::toString )
-        .def("__getitem__", vector3f_getitem_wrap)
-        .def("__setitem__", vector3f_setitem_wrap)
+        .def("__getitem__", getitem_wrap<Vector3f>)
+        .def("__setitem__", setitem_wrap<Vector3f>)
 
         .def( self + Vector3f() )
         .def( self - Vector3f() )

@@ -24,6 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "gmRoot.h"
 
+
+template <typename GMathType>
+void setitem_wrap(GMathType* self, int index, float value)
+{
+    self->operator[](index) = value;
+}
+
+template <typename GMathType>
+float getitem_wrap(GMathType* self, int index)
+{
+    return self->operator[](index);
+}
+
+
 void wrapRoot();
 
 #endif //PYGMROOT_H

@@ -16,5 +16,4 @@ syntax: glob
 
 
 compile.py
-lib
-documentation
+lib/*

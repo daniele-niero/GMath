@@ -31,16 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace gmath
 {
 
-	/**
-	Matrix class (3x3).
-	[Xx, Xy, Xz]
-	[Yx, Yy, Yz]
-	[Zx, Zy, Zz]
+	/** Matrix class (3x3). @n
+		    [Xx, Xy, Xz] @n
+		    [Yx, Yy, Yz] @n
+		    [Zx, Zy, Zz] @n
 
-	This class represents a 3x3 matrix that can be used to store
-	rotations transformations.
-	This matrix is ROW MAJOR.
-	*/
+		This class represents a 3x3 matrix that can be used to store
+		rotations transformations.
+		@note This matrix is ROW MAJOR. */
 	template <class TypeReal>
 	class Matrix3
 	{

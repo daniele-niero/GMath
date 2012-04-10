@@ -20,17 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include <boost/python.hpp>
+#include "pygmRoot.h"
 #include "pygmVector4.h"
 
 using namespace boost::python;
 using namespace gmath;
 
-
-void vector4f_setitem_wrap(Vector4f* self, int index, float value){
-    self->operator[](index) = value;
-}
-
-float  (Vector4f::*vector4f_getitem_wrap)(int) const = &Vector4f::operator[];
 
 
 void wrapVector4()
@@ -38,7 +33,6 @@ void wrapVector4()
     class_<Vector4f>("Vector4", init<>())
         .def( init<float, float, float, float>() )
         .def( init<const Vector4f &>() )
-        //.def( init<const float *>() )
 
         .def_readwrite("x", &Vector4f::x)
         .def_readwrite("y", &Vector4f::y)
@@ -46,8 +40,8 @@ void wrapVector4()
         .def_readwrite("w", &Vector4f::w)
 
         .def( "__str__", &Vector4f::toString )
-        .def("__getitem__", vector4f_getitem_wrap)
-        .def("__setitem__", vector4f_setitem_wrap)
+        .def("__getitem__", getitem_wrap<Vector4f>)
+        .def("__setitem__", setitem_wrap<Vector4f>)
 
         .def( self + Vector4f() )
         .def( self - Vector4f() )

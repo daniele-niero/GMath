@@ -108,6 +108,7 @@ namespace gmath
 			void setPosition(const Vector3<TypeReal> &pos);
 			void addPosition(const Vector3<TypeReal> &pos);
 			void translate(const Vector3<TypeReal> &pos);
+			Vector3<TypeReal> getPosition() const;
 
 			Matrix4<TypeReal> transpose() const;
 			void transposeInPlace();
@@ -137,11 +138,11 @@ namespace gmath
 //			static Matrix4<TypeReal> createFromEuler(const Euler<TypeReal> &rotation, RotationOrder order=XYZ);
 //			static Matrix4<TypeReal> createFromEuler(const TypeReal& angleX, const TypeReal& angleY, const TypeReal& angleZ, RotationOrder order=XYZ);
 
-			/** Remeber to take out scale first */
+			/* Remeber to take out scale first */
 //			Euler<TypeReal> toEuler(RotationOrder order=XYZ);
 //			bool toEuler(Euler<TypeReal>& eulerAngles, RotationOrder order=XYZ);
 
-			/** Returns a rotation matrix that rotates one vector into another.
+			/* Returns a rotation matrix that rotates one vector into another.
 
 		        The generated rotation matrix will rotate the vector _from into
 		        the vector to. _from and to must be unit vectors!
@@ -156,11 +157,11 @@ namespace gmath
 //			static Matrix4<TypeReal> createFromVectorToVector(const Vector3<TypeReal> &fromVec, const Vector3<TypeReal> &toVec);
 
 			/** Look from pos to target.
-
-				The resulting transformation is a rotation Matrix where the primaryAxis points to target.
-				The secondaryAxis is as close as possible to the up vector. */
-//			void lookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
-//			static Matrix4<TypeReal> createLookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+			  *
+			  * The resulting transformation is a rotation Matrix where the primaryAxis points to target.
+			  * The secondaryAxis is as close as possible to the up vector. */
+			void lookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+			static Matrix4<TypeReal> createLookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
 
 			void setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle);
 //			static Matrix4<TypeReal> createFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle);

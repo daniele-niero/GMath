@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <boost/python.hpp>
+#include "pygmRoot.h"
 #include "pygmMatrix4.h"
 
 using namespace boost::python;
@@ -96,6 +97,8 @@ void wrapMatrix4()
         .def("setData", &matrix4_setdata_wrap)
 
         .def("__str__", &Matrix4f::toString)
+        .def("__getitem__", getitem_wrap<Matrix4f>)
+        .def("__setitem__", setitem_wrap<Matrix4f>)
 
         .def( self * Matrix4f() )
         .def( self *= Matrix4f() )

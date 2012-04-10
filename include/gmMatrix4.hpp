@@ -420,6 +420,11 @@ void Matrix4<TypeReal>::translate (const Vector3<TypeReal> &pos)
     data[14] += pos.x * data[2] + pos.y * data[6] + pos.z * data[10];
     //data[12] += pos.x * data[3] + pos.y * data[4] + pos.z * data[8];
 }
+template <class TypeReal>
+Vector3<TypeReal> Matrix4<TypeReal>::getPosition() const
+{
+    return Vector3<TypeReal>( data[12], data[13], data[14] );
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
 Matrix4<TypeReal> Matrix4<TypeReal>::transpose() const
@@ -723,6 +728,102 @@ void Matrix4<TypeReal>::setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
     data[0]=x.x; data[1]=x.y; data[2]=x.z;
     data[4]=y.x; data[5]=y.y; data[6]=y.z;
     data[8]=z.x; data[9]=z.y; data[10]=z.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<class TypeReal>
+void Matrix4<TypeReal>::lookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis, Axis secondaryAxis)
+{
+    TypeReal f = fabs( pointAt.dot(normal) );
+    if (f > 1.0-Math<TypeReal>::EPSILON)
+        throw GMathError("gmath::Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them.");
+
+    TypeReal pMult = (TypeReal)1.0;
+    TypeReal sMult = (TypeReal)1.0;
+    if ((int)primaryAxis<0) {
+        pMult *= (TypeReal)-1.0;
+    }
+    if ((int)secondaryAxis<0) {
+        sMult = (TypeReal)-1.0;
+    }
+
+    Vector3<TypeReal> xVec, yVec, zVec, pAt, nor;
+    pAt = pointAt - this->getPosition();
+    nor = normal - this->getPosition();
+
+    if (primaryAxis == POSX || primaryAxis == NEGX)
+    {
+        if (secondaryAxis == POSY || secondaryAxis == NEGY)
+        {
+            xVec = pAt * pMult;
+            yVec = nor * pMult;
+            zVec = xVec.cross(yVec);
+            zVec.normalizeInPlace();
+            yVec = zVec.cross(xVec);
+        }
+        else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
+        {
+            xVec = pAt * pMult;
+            zVec = nor * sMult;
+            yVec = zVec.cross(xVec);
+            yVec.normalizeInPlace();
+            zVec = xVec.cross(yVec);
+            //zVec.normalizeInPlace();
+        }
+    }
+    else if (primaryAxis == POSY || primaryAxis == NEGY)
+    {
+        if (secondaryAxis == POSX || primaryAxis == NEGX)
+        {
+            yVec = pAt * pMult;
+            xVec = nor * sMult;
+            zVec = xVec.cross(yVec);
+            zVec.normalizeInPlace();
+            xVec = yVec.cross(zVec);
+            //xVec.normalizeInPlace()
+        }
+        else if (secondaryAxis == POSZ || secondaryAxis == NEGX)
+        {
+            yVec = pAt * pMult;
+            zVec = nor * sMult;
+            xVec = yVec.cross(zVec);
+            xVec.normalizeInPlace();
+            zVec = xVec.cross(yVec);
+            //zVec.normalizeInPlace()
+        }
+    }
+    else if (primaryAxis == POSZ || primaryAxis == NEGZ)
+    {
+        if (secondaryAxis == POSX || secondaryAxis == NEGX)
+        {
+            zVec = pAt * pMult;
+            xVec = nor * sMult;
+            yVec = zVec.cross(xVec);
+            yVec.normalizeInPlace();
+            xVec = yVec.cross(zVec);
+            //xVec.normalizeInPlace();
+        }
+        else if (secondaryAxis == POSY || secondaryAxis == NEGY)
+        {
+            zVec = pAt * pMult;
+            yVec = nor * sMult;
+            xVec = yVec.cross(zVec);
+            xVec.normalizeInPlace();
+            yVec = zVec.cross(xVec);
+            //yVec.normalizeInPlace();
+        }
+    }
+
+    data[0]=xVec.x; data[1]=xVec.y;  data[2]=xVec.z;
+    data[4]=yVec.x; data[5]=yVec.y;  data[6]=yVec.z;
+    data[8]=zVec.x; data[9]=zVec.y; data[10]=zVec.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<class TypeReal>
+Matrix4<TypeReal> Matrix4<TypeReal>::createLookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis, Axis secondaryAxis)
+{
+    Matrix3<TypeReal> mat;
+    mat.lookAt(pointAt, normal, primaryAxis, secondaryAxis);
+    return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>

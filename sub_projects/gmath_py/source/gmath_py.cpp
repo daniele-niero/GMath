@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pygmRoot.h"
 #include "pygmEuler.h"
 #include "pygmVector3.h"
-#include "pygmMatrix3.h"
 #include "pygmVector4.h"
-
+#include "pygmMatrix3.h"
+#include "pygmMatrix4.h"
 
 
 BOOST_PYTHON_MODULE(gmath)
@@ -34,7 +34,8 @@ BOOST_PYTHON_MODULE(gmath)
     wrapRoot();
     wrapEuler();
     wrapVector3();
-    wrapMatrix3();
     wrapVector4();
+    wrapMatrix3();
+    wrapMatrix4();
 }
 
