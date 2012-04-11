@@ -112,6 +112,7 @@ void wrapMatrix4()
         .def("setPosition", &Matrix4f::setPosition)
         .def("addPosition", &Matrix4f::addPosition)
         .def("translate", &Matrix4f::translate)
+        .def("getPosition", &Matrix4f::getPosition)
 
         .def("transpose", &Matrix4f::transpose)
         .def("transposeInPlace", &Matrix4f::transposeInPlace)
@@ -130,6 +131,10 @@ void wrapMatrix4()
         .def("setScale", setScale2)
         .def("setScaleInPlace", setScaleInPlace1)
         .def("setScaleInPlace", setScaleInPlace2)
+
+        .def("lookAt", &Matrix4f::lookAt)
+        .def("createLookAt", &Matrix3f::createLookAt)
+        .staticmethod("createLookAt")
 
         .def("setFromAxisAngle", &Matrix4f::setFromAxisAngle)
 
