@@ -114,6 +114,9 @@ void wrapMatrix4()
         .def("translate", &Matrix4f::translate)
         .def("getPosition", &Matrix4f::getPosition)
 
+        .def("setRotation", &Matrix4f::setRotation)
+        .def("getRotation", &Matrix4f::getRotation)
+
         .def("transpose", &Matrix4f::transpose)
         .def("transposeInPlace", &Matrix4f::transposeInPlace)
 

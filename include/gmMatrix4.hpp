@@ -427,6 +427,25 @@ Vector3<TypeReal> Matrix4<TypeReal>::getPosition() const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
+void Matrix4<TypeReal>::setRotation(const Matrix3<TypeReal>& rotationMatrix)
+{
+    const TypeReal* rot = &rotationMatrix.data[0];
+    data[0]=rot[0];  data[1]=rot[1];  data[2]=rot[2];  
+    data[4]=rot[3];  data[5]=rot[4];  data[6]=rot[5];
+    data[8]=rot[6];  data[9]=rot[7];  data[10]=rot[8];
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Matrix3<TypeReal> Matrix4<TypeReal>::getRotation() const
+{
+    Matrix3<TypeReal> rot(
+        data[0],  data[1],  data[2],  
+        data[4],  data[5],  data[6],
+        data[8],  data[9],  data[10]);
+    return rot;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
 Matrix4<TypeReal> Matrix4<TypeReal>::transpose() const
 {
     return Matrix4<TypeReal>(

@@ -27,7 +27,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 
-from gmath import Matrix4, Matrix3, Vector3
+from gmath import Matrix4, Matrix3, Vector3, RotationOrder
 
 class Camera(object):
     def __init__(self):
@@ -38,17 +38,17 @@ class Camera(object):
         self.rotate(-25, 40)
 
     def translate(self, x, y, z):
-        self.__pov.translate(Vector3([x, y, z]))
+        self.__pov.translate(Vector3(x, y, z))
 
     def setZoom(self, z):
-        self.__camera.setSingleValue(3, 2, z)
+        self.__camera[14] = z
 
     def rotate(self, x, y):
-        rotMatrix = Matrix3.createFromEuler(x, y, 0.0, "xyz")
+        rotMatrix = Matrix3.createFromEuler(x, y, 0.0, RotationOrder.XYZ)
         self.__pov.setRotation(rotMatrix)
 
     def getFinalMatrix(self):
-        finalMatrix = self.__camera.multiplyByMatrix4(self.__pov)
+        finalMatrix = self.__camera * self.__pov
 
         return finalMatrix
 
@@ -57,7 +57,7 @@ class TestGLWidget(QGLWidget):
     def __init__(self, parent=None, name=None):
         QGLWidget.__init__(self, parent, name)
 
-        self.rot = Vector3([-25, 40, 0.0])
+        self.rot = Vector3(-25, 40, 0.0)
         self.z = 20
 
         self.camera = Camera()
@@ -75,7 +75,7 @@ class TestGLWidget(QGLWidget):
         projection = glGetDoublev(GL_PROJECTION_MATRIX)
 
         oglPos = gluUnProject( winX, -winY, 1, modelview, projection, viewport)
-        retVec = Vector3([oglPos[0], oglPos[1], oglPos[2]])
+        retVec = Vector3(oglPos[0], oglPos[1], oglPos[2])
         return retVec
 
     def mousePressEvent(self, evt):
@@ -104,8 +104,8 @@ class TestGLWidget(QGLWidget):
                 self.camera.setZoom(self.z)
 
             elif self.pressedButton == QtCore.Qt.RightButton:
-                self.rot.x += deltaY * 0.3
-                self.rot.y += -deltaX * 0.3
+                self.rot.x += deltaY * 0.005
+                self.rot.y += -deltaX * 0.005
                 self.camera.rotate(self.rot.x, self.rot.y)
 
             self.oldMousePos[0], self.oldMousePos[1] = worldPos.x, worldPos.y
@@ -115,7 +115,12 @@ class TestGLWidget(QGLWidget):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
         glPushMatrix()
-        glLoadMatrixf(self.camera.getFinalMatrix().inverse().getValues())
+
+        inverseFinal = self.camera.getFinalMatrix().inverse()
+        values = []
+        for i in range(0, 16):
+            values.append(inverseFinal[i])
+        glLoadMatrixf(values)
 
         self.drawGround()
         self.draw()
