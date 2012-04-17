@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <limits.h>
 #include <iostream>
 
+#ifdef LINUX
+#include <memory.h>
+#endif
 
 namespace gmath
 {
