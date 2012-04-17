@@ -133,7 +133,8 @@ Vector3<TypeReal> Euler<TypeReal>::toVector() const
 template <class TypeReal>
 std::string Euler<TypeReal>::toString() const
 {
-    char buffer[200];
-    sprintf( buffer, "gmath::Euler(%f, %f, %f);", x, y, z );
-    return buffer;
+    std::stringstream oss;
+    oss << "gmath::Euler(" << x << ", " << y << ", " << z << ");" << std::endl;
+
+    return oss.str();
 }

@@ -1011,10 +1011,11 @@ Matrix3<TypeReal> Matrix3<TypeReal>::createFromAxisAngle(const Vector3<TypeReal>
 template <class TypeReal>
 std::string Matrix3<TypeReal>::toString() const
 {
-    char buffer[200];
-    sprintf( buffer, "gmath::Matrix3(%f, %f, %f,\n               %f, %f, %f,\n               %f, %f, %f);",
-                    data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8] );
-    std::string str(buffer);
-    return str;
+    std::stringstream oss;
+    oss << "gmath::Matrix3(" << data[0] << ", " << data[1] << ", " << data[2] << std::endl;
+    oss << "               " << data[3] << ", " << data[4] << ", " << data[5] << std::endl;
+    oss << "               " << data[6] << ", " << data[7] << ", " << data[8] << ");" << std::endl;
+
+    return oss.str();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/

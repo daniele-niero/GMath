@@ -362,9 +362,9 @@ void Vector3<TypeReal>::refractInPlace(const Vector3<TypeReal> & normal, TypeRea
 template <class TypeReal>
 std::string Vector3<TypeReal>::toString() const
 {
-    char buffer[200];
-    sprintf( buffer, "gmath::Vector3(%f, %f, %f);", x, y, z );
-    std::string str(buffer);
-    return str;
+    std::stringstream oss;
+    oss << "gmath::Vector3(" << x << ", " << y << ", " << z << ");" << std::endl;
+
+    return oss.str();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/

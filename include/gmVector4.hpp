@@ -288,10 +288,10 @@ void Vector4<TypeReal>::normalizeInPlace()
 template <class TypeReal>
 std::string Vector4<TypeReal>::toString() const
 {
-    char buffer[200];
-    sprintf( buffer, "gmath::Vector4(%f, %f, %f, %f);", x, y, z, w );
-    std::string str(buffer);
-    return str;
+    std::stringstream oss;
+    oss << "gmath::Vector4(" << x << ", " << y << ", " << z << ", " << w << ");" << std::endl;
+
+    return oss.str();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 

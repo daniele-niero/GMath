@@ -871,10 +871,12 @@ void Matrix4<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal
 template <class TypeReal>
 std::string Matrix4<TypeReal>::toString() const
 {
-    char buffer[200];
-    sprintf( buffer, "gmath::Matrix4(%f, %f, %f, %f,\n               %f, %f, %f, %f\n               %f, %f, %f, %f\n               %f, %f, %f, %f);",
-                    data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9], data[10], data[11], data[12], data[13], data[14], data[15]);
-    std::string str(buffer);
-    return str;
+    std::stringstream oss;
+    oss << "gmath::Matrix3(" << data[ 0] << ", " << data[ 1] << ", " << data[ 2] << ", " << data[ 3] << std::endl;
+    oss << "               " << data[ 4] << ", " << data[ 5] << ", " << data[ 6] << ", " << data[ 7] << std::endl;
+    oss << "               " << data[ 8] << ", " << data[ 9] << ", " << data[10] << ", " << data[11] << std::endl;
+    oss << "               " << data[12] << ", " << data[13] << ", " << data[14] << ", " << data[15] << ");" << std::endl;
+
+    return oss.str();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
