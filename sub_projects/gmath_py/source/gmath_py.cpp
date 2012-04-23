@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <boost/python.hpp>
 #include "pygmRoot.h"
+#include "pygmMath.h"
 #include "pygmEuler.h"
 #include "pygmVector3.h"
 #include "pygmVector4.h"
@@ -32,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 BOOST_PYTHON_MODULE(gmath)
 {
     wrapRoot();
+    wrapMath();
     wrapEuler();
     wrapVector3();
     wrapVector4();

@@ -34,6 +34,13 @@ using namespace std;
 
 namespace gmath
 {
+	// Matrices forward declaration
+	template <class TypeReal>
+	class Matrix3;
+
+    template <class TypeReal>
+    class Matrix4;
+
 	/**
 	Three-dimensional vector.
 
@@ -65,6 +72,8 @@ namespace gmath
 			Vector3<TypeReal> operator + (const Vector3<TypeReal> & other) const;
 			Vector3<TypeReal> operator - (const Vector3<TypeReal> & other) const;
 			Vector3<TypeReal> operator * (TypeReal scalar) const;
+			Vector3<TypeReal> operator * (const Matrix3<TypeReal> &mat) const;
+            Vector3<TypeReal> operator * (const Matrix4<TypeReal> &mat) const;
 			Vector3<TypeReal> operator / (TypeReal scalar) const;
 
 			/*------ Arithmetic updates ------*/

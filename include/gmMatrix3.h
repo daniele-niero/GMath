@@ -37,8 +37,7 @@ namespace gmath
 		    [Zx, Zy, Zz] @n
 
 		This class represents a 3x3 matrix that can be used to store
-		rotations transformations.
-		@note This matrix is ROW MAJOR. */
+		rotations transformations. */
 	template <class TypeReal>
 	class Matrix3
 	{

@@ -108,6 +108,29 @@ Vector3<TypeReal> Vector3<TypeReal>::operator * (TypeReal scalar) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>
+Vector3<TypeReal> Vector3<TypeReal>::operator * (const Matrix3<TypeReal> &mat) const
+{
+    Vector3<TypeReal> retVec(
+        mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2] * this->z,
+        mat.data[3] * this->x + mat.data[4] * this->y + mat.data[5] * this->z,
+        mat.data[6] * this->x + mat.data[7] * this->y + mat.data[8] * this->z
+        );
+    return retVec;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Vector3<TypeReal> Vector3<TypeReal>::operator * (const Matrix4<TypeReal> &mat) const
+{
+    Vector3<TypeReal> retVec(
+        mat.data[0]*this->x + mat.data[1]*this->y + mat.data[2]*this->z + mat.data[3]*this->w,
+        mat.data[4]*this->x + mat.data[5]*this->y + mat.data[6]*this->z + mat.data[7]*this->w,
+        mat.data[8]*this->x + mat.data[9]*this->y + mat.data[10]*this->z + mat.data[11]*this->w,
+        mat.data[12]*this->x + mat.data[13]*this->y + mat.data[14]*this->z + mat.data[15]*this->w
+        );
+    return retVec;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
 Vector3<TypeReal> Vector3<TypeReal>::operator / (TypeReal scalar) const
 {
     Vector3<TypeReal> newVector3;

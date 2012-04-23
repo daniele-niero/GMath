@@ -34,7 +34,7 @@ list matrix4_getdata_wrap(Matrix4f* self)
     list retData;
     for (int i=0; i<16; i++)
     {
-        retData.append(&(self->data[i]));
+        retData.append(self->data[i]);
     }
     return retData;
 }
@@ -93,14 +93,28 @@ void wrapMatrix4()
         .def( init<const Matrix4f &>() )
         .def( init<const Vector4f &, const Vector4f &, const Vector4f &, const Vector4f &>() )
 
-        .def("getData", &matrix4_getdata_wrap)
-        .def("setData", &matrix4_setdata_wrap)
+        .add_property("data", &matrix4_getdata_wrap, &matrix4_setdata_wrap)
 
         .def("__str__", &Matrix4f::toString)
         .def("__getitem__", getitem_wrap<Matrix4f>)
         .def("__setitem__", setitem_wrap<Matrix4f>)
 
+        .def( self + float() )
+        .def( self + Matrix4f() )
+        .def( self - float() )
+        .def( self - Matrix4f() )
+        .def( self / float() )
+        .def( self * float() )
         .def( self * Matrix4f() )
+        .def( self * Vector4f() )
+        .def( self * Vector3f() )
+
+        .def( self += float() )
+        .def( self += Matrix4f() )
+        .def( self -= float() )
+        .def( self -= Matrix4f() )
+        .def( self /= float() )
+        .def( self *= float() )
         .def( self *= Matrix4f() )
 
         .def( self == Matrix4f() )
@@ -140,8 +154,10 @@ void wrapMatrix4()
         .staticmethod("createLookAt")
 
         .def("setFromAxisAngle", &Matrix4f::setFromAxisAngle)
+        .def("createFromAxisAngle", &Matrix4f::createFromAxisAngle)
+        .staticmethod("createFromAxisAngle")
 
-        .add_static_property("IDENTITY", &Matrix4f::IDENTITY)
+        .def_readonly("IDENTITY", &Matrix4f::IDENTITY)
 
         ;
 }

@@ -29,17 +29,17 @@ using namespace gmath;
 
 
 namespace {
-        list matrix4_getdata_wrap(Matrix3f* self)
+        list matrix3_getdata_wrap(Matrix3f* self)
         {
             list retData;
             for (int i=0; i<9; i++)
             {
-                retData.append(&(self->data[i]));
+                retData.append(self->data[i]);
             }
             return retData;
         }
 
-        void matrix4_setdata_wrap(Matrix3f* self, list &inlist)
+        void matrix3_setdata_wrap(Matrix3f* self, list &inlist)
         {
             for (int i=0; i<9; i++)
             {
@@ -61,11 +61,11 @@ namespace {
         void (Matrix3f::*setFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::setFromEuler;
         void (Matrix3f::*setFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::setFromEuler;
         // to ensure RotationOrder with default argument...
-        void matrix4_setFromEuler1_wrap(Matrix3f* self, const float& x, const float& y, const float& z)
+        void matrix3_setFromEuler1_wrap(Matrix3f* self, const float& x, const float& y, const float& z)
         {
             self->setFromEuler(x, y, z);
         }
-        void matrix4_setFromEuler2_wrap(Matrix3f* self, const Eulerf& euler)
+        void matrix3_setFromEuler2_wrap(Matrix3f* self, const Eulerf& euler)
         {
             self->setFromEuler(euler);
         }
@@ -73,11 +73,11 @@ namespace {
         Matrix3f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::createFromEuler;
         Matrix3f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::createFromEuler;
         // to ensure RotationOrder with default argument...
-        Matrix3f matrix4_createFromEuler1_wrap(const float& x, const float& y, const float& z)
+        Matrix3f matrix3_createFromEuler1_wrap(const float& x, const float& y, const float& z)
         {
             return Matrix3f::createFromEuler(x, y, z);
         }
-        Matrix3f matrix4_createFromEuler2_wrap(const Eulerf& euler)
+        Matrix3f matrix3_createFromEuler2_wrap(const Eulerf& euler)
         {
             return Matrix3f::createFromEuler(euler);
         }
@@ -90,8 +90,7 @@ void wrapMatrix3()
         .def( init<const Matrix3f &>() )
         .def( init<const Vector3f &, const Vector3f &, const Vector3f &>() )
 
-        .def("getData", &matrix4_getdata_wrap)
-        .def("setData", &matrix4_setdata_wrap)
+        .add_property("data", &matrix3_getdata_wrap, &matrix3_setdata_wrap)
 
         .def("__str__", &Matrix3f::toString)
         .def("__getitem__", getitem_wrap<Matrix3f>)
@@ -146,13 +145,13 @@ void wrapMatrix3()
 
         .def("setFromEuler", setFromEuler1)
         .def("setFromEuler", setFromEuler2)
-        .def("setFromEuler", &matrix4_setFromEuler1_wrap)
-        .def("setFromEuler", &matrix4_setFromEuler2_wrap)
+        .def("setFromEuler", &matrix3_setFromEuler1_wrap)
+        .def("setFromEuler", &matrix3_setFromEuler2_wrap)
 
         .def("createFromEuler", createFromEuler1)
         .def("createFromEuler", createFromEuler2)
-        .def("createFromEuler", &matrix4_createFromEuler1_wrap)
-        .def("createFromEuler", &matrix4_createFromEuler2_wrap)
+        .def("createFromEuler", &matrix3_createFromEuler1_wrap)
+        .def("createFromEuler", &matrix3_createFromEuler2_wrap)
         .staticmethod("createFromEuler")
 
         .def("setFromVectorToVector", &Matrix3f::setFromVectorToVector)
@@ -163,7 +162,11 @@ void wrapMatrix3()
         .def("createLookAt", &Matrix3f::createLookAt)
         .staticmethod("createLookAt")
 
-        .add_static_property("IDENTITY", &Matrix3f::IDENTITY)
+        .def("setFromAxisAngle", &Matrix3f::setFromAxisAngle)
+        .def("createFromAxisAngle", &Matrix3f::createFromAxisAngle)
+        .staticmethod("createFromAxisAngle")
+
+        .def_readonly("IDENTITY", &Matrix3f::IDENTITY)
 
         ;
 }

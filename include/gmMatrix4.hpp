@@ -225,9 +225,9 @@ template <class TypeReal>
 Vector3<TypeReal> Matrix4<TypeReal>::operator * (const Vector3<TypeReal> &vector) const
 {
     Vector3<TypeReal> retVec(
-        data[0]*vector.x + data[1]*vector.y + data[2]*vector.z,
-        data[3]*vector.x + data[4]*vector.y + data[5]*vector.z,
-        data[6]*vector.x + data[7]*vector.y + data[8]*vector.z
+        data[0]*vector.x + data[1]*vector.y + data[2]*vector.z + data[12],
+        data[4]*vector.x + data[5]*vector.y + data[6]*vector.z + data[13],
+        data[8]*vector.x + data[9]*vector.y + data[10]*vector.z + data[14]
         );
     return retVec;
 }
@@ -866,6 +866,14 @@ void Matrix4<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal
     data[0] = k1*sqr_a+k2; data[1] = k1ab+k3c;    data[2] = k1ac-k3b;
     data[4] = k1ab-k3c;    data[5] = k1*sqr_b+k2; data[6] = k1bc+k3a;
     data[8] = k1ac+k3b;    data[9] = k1bc-k3a;    data[10] = k1*sqr_c+k2;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <class TypeReal>
+Matrix4<TypeReal> Matrix4<TypeReal>::createFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle)
+{
+    Matrix4<TypeReal> mat;
+    mat.setFromAxisAngle(axis, angle);
+    return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <class TypeReal>

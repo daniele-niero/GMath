@@ -167,7 +167,7 @@ namespace gmath
             static Matrix4<TypeReal> createLookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
 
             void setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle);
-//          static Matrix4<TypeReal> createFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle);
+            static Matrix4<TypeReal> createFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle);
 
             std::string toString() const;
 

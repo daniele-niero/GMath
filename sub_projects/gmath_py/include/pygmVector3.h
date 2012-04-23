@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define PYGMVECTOR3_H
 
 #include "gmVector3.h"
+#include "gmMatrix3.h"
 
 void wrapVector3();
 

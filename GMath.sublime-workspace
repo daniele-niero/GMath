@@ -4,6 +4,118 @@
 		"selected_items":
 		[
 			[
+				"scr",
+				"screenToWorld	(attribute, function)"
+			],
+			[
+				"cy",
+				"cylinderBasePoints	(local, instance)"
+			],
+			[
+				"Matrix3",
+				"Matrix3f"
+			],
+			[
+				"set",
+				"setdata"
+			],
+			[
+				"axi",
+				"axisZ	(local, instance)"
+			],
+			[
+				"axis",
+				"axisY	(local, instance)"
+			],
+			[
+				"base",
+				"basePoints	(attribute, instance)"
+			],
+			[
+				"ba",
+				"basePoints	(attribute, instance)"
+			],
+			[
+				"LIGHT",
+				"LIGHTING"
+			],
+			[
+				"draw",
+				"drawSelected	(attribute, function)"
+			],
+			[
+				"paint",
+				"paintGLForPicking	(attribute, function)"
+			],
+			[
+				"float",
+				"float32"
+			],
+			[
+				"Matrix",
+				"Matrix4Draw	(global, class)"
+			],
+			[
+				"glColor",
+				"glColor3f"
+			],
+			[
+				"glD",
+				"glDrawBuffer"
+			],
+			[
+				"pa",
+				"paintGLForPicking	(attribute, function)"
+			],
+			[
+				"se",
+				"selectedObj	(attribute, instance)"
+			],
+			[
+				"obj",
+				"objsToDraw	(attribute, instance)"
+			],
+			[
+				"pin",
+				"paintGL"
+			],
+			[
+				"pain",
+				"paintForSelction	(attribute, function)"
+			],
+			[
+				"dra",
+				"drawForPicking"
+			],
+			[
+				"b",
+				"boundingBox"
+			],
+			[
+				"MODEL",
+				"MODELVIEW"
+			],
+			[
+				"v",
+				"vecx"
+			],
+			[
+				"gm",
+				"gmMatrix4"
+			],
+			[
+				"m",
+				"gmMatrix4"
+			],
+			[
+				"inver",
+				"inverseFinal"
+			],
+			[
+				"Matr",
+				"Matrix3"
+			],
+			[
 				"get",
 				"getPosition"
 			],
@@ -14,10 +126,6 @@
 			[
 				"addSc",
 				"addScale1"
-			],
-			[
-				"inver",
-				"inverseInPlace"
 			],
 			[
 				"tran",
@@ -60,58 +168,26 @@
 	"buffers":
 	[
 		{
-			"file": "build/darwin/release/python/openGLViewport.py",
+			"file": "sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
 			"settings":
 			{
-				"buffer_size": 5929,
+				"buffer_size": 1619,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "include/gmMatrix4.hpp",
+			"file": "sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
 			"settings":
 			{
-				"buffer_size": 37500,
+				"buffer_size": 4819,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "include/gmMatrix3.hpp",
+			"file": "sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
 			"settings":
 			{
-				"buffer_size": 37516,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmMatrix4.h",
-			"settings":
-			{
-				"buffer_size": 6946,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmMatrix3.h",
-			"settings":
-			{
-				"buffer_size": 6506,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/source/pygmMatrix4.cpp",
-			"settings":
-			{
-				"buffer_size": 5108,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/source/pygmMatrix3.cpp",
-			"settings":
-			{
-				"buffer_size": 6361,
+				"buffer_size": 8550,
 				"line_ending": "Unix"
 			}
 		}
@@ -119,15 +195,23 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 347.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
 			[
 				"Snippet: ",
 				"Snippet: #!/usr/bin/env"
 			]
 		],
-		"width": 392.0
+		"width": 449.0
 	},
 	"console":
 	{
@@ -144,23 +228,50 @@
 	},
 	"file_history":
 	[
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmRoot.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User_backup/Distraction Free.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User_backup/Preferences.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
+		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User_backup/Global.sublime-settings",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/cube_obj.py",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
+		"/Users/danieleniero/Downloads/Picking_Example 2/Picking_Example.bas",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMath.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMath.h",
+		"/Users/danieleniero/Documents/Programming/GMath/references/openGLViewport.py",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmRoot.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/source/gmRoot.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/lib/darwin/release/python/python2.7/site-packages/openGLViewport.py",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/references/gmath_purepython/matrix3.py",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h.orig",
+		"/Users/danieleniero/Documents/Programming/GMath/references/openGLViewport.py.orig",
+		"/Users/danieleniero/Documents/Programming/GMath/build/darwin/release/python/openGLViewport.py",
 		"/Users/danieleniero/Desktop/RentMessage.txt",
 		"/Users/danieleniero/Documents/Programming/GMath/.hgignore",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmVector3.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pymgVector4.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/references/openGLViewport.py",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/vector4.py",
 		"/Users/danieleniero/Documents/Programming/GMath/SConstruct",
 		"/Users/danieleniero/Documents/Programming/GMath/SConsOutputColors.py",
@@ -169,17 +280,9 @@
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/__init__.py",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmRoot.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmEuler.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmRoot.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/gmath_py.h",
 		"/Users/danieleniero/Documents/Programming/GMath/GMath.sublime-project",
 		"/Users/danieleniero/Documents/Programming/coral-repo/coral/imath/SConstruct",
@@ -226,7 +329,6 @@
 		"/Users/danieleniero/Documents/Programming/coral-repo/compile.sh",
 		"/Users/danieleniero/Documents/Programming/coral-repo-svn/buildEnv.py",
 		"/Users/danieleniero/Documents/Programming/coral-repo/.git/info/exclude",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
 		"/Users/danieleniero/Documents/yasvn2hg/user.map",
 		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/ArithmeticNodes.cpp",
 		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/MathNodes.cpp",
@@ -253,25 +355,7 @@
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Global.sublime-settings",
 		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examples/simplePyNode/simplePyNode.py",
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Base File.sublime-settings",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/timeNode.py",
-		"/Users/danieleniero/Desktop/Joint.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/CoralNodes/Collapsed/__init__.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/src/Node.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/src/Node.h",
-		"/Users/danieleniero/Documents/Programming/Python User Tests/test_00.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/py/coral/inOutNode.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/coralUi/nodeBox.py",
-		"/Users/danieleniero/Desktop/widgetTest.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/buildEnv.py",
-		"/Users/danieleniero/Desktop/launchApp.sh",
-		"/Users/danieleniero/Downloads/buymeasoda-soda-theme-8f544d8/README.md",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/skeletonNode/skeletonNode.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/skeletonPrimitive.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/testNode.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/skeletonPrimitive",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/jitternNode/SConstruct",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/SConstruct",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examplePlugins/testNode/testNodePlugin.py"
+		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/timeNode.py"
 	],
 	"find":
 	{
@@ -279,7 +363,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 			""
@@ -287,9 +371,37 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"self.__camera",
+			"__pov",
+			"getData",
+			"matrix4",
+			"self.camera",
+			"self.rot",
+			"self.camera",
+			"()",
+			"self.boundingBox[0]",
+			"self.boundingBox[1]",
+			"self.vec",
+			"GL_LINE_LOOP",
+			",self",
+			"b->min",
+			"b->max",
+			"glGetIntegerv",
+			"id",
+			"gmMatrix4",
+			"drawGround",
+			"SMALLEST",
+			"MIN",
+			"MAX",
+			"HALFPI",
+			"PI",
+			"EPSILON",
+			"Math",
+			"Math<TypeReal>::",
+			"<class TypeReal>",
 			"createLookAt",
 			"look",
 			"transpose",
@@ -355,9 +467,27 @@
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
+			"self._camera",
+			"_pov",
+			"bbmin",
+			"bbmax",
+			"",
+			"GL_QUADS",
+			", self",
+			"self.boundingBox[0]",
+			"self.boundingBox[1]",
+			"mat",
+			"Constants<TypeReal>::SMALLEST",
+			"Constants<TypeReal>::MIN",
+			"Constants<TypeReal>::MAX",
+			"Constants<TypeReal>::HALFPI",
+			"Constants<TypeReal>::PI",
+			"Constants<TypeReal>::EPSILON",
+			"",
+			"<typename TypeReal>",
 			"",
 			"data[",
 			"+",
@@ -387,29 +517,29 @@
 		"reverse": false,
 		"show_context": false,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "build/darwin/release/python/openGLViewport.py",
+					"file": "sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
 					"settings":
 					{
-						"buffer_size": 5929,
+						"buffer_size": 1619,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1065,
-								1065
+								621,
+								621
 							]
 						],
 						"settings":
@@ -419,179 +549,71 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 431.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "include/gmMatrix4.hpp",
+					"file": "sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
 					"settings":
 					{
-						"buffer_size": 37500,
+						"buffer_size": 4819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								35872,
-								35872
+								3059,
+								3059
+							],
+							[
+								3084,
+								3084
+							],
+							[
+								3109,
+								3109
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/Python/Python.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 11961.0,
+						"translation.y": 835.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "include/gmMatrix3.hpp",
+					"file": "sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
 					"settings":
 					{
-						"buffer_size": 37516,
+						"buffer_size": 8550,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								35262,
-								35667
+								4280,
+								4240
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
+							"syntax": "Packages/Python/Python.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 14103.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "include/gmMatrix4.h",
-					"settings":
-					{
-						"buffer_size": 6946,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5889,
-								5890
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1905.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "include/gmMatrix3.h",
-					"settings":
-					{
-						"buffer_size": 6506,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3661,
-								3661
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1670.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
-				{
-					"buffer": 5,
-					"file": "sub_projects/gmath_py/source/pygmMatrix4.cpp",
-					"settings":
-					{
-						"buffer_size": 5108,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4968,
-								4968
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 15.0,
-						"translation.y": 1547.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "sub_projects/gmath_py/source/pygmMatrix3.cpp",
-					"settings":
-					{
-						"buffer_size": 6361,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6284,
-								6201
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2032.0,
+						"translation.y": 2254.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -616,18 +638,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.804424239929,
 			1.0
 		],
 		"rows":
@@ -637,6 +652,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 328.0
+	},
 	"replace":
 	{
 		"height": 62.0
@@ -690,6 +709,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 193.0,
+	"side_bar_width": 212.0,
 	"status_bar_visible": true
 }

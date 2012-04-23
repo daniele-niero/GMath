@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define GMROOT_H
 
 #include <math.h>
-#include <iostream>
+#include <sstream>
 #include <exception>
 
 

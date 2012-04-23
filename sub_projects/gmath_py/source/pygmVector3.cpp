@@ -45,6 +45,7 @@ void wrapVector3()
         .def( self + Vector3f() )
         .def( self - Vector3f() )
         .def( self * float() )
+        .def( self * Matrix3f() )
         .def( self / float() )
 
         .def( self += Vector3f() )

@@ -20,17 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 #include <boost/python.hpp>
+#include "pygmRoot.h"
 #include "pygmEuler.h"
 
 using namespace boost::python;
 using namespace gmath;
-
-
-void eulerf_setitem_wrap(Eulerf* self, int index, float value){
-    self->operator[](index) = value;
-}
-
-float (Eulerf::*eulerf_getitem_wrap)(int) const = &Eulerf::operator[];
 
 
 void wrapEuler()
@@ -45,8 +39,8 @@ void wrapEuler()
         .def_readwrite("z", &Eulerf::z)
 
         .def("__str__", &Eulerf::toString)
-        .def("__getitem__", eulerf_getitem_wrap)
-        .def("__setitem__", eulerf_setitem_wrap)
+        .def("__getitem__", getitem_wrap<Eulerf>)
+        .def("__setitem__", setitem_wrap<Eulerf>)
 
         .def( self == Eulerf() )
         .def( self != Eulerf() )
