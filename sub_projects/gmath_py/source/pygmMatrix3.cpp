@@ -119,6 +119,9 @@ void wrapMatrix3()
         .def("setToIdentity", &Matrix3f::setToIdentity)
         .def("set", &Matrix3f::set)
 
+        .def("getRow", &Matrix3f::getRow)
+        .def("setRow", &Matrix3f::setRow)
+
         .def("transpose", &Matrix3f::transpose)
         .def("transposeInPlace", &Matrix3f::transposeInPlace)
 

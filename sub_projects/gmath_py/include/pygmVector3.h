@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "gmVector3.h"
 #include "gmMatrix3.h"
+#include "gmMatrix4.h"
 
 void wrapVector3();
 

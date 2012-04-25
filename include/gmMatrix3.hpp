@@ -21,57 +21,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 /*------ constructors ------*/
-template <class TypeReal>
-Matrix3<TypeReal>::Matrix3()
+template <typename real>
+Matrix3<real>::Matrix3()
 {}
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal>::Matrix3(
-    TypeReal xx, TypeReal xy, TypeReal xz,
-    TypeReal yx, TypeReal yy, TypeReal yz,
-    TypeReal zx, TypeReal zy, TypeReal zz)
+template <typename real>
+Matrix3<real>::Matrix3(
+    real xx, real xy, real xz,
+    real yx, real yy, real yz,
+    real zx, real zy, real zz)
 {
     set(xx, xy, xz, yx, yy, yz, zx, zy, zz);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal>::Matrix3(const Matrix3<TypeReal> & other)
+template <typename real>
+Matrix3<real>::Matrix3(const Matrix3<real> & other)
 {
-    memcpy(data, other.data, 9*sizeof(TypeReal));
+    memcpy(data, other.data, 9*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal>::Matrix3(
-        const Vector3<TypeReal> &axisX,
-        const Vector3<TypeReal> &axisY,
-        const Vector3<TypeReal> &axisZ)
+template <typename real>
+Matrix3<real>::Matrix3(
+        const Vector3<real> &axisX,
+        const Vector3<real> &axisY,
+        const Vector3<real> &axisZ)
 {
-    memcpy(&data[0], axisX.ptr(), 3*sizeof(TypeReal));
-    memcpy(&data[3], axisY.ptr(), 3*sizeof(TypeReal));
-    memcpy(&data[6], axisZ.ptr(), 3*sizeof(TypeReal));
+    memcpy(&data[0], axisX.ptr(), 3*sizeof(real));
+    memcpy(&data[3], axisY.ptr(), 3*sizeof(real));
+    memcpy(&data[6], axisZ.ptr(), 3*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal>::Matrix3(const TypeReal* list)
+template <typename real>
+Matrix3<real>::Matrix3(const real* list)
 {
-    memcpy(data, list, 9*sizeof(TypeReal));
+    memcpy(data, list, 9*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal* Matrix3<TypeReal>::ptr()
+template <typename real>
+real* Matrix3<real>::ptr()
 {
     return &data[0];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-const TypeReal* Matrix3<TypeReal>::ptr() const
+template <typename real>
+const real* Matrix3<real>::ptr() const
 {
     return &data[0];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Coordinates access ------*/
-template <class TypeReal>
-TypeReal Matrix3<TypeReal>::operator[] (int i) const
+template <typename real>
+real Matrix3<real>::operator[] (int i) const
 {
     if (i>=0 && i<9)
     {
@@ -82,23 +82,23 @@ TypeReal Matrix3<TypeReal>::operator[] (int i) const
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal& Matrix3<TypeReal>::operator[] (int i)
+template <typename real>
+real& Matrix3<real>::operator[] (int i)
 {
     if (i>=0 && i<9)
     {
         return this->data[i];
     }
     else {
-        throw out_of_range("gmath::Vector4: index out of range");
+        throw out_of_range("gmath::Matrix3: index out of range");
     }
 }
 /*------ Arithmetic operations ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator + (TypeReal value) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator + (real value) const
 {
-    Matrix3<TypeReal> retMatrix(
+    Matrix3<real> retMatrix(
         data[0]+value, data[1]+value, data[2]+value,
         data[3]+value, data[4]+value, data[5]+value,
         data[6]+value, data[7]+value, data[8]+value
@@ -106,12 +106,12 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator + (TypeReal value) const
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator + (const Matrix3<TypeReal> &other) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator + (const Matrix3<real> &other) const
 {
     
-    const TypeReal* b = other.ptr();
-    Matrix3<TypeReal> retMatrix(
+    const real* b = other.ptr();
+    Matrix3<real> retMatrix(
         data[0]+b[0], data[1]+b[1], data[2]+b[2],
         data[3]+b[3], data[4]+b[4], data[5]+b[5],
         data[6]+b[6], data[7]+b[7], data[8]+b[8]
@@ -119,10 +119,10 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator + (const Matrix3<TypeReal> &other)
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator - (TypeReal value) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator - (real value) const
 {
-    Matrix3<TypeReal> retMatrix(
+    Matrix3<real> retMatrix(
         data[0]-value, data[1]-value, data[2]-value,
         data[3]-value, data[4]-value, data[5]-value,
         data[6]-value, data[7]-value, data[8]-value
@@ -130,12 +130,12 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator - (TypeReal value) const
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator - (const Matrix3<TypeReal> &other) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator - (const Matrix3<real> &other) const
 {
     
-    const TypeReal* b = other.ptr();
-    Matrix3<TypeReal> retMatrix(
+    const real* b = other.ptr();
+    Matrix3<real> retMatrix(
         data[0]-b[0], data[1]-b[1], data[2]-b[2],
         data[3]-b[3], data[4]-b[4], data[5]-b[5],
         data[6]-b[6], data[7]-b[7], data[8]-b[8]
@@ -143,10 +143,10 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator - (const Matrix3<TypeReal> &other)
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator / (TypeReal value) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator / (real value) const
 {
-    Matrix3<TypeReal> retMatrix(
+    Matrix3<real> retMatrix(
         data[0]/value, data[1]/value, data[2]/value,
         data[3]/value, data[4]/value, data[5]/value,
         data[6]/value, data[7]/value, data[8]/value
@@ -155,10 +155,10 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator / (TypeReal value) const
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator * (TypeReal value) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator * (real value) const
 {
-    Matrix3<TypeReal> retMatrix(
+    Matrix3<real> retMatrix(
         data[0]*value, data[1]*value, data[2]*value,
         data[3]*value, data[4]*value, data[5]*value,
         data[6]*value, data[7]*value, data[8]*value
@@ -167,11 +167,11 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator * (TypeReal value) const
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::operator * (const Matrix3<TypeReal> &other) const
+template <typename real>
+Matrix3<real> Matrix3<real>::operator * (const Matrix3<real> &other) const
 {
-    const TypeReal* b = other.ptr();
-    Matrix3<TypeReal> retMatrix(
+    const real* b = other.ptr();
+    Matrix3<real> retMatrix(
         data[0]*b[0] + data[1]*b[3] + data[2]*b[6],
         data[0]*b[1] + data[1]*b[4] + data[2]*b[7],
         data[0]*b[2] + data[1]*b[5] + data[2]*b[8],
@@ -187,10 +187,10 @@ Matrix3<TypeReal> Matrix3<TypeReal>::operator * (const Matrix3<TypeReal> &other)
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Matrix3<TypeReal>::operator * (const Vector3<TypeReal> &vector) const
+template <typename real>
+Vector3<real> Matrix3<real>::operator * (const Vector3<real> &vector) const
 {
-    Vector3<TypeReal> retVec(
+    Vector3<real> retVec(
         data[0]*vector.x + data[1]*vector.y + data[2]*vector.z,
         data[3]*vector.x + data[4]*vector.y + data[5]*vector.z,
         data[6]*vector.x + data[7]*vector.y + data[8]*vector.z
@@ -199,65 +199,65 @@ Vector3<TypeReal> Matrix3<TypeReal>::operator * (const Vector3<TypeReal> &vector
 }
 /*------ Arithmetic updates ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator += (TypeReal value)
+template <typename real>
+void Matrix3<real>::operator += (real value)
 {
     data[0]+=value; data[1]+=value; data[2]+=value;
     data[3]+=value; data[4]+=value; data[5]+=value;
     data[6]+=value; data[7]+=value; data[8]+=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator += (const Matrix3<TypeReal> &other)
+template <typename real>
+void Matrix3<real>::operator += (const Matrix3<real> &other)
 {
-    TypeReal* a = ptr();
-    const TypeReal* b = other.ptr();
+    real* a = ptr();
+    const real* b = other.ptr();
     data[0]+=b[0]; data[1]+=b[1]; data[2]+=b[2];
     data[3]+=b[3]; data[4]+=b[4]; data[5]+=b[5];
     data[6]+=b[6]; data[7]+=b[7]; data[8]+=b[8];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator -= (TypeReal value)
+template <typename real>
+void Matrix3<real>::operator -= (real value)
 {
     data[0]-=value; data[1]-=value; data[2]-=value;
     data[3]-=value; data[4]-=value; data[5]-=value;
     data[6]-=value; data[7]-=value; data[8]-=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator -= (const Matrix3<TypeReal> &other)
+template <typename real>
+void Matrix3<real>::operator -= (const Matrix3<real> &other)
 {
-    TypeReal* a = ptr();
-    const TypeReal* b = other.ptr();
+    real* a = ptr();
+    const real* b = other.ptr();
 
     data[0]-=b[0]; data[1]-=b[1]; data[2]-=b[2];
     data[3]-=b[3]; data[4]-=b[4]; data[5]-=b[5];
     data[6]-=b[6]; data[7]-=b[7]; data[8]-=b[8];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator /= (TypeReal value)
+template <typename real>
+void Matrix3<real>::operator /= (real value)
 {
     data[0]/=value; data[1]/=value; data[2]/=value;
     data[3]/=value; data[4]/=value; data[5]/=value;
     data[6]/=value; data[7]/=value; data[8]/=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator *= (TypeReal value)
+template <typename real>
+void Matrix3<real>::operator *= (real value)
 {
     data[0]*=value; data[1]*=value; data[2]*=value;
     data[3]*=value; data[4]*=value; data[5]*=value;
     data[6]*=value; data[7]*=value; data[8]*=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator *= (const Matrix3<TypeReal> &other)
+template <typename real>
+void Matrix3<real>::operator *= (const Matrix3<real> &other)
 {
-    const TypeReal* a = &data[0];
-    const TypeReal* b = &other.data[0];
-    TypeReal c[9];
+    const real* a = &data[0];
+    const real* b = &other.data[0];
+    real c[9];
 
     c[0] = data[0]*b[0] + data[1]*b[3] + data[2]*b[6];
     c[1] = data[0]*b[1] + data[1]*b[4] + data[2]*b[7];
@@ -269,91 +269,112 @@ void Matrix3<TypeReal>::operator *= (const Matrix3<TypeReal> &other)
     c[7] = data[6]*b[1] + data[7]*b[4] + data[8]*b[7];
     c[8] = data[6]*b[2] + data[7]*b[5] + data[8]*b[8];
 
-    memcpy(data, c, 9*sizeof(TypeReal));
+    memcpy(data, c, 9*sizeof(real));
 }
 /*------ Comparisons ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Matrix3<TypeReal>::operator == (const Matrix3<TypeReal> &other) const
+template <typename real>
+bool Matrix3<real>::operator == (const Matrix3<real> &other) const
 {
-    const TypeReal* b = &other.data[0];
-    TypeReal e = Math<TypeReal>::EPSILON;
+    const real* b = &other.data[0];
+    real e = Math<real>::EPSILON;
     return (fabs(data[0]-b[0])<e && fabs(data[1]-b[1])<e && fabs(data[2]-b[2])<e &&
             fabs(data[3]-b[3])<e && fabs(data[4]-b[4])<e && fabs(data[5]-b[5])<e &&
             fabs(data[6]-b[6])<e && fabs(data[7]-b[7])<e && fabs(data[8]-b[8])<e);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Matrix3<TypeReal>::operator != (const Matrix3<TypeReal> &other) const
+template <typename real>
+bool Matrix3<real>::operator != (const Matrix3<real> &other) const
 {
-    const TypeReal* b = &other.data[0];
-    TypeReal e = Math<TypeReal>::EPSILON;
+    const real* b = &other.data[0];
+    real e = Math<real>::EPSILON;
     return (fabs(data[0]-b[0])>e || fabs(data[1]-b[1])>e || fabs(data[2]-b[3])>e ||
             fabs(data[3]-b[3])>e || fabs(data[0]-b[0])>e || fabs(data[0]-b[0])>e ||
             fabs(data[0]-b[0])>e || fabs(data[0]-b[0])>e || fabs(data[0]-b[0])>e);
 }
 /*------ Assignment ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::operator = (const Matrix3<TypeReal> &other)
+template <typename real>
+void Matrix3<real>::operator = (const Matrix3<real> &other)
 {
-    memcpy(data, other.data, 9*sizeof(TypeReal));
+    memcpy(data, other.data, 9*sizeof(real));
 }
 /*------ methods ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::setToIdentity()
+template <typename real>
+void Matrix3<real>::setToIdentity()
 {
-    memcpy(data, Matrix3<TypeReal>::IDENTITY.data, 9*sizeof(TypeReal));
+    memcpy(data, Matrix3<real>::IDENTITY.data, 9*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::set(
-    TypeReal xx, TypeReal xy, TypeReal xz,
-    TypeReal yx, TypeReal yy, TypeReal yz,
-    TypeReal zx, TypeReal zy, TypeReal zz)
+template <typename real>
+void Matrix3<real>::set(
+    real xx, real xy, real xz,
+    real yx, real yy, real yz,
+    real zx, real zy, real zz)
 {
     data[0]=xx; data[1]=xy; data[2]=xz;
     data[3]=yx; data[4]=yy; data[5]=yz;
     data[6]=zx; data[7]=zy; data[8]=zz;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::transpose() const
+template <typename real>
+Vector3<real> Matrix3<real>::getRow(unsigned int i) const
 {
-    return Matrix3<TypeReal>(
+    if (i>2)
+    {
+        throw out_of_range("gmath::Matrix3: index out of range");
+    }
+    return Vector3<real>( data[i*3], data[i*3+1], data[i*3+2] );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix3<real>::setRow(unsigned int i, const Vector3<real> &vec)
+{
+    if (i>2)
+    {
+        throw out_of_range("gmath::Matrix3: index out of range");
+    }
+    data[i*3]   = vec.x;
+    data[i*3+1] = vec.y;
+    data[i*3+2] = vec.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Matrix3<real> Matrix3<real>::transpose() const
+{
+    return Matrix3<real>(
             data[0], data[3], data[6],
             data[1], data[4], data[7],
             data[2], data[5], data[8] );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::transposeInPlace()
+template <typename real>
+void Matrix3<real>::transposeInPlace()
 {
-    TypeReal newData[9] = {
-            data[0], data[3], data[6],
-            data[1], data[4], data[7],
-            data[2], data[5], data[8] };
-    memcpy(data, newData, 9*sizeof(TypeReal));
+    this->set(
+        data[0], data[3], data[6],
+        data[1], data[4], data[7],
+        data[2], data[5], data[8] );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Matrix3<TypeReal>::determinant() const
+template <typename real>
+real Matrix3<real>::determinant() const
 {
-    TypeReal det;
+    real det;
     det = data[0] * ( data[4]*data[8] - data[7]*data[5] )
         - data[1] * ( data[3]*data[8] - data[6]*data[5] )
         + data[2] * ( data[3]*data[7] - data[6]*data[4] );
     return det;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::inverse() const
+template <typename real>
+Matrix3<real> Matrix3<real>::inverse() const
 {
-    Matrix3<TypeReal> retMatrix;
-    TypeReal invDet = (TypeReal)1/determinant();
+    Matrix3<real> retMatrix;
+    real invDet = (real)1/determinant();
 
-    if ( invDet < Math<TypeReal>::EPSILON )
+    if ( invDet < Math<real>::EPSILON )
     {
         retMatrix = *this;
         retMatrix.setToIdentity();
@@ -376,13 +397,13 @@ Matrix3<TypeReal> Matrix3<TypeReal>::inverse() const
     return retMatrix;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::inverseInPlace()
+template <typename real>
+void Matrix3<real>::inverseInPlace()
 {
-    TypeReal m[9];
-    TypeReal invDet = (TypeReal)1/determinant();
+    real m[9];
+    real invDet = (real)1/determinant();
 
-    if ( invDet < Math<TypeReal>::EPSILON )
+    if ( invDet < Math<real>::EPSILON )
     {
         this->setToIdentity();
     }
@@ -400,20 +421,20 @@ void Matrix3<TypeReal>::inverseInPlace()
         m[7] = -(data[0]*data[7] - data[6]*data[1]) / invDet;
         m[8] =   data[0]*data[4] - data[1]*data[3]  / invDet;
 
-        memcpy(data, m, 9*sizeof(TypeReal));
+        memcpy(data, m, 9*sizeof(real));
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::orthogonal() const
+template <typename real>
+Matrix3<real> Matrix3<real>::orthogonal() const
 {
-    Matrix3<TypeReal> m;
+    Matrix3<real> m;
     m.orthogonalInPlace();
     return m;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
+template <typename real>
+void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
 {
     // Code take it from WildMagig 5  -  www.geometrictools.com  -  here the matrix is transpose
     // Algorithm uses Gram-Schmidt orthogonalization.  If 'this' matrix is
@@ -429,7 +450,7 @@ void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
 
 
     // Compute q0. length xAxis
-    TypeReal invLength = (TypeReal)1 / sqrt(data[0]*data[0] +
+    real invLength = (real)1 / sqrt(data[0]*data[0] +
         data[1]*data[1] + data[2]*data[2]);
 
     data[0] *= invLength;
@@ -437,14 +458,14 @@ void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[2] *= invLength;
 
     // Compute q1.
-    TypeReal dot0 = data[0]*data[3] + data[1]*data[4] +
+    real dot0 = data[0]*data[3] + data[1]*data[4] +
         data[2]*data[5];
 
     data[3] -= dot0*data[0];
     data[4] -= dot0*data[1];
     data[5] -= dot0*data[2];
 
-    invLength = (TypeReal)1 / sqrt(data[3]*data[3] +
+    invLength = (real)1 / sqrt(data[3]*data[3] +
         data[4]*data[4] + data[5]*data[5]);
 
     data[3] *= invLength;
@@ -452,7 +473,7 @@ void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[5] *= invLength;
 
     // compute q2
-    TypeReal dot1 = data[3]*data[6] + data[4]*data[7] +
+    real dot1 = data[3]*data[6] + data[4]*data[7] +
         data[5]*data[8];
 
     dot0 = data[0]*data[6] + data[1]*data[7] +
@@ -462,7 +483,7 @@ void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[7] -= dot0*data[1] + dot1*data[4];
     data[8] -= dot0*data[2] + dot1*data[5];
 
-    invLength = (TypeReal)1 / sqrt(data[6]*data[6] +
+    invLength = (real)1 / sqrt(data[6]*data[6] +
         data[7]*data[7] + data[8]*data[8]);
 
     data[6] *= invLength;
@@ -470,20 +491,20 @@ void Matrix3<TypeReal>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[8] *= invLength;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Matrix3<TypeReal>::getScale() const
+template <typename real>
+Vector3<real> Matrix3<real>::getScale() const
 {
-    Vector3<TypeReal> x(data[0], data[1], data[2]);
-    Vector3<TypeReal> y(data[3], data[4], data[5]);
-    Vector3<TypeReal> z(data[6], data[7], data[8]);
+    Vector3<real> x(data[0], data[1], data[2]);
+    Vector3<real> y(data[3], data[4], data[5]);
+    Vector3<real> z(data[6], data[7], data[8]);
 
-    return Vector3<TypeReal>(x.length(), y.length(), z.length());
+    return Vector3<real>(x.length(), y.length(), z.length());
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::addScale(const Vector3<TypeReal> &scale)
+template <typename real>
+Matrix3<real> Matrix3<real>::addScale(const Vector3<real> &scale)
 {
-    Matrix3<TypeReal> mat(
+    Matrix3<real> mat(
         data[0]+scale.x, data[1]+scale.x, data[2]+scale.x,
         data[3]+scale.y, data[4]+scale.y, data[5]+scale.y,
         data[6]+scale.z, data[7]+scale.z, data[8]+scale.z
@@ -491,10 +512,10 @@ Matrix3<TypeReal> Matrix3<TypeReal>::addScale(const Vector3<TypeReal> &scale)
     return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::addScale(TypeReal sX, TypeReal sY, TypeReal sZ)
+template <typename real>
+Matrix3<real> Matrix3<real>::addScale(real sX, real sY, real sZ)
 {
-    Matrix3<TypeReal> mat(
+    Matrix3<real> mat(
         data[0]+sX, data[1]+sX, data[2]+sX,
         data[3]+sY, data[4]+sY, data[5]+sY,
         data[6]+sZ, data[7]+sZ, data[8]+sZ
@@ -502,28 +523,28 @@ Matrix3<TypeReal> Matrix3<TypeReal>::addScale(TypeReal sX, TypeReal sY, TypeReal
     return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::addScaleInPlace(const Vector3<TypeReal> &scale)
+template <typename real>
+void Matrix3<real>::addScaleInPlace(const Vector3<real> &scale)
 {
     data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
     data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
     data[6]+=scale.z; data[7]+=scale.z; data[8]+=scale.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::addScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
+template <typename real>
+void Matrix3<real>::addScaleInPlace(real sX, real sY, real sZ)
 {
     data[0]+=sX; data[1]+=sX; data[2]+=sX;
     data[3]+=sY; data[4]+=sY; data[5]+=sY;
     data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::setScale(const Vector3<TypeReal> &scale)
+template <typename real>
+Matrix3<real> Matrix3<real>::setScale(const Vector3<real> &scale)
 {
-    Vector3<TypeReal> x(data[0], data[1], data[2]);
-    Vector3<TypeReal> y(data[3], data[4], data[5]);
-    Vector3<TypeReal> z(data[6], data[7], data[8]);
+    Vector3<real> x(data[0], data[1], data[2]);
+    Vector3<real> y(data[3], data[4], data[5]);
+    Vector3<real> z(data[6], data[7], data[8]);
     x.normalizeInPlace();
     y.normalizeInPlace();
     z.normalizeInPlace();
@@ -531,18 +552,18 @@ Matrix3<TypeReal> Matrix3<TypeReal>::setScale(const Vector3<TypeReal> &scale)
     y *= scale.y;
     z *= scale.z;
 
-    return Matrix3<TypeReal>(
+    return Matrix3<real>(
             x.x, x.y, x.z,
             y.x, y.y, y.z,
             z.x, z.y, z.z );
 }
 /*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::setScale(TypeReal sX, TypeReal sY, TypeReal sZ)
+template <typename real>
+Matrix3<real> Matrix3<real>::setScale(real sX, real sY, real sZ)
 {
-    Vector3<TypeReal> x(data[0], data[1], data[2]);
-    Vector3<TypeReal> y(data[3], data[4], data[5]);
-    Vector3<TypeReal> z(data[6], data[7], data[8]);
+    Vector3<real> x(data[0], data[1], data[2]);
+    Vector3<real> y(data[3], data[4], data[5]);
+    Vector3<real> z(data[6], data[7], data[8]);
     x.normalizeInPlace();
     y.normalizeInPlace();
     z.normalizeInPlace();
@@ -550,18 +571,18 @@ Matrix3<TypeReal> Matrix3<TypeReal>::setScale(TypeReal sX, TypeReal sY, TypeReal
     y *= sY;
     z *= sZ;
 
-    return Matrix3<TypeReal>(
+    return Matrix3<real>(
             x.x, x.y, x.z,
             y.x, y.y, y.z,
             z.x, z.y, z.z );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::setScaleInPlace(const Vector3<TypeReal> &scale)
+template <typename real>
+void Matrix3<real>::setScaleInPlace(const Vector3<real> &scale)
 {
-    Vector3<TypeReal> x(data[0], data[1], data[2]);
-    Vector3<TypeReal> y(data[3], data[4], data[5]);
-    Vector3<TypeReal> z(data[6], data[7], data[8]);
+    Vector3<real> x(data[0], data[1], data[2]);
+    Vector3<real> y(data[3], data[4], data[5]);
+    Vector3<real> z(data[6], data[7], data[8]);
     x.normalizeInPlace();
     y.normalizeInPlace();
     z.normalizeInPlace();
@@ -574,12 +595,12 @@ void Matrix3<TypeReal>::setScaleInPlace(const Vector3<TypeReal> &scale)
     data[6]=z.x; data[7]=z.y; data[8]=z.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
+template <typename real>
+void Matrix3<real>::setScaleInPlace(real sX, real sY, real sZ)
 {
-    Vector3<TypeReal> x(data[0], data[1], data[2]);
-    Vector3<TypeReal> y(data[3], data[4], data[5]);
-    Vector3<TypeReal> z(data[6], data[7], data[8]);
+    Vector3<real> x(data[0], data[1], data[2]);
+    Vector3<real> y(data[3], data[4], data[5]);
+    Vector3<real> z(data[6], data[7], data[8]);
     x.normalizeInPlace();
     y.normalizeInPlace();
     z.normalizeInPlace();
@@ -592,26 +613,26 @@ void Matrix3<TypeReal>::setScaleInPlace(TypeReal sX, TypeReal sY, TypeReal sZ)
     data[6]=z.x; data[7]=z.y; data[8]=z.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createScale(const Vector3<TypeReal> &scale)
+template <typename real>
+Matrix3<real> Matrix3<real>::createScale(const Vector3<real> &scale)
 {
-    return Matrix3<TypeReal>(scale.x, (TypeReal)0.0, (TypeReal)0.0,
-                         (TypeReal)0.0, scale.y, (TypeReal)0.0,
-                         (TypeReal)0.0, (TypeReal)0.0, scale.z);
+    return Matrix3<real>(scale.x, (real)0.0, (real)0.0,
+                         (real)0.0, scale.y, (real)0.0,
+                         (real)0.0, (real)0.0, scale.z);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createScale(TypeReal sX, TypeReal sY, TypeReal sZ)
+template <typename real>
+Matrix3<real> Matrix3<real>::createScale(real sX, real sY, real sZ)
 {
-    return Matrix3<TypeReal>(sX, (TypeReal)0.0, (TypeReal)0.0,
-                         (TypeReal)0.0, sY, (TypeReal)0.0,
-                         (TypeReal)0.0, (TypeReal)0.0, sZ);
+    return Matrix3<real>(sX, (real)0.0, (real)0.0,
+                         (real)0.0, sY, (real)0.0,
+                         (real)0.0, (real)0.0, sZ);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::setFromEuler(const TypeReal& angleX, const TypeReal& angleY, const TypeReal& angleZ, RotationOrder order)
+template <typename real>
+void Matrix3<real>::setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
 {
-    TypeReal cx, sx, cy, sy, cz, sz;
+    real cx, sx, cy, sy, cz, sz;
 
     cx = cos(angleX);
     sx = sin(angleX);
@@ -621,17 +642,17 @@ void Matrix3<TypeReal>::setFromEuler(const TypeReal& angleX, const TypeReal& ang
     sz = sin(angleZ);
 
 
-    Matrix3<TypeReal> XMat(
+    Matrix3<real> XMat(
         1.0, 0.0, 0.0,
         0.0,  cx,  sx,
         0.0, -sx,  cx);
 
-    Matrix3<TypeReal> YMat(
+    Matrix3<real> YMat(
          cy, 0.0, -sy,
         0.0, 1.0, 0.0,
          sy, 0.0,  cy);
 
-    Matrix3<TypeReal> ZMat(
+    Matrix3<real> ZMat(
          cz,  sz, 0.0,
         -sz,  cz, 0.0,
         0.0, 0.0, 1.0);
@@ -659,46 +680,46 @@ void Matrix3<TypeReal>::setFromEuler(const TypeReal& angleX, const TypeReal& ang
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Matrix3<TypeReal>::setFromEuler(const Euler<TypeReal> &rotation, RotationOrder order)
+template <typename real>
+void Matrix3<real>::setFromEuler(const Euler<real> &rotation, RotationOrder order)
 {
     setFromEuler(rotation.x, rotation.y, rotation.z, order);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createFromEuler(const Euler<TypeReal> &rotation, RotationOrder order)
+template<typename real>
+Matrix3<real> Matrix3<real>::createFromEuler(const Euler<real> &rotation, RotationOrder order)
 {
-    Matrix3<TypeReal> newMat;
+    Matrix3<real> newMat;
     newMat.setFromEuler(rotation.x, rotation.y, rotation.z, order);
     return newMat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createFromEuler(const TypeReal& angleX, const TypeReal& angleY, const TypeReal& angleZ, RotationOrder order)
+template<typename real>
+Matrix3<real> Matrix3<real>::createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
 {
-    Matrix3<TypeReal> newMat;
+    Matrix3<real> newMat;
     newMat.setFromEuler(angleX, angleY, angleZ, order);
     return newMat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal> Matrix3<TypeReal>::toEuler(RotationOrder order)
+template<typename real>
+Euler<real> Matrix3<real>::toEuler(RotationOrder order)
 {
-    Euler<TypeReal> retAngles;
+    Euler<real> retAngles;
     toEuler(retAngles, order);
     return retAngles;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
+template<typename real>
+bool Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order)
 {
-    TypeReal C;
+    real C;
     switch (order)
     {
     case XYZ :
-        euler.y = Math<TypeReal>::asin(-data[2]);
-        C = (TypeReal)cos((double)euler.y);
-        if ( C<(TypeReal)1 || C>(TypeReal)-1)
+        euler.y = Math<real>::asin(-data[2]);
+        C = (real)cos((double)euler.y);
+        if ( C<(real)1 || C>(real)-1)
         {
             euler.x = atan2(data[5], data[8]);
             euler.z = atan2(data[1], data[0]);
@@ -706,15 +727,15 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
         }
         else
         {
-            euler.z = (TypeReal)0;
+            euler.z = (real)0;
             euler.x = atan2(-data[5], data[8]);
             return false;
         }
 
     case XZY :
-        euler.z = Math<TypeReal>::asin(data[1]);
-        C = (TypeReal)cos((double)euler.z);
-        if ( C<(TypeReal)1 || C>(TypeReal)-1)
+        euler.z = Math<real>::asin(data[1]);
+        C = (real)cos((double)euler.z);
+        if ( C<(real)1 || C>(real)-1)
         {
             euler.x = atan2(-data[7], data[4]);
             euler.y = atan2(-data[2], data[0]);
@@ -724,14 +745,14 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
         {
             // WARNING.  The solution is not unique.  Choosing y_angle = 0.
             euler.x = atan2(data[6] ,data[8]);
-            euler.y = (TypeReal)0;
+            euler.y = (real)0;
             return false;
         }
 
     case YXZ :
-        euler.x = Math<TypeReal>::asin(data[5]);
-        C = (TypeReal)cos((double)euler.x);
-        if ( C<(TypeReal)1 || C>(TypeReal)-1)
+        euler.x = Math<real>::asin(data[5]);
+        C = (real)cos((double)euler.x);
+        if ( C<(real)1 || C>(real)-1)
         {
             euler.y = atan2(-data[2], data[8]);
             euler.z = atan2(-data[3], data[4]);
@@ -741,14 +762,14 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
         {
             // WARNING.  The solution is not unique.  Choosing z_angle = 0.
             euler.y = atan2(data[1], data[0]);
-            euler.z = (TypeReal)0;
+            euler.z = (real)0;
             return false;
         }
 
     case YZX :
-        euler.z = Math<TypeReal>::asin(-data[3]);
-        C = (TypeReal)cos((double)euler.z);
-        if ( C<(TypeReal)1 || C>(TypeReal)-1)
+        euler.z = Math<real>::asin(-data[3]);
+        C = (real)cos((double)euler.z);
+        if ( C<(real)1 || C>(real)-1)
         {
             euler.y = atan2(data[6], data[0]);
             euler.x = atan2(data[5], data[4]);
@@ -758,14 +779,14 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
         {
             // WARNING.  The solution is not unique.  Choosing x_angle = 0.
             euler.y = atan2(data[7], data[8]);
-            euler.x = (TypeReal)0;
+            euler.x = (real)0;
             return false;
         }
 
     case ZXY :
-        euler.x = Math<TypeReal>::asin(-data[7]);
-        C = (TypeReal)cos((double)euler.x);
-        if ( C<(TypeReal)1 || C>(TypeReal)-1)
+        euler.x = Math<real>::asin(-data[7]);
+        C = (real)cos((double)euler.x);
+        if ( C<(real)1 || C>(real)-1)
         {
             euler.z = atan2(data[1], data[4]);
             euler.y = atan2(data[6], data[8]);
@@ -775,14 +796,14 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
         {
             // WARNING.  The solution is not unique.  Choosing y_angle = 0.
             euler.z = atan2(data[2], data[0]);
-            euler.y = (TypeReal)0;
+            euler.y = (real)0;
             return false;
         }
 
     case ZYX :
-        euler.y = Math<TypeReal>::asin(data[6]);
-        C = (TypeReal)cos((double)euler.y);
-        if ( C<(TypeReal)1 || C>(TypeReal)-1)
+        euler.y = Math<real>::asin(data[6]);
+        C = (real)cos((double)euler.y);
+        if ( C<(real)1 || C>(real)-1)
         {
             euler.z = atan2(-data[3], data[0]);
             euler.x = atan2(-data[7], data[8]);
@@ -792,53 +813,53 @@ bool Matrix3<TypeReal>::toEuler(Euler<TypeReal>& euler, RotationOrder order)
         {
             // WARNING.  The solution is not unique.  Choosing x_angle = 0.
             euler.z = atan2(-data[1], data[2]);
-            euler.x = (TypeReal)0;
+            euler.x = (real)0;
             return false;
         }
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-void Matrix3<TypeReal>::setFromVectorToVector(const Vector3<TypeReal> &fromVec, const Vector3<TypeReal> &toVec)
+template<typename real>
+void Matrix3<real>::setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
 {
-    Vector3<TypeReal> x, u, v;
-    TypeReal e = fromVec.dot(toVec);
-    TypeReal f = fabs(e);
+    Vector3<real> x, u, v;
+    real e = fromVec.dot(toVec);
+    real f = fabs(e);
 
-    if (f > 1.0-Math<TypeReal>::EPSILON) // "from" and "to" vectors parallel or almost parallel
+    if (f > 1.0-Math<real>::EPSILON) // "from" and "to" vectors parallel or almost parallel
     {
-        TypeReal fx = fabs(fromVec.x);
-        TypeReal fy = fabs(fromVec.y);
-        TypeReal fz = fabs(fromVec.z);
+        real fx = fabs(fromVec.x);
+        real fy = fabs(fromVec.y);
+        real fz = fabs(fromVec.z);
 
         if (fx<fy)
         {
             if (fx<fz) {
-                x.set((TypeReal)1.0, (TypeReal)0.0, (TypeReal)0.0);
+                x.set((real)1.0, (real)0.0, (real)0.0);
             }
             else {
-                x.set((TypeReal)0.0, (TypeReal)0.0, (TypeReal)1.0);
+                x.set((real)0.0, (real)0.0, (real)1.0);
             }
         }
         else
         {
             if (fy<fz) {
-                x.set((TypeReal)0.0, (TypeReal)1.0, (TypeReal)0.0);
+                x.set((real)0.0, (real)1.0, (real)0.0);
             }
             else {
-                x.set((TypeReal)0.0, (TypeReal)0.0, (TypeReal)1.0);
+                x.set((real)0.0, (real)0.0, (real)1.0);
             }
         }
 
         u = x - fromVec;
         v = x - toVec;
 
-        TypeReal c1 = (TypeReal)2.0/(u.dot(u));
-        TypeReal c2 = (TypeReal)2.0/(v.dot(v));
-        TypeReal c3 = v.dot(u*(c1*c2));
+        real c1 = (real)2.0/(u.dot(u));
+        real c2 = (real)2.0/(v.dot(v));
+        real c3 = v.dot(u*(c1*c2));
 
-        TypeReal uvals[3];
-        TypeReal vvals[3];
+        real uvals[3];
+        real vvals[3];
         uvals[0]=u.x; uvals[1]=u.y; uvals[2]=u.z;
         vvals[0]=v.x; vvals[1]=v.y; vvals[2]=v.z;
         for (unsigned int i=0; i<3; i++)
@@ -847,18 +868,18 @@ void Matrix3<TypeReal>::setFromVectorToVector(const Vector3<TypeReal> &fromVec, 
             {
                 this->data[i*3+j] =  - c1*uvals[i]*uvals[j] - c2*vvals[i]*vvals[j] + c3*vvals[i]*uvals[j];
             }
-            this->data[i*4] += (TypeReal)1.0;
+            this->data[i*4] += (real)1.0;
         }
     }
     else  // the most common case, unless "from"="to", or "from"=-"to"
     {
         v = fromVec.cross(toVec);
-        TypeReal h = (TypeReal)1.0/((TypeReal)1.0 + e);    // optimization by Gottfried Chen
-        TypeReal hvx = h*v.x;
-        TypeReal hvz = h*v.z;
-        TypeReal hvxy = hvx*v.y;
-        TypeReal hvxz = hvx*v.z;
-        TypeReal hvyz = hvz*v.y;
+        real h = (real)1.0/((real)1.0 + e);    // optimization by Gottfried Chen
+        real hvx = h*v.x;
+        real hvz = h*v.z;
+        real hvxy = hvx*v.y;
+        real hvxz = hvx*v.z;
+        real hvyz = hvz*v.y;
 
 
         this->data[0] = e + hvx*v.x;
@@ -875,31 +896,31 @@ void Matrix3<TypeReal>::setFromVectorToVector(const Vector3<TypeReal> &fromVec, 
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createFromVectorToVector(const Vector3<TypeReal> &fromVec, const Vector3<TypeReal> &toVec)
+template<typename real>
+Matrix3<real> Matrix3<real>::createFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
 {
-    Matrix3<TypeReal> retMat;
+    Matrix3<real> retMat;
     retMat.setFromVectorToVector(fromVec, toVec);
     return retMat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-void Matrix3<TypeReal>::lookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis, Axis secondaryAxis)
+template<typename real>
+void Matrix3<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
-    TypeReal f = fabs( pointAt.dot(normal) );
-    if (f > 1.0-Math<TypeReal>::EPSILON)
+    real f = fabs( pointAt.dot(normal) );
+    if (f > 1.0-Math<real>::EPSILON)
         throw GMathError("gmath::Matrix3:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them.");
 
-    TypeReal pMult = (TypeReal)1.0;
-    TypeReal sMult = (TypeReal)1.0;
+    real pMult = (real)1.0;
+    real sMult = (real)1.0;
     if ((int)primaryAxis<0) {
-        pMult *= (TypeReal)-1.0;
+        pMult *= (real)-1.0;
     }
     if ((int)secondaryAxis<0) {
-        sMult = (TypeReal)-1.0;
+        sMult = (real)-1.0;
     }
 
-    Vector3<TypeReal> xVec, yVec, zVec;
+    Vector3<real> xVec, yVec, zVec;
 
     if (primaryAxis == POSX || primaryAxis == NEGX)
     {
@@ -969,47 +990,47 @@ void Matrix3<TypeReal>::lookAt(const Vector3<TypeReal> &pointAt, const Vector3<T
     data[6]=zVec.x; data[7]=zVec.y; data[8]=zVec.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createLookAt(const Vector3<TypeReal> &pointAt, const Vector3<TypeReal> &normal, Axis primaryAxis, Axis secondaryAxis)
+template<typename real>
+Matrix3<real> Matrix3<real>::createLookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
-    Matrix3<TypeReal> mat;
+    Matrix3<real> mat;
     mat.lookAt(pointAt, normal, primaryAxis, secondaryAxis);
     return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-void Matrix3<TypeReal>::setFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle)
+template<typename real>
+void Matrix3<real>::setFromAxisAngle(const Vector3<real> &axis, real angle)
 {
-    TypeReal sqr_a = axis.x*axis.x;
-    TypeReal sqr_b = axis.y*axis.y;
-    TypeReal sqr_c = axis.z*axis.z;
-    TypeReal len2  = sqr_a+sqr_b+sqr_c;
+    real sqr_a = axis.x*axis.x;
+    real sqr_b = axis.y*axis.y;
+    real sqr_c = axis.z*axis.z;
+    real len2  = sqr_a+sqr_b+sqr_c;
 
-    TypeReal k2    = cos(angle);
-    TypeReal k1    = (1.0-k2)/len2;
-    TypeReal k3    = sin(angle)/sqrt(len2);
-    TypeReal k1ab  = k1*axis.x*axis.y;
-    TypeReal k1ac  = k1*axis.x*axis.z;
-    TypeReal k1bc  = k1*axis.y*axis.z;
-    TypeReal k3a   = k3*axis.x;
-    TypeReal k3b   = k3*axis.y;
-    TypeReal k3c   = k3*axis.z;
+    real k2    = cos(angle);
+    real k1    = (1.0-k2)/len2;
+    real k3    = sin(angle)/sqrt(len2);
+    real k1ab  = k1*axis.x*axis.y;
+    real k1ac  = k1*axis.x*axis.z;
+    real k1bc  = k1*axis.y*axis.z;
+    real k3a   = k3*axis.x;
+    real k3b   = k3*axis.y;
+    real k3c   = k3*axis.z;
 
     data[0] = k1*sqr_a+k2; data[1] = k1ab+k3c;    data[2] = k1ac-k3b;
     data[3] = k1ab-k3c;    data[4] = k1*sqr_b+k2; data[5] = k1bc+k3a;
     data[6] = k1ac+k3b;    data[7] = k1bc-k3a;    data[8] = k1*sqr_c+k2;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template<class TypeReal>
-Matrix3<TypeReal> Matrix3<TypeReal>::createFromAxisAngle(const Vector3<TypeReal> &axis, TypeReal angle)
+template<typename real>
+Matrix3<real> Matrix3<real>::createFromAxisAngle(const Vector3<real> &axis, real angle)
 {
-    Matrix3<TypeReal> mat;
+    Matrix3<real> mat;
     mat.setFromAxisAngle(axis, angle);
     return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-std::string Matrix3<TypeReal>::toString() const
+template <typename real>
+std::string Matrix3<real>::toString() const
 {
     std::stringstream oss;
     oss << "gmath::Matrix3(" << data[0] << ", " << data[1] << ", " << data[2] << std::endl;

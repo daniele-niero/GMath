@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 /*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Constructors ------*/
-template <class TypeReal>
-Vector4<TypeReal>::Vector4()
+template <typename real>
+Vector4<real>::Vector4()
 {}
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal>::Vector4(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal inW)
+template <typename real>
+Vector4<real>::Vector4(real inX, real inY, real inZ, real inW)
 {
     x = inX;
     y = inY;
@@ -34,8 +34,8 @@ Vector4<TypeReal>::Vector4(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal in
     w = inW;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal>::Vector4(const Vector4<TypeReal> & other)
+template <typename real>
+Vector4<real>::Vector4(const Vector4<real> & other)
 {
     x = other.x;
     y = other.y;
@@ -43,8 +43,8 @@ Vector4<TypeReal>::Vector4(const Vector4<TypeReal> & other)
     w = other.w;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal>::Vector4(const TypeReal* list)
+template <typename real>
+Vector4<real>::Vector4(const real* list)
 {
     x = list[0];
     y = list[1];
@@ -53,8 +53,8 @@ Vector4<TypeReal>::Vector4(const TypeReal* list)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Coordinates access ------*/
-template <class TypeReal>
-TypeReal Vector4<TypeReal>::operator[] (int i) const
+template <typename real>
+real Vector4<real>::operator[] (int i) const
 {
     if      (i==0) { return x; }
     else if (i==1) { return y; }
@@ -65,8 +65,8 @@ TypeReal Vector4<TypeReal>::operator[] (int i) const
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal& Vector4<TypeReal>::operator[] (int i)
+template <typename real>
+real& Vector4<real>::operator[] (int i)
 {
     if      (i==0) { return x; }
     else if (i==1) { return y; }
@@ -77,52 +77,52 @@ TypeReal& Vector4<TypeReal>::operator[] (int i)
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal* Vector4<TypeReal>::ptr()
+template <typename real>
+real* Vector4<real>::ptr()
 {
 	return &x;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-const TypeReal* Vector4<TypeReal>::ptr() const
+template <typename real>
+const real* Vector4<real>::ptr() const
 {
 	return &x;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Arithmetic operations ------*/
-template <class TypeReal>
-Vector4<TypeReal> Vector4<TypeReal>::operator + (const Vector4<TypeReal> & other) const
+template <typename real>
+Vector4<real> Vector4<real>::operator + (const Vector4<real> & other) const
 {
-    Vector4<TypeReal> newVector4(x+other.x, y+other.y, z+other.z, w+other.w);
+    Vector4<real> newVector4(x+other.x, y+other.y, z+other.z, w+other.w);
 
     return newVector4;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal> Vector4<TypeReal>::operator - (const Vector4<TypeReal> & other) const
+template <typename real>
+Vector4<real> Vector4<real>::operator - (const Vector4<real> & other) const
 {
-    Vector4<TypeReal> newVector4(x-other.x, y-other.y, z-other.z, w-other.w);
+    Vector4<real> newVector4(x-other.x, y-other.y, z-other.z, w-other.w);
     return newVector4;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal> Vector4<TypeReal>::operator * (TypeReal scalar) const
+template <typename real>
+Vector4<real> Vector4<real>::operator * (real scalar) const
 {
-    Vector4<TypeReal> newVector4(x*scalar, y*scalar, z*scalar, w*scalar);
+    Vector4<real> newVector4(x*scalar, y*scalar, z*scalar, w*scalar);
 
     return newVector4;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal> Vector4<TypeReal>::operator / (TypeReal scalar) const
+template <typename real>
+Vector4<real> Vector4<real>::operator / (real scalar) const
 {
-    Vector4<TypeReal> newVector4;
-    if (scalar == (TypeReal)0.0)
+    Vector4<real> newVector4;
+    if (scalar == (real)0.0)
     {
-        newVector4.x = Math<TypeReal>::MIN;
-        newVector4.y = Math<TypeReal>::MIN;
-        newVector4.z = Math<TypeReal>::MIN;
-        newVector4.w = Math<TypeReal>::MIN;
+        newVector4.x = Math<real>::MIN;
+        newVector4.y = Math<real>::MIN;
+        newVector4.z = Math<real>::MIN;
+        newVector4.w = Math<real>::MIN;
     }
     else
     {
@@ -136,8 +136,8 @@ Vector4<TypeReal> Vector4<TypeReal>::operator / (TypeReal scalar) const
 }
 /*------ Arithmetic updates ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector4<TypeReal>::operator += (const Vector4<TypeReal> & other)
+template <typename real>
+void Vector4<real>::operator += (const Vector4<real> & other)
 {
     x += other.x;
     y += other.y;
@@ -145,8 +145,8 @@ void Vector4<TypeReal>::operator += (const Vector4<TypeReal> & other)
     w += other.w;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector4<TypeReal>::operator -= (const Vector4<TypeReal> & other)
+template <typename real>
+void Vector4<real>::operator -= (const Vector4<real> & other)
 {
     x -= other.x;
     y -= other.y;
@@ -154,8 +154,8 @@ void Vector4<TypeReal>::operator -= (const Vector4<TypeReal> & other)
     w -= other.w;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector4<TypeReal>::operator *= (TypeReal scalar)
+template <typename real>
+void Vector4<real>::operator *= (real scalar)
 {
     x *= scalar;
     y *= scalar;
@@ -163,14 +163,14 @@ void Vector4<TypeReal>::operator *= (TypeReal scalar)
     w *= scalar;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector4<TypeReal>::operator /= (TypeReal scalar)
+template <typename real>
+void Vector4<real>::operator /= (real scalar)
 {
-    if (scalar == (TypeReal)0.0)
+    if (scalar == (real)0.0)
     {
-        x = NAN; //Math<TypeReal>::MIN;
-        y = NAN; //Math<TypeReal>::MIN;
-        z = NAN; //Math<TypeReal>::MIN;
+        x = NAN; //Math<real>::MIN;
+        y = NAN; //Math<real>::MIN;
+        z = NAN; //Math<real>::MIN;
         w = NAN;
     }
     else
@@ -183,27 +183,27 @@ void Vector4<TypeReal>::operator /= (TypeReal scalar)
 }
 /*------ Comparisons ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Vector4<TypeReal>::operator == (const Vector4<TypeReal> & other) const
+template <typename real>
+bool Vector4<real>::operator == (const Vector4<real> & other) const
 {
-    return (fabs(x-other.x) < Math<TypeReal>::EPSILON && 
-            fabs(y-other.y) < Math<TypeReal>::EPSILON && 
-            fabs(z-other.z) < Math<TypeReal>::EPSILON &&
-            fabs(w-other.w) < Math<TypeReal>::EPSILON);
+    return (fabs(x-other.x) < Math<real>::EPSILON && 
+            fabs(y-other.y) < Math<real>::EPSILON && 
+            fabs(z-other.z) < Math<real>::EPSILON &&
+            fabs(w-other.w) < Math<real>::EPSILON);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Vector4<TypeReal>::operator != (const Vector4<TypeReal> & other) const
+template <typename real>
+bool Vector4<real>::operator != (const Vector4<real> & other) const
 {
-    return (fabs(x-other.x) > Math<TypeReal>::EPSILON || 
-            fabs(y-other.y) > Math<TypeReal>::EPSILON || 
-            fabs(z-other.z) > Math<TypeReal>::EPSILON ||
-            fabs(w-other.w) < Math<TypeReal>::EPSILON);
+    return (fabs(x-other.x) > Math<real>::EPSILON || 
+            fabs(y-other.y) > Math<real>::EPSILON || 
+            fabs(z-other.z) > Math<real>::EPSILON ||
+            fabs(w-other.w) < Math<real>::EPSILON);
 }
 /*------ Assignments ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector4<TypeReal>::operator = (const Vector4<TypeReal> & other)
+template <typename real>
+void Vector4<real>::operator = (const Vector4<real> & other)
 {
     x = other.x;
     y = other.y;
@@ -211,8 +211,8 @@ void Vector4<TypeReal>::operator = (const Vector4<TypeReal> & other)
     w = other.z;
 }
 /*------ Methods ------*/
-template <class TypeReal>
-void Vector4<TypeReal>::set(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal inW)
+template <typename real>
+void Vector4<real>::set(real inX, real inY, real inZ, real inW)
 {
     x = inX;
     y = inY;
@@ -220,39 +220,39 @@ void Vector4<TypeReal>::set(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal i
     w = inW;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal> Vector4<TypeReal>::duplicate() const
+template <typename real>
+Vector4<real> Vector4<real>::duplicate() const
 {
-    Vector4<TypeReal> retVec(x, y, z, w);
+    Vector4<real> retVec(x, y, z, w);
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector4<TypeReal>::dot(const Vector4<TypeReal> & other) const
+template <typename real>
+real Vector4<real>::dot(const Vector4<real> & other) const
 {
     return x*other.x + y*other.y + z*other.z + w*other.w;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector4<TypeReal>::length() const
+template <typename real>
+real Vector4<real>::length() const
 {
-    TypeReal dot = x*x + y*y + z*z + w*w;
-    return (TypeReal)sqrt( (double)dot );
+    real dot = x*x + y*y + z*z + w*w;
+    return (real)sqrt( (double)dot );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector4<TypeReal>::squaredLength() const
+template <typename real>
+real Vector4<real>::squaredLength() const
 {
     return x*x + y*y + z*z + w*w;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector4<TypeReal> Vector4<TypeReal>::normalize() const
+template <typename real>
+Vector4<real> Vector4<real>::normalize() const
 {
-    TypeReal len = length();
+    real len = length();
 
-    TypeReal nlen;
-    if (len < Math<TypeReal>::EPSILON)
+    real nlen;
+    if (len < Math<real>::EPSILON)
     {
         nlen = 1.0;
     }
@@ -261,16 +261,16 @@ Vector4<TypeReal> Vector4<TypeReal>::normalize() const
         nlen = 1.0/len;
     }
 
-    return Vector4<TypeReal>(x*nlen, y*nlen, z*nlen, w*nlen);
+    return Vector4<real>(x*nlen, y*nlen, z*nlen, w*nlen);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector4<TypeReal>::normalizeInPlace()
+template <typename real>
+void Vector4<real>::normalizeInPlace()
 {
-    TypeReal len = length();
+    real len = length();
     
-    TypeReal nlen;
-    if (len < Math<TypeReal>::EPSILON)
+    real nlen;
+    if (len < Math<real>::EPSILON)
     {
         nlen = 1.0;
     }
@@ -285,8 +285,8 @@ void Vector4<TypeReal>::normalizeInPlace()
     w *= nlen;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-std::string Vector4<TypeReal>::toString() const
+template <typename real>
+std::string Vector4<real>::toString() const
 {
     std::stringstream oss;
     oss << "gmath::Vector4(" << x << ", " << y << ", " << z << ", " << w << ");" << std::endl;

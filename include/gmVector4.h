@@ -32,45 +32,45 @@ using namespace std;
 namespace gmath
 {
 
-	template<class TypeReal>
+	template<typename real>
 	class Vector4
 	{
 	public:
 		/*------ constructors ------*/
 		Vector4();
-		Vector4(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal inW);
-		Vector4(const Vector4<TypeReal> & other);
-		Vector4(const TypeReal* list);
+		Vector4(real inX, real inY, real inZ, real inW);
+		Vector4(const Vector4<real> & other);
+		Vector4(const real* list);
 
 		/*------ properties ------*/
-		TypeReal x, y, z, w;
+		real x, y, z, w;
 
 		/*------ coordinate access ------*/
-		TypeReal operator[] (int i) const;
-		TypeReal& operator[] (int i);
+		real operator[] (int i) const;
+		real& operator[] (int i);
 
 		/** Pointer access for direct copying. */
-		TypeReal* ptr();
-		const TypeReal* ptr() const;
+		real* ptr();
+		const real* ptr() const;
 
 		/*------ Arithmetic operations ------*/
-		Vector4<TypeReal> operator + (const Vector4<TypeReal> & other) const;
-		Vector4<TypeReal> operator - (const Vector4<TypeReal> & other) const;
-		Vector4<TypeReal> operator * (TypeReal scalar) const;
-		Vector4<TypeReal> operator / (TypeReal scalar) const;
+		Vector4<real> operator + (const Vector4<real> & other) const;
+		Vector4<real> operator - (const Vector4<real> & other) const;
+		Vector4<real> operator * (real scalar) const;
+		Vector4<real> operator / (real scalar) const;
 
 		/*------ Arithmetic updates ------*/
-		void operator += (const Vector4<TypeReal> & other);
-		void operator -= (const Vector4<TypeReal> & other);
-		void operator *= (TypeReal scalar);
-		void operator /= (TypeReal scalar);
+		void operator += (const Vector4<real> & other);
+		void operator -= (const Vector4<real> & other);
+		void operator *= (real scalar);
+		void operator /= (real scalar);
 
 		/*------ Arithmetic comparisons ------*/
-		bool operator == (const Vector4<TypeReal> & other) const;
-		bool operator != (const Vector4<TypeReal> & other) const;
+		bool operator == (const Vector4<real> & other) const;
+		bool operator != (const Vector4<real> & other) const;
 
 		/*------ Arithmetic assignment ------*/
-		void operator = (const Vector4<TypeReal> & other);
+		void operator = (const Vector4<real> & other);
 
 		/*------ methods ------*/
 
@@ -79,19 +79,19 @@ namespace gmath
 			@param inY The wanted value for y
 			@param inZ The wanted value for z
 			@param inW The wanted value for w */
-		void set(TypeReal inX, TypeReal inY, TypeReal inZ, TypeReal inW);
+		void set(real inX, real inY, real inZ, real inW);
 
 		/** return a Vector3 that is the exact copy of this one */
-		Vector4<TypeReal> duplicate() const;
+		Vector4<real> duplicate() const;
 
 		/** Perform the dot product between this vector and the given vector */
-		TypeReal dot(const Vector4<TypeReal> & other) const;
+		real dot(const Vector4<real> & other) const;
 
 		/** Calculate the length of this vector */
-		TypeReal length() const;
-		TypeReal squaredLength() const;
+		real length() const;
+		real squaredLength() const;
 
-		Vector4<TypeReal> normalize() const;
+		Vector4<real> normalize() const;
 		void normalizeInPlace();
 
 		std::string toString() const;

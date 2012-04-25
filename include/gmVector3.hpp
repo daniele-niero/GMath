@@ -22,28 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 /*------ Constructors ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal>::Vector3()
+template <typename real>
+Vector3<real>::Vector3()
 { }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal>::Vector3(TypeReal inX, TypeReal inY, TypeReal inZ)
+template <typename real>
+Vector3<real>::Vector3(real inX, real inY, real inZ)
 {
     x = inX;
     y = inY;
     z = inZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal>::Vector3(const Vector3<TypeReal> & other)
+template <typename real>
+Vector3<real>::Vector3(const Vector3<real> & other)
 {
     x = other.x;
     y = other.y;
     z = other.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal>::Vector3(const TypeReal* list)
+template <typename real>
+Vector3<real>::Vector3(const real* list)
 {
     x = list[0];
     y = list[1];
@@ -51,8 +51,8 @@ Vector3<TypeReal>::Vector3(const TypeReal* list)
 }
 /*------ Coordinate access ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::operator[] (int i) const
+template <typename real>
+real Vector3<real>::operator[] (int i) const
 {
     if (i>2) {
         throw out_of_range("gmath::Vector3:\n\t index out of range");
@@ -60,8 +60,8 @@ TypeReal Vector3<TypeReal>::operator[] (int i) const
     return *(&x+i);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal& Vector3<TypeReal>::operator[] (int i)
+template <typename real>
+real& Vector3<real>::operator[] (int i)
 {
     if (i>2) {
         throw out_of_range("gmath::Vector3:\n\t index out of range");
@@ -69,48 +69,48 @@ TypeReal& Vector3<TypeReal>::operator[] (int i)
     return *(&x+i);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal* Vector3<TypeReal>::ptr()
+template <typename real>
+real* Vector3<real>::ptr()
 {
     return &x;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-const TypeReal* Vector3<TypeReal>::ptr() const
+template <typename real>
+const real* Vector3<real>::ptr() const
 {
     return &x;
 }
 /*------ Arithmetic operations ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::operator + (const Vector3<TypeReal> & other) const
+template <typename real>
+Vector3<real> Vector3<real>::operator + (const Vector3<real> & other) const
 {
-    Vector3<TypeReal> newVector3(x+other.x, y+other.y, z+other.z);
+    Vector3<real> newVector3(x+other.x, y+other.y, z+other.z);
 
     return newVector3;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::operator - (const Vector3<TypeReal> & other) const
+template <typename real>
+Vector3<real> Vector3<real>::operator - (const Vector3<real> & other) const
 {
-    Vector3<TypeReal> newVector3(x-other.x, y-other.y, z-other.z);
+    Vector3<real> newVector3(x-other.x, y-other.y, z-other.z);
     return newVector3;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::operator * (TypeReal scalar) const
+template <typename real>
+Vector3<real> Vector3<real>::operator * (real scalar) const
 {
-    Vector3<TypeReal> newVector3(x*scalar, y*scalar, z*scalar);
+    Vector3<real> newVector3(x*scalar, y*scalar, z*scalar);
 
     return newVector3;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::operator * (const Matrix3<TypeReal> &mat) const
+template <typename real>
+Vector3<real> Vector3<real>::operator * (const Matrix3<real> &mat) const
 {
-    Vector3<TypeReal> retVec(
+    Vector3<real> retVec(
         mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2] * this->z,
         mat.data[3] * this->x + mat.data[4] * this->y + mat.data[5] * this->z,
         mat.data[6] * this->x + mat.data[7] * this->y + mat.data[8] * this->z
@@ -118,27 +118,26 @@ Vector3<TypeReal> Vector3<TypeReal>::operator * (const Matrix3<TypeReal> &mat) c
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::operator * (const Matrix4<TypeReal> &mat) const
+template <typename real>
+Vector3<real> Vector3<real>::operator * (const Matrix4<real> &mat) const
 {
-    Vector3<TypeReal> retVec(
-        mat.data[0]*this->x + mat.data[1]*this->y + mat.data[2]*this->z + mat.data[3]*this->w,
-        mat.data[4]*this->x + mat.data[5]*this->y + mat.data[6]*this->z + mat.data[7]*this->w,
-        mat.data[8]*this->x + mat.data[9]*this->y + mat.data[10]*this->z + mat.data[11]*this->w,
-        mat.data[12]*this->x + mat.data[13]*this->y + mat.data[14]*this->z + mat.data[15]*this->w
+    Vector3<real> retVec(
+        mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2]  * this->z + mat.data[12],
+        mat.data[4] * this->x + mat.data[5] * this->y + mat.data[6]  * this->z + mat.data[13],
+        mat.data[8] * this->x + mat.data[9] * this->y + mat.data[10] * this->z + mat.data[14]
         );
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::operator / (TypeReal scalar) const
+template <typename real>
+Vector3<real> Vector3<real>::operator / (real scalar) const
 {
-    Vector3<TypeReal> newVector3;
-    if (scalar == (TypeReal)0.0)
+    Vector3<real> newVector3;
+    if (scalar == (real)0.0)
     {
-        newVector3.x = NAN; //Math<TypeReal>::MIN;
-        newVector3.y = NAN; //Math<TypeReal>::MIN;
-        newVector3.z = NAN; //Math<TypeReal>::MIN;
+        newVector3.x = NAN; //Math<real>::MIN;
+        newVector3.y = NAN; //Math<real>::MIN;
+        newVector3.z = NAN; //Math<real>::MIN;
     }
     else
     {
@@ -151,38 +150,58 @@ Vector3<TypeReal> Vector3<TypeReal>::operator / (TypeReal scalar) const
 }
 /*------ Arithmetic updates ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::operator += (const Vector3<TypeReal> & other)
+template <typename real>
+void Vector3<real>::operator += (const Vector3<real> & other)
 {
     x += other.x;
     y += other.y;
     z += other.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::operator -= (const Vector3<TypeReal> & other)
+template <typename real>
+void Vector3<real>::operator -= (const Vector3<real> & other)
 {
     x -= other.x;
     y -= other.y;
     z -= other.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::operator *= (TypeReal scalar)
+template <typename real>
+void Vector3<real>::operator *= (real scalar)
 {
     x *= scalar;
     y *= scalar;
     z *= scalar;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::operator /= (TypeReal scalar)
+template <typename real>
+void Vector3<real>::operator *= (const Matrix3<real> &mat)
 {
-    if (scalar == (TypeReal)0.0)
+    this->set(
+        mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2] * this->z,
+        mat.data[3] * this->x + mat.data[4] * this->y + mat.data[5] * this->z,
+        mat.data[6] * this->x + mat.data[7] * this->y + mat.data[8] * this->z
+        );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Vector3<real>::operator *= (const Matrix4<real> &mat)
+{
+    this->set(
+        mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2]  * this->z + mat.data[12],
+        mat.data[4] * this->x + mat.data[5] * this->y + mat.data[6]  * this->z + mat.data[13],
+        mat.data[8] * this->x + mat.data[9] * this->y + mat.data[10] * this->z + mat.data[14]
+        );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Vector3<real>::operator /= (real scalar)
+{
+    if (scalar == (real)0.0)
     {
-        x = NAN; //Math<TypeReal>::MIN;
-        y = NAN; //Math<TypeReal>::MIN;
-        z = NAN; //Math<TypeReal>::MIN;
+        x = NAN; //Math<real>::MIN;
+        y = NAN; //Math<real>::MIN;
+        z = NAN; //Math<real>::MIN;
     }
     else
     {
@@ -193,25 +212,25 @@ void Vector3<TypeReal>::operator /= (TypeReal scalar)
 }
 /*------ Comparisons ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Vector3<TypeReal>::operator == (const Vector3<TypeReal> & other) const
+template <typename real>
+bool Vector3<real>::operator == (const Vector3<real> & other) const
 {
-    return (fabs(x-other.x) < Math<TypeReal>::EPSILON && 
-            fabs(y-other.y) < Math<TypeReal>::EPSILON && 
-            fabs(z-other.z) < Math<TypeReal>::EPSILON);
+    return (fabs(x-other.x) < Math<real>::EPSILON && 
+            fabs(y-other.y) < Math<real>::EPSILON && 
+            fabs(z-other.z) < Math<real>::EPSILON);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Vector3<TypeReal>::operator != (const Vector3<TypeReal> & other) const
+template <typename real>
+bool Vector3<real>::operator != (const Vector3<real> & other) const
 {
-    return (fabs(x-other.x) > Math<TypeReal>::EPSILON || 
-            fabs(y-other.y) > Math<TypeReal>::EPSILON || 
-            fabs(z-other.z) > Math<TypeReal>::EPSILON);
+    return (fabs(x-other.x) > Math<real>::EPSILON || 
+            fabs(y-other.y) > Math<real>::EPSILON || 
+            fabs(z-other.z) > Math<real>::EPSILON);
 }
 /*------ Assignments ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::operator = (const Vector3<TypeReal> & other)
+template <typename real>
+void Vector3<real>::operator = (const Vector3<real> & other)
 {
     x = other.x;
     y = other.y;
@@ -219,33 +238,33 @@ void Vector3<TypeReal>::operator = (const Vector3<TypeReal> & other)
 }
 /*------ Methods ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::set(TypeReal inX, TypeReal inY, TypeReal inZ)
+template <typename real>
+void Vector3<real>::set(real inX, real inY, real inZ)
 {
     x = inX;
     y = inY;
     z = inZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::duplicate() const
+template <typename real>
+Vector3<real> Vector3<real>::duplicate() const
 {
-    Vector3<TypeReal> retVec(x, y, z);
+    Vector3<real> retVec(x, y, z);
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::cross(const Vector3<TypeReal> & other) const
+template <typename real>
+Vector3<real> Vector3<real>::cross(const Vector3<real> & other) const
 {
-    Vector3<TypeReal> retVec(
+    Vector3<real> retVec(
             y*other.z - z*other.y,
             z*other.x - x*other.z,
             x*other.y - y*other.x);
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::crossInPlace(const Vector3<TypeReal> & other)
+template <typename real>
+void Vector3<real>::crossInPlace(const Vector3<real> & other)
 {
     float newx = y*other.z - z*other.y;
     float newy = z*other.x - x*other.z;
@@ -255,48 +274,48 @@ void Vector3<TypeReal>::crossInPlace(const Vector3<TypeReal> & other)
     z = newz;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::crossNormalized(const Vector3<TypeReal> & other) const
+template <typename real>
+Vector3<real> Vector3<real>::crossNormalized(const Vector3<real> & other) const
 {
-    Vector3<TypeReal> retVec(y*other.z - z*other.y,
+    Vector3<real> retVec(y*other.z - z*other.y,
                          z*other.x - x*other.z,
                          x*other.y - y*other.x);
     retVec.normalizeInPlace();
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::dot(const Vector3<TypeReal> & other) const
+template <typename real>
+real Vector3<real>::dot(const Vector3<real> & other) const
 {
     return x*other.x + y*other.y + z*other.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::length() const
+template <typename real>
+real Vector3<real>::length() const
 {
-    TypeReal dot = x*x + y*y + z*z;
-    return (TypeReal)sqrt( (double)dot );
+    real dot = x*x + y*y + z*z;
+    return (real)sqrt( (double)dot );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::squaredLength() const
+template <typename real>
+real Vector3<real>::squaredLength() const
 {
     return x*x + y*y + z*z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::distance(const Vector3<TypeReal> & other) const
+template <typename real>
+real Vector3<real>::distance(const Vector3<real> & other) const
 {
-    Vector3<TypeReal> distVec(operator - (other));
+    Vector3<real> distVec(operator - (other));
     return distVec.length();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::normalize() const
+template <typename real>
+Vector3<real> Vector3<real>::normalize() const
 {
-    TypeReal len = length();
-    TypeReal nlen;
-    if (len < Math<TypeReal>::EPSILON)
+    real len = length();
+    real nlen;
+    if (len < Math<real>::EPSILON)
     {
         nlen = 1.0;
     }
@@ -305,16 +324,16 @@ Vector3<TypeReal> Vector3<TypeReal>::normalize() const
         nlen = 1.0/len;
     }
 
-    return Vector3<TypeReal>(x*nlen, y*nlen, z*nlen);
+    return Vector3<real>(x*nlen, y*nlen, z*nlen);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::normalizeInPlace()
+template <typename real>
+void Vector3<real>::normalizeInPlace()
 {
-    TypeReal len = length();
+    real len = length();
 
-    TypeReal nlen;
-    if (len < Math<TypeReal>::EPSILON)
+    real nlen;
+    if (len < Math<real>::EPSILON)
     {
         nlen = 1.0;
     }
@@ -328,36 +347,36 @@ void Vector3<TypeReal>::normalizeInPlace()
     z*=nlen;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal Vector3<TypeReal>::angle(const Vector3<TypeReal> & other) const
+template <typename real>
+real Vector3<real>::angle(const Vector3<real> & other) const
 {
-    Vector3<TypeReal> thisNorm( this->normalize() );
-    Vector3<TypeReal> otherNorm( other.normalize() );
-    return (TypeReal)acos((double)(thisNorm.dot(otherNorm)) / (thisNorm.length()*thisNorm.length()));
+    Vector3<real> thisNorm( this->normalize() );
+    Vector3<real> otherNorm( other.normalize() );
+    return (real)acos((double)(thisNorm.dot(otherNorm)) / (thisNorm.length()*thisNorm.length()));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::reflect(const Vector3<TypeReal> & normal) const
+template <typename real>
+Vector3<real> Vector3<real>::reflect(const Vector3<real> & normal) const
 {
-    TypeReal dot = this->dot(normal);
+    real dot = this->dot(normal);
     return ( normal * (2.0*dot) ) - *this;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::reflectInPlace(const Vector3<TypeReal> & normal)
+template <typename real>
+void Vector3<real>::reflectInPlace(const Vector3<real> & normal)
 {
-    TypeReal dot = this->dot(normal);
+    real dot = this->dot(normal);
     *this = ( normal * (2.0*dot) ) - *this;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-Vector3<TypeReal> Vector3<TypeReal>::refract(const Vector3<TypeReal> & normal, TypeReal eta) const
+template <typename real>
+Vector3<real> Vector3<real>::refract(const Vector3<real> & normal, real eta) const
 {
-    TypeReal dot = this->dot(normal);
-    TypeReal k = 1.0 - eta*eta*(1.0 - dot*dot);
+    real dot = this->dot(normal);
+    real k = 1.0 - eta*eta*(1.0 - dot*dot);
 
-    Vector3<TypeReal> retVec;
-    if (k >= Math<TypeReal>::EPSILON)
+    Vector3<real> retVec;
+    if (k >= Math<real>::EPSILON)
     {
         retVec = *this * eta;
         retVec -= normal * (eta*dot + sqrt(k));
@@ -365,25 +384,25 @@ Vector3<TypeReal> Vector3<TypeReal>::refract(const Vector3<TypeReal> & normal, T
     return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-void Vector3<TypeReal>::refractInPlace(const Vector3<TypeReal> & normal, TypeReal eta)
+template <typename real>
+void Vector3<real>::refractInPlace(const Vector3<real> & normal, real eta)
 {
-    TypeReal dot = this->dot(normal);
-    TypeReal k = 1.0 - eta*eta*(1.0 - dot*dot);
+    real dot = this->dot(normal);
+    real k = 1.0 - eta*eta*(1.0 - dot*dot);
 
-    if (k >= Math<TypeReal>::EPSILON)
+    if (k >= Math<real>::EPSILON)
     {
         *this *= eta;
         *this -= normal * (eta*dot + sqrt(k));
     }
     else
     {
-        this->set(TypeReal(0.0), TypeReal(0.0), TypeReal(0.0));
+        this->set(real(0.0), real(0.0), real(0.0));
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-std::string Vector3<TypeReal>::toString() const
+template <typename real>
+std::string Vector3<real>::toString() const
 {
     std::stringstream oss;
     oss << "gmath::Vector3(" << x << ", " << y << ", " << z << ");" << std::endl;

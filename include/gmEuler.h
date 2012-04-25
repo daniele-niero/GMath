@@ -30,34 +30,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace gmath
 {
 
-	template <class TypeReal>
+	template <typename real>
 	class Euler
 	{
 		public:
 			Euler();
-			Euler(const Euler<TypeReal>& other);
-			Euler(const TypeReal inX, const TypeReal inY, const TypeReal inZ);
-			Euler(const Vector3<TypeReal>& vec);
+			Euler(const Euler<real>& other);
+			Euler(const real inX, const real inY, const real inZ);
+			Euler(const Vector3<real>& vec);
 
-			TypeReal x, y, z;
+			real x, y, z;
 
 			/*------ coordinate access ------*/
-			TypeReal operator[] (int i) const;
-			TypeReal& operator[] (int i);
+			real operator[] (int i) const;
+			real& operator[] (int i);
 
 			/*------ Comparisons ------*/
-			bool operator == (const Euler<TypeReal> &other) const;
-			bool operator != (const Euler<TypeReal> &other) const;
+			bool operator == (const Euler<real> &other) const;
+			bool operator != (const Euler<real> &other) const;
 
-			void set(const TypeReal inX, const TypeReal inY, const TypeReal inZ);
+			void set(const real inX, const real inY, const real inZ);
 
-			Euler<TypeReal> toDegrees() const;
-			Euler<TypeReal> toRadians() const;
+			Euler<real> toDegrees() const;
+			Euler<real> toRadians() const;
 
 			void toDegreesInPlace();
 			void toRadiansInPlace();
 
-			Vector3<TypeReal> toVector() const;
+			Vector3<real> toVector() const;
 
 			std::string toString() const;
 	};

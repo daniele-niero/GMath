@@ -35,10 +35,10 @@ using namespace std;
 namespace gmath
 {
 	// Matrices forward declaration
-	template <class TypeReal>
+	template <typename real>
 	class Matrix3;
 
-    template <class TypeReal>
+    template <typename real>
     class Matrix4;
 
 	/**
@@ -47,47 +47,49 @@ namespace gmath
 	This class can be used to represent points, vectors, normals
 	or even colors. The usual vector operations are available.
 	*/
-	template <class TypeReal>
+	template <typename real>
 	class Vector3
 	{
 		public:
 			/*------ constructors ------*/
 			Vector3();
-			Vector3(TypeReal inX, TypeReal inY, TypeReal inZ);
-			Vector3(const Vector3<TypeReal> & other);
-			Vector3(const TypeReal* list);
+			Vector3(real inX, real inY, real inZ);
+			Vector3(const Vector3<real> & other);
+			Vector3(const real* list);
 
 			/*------ properties ------*/
-			TypeReal x, y, z;
+			real x, y, z;
 
 			/** Pointer access for direct copying. */
-			TypeReal* ptr();
-			const TypeReal* ptr() const;
+			real* ptr();
+			const real* ptr() const;
 
 			/*------ coordinate access ------*/
-			TypeReal operator[] (int i) const;
-			TypeReal& operator[] (int i);
+			real operator[] (int i) const;
+			real& operator[] (int i);
 
 			/*------ Arithmetic operations ------*/
-			Vector3<TypeReal> operator + (const Vector3<TypeReal> & other) const;
-			Vector3<TypeReal> operator - (const Vector3<TypeReal> & other) const;
-			Vector3<TypeReal> operator * (TypeReal scalar) const;
-			Vector3<TypeReal> operator * (const Matrix3<TypeReal> &mat) const;
-            Vector3<TypeReal> operator * (const Matrix4<TypeReal> &mat) const;
-			Vector3<TypeReal> operator / (TypeReal scalar) const;
+			Vector3<real> operator + (const Vector3<real> & other) const;
+			Vector3<real> operator - (const Vector3<real> & other) const;
+			Vector3<real> operator * (real scalar) const;
+			Vector3<real> operator * (const Matrix3<real> &mat) const;
+            Vector3<real> operator * (const Matrix4<real> &mat) const;
+			Vector3<real> operator / (real scalar) const;
 
 			/*------ Arithmetic updates ------*/
-			void operator += (const Vector3<TypeReal> & other);
-			void operator -= (const Vector3<TypeReal> & other);
-			void operator *= (TypeReal scalar);
-			void operator /= (TypeReal scalar);
+			void operator += (const Vector3<real> & other);
+			void operator -= (const Vector3<real> & other);
+			void operator *= (real scalar);
+            void operator *= (const Matrix3<real> &mat);
+            void operator *= (const Matrix4<real> &mat);
+			void operator /= (real scalar);
 
 			/*------ Arithmetic comparisons ------*/
-			bool operator == (const Vector3<TypeReal> & other) const;
-			bool operator != (const Vector3<TypeReal> & other) const;
+			bool operator == (const Vector3<real> & other) const;
+			bool operator != (const Vector3<real> & other) const;
 
 			/*------ Arithmetic assignment ------*/
-			void operator = (const Vector3<TypeReal> & other);
+			void operator = (const Vector3<real> & other);
 
 			/*------ methods ------*/
 
@@ -95,46 +97,46 @@ namespace gmath
 			    @param inX The wanted value for x
 			    @param inY The wanted value for y
 			    @param inZ The wanted value for z */
-			void set(TypeReal inX, TypeReal inY, TypeReal inZ);
+			void set(real inX, real inY, real inZ);
 
 			/** return a Vector3 that is the exact copy of this one */
-			Vector3<TypeReal> duplicate() const;
+			Vector3<real> duplicate() const;
 
 			/** Perform the cross product between this vector and the given vector */
-			Vector3<TypeReal> cross(const Vector3<TypeReal> & other) const;
-			void crossInPlace(const Vector3<TypeReal> & other);
+			Vector3<real> cross(const Vector3<real> & other) const;
+			void crossInPlace(const Vector3<real> & other);
 
 			/** Perform the cross product between this vector and the given vector,
 			 *  and always return a normalised vector.
 			 *  This function is useful to reduce lines of code. */
-			Vector3<TypeReal> crossNormalized(const Vector3<TypeReal> & other) const;
+			Vector3<real> crossNormalized(const Vector3<real> & other) const;
 
 			/** Perform the dot product between this vector and the given vector */
-			TypeReal dot(const Vector3<TypeReal> & other) const;
+			real dot(const Vector3<real> & other) const;
 
 			/** Calculate the length of this vector */
-			TypeReal length() const;
-			TypeReal squaredLength() const;
+			real length() const;
+			real squaredLength() const;
 
 			/** Find the distance between this vector and the given vector */
-			TypeReal distance(const Vector3<TypeReal> & other) const;
+			real distance(const Vector3<real> & other) const;
 
-			Vector3<TypeReal> normalize() const;
+			Vector3<real> normalize() const;
 			void normalizeInPlace();
 
 			/** Return angle (in radians) between this vector and the given vector.
 			    @note: Remember to normalize the vectors before to call this method. */
-			TypeReal angle(const Vector3<TypeReal> & other) const;
+			real angle(const Vector3<real> & other) const;
 
 			/** Return the reflection to a surface.
 			    @param normal is The Vector3 which represent the surface normal.
 			                  Note that normal should be normalized */
-			Vector3<TypeReal> reflect(const Vector3<TypeReal> & normal) const;
+			Vector3<real> reflect(const Vector3<real> & normal) const;
 
 			/** Reflect this vector to a surface.
 				@param normal is The Vector3 which represent the surface normal.
 						      Note that normal should be normalized */
-			void reflectInPlace(const Vector3<TypeReal> & normal);
+			void reflectInPlace(const Vector3<real> & normal);
 
 			/** Return the transmitted vector.
 			    If the returned vector is zero then there is no transmitted light because
@@ -142,7 +144,7 @@ namespace gmath
 	        	@param normal The Vector3 which represent the surface normal.
 	        	              Note that normal should be normalized
 	        	@param eta The relative index of refraction. */
-			Vector3<TypeReal> refract(const Vector3<TypeReal> & normal, TypeReal eta) const;
+			Vector3<real> refract(const Vector3<real> & normal, real eta) const;
 
 			/** Transmit this vector.
 				If the returned vector is zero then there is no transmitted light because
@@ -150,7 +152,7 @@ namespace gmath
 				@param normal The Vector3 which represent the surface normal.
 							  Note that normal should be normalized
 				@param eta The relative index of refraction. */
-			void refractInPlace(const Vector3<TypeReal> & normal, TypeReal eta);
+			void refractInPlace(const Vector3<real> & normal, real eta);
 
 			std::string toString() const;
 

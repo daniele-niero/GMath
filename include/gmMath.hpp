@@ -20,15 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 using namespace std;
 
-template <class TypeReal>
-TypeReal Math<TypeReal>::acos (TypeReal x)
+template <typename real>
+real Math<real>::acos (real x)
 {
-    if (-(TypeReal)1 < x) {
-        if (x < (TypeReal)1) {
-            return (TypeReal) ::acos((double)x);
+    if (-(real)1 < x) {
+        if (x < (real)1) {
+            return (real) ::acos((double)x);
         }
         else {
-            return (TypeReal)0;
+            return (real)0;
         }
     }
     else {
@@ -36,30 +36,30 @@ TypeReal Math<TypeReal>::acos (TypeReal x)
     }
 }
 
-template <class TypeReal>
-TypeReal Math<TypeReal>::asin (TypeReal x)
+template <typename real>
+real Math<real>::asin (real x)
 {
-    if (-(TypeReal)1 < x) {
-        if (x < (TypeReal)1) {
-            return (TypeReal) ::asin((double)x);
+    if (-(real)1 < x) {
+        if (x < (real)1) {
+            return (real) ::asin((double)x);
         }
         else {
-            return Math<TypeReal>::HALFPI;
+            return Math<real>::HALFPI;
         }
     }
     else {
-        return -Math<TypeReal>::HALFPI;
+        return -Math<real>::HALFPI;
     }
 }
 
-template <class TypeReal>
-TypeReal Math<TypeReal>::toRadians(TypeReal x)
+template <typename real>
+real Math<real>::toRadians(real x)
 {
-	return x*(PI/(TypeReal)180.0);
+	return x*(PI/(real)180.0);
 }
 
-template <class TypeReal>
-TypeReal Math<TypeReal>::toDegrees(TypeReal x)
+template <typename real>
+real Math<real>::toDegrees(real x)
 {
-	return x*((TypeReal)180.0/PI);
+	return x*((real)180.0/PI);
 }

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace gmath
 {
-	template <class TypeReal>
+	template <typename real>
 	struct Math
 	{
 		public:
@@ -41,17 +41,17 @@ namespace gmath
 			    functions clamp the input argument to [-1,1] to avoid NaN issues
 			    when the input is slightly larger than 1 or slightly smaller than -1.
 			*/
-			static TypeReal acos(TypeReal x);
-			static TypeReal asin(TypeReal x);
-			static TypeReal toRadians(TypeReal x);
-			static TypeReal toDegrees(TypeReal x);
+			static real acos(real x);
+			static real asin(real x);
+			static real toRadians(real x);
+			static real toDegrees(real x);
 
-			static const TypeReal EPSILON;
-			static const TypeReal PI;
-			static const TypeReal HALFPI;
-			static const TypeReal MAX;
-			static const TypeReal MIN;
-			static const TypeReal SMALLEST;
+			static const real EPSILON;
+			static const real PI;
+			static const real HALFPI;
+			static const real MAX;
+			static const real MIN;
+			static const real SMALLEST;
 	};
 
 	#include "gmMath.hpp"

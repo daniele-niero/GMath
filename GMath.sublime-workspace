@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Matr",
+				"Matrix3f"
+			],
+			[
+				"Vector",
+				"Vector3"
+			],
+			[
 				"scr",
 				"screenToWorld	(attribute, function)"
 			],
@@ -112,10 +120,6 @@
 				"inverseFinal"
 			],
 			[
-				"Matr",
-				"Matrix3"
-			],
-			[
 				"get",
 				"getPosition"
 			],
@@ -168,26 +172,10 @@
 	"buffers":
 	[
 		{
-			"file": "sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
+			"file": "include/gmMatrix4.h",
 			"settings":
 			{
-				"buffer_size": 1619,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
-			"settings":
-			{
-				"buffer_size": 4819,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
-			"settings":
-			{
-				"buffer_size": 8550,
+				"buffer_size": 8063,
 				"line_ending": "Unix"
 			}
 		}
@@ -228,47 +216,120 @@
 	},
 	"file_history":
 	[
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmRoot.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py.orig",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testMatrix3.cpp.orig",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/annotated.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Euler-members.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Euler.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Matrix3-members.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Matrix3.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Matrix4-members.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Matrix4.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Vector3-members.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Vector3.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Vector4-members.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/classgmath_1_1Vector4.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x63.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x64.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x65.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x67.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x68.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x69.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x6c.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x6d.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x6e.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x6f.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x70.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x72.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x73.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x74.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x76.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x77.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x78.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x79.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_0x7a.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x63.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x64.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x65.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x67.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x69.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6c.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6d.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6e.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6f.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x70.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x72.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x73.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x74.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x76.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_vars.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8h.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8h_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8hpp_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMath_8h.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMath_8h_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMath_8hpp_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix3_8h.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix3_8h_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix3_8hpp_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix4_8h.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix4_8h_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix4_8hpp_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector3_8h.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector3_8h_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector3_8hpp_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector4_8h.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector4_8h_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector4_8hpp_source.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/group__constructors.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/structgmath_1_1Math-members.html",
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/structgmath_1_1Math.html",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
+		"/Users/danieleniero/Documents/Programming/Imath/ImathMatrix.h",
+		"/Users/danieleniero/Documents/Programming/Imath/ImathVec.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmVector3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmRoot.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User_backup/Distraction Free.sublime-settings",
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User_backup/Preferences.sublime-settings",
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
 		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User_backup/Global.sublime-settings",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/cube_obj.py",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
 		"/Users/danieleniero/Downloads/Picking_Example 2/Picking_Example.bas",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMath.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMath.h",
 		"/Users/danieleniero/Documents/Programming/GMath/references/openGLViewport.py",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmRoot.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/source/gmRoot.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/lib/darwin/release/python/python2.7/site-packages/openGLViewport.py",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testMatrix3.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/references/gmath_purepython/matrix3.py",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h.orig",
 		"/Users/danieleniero/Documents/Programming/GMath/references/openGLViewport.py.orig",
 		"/Users/danieleniero/Documents/Programming/GMath/build/darwin/release/python/openGLViewport.py",
 		"/Users/danieleniero/Desktop/RentMessage.txt",
 		"/Users/danieleniero/Documents/Programming/GMath/.hgignore",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmVector3.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pymgVector4.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py",
@@ -281,81 +342,8 @@
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmEuler.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/gmath_py.h",
-		"/Users/danieleniero/Documents/Programming/GMath/GMath.sublime-project",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/imath/SConstruct",
-		"/Users/danieleniero/Documents/Programming/GMath/lib/release/python2.7/site-packages/pippo.py",
-		"/Users/danieleniero/Documents/Programming/buildEnv.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo/buildEnv.py",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/includes/pygmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/includes/pygmVector3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/sources/gmath_py.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/sources/pygmMatrix3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/pygmMatrix3.cpp",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - DefaultModified/DefaultModified.sublime-theme",
-		"/Users/danieleniero/Downloads/Theme - Soda/Soda Light.sublime-theme",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - DefaultModified/Widget.sublime-settings",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default/Default.sublime-theme",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default copy/Widgets.stTheme",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default/Widget.sublime-settings",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default copy/Default.sublime-theme",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Theme - Default copy/Widget.sublime-settings",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Base File.sublime-settings",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
-		"/Users/danieleniero/Documents/Programming/GMath/resources/doxygen/doxy_config",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testVector3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/matrix4.py",
-		"/Users/danieleniero/Documents/Programming/GMath/compile.py",
-		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/_nurbsCurve.py",
-		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/constants.py",
-		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/epsilon.py",
-		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/matrix3.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo/launchApp.sh",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/buildEnv.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/geoCylinderNodeWrapper.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCylinder.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCylinder.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCone.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/builtinNodes/GeoCone.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/py/coral/builtinNodes.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/pythonWrapper.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/geoConeNodeWrapper.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/coral/pythonWrappers/geoCubeNodeWrapper.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/builtinNodes/GeoCone.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo/coral/builtinNodes/GeoCone.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo/compile.sh",
-		"/Users/danieleniero/Documents/Programming/coral-repo-svn/buildEnv.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo/.git/info/exclude",
-		"/Users/danieleniero/Documents/yasvn2hg/user.map",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/ArithmeticNodes.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/MathNodes.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/pythonWrapper.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/geoJointNodeWrapper.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/py/coral/builtinNodes.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/geoSphereNodeWrapper.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/ArithmeticNodes.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/src/NumericDrawNode.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/src/NumericDrawNode.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/GeoSphere.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/GeoSphere.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/geoJointWrapper.h",
-		"/Users/danieleniero/Desktop/nodeBox.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/py/coralUi/nodeBox.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coralUi/src/DrawNode.cpp",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/builtinNodes/MathNodes.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/coral/pythonWrappers/mathNodesWrapper.h",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/builtinNodes.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/mathNode.py",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/mathNodes.py",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Global.sublime-settings",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/User/Python.sublime-settings",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Global.sublime-settings",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/examples/simplePyNode/simplePyNode.py",
-		"/Users/danieleniero/Library/Application Support/Sublime Text 2/Packages/Default/Base File.sublime-settings",
-		"/Users/danieleniero/Documents/Programming/coral-repo-read-only/build/coralStandaloneBuild/coral/timeNode.py"
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/gmath_py.h"
 	],
 	"find":
 	{
@@ -366,6 +354,11 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/danieleniero/Documents/Programming/GMath/include",
+			"/Users/danieleniero/Documents/Programming/GMath/source",
+			"/Users/danieleniero/Documents/Programming/GMath/include",
+			"/Users/danieleniero/Documents/Programming/GMath",
+			"/Users/danieleniero/Documents/Programming/GMath/include",
 			""
 		]
 	},
@@ -374,6 +367,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"TypeReal",
+			"<class TypeReal>",
+			"operator *",
+			"Mat",
+			"Matrix",
+			"Matrix3",
 			"self.__camera",
 			"__pov",
 			"getData",
@@ -470,6 +469,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"real",
+			"<typename TypeReal>",
 			"self._camera",
 			"_pov",
 			"bbmin",
@@ -517,103 +518,39 @@
 		"reverse": false,
 		"show_context": false,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "sub_projects/gmath_py/examples/Qt_viewport/base_object.py",
+					"file": "include/gmMatrix4.h",
 					"settings":
 					{
-						"buffer_size": 1619,
+						"buffer_size": 8063,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								621,
-								621
+								4388,
+								4388
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.tmLanguage",
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "sub_projects/gmath_py/examples/Qt_viewport/draw_matrix4.py",
-					"settings":
-					{
-						"buffer_size": 4819,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3059,
-								3059
-							],
-							[
-								3084,
-								3084
-							],
-							[
-								3109,
-								3109
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 835.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
-					"settings":
-					{
-						"buffer_size": 8550,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4280,
-								4240
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2254.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -652,10 +589,6 @@
 		]
 	},
 	"menu_visible": true,
-	"output.exec":
-	{
-		"height": 328.0
-	},
 	"replace":
 	{
 		"height": 62.0

@@ -21,31 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal>::Euler()
+template<typename real>
+Euler<real>::Euler()
 {}
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal>::Euler(const Euler<TypeReal>& other)
+template<typename real>
+Euler<real>::Euler(const Euler<real>& other)
 {
-	memcpy(&x, &other.x, 3*sizeof(TypeReal));
+	memcpy(&x, &other.x, 3*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal>::Euler(const TypeReal inX, const TypeReal inY, const TypeReal inZ)
+template<typename real>
+Euler<real>::Euler(const real inX, const real inY, const real inZ)
 {
 	x=inX; y=inY; z=inZ;
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal>::Euler(const Vector3<TypeReal>& vec)
+template<typename real>
+Euler<real>::Euler(const Vector3<real>& vec)
 {
-	memcpy(&x, vec.ptr(), 3*sizeof(TypeReal));
+	memcpy(&x, vec.ptr(), 3*sizeof(real));
 }
 
 /*------ Coordinate access ------*/
-template <class TypeReal>
-TypeReal Euler<TypeReal>::operator[] (int i) const
+template <typename real>
+real Euler<real>::operator[] (int i) const
 {
     if (i>2) {
         throw out_of_range("gmath::Euler:\n\t index out of range");
@@ -53,8 +53,8 @@ TypeReal Euler<TypeReal>::operator[] (int i) const
     return *(&x+i);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-template <class TypeReal>
-TypeReal& Euler<TypeReal>::operator[] (int i)
+template <typename real>
+real& Euler<real>::operator[] (int i)
 {
     if (i>2) {
         throw out_of_range("gmath::Euler:\n\t index out of range");
@@ -63,75 +63,75 @@ TypeReal& Euler<TypeReal>::operator[] (int i)
 }
 
 /*-----------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Euler<TypeReal>::operator == (const Euler<TypeReal> &other) const
+template <typename real>
+bool Euler<real>::operator == (const Euler<real> &other) const
 {
     return (
-		fabs(x-other.x)<Math<TypeReal>::EPSILON &&
-		fabs(y-other.y)<Math<TypeReal>::EPSILON &&
-		fabs(z-other.z)<Math<TypeReal>::EPSILON );
+		fabs(x-other.x)<Math<real>::EPSILON &&
+		fabs(y-other.y)<Math<real>::EPSILON &&
+		fabs(z-other.z)<Math<real>::EPSILON );
 }
 /*-----------------------------------------------------------------------------------*/
-template <class TypeReal>
-bool Euler<TypeReal>::operator != (const Euler<TypeReal> &other) const
+template <typename real>
+bool Euler<real>::operator != (const Euler<real> &other) const
 {
 	return (
-		fabs(x-other.x)>Math<TypeReal>::EPSILON ||
-		fabs(y-other.y)>Math<TypeReal>::EPSILON ||
-		fabs(z-other.z)>Math<TypeReal>::EPSILON );
+		fabs(x-other.x)>Math<real>::EPSILON ||
+		fabs(y-other.y)>Math<real>::EPSILON ||
+		fabs(z-other.z)>Math<real>::EPSILON );
 }
 
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-void Euler<TypeReal>::set(const TypeReal inX, const TypeReal inY, const TypeReal inZ)
+template<typename real>
+void Euler<real>::set(const real inX, const real inY, const real inZ)
 {
 	x=inX; y=inY; z=inZ;
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal> Euler<TypeReal>::toDegrees() const
+template<typename real>
+Euler<real> Euler<real>::toDegrees() const
 {
-	return Euler<TypeReal>(
-			Math<TypeReal>::toDegrees(x),
-			Math<TypeReal>::toDegrees(y),
-			Math<TypeReal>::toDegrees(z)
+	return Euler<real>(
+			Math<real>::toDegrees(x),
+			Math<real>::toDegrees(y),
+			Math<real>::toDegrees(z)
 			);
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Euler<TypeReal> Euler<TypeReal>::toRadians() const
+template<typename real>
+Euler<real> Euler<real>::toRadians() const
 {
-	return Euler<TypeReal>(
-			Math<TypeReal>::toRadians(x),
-			Math<TypeReal>::toRadians(y),
-			Math<TypeReal>::toRadians(z)
+	return Euler<real>(
+			Math<real>::toRadians(x),
+			Math<real>::toRadians(y),
+			Math<real>::toRadians(z)
 			);
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-void Euler<TypeReal>::toDegreesInPlace()
+template<typename real>
+void Euler<real>::toDegreesInPlace()
 {
-	x = Math<TypeReal>::toDegrees(x);
-	y = Math<TypeReal>::toDegrees(y);
-	z = Math<TypeReal>::toDegrees(z);
+	x = Math<real>::toDegrees(x);
+	y = Math<real>::toDegrees(y);
+	z = Math<real>::toDegrees(z);
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-void Euler<TypeReal>::toRadiansInPlace()
+template<typename real>
+void Euler<real>::toRadiansInPlace()
 {
-	x = Math<TypeReal>::toRadians(x);
-	y = Math<TypeReal>::toRadians(y);
-	z = Math<TypeReal>::toRadians(z);
+	x = Math<real>::toRadians(x);
+	y = Math<real>::toRadians(y);
+	z = Math<real>::toRadians(z);
 }
 /*-----------------------------------------------------------------------------------*/
-template<class TypeReal>
-Vector3<TypeReal> Euler<TypeReal>::toVector() const
+template<typename real>
+Vector3<real> Euler<real>::toVector() const
 {
-	return Vector3<TypeReal>(x, y, z);
+	return Vector3<real>(x, y, z);
 }
 /*-----------------------------------------------------------------------------------*/
-template <class TypeReal>
-std::string Euler<TypeReal>::toString() const
+template <typename real>
+std::string Euler<real>::toString() const
 {
     std::stringstream oss;
     oss << "gmath::Euler(" << x << ", " << y << ", " << z << ");" << std::endl;
