@@ -25,6 +25,16 @@ inf = sys.version_info
 pythonVer = 'python%s.%s' %(inf[0], inf[1])
 install_path = os.path.join(env['install_path'], '%s/site-packages' %pythonVer)
 
+if sys.platform == "win32":
+    env.Append(CCFLAGS='/EHsc')
+    env.Append(no_import_lib=1)
+    env.Append(SHLIBSUFFIX='.pyd')
+if sys.platform == "darwin":
+    env.Append(SHLIBPREFIX='')
+    env.Append(SHLIBSUFFIX='.so')
+if sys.platform == "linux2":
+    env.Append(SHLIBSUFFIX='.so')
+
 
 def dependenciesCheck(varToCheck):
     errorFound = False
@@ -55,9 +65,7 @@ python_binding = env.SharedLibrary(
     target='gmath',
     source=Glob('source/*.cpp'),
     CPPDEFINES='BUILD_BINDINGS',
-    LIBS=['boost_python', 'gmath', 'python2.7'],
-    SHLIBPREFIX='',
-    SHLIBSUFFIX='.so'
+    LIBS=['boost_python', 'gmath', 'python2.7']
     )
 
 env.Install(install_path, python_binding)

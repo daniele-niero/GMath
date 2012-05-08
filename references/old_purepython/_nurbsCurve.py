@@ -45,6 +45,11 @@ class _NurbsCurve(object):
 
         self.init(points, degree)
 
+    def setCvPositions(self, points):
+        self.__positions = []
+        for point in points:
+            self.__positions.append(toPmathVec3(point))
+
     def init(self, points, degree):
         self._destroy()
         self.__setCvPositions(points)
@@ -88,18 +93,12 @@ class _NurbsCurve(object):
     def setKnots(self, knots):
         self.__knots = knots
 
-    def __setCvPositions(self, points):
-        self.__positions = []
-        for point in points:
-            self.__positions.append(toPimathVec3(point))
 
     def setCvPositions(self, points):
-        '''
-        Please note that this function is only calling the init function for reinitialise the curve.
-        If you are planning to change the degree as well, you would probably better to call the init function
-        and passing cv's positions and degree with one single call
-        '''
-        self.init(points, self.__degree)
+        i=0
+        for p in points:
+            self.__positions[i] = p
+            i+=1
 
     def getCvPositions(self):
         return copy.copy(self.__positions)

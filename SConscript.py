@@ -23,6 +23,11 @@ Import('env')
 install_path = env['install_path']
 
 
+if sys.platform == "win32":
+    env.Append(CCFLAGS='/EHsc')
+    env.Append(no_import_lib=1)
+
+
 if env['library']=='static' :
    lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 elif env['library']=='shared' :

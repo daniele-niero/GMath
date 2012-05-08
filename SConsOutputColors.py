@@ -11,7 +11,7 @@ colors['red']    = '\033[91m'
 colors['end']    = '\033[0m'
 
 #If the output is not a terminal, remove the colors
-if not sys.stdout.isatty():
+if not sys.stdout.isatty() or sys.platform=="win32":
    for key, value in colors.iteritems():
       colors[key] = ''
 
