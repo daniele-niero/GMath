@@ -186,17 +186,6 @@ Matrix3<real> Matrix3<real>::operator * (const Matrix3<real> &other) const
         );
     return retMatrix;
 }
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Vector3<real> Matrix3<real>::operator * (const Vector3<real> &vector) const
-{
-    Vector3<real> retVec(
-        data[0]*vector.x + data[1]*vector.y + data[2]*vector.z,
-        data[3]*vector.x + data[4]*vector.y + data[5]*vector.z,
-        data[6]*vector.x + data[7]*vector.y + data[8]*vector.z
-        );
-    return retVec;
-}
 /*------ Arithmetic updates ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -428,7 +417,7 @@ void Matrix3<real>::inverseInPlace()
 template <typename real>
 Matrix3<real> Matrix3<real>::orthogonal() const
 {
-    Matrix3<real> m;
+    Matrix3<real> m(*this);
     m.orthogonalInPlace();
     return m;
 }
@@ -446,8 +435,6 @@ void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     //
     // where |V| indicates length of vector V and A*B indicates dot
     // product of vectors A and B.
-
-
 
     // Compute q0. length xAxis
     real invLength = (real)1 / sqrt(data[0]*data[0] +

@@ -29,7 +29,7 @@ vars.AddVariables( EnumVariable('build', 'Set the build type', 'release', allowe
 
 
 env = Environment(variables = vars)
-output_colors.appen_to_environment(env)
+output_colors.append_to_environment(env)
 
 if env['install_path'] == ".":
     env['install_path'] = os.path.join('./lib', sys.platform, env['build'], env['library'])

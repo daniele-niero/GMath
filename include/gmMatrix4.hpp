@@ -221,97 +221,64 @@ Matrix4<real> Matrix4<real>::operator * (const Matrix4<real> &other) const
         );
     return retMatrix;
 }
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Vector4<real> Matrix4<real>::operator * (const Vector4<real> &vector) const
-{
-    Vector4<real> retVec(
-        data[0]*vector.x + data[1]*vector.y + data[2]*vector.z + data[3]*vector.w,
-        data[4]*vector.x + data[5]*vector.y + data[6]*vector.z + data[7]*vector.w,
-        data[8]*vector.x + data[9]*vector.y + data[10]*vector.z + data[11]*vector.w,
-        data[12]*vector.x + data[13]*vector.y + data[14]*vector.z + data[15]*vector.w
-        );
-    return retVec;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Vector3<real> Matrix4<real>::operator * (const Vector3<real> &vector) const
-{
-    Vector3<real> retVec(
-        data[0]*vector.x + data[1]*vector.y + data[2]*vector.z + data[12],
-        data[4]*vector.x + data[5]*vector.y + data[6]*vector.z + data[13],
-        data[8]*vector.x + data[9]*vector.y + data[10]*vector.z + data[14]
-        );
-    return retVec;
-}
 /*------ Arithmetic updates ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::operator += (const real &value)
 {
-    set(
-        data[0]+value,  data[1]+value,  data[2]+value,  data[3]+value,
-        data[4]+value,  data[5]+value,  data[6]+value,  data[7]+value,
-        data[8]+value,  data[9]+value,  data[10]+value, data[11]+value,
-        data[12]+value, data[13]+value, data[14]+value, data[15]+value
-        );
+     data[0]+=value;  data[1]+=value;  data[2]+=value;  data[3]+=value;
+     data[4]+=value;  data[5]+=value;  data[6]+=value;  data[7]+=value;
+     data[8]+=value;  data[9]+=value; data[10]+=value; data[11]+=value;
+    data[12]+=value; data[13]+=value; data[14]+=value; data[15]+=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::operator += (const Matrix4<real> &other)
 {
     const real* b = other.ptr();
-    set(
-        data[0]+b[0],   data[1]+b[1],   data[2]+b[2],   data[3]+b[3],
-        data[4]+b[4],   data[5]+b[5],   data[6]+b[6],   data[7]+b[7],
-        data[8]+b[8],   data[9]+b[9],   data[10]+b[10], data[11]+b[11],
-        data[12]+b[12], data[13]+b[13], data[14]+b[14], data[15]+b[15]
-        );
+
+     data[0]+=b[0];   data[1]+=b[1];   data[2]+=b[2];   data[3]+=b[3];
+     data[4]+=b[4];   data[5]+=b[5];   data[6]+=b[6];   data[7]+=b[7];
+     data[8]+=b[8];   data[9]+=b[9];  data[10]+=b[10]; data[11]+=b[11];
+    data[12]+=b[12]; data[13]+=b[13]; data[14]+=b[14]; data[15]+=b[15];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::operator -= (const real &value)
 {
-    set(
-        data[0]-value,  data[1]-value,  data[2]-value,  data[3]-value,
-        data[4]-value,  data[5]-value,  data[6]-value,  data[7]-value,
-        data[8]-value,  data[9]-value,  data[10]-value, data[11]-value,
-        data[12]-value, data[13]-value, data[14]-value, data[15]-value
-        );
+     data[0]-=value;  data[1]-=value;  data[2]-=value;  data[3]-=value;
+     data[4]-=value;  data[5]-=value;  data[6]-=value;  data[7]-=value;
+     data[8]-=value;  data[9]-=value; data[10]-=value; data[11]-=value;
+    data[12]-=value; data[13]-=value; data[14]-=value; data[15]-=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::operator -= (const Matrix4<real> &other)
 {
     const real* b = other.ptr();
-    set(
-        data[0]-b[0],   data[1]-b[1],   data[2]-b[2],   data[3]-b[3],
-        data[4]-b[4],   data[5]-b[5],   data[6]-b[6],   data[7]-b[7],
-        data[8]-b[8],   data[9]-b[9],   data[10]-b[10], data[11]-b[11],
-        data[12]-b[12], data[13]-b[13], data[14]-b[14], data[15]-b[15]
-        );
+
+     data[0]-=b[0];   data[1]-=b[1];   data[2]-=b[2];   data[3]-=b[3];
+     data[4]-=b[4];   data[5]-=b[5];   data[6]-=b[6];   data[7]-=b[7];
+     data[8]-=b[8];   data[9]-=b[9];  data[10]-=b[10]; data[11]-=b[11];
+    data[12]-=b[12]; data[13]-=b[13]; data[14]-=b[14]; data[15]-=b[15];
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::operator /= (const real &value)
 {
-    set(
-        data[0]/value,  data[1]/value,  data[2]/value,  data[3]/value,
-        data[4]/value,  data[5]/value,  data[6]/value,  data[7]/value,
-        data[8]/value,  data[9]/value,  data[10]/value, data[11]/value,
-        data[12]/value, data[13]/value, data[14]/value, data[15]/value
-        );
+     data[0]/=value;  data[1]/=value;  data[2]/=value;  data[3]/=value;
+     data[4]/=value;  data[5]/=value;  data[6]/=value;  data[7]/=value;
+     data[8]/=value;  data[9]/=value; data[10]/=value; data[11]/=value;
+    data[12]/=value; data[13]/=value; data[14]/=value; data[15]/=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::operator *= (const real &value)
 {
-    set(
-        data[0]*value,  data[1]*value,  data[2]*value,  data[3]*value,
-        data[4]*value,  data[5]*value,  data[6]*value,  data[7]*value,
-        data[8]*value,  data[9]*value,  data[10]*value, data[11]*value,
-        data[12]*value, data[13]*value, data[14]*value, data[15]*value
-        );
+     data[0]*=value;  data[1]*=value;  data[2]*=value;  data[3]*=value;
+     data[4]*=value;  data[5]*=value;  data[6]*=value;  data[7]*=value;
+     data[8]*=value;  data[9]*=value; data[10]*=value; data[11]*=value;
+    data[12]*=value; data[13]*=value; data[14]*=value; data[15]*=value;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -407,6 +374,51 @@ void Matrix4<real>::set(
     data[4]=yx;  data[5]=yy;  data[6]=yz;  data[7]=yw;
     data[8]=zx;  data[9]=zy;  data[10]=zz; data[11]=zw;
     data[12]=px; data[13]=py; data[14]=pz; data[15]=pw;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Vector3<real> Matrix4<real>::getRow(unsigned int i) const
+{
+    if (i>3)
+    {
+        throw out_of_range("gmath::Matrix4: index out of range");
+    }
+    return Vector3<real>( data[i*4], data[i*4+1], data[i*4+2] );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Vector4<real> Matrix4<real>::getRow2(unsigned int i) const
+{
+    if (i>3)
+    {
+        throw out_of_range("gmath::Matrix4: index out of range");
+    }
+    return Vector3<real>( data[i*4], data[i*4+1], data[i*4+2], data[i*4+3] );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setRow(unsigned int i, const Vector3<real> &vec)
+{
+    if (i>3)
+    {
+        throw out_of_range("gmath::Matrix4: index out of range");
+    }
+    data[i*4]   = vec.x;
+    data[i*4+1] = vec.y;
+    data[i*4+2] = vec.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setRow(unsigned int i, const Vector4<real> &vec)
+{
+    if (i>3)
+    {
+        throw out_of_range("gmath::Matrix4: index out of range");
+    }
+    data[i*4]   = vec.x;
+    data[i*4+1] = vec.y;
+    data[i*4+2] = vec.z;
+    data[i*4+3] = vec.w;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -567,6 +579,70 @@ Matrix4<real> Matrix4<real>::inverse() const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+Matrix4<real> Matrix4<real>::orthogonal() const
+{
+    Matrix4<real> m(*this);
+    m.orthogonalInPlace();
+    return m;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix4<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
+{
+    // Code take it from WildMagig 5  -  www.geometrictools.com  -  here the matrix is transpose
+    // Algorithm uses Gram-Schmidt orthogonalization.  If 'this' matrix is
+    // M = [m0|m1|m2], then orthonormal output matrix is Q = [q0|q1|q2],
+    //
+    //   q0 = m0/|m0|
+    //   q1 = (m1-(q0*m1)q0)/|m1-(q0*m1)q0|
+    //   q2 = (m2-(q0*m2)q0-(q1*m2)q1)/|m2-(q0*m2)q0-(q1*m2)q1|
+    //
+    // where |V| indicates length of vector V and A*B indicates dot
+    // product of vectors A and B.
+
+    // Compute q0. length xAxis
+    real invLength = (real)1 / sqrt(data[0]*data[0] +
+        data[1]*data[1] + data[2]*data[2]);
+
+    data[0] *= invLength;
+    data[1] *= invLength;
+    data[2] *= invLength;
+
+    // Compute q1.
+    real dot0 = data[0]*data[4] + data[1]*data[5] +
+        data[2]*data[6];
+
+    data[4] -= dot0*data[0];
+    data[5] -= dot0*data[1];
+    data[6] -= dot0*data[2];
+
+    invLength = (real)1 / sqrt(data[4]*data[4] +
+        data[5]*data[5] + data[6]*data[6]);
+
+    data[4] *= invLength;
+    data[5] *= invLength;
+    data[6] *= invLength;
+
+    // compute q2
+    real dot1 = data[4]*data[8] + data[5]*data[9] +
+        data[6]*data[10];
+
+    dot0 = data[0]*data[8] + data[1]*data[9] +
+        data[2]*data[10];
+
+    data[8]  -= dot0*data[0] + dot1*data[4];
+    data[9]  -= dot0*data[1] + dot1*data[5];
+    data[10] -= dot0*data[2] + dot1*data[6];
+
+    invLength = (real)1 / sqrt(data[8]*data[8] +
+        data[9]*data[9] + data[10]*data[10]);
+
+    data[8]  *= invLength;
+    data[9]  *= invLength;
+    data[10] *= invLength;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 void Matrix4<real>::inverseInPlace()
 {
    real value[16];
@@ -704,7 +780,7 @@ Matrix4<real> Matrix4<real>::setScale(const Vector3<real> &scale)
             data[12], data[13], data[14], data[15]
             );
 }
-/*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix4<real> Matrix4<real>::setScale(real sX, real sY, real sZ)
 {
@@ -760,6 +836,95 @@ void Matrix4<real>::setScaleInPlace(real sX, real sY, real sZ)
     data[0]=x.x; data[1]=x.y; data[2]=x.z;
     data[4]=y.x; data[5]=y.y; data[6]=y.z;
     data[8]=z.x; data[9]=z.y; data[10]=z.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
+{
+    real cx, sx, cy, sy, cz, sz;
+
+    cx = cos(angleX);
+    sx = sin(angleX);
+    cy = cos(angleY);
+    sy = sin(angleY);
+    cz = cos(angleZ);
+    sz = sin(angleZ);
+
+    Matrix3<real> XMat(
+        1.0, 0.0, 0.0,
+        0.0,  cx,  sx,
+        0.0, -sx,  cx);
+
+    Matrix3<real> YMat(
+         cy, 0.0, -sy,
+        0.0, 1.0, 0.0,
+         sy, 0.0,  cy);
+
+    Matrix3<real> ZMat(
+         cz,  sz, 0.0,
+        -sz,  cz, 0.0,
+        0.0, 0.0, 1.0);
+
+    switch (order)
+    {
+    case XYZ :
+        this.setRotation( XMat*(YMat*ZMat) );
+        break;
+    case XZY :
+        this.setRotation( XMat*(ZMat*YMat) );
+        break;
+    case YXZ :
+        this.setRotation( YMat*(XMat*ZMat) );
+        break;
+    case YZX :
+        this.setRotation( YMat*(ZMat*XMat) );
+        break;
+    case ZXY :
+        this.setRotation( ZMat*(XMat*YMat) );
+        break;
+    case ZYX :
+        this.setRotation( ZMat*(YMat*XMat) );
+        break;
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setFromEuler(const Euler<real> &rotation, RotationOrder order)
+{
+    this->setFromEuler(rotation.x, rotation.y, rotation.z, order);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Matrix4<real> Matrix4<real>::createFromEuler(const Euler<real> &rotation, RotationOrder order)
+{
+    Matrix4<real> newMat;
+    newMat.setFromEuler(rotation.x, rotation.y, rotation.z, order);
+    return newMat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Matrix4<real> Matrix4<real>::createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
+{
+    Matrix4<real> newMat;
+    newMat.setFromEuler(angleX, angleY, angleZ, order);
+    return newMat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Euler<real> Matrix4<real>::toEuler(RotationOrder order) const
+{
+    Euler<real> retEuler;
+    this->toEuler(retEuler, order);
+    return retEuler;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+bool Matrix4<real>::toEuler(Euler<real>& eulerAngles, RotationOrder order) const
+{
+    Matrix3<real> mat3;
+    bool ret = mat3.toEuler(eulerAngles, order);
+    this->setRotation(mat3);
+    return ret;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>

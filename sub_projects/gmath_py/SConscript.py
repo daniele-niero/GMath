@@ -18,12 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import sys, os
-import buildEnvironment
+import config
 
 Import('env')
-inf = sys.version_info
-pythonVer = 'python%s.%s' %(inf[0], inf[1])
-install_path = os.path.join(env['install_path'], '%s/site-packages' %pythonVer)
+install_path = os.path.join(env['install_path'], 'python%s/site-packages' %config.py_ver)
 
 if sys.platform == "win32":
     env.Append(CCFLAGS='/EHsc')
@@ -35,37 +33,25 @@ if sys.platform == "darwin":
 if sys.platform == "linux2":
     env.Append(SHLIBSUFFIX='.so')
 
-
-def dependenciesCheck(varToCheck):
-    errorFound = False
-    print ''
-    for var in varToCheck:
-        if not os.environ.has_key(var):
-            print "%s environment variable doesn't exist." %var
-            errorFound = True
-    print ''
-    return errorFound
-
-if dependenciesCheck(('BOOST_INCLUDE', 'PYTHON_INCLUDE', "GMATH_INCLUDE", 'PYTHON_LIB', 'BOOST_LIB', "GMATH_LIB")):
-    raise EnvironmentError, 'please correct the above problem(s)\n'
-
-
 env.Append(CCFLAGS = '-DBOOST_PYTHON_STATIC_LIB -DBOOST_PYTHON_MAX_ARITY=17')
                   
 env.Append(CPPPATH=['include',
-                    os.environ['PYTHON_INCLUDE'],
-                    os.environ['BOOST_INCLUDE'],
+                    config.python_include_path,
+                    config.boost_include_path,
                     os.environ['GMATH_INCLUDE']] )
 
-env.Append(LIBPATH = [os.environ['PYTHON_LIB'],
-                      os.environ['BOOST_LIB'], 
-                      os.environ['GMATH_LIB']] )
+env.Append(LIBPATH = [config.python_lib_path,
+                      config.boost_lib_path, 
+                      os.environ['GMATH_LIB']])
 
+static_boostpython = File( os.path.join(config.boost_lib_path, config.boost_python_lib) )
 python_binding = env.SharedLibrary(
     target='gmath',
     source=Glob('source/*.cpp'),
     CPPDEFINES='BUILD_BINDINGS',
-    LIBS=['boost_python', 'gmath', 'python2.7']
+    LIBS=[static_boostpython, 
+          'gmath', 
+          config.python_lib]
     )
 
 env.Install(install_path, python_binding)

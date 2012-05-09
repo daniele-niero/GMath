@@ -39,7 +39,7 @@ java_library_message = '%sCreating Java Archive %s==> %s$TARGET%s' % \
 install_message = ".\n%sInstallation:\n\t%s$SOURCE  ==>  %s$TARGET%s\n." % \
     (colors['blue'], colors['blue'], colors['green'], colors['end'])
 
-def appen_to_environment(inEnv):
+def append_to_environment(inEnv):
     inEnv.Append(CXXCOMSTR = compile_source_message)
     inEnv.Append(CCCOMSTR = compile_source_message)
     inEnv.Append(SHCCCOMSTR = compile_shared_source_message)

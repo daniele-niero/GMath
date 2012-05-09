@@ -74,7 +74,7 @@ namespace gmath
 
 		/*------ methods ------*/
 
-		/** Set the three properties (x, y, z), with the given arguments
+		/** Set the three properties (x, y, z, w), with the given arguments
 			@param inX The wanted value for x
 			@param inY The wanted value for y
 			@param inZ The wanted value for z

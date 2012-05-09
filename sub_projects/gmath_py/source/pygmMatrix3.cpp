@@ -70,6 +70,11 @@ namespace {
             self->setFromEuler(euler);
         }
 
+        Eulerf (Matrix3f::*toEuler1)(RotationOrder) = &Matrix3f::toEuler;
+        // Eulerf (Matrix3f::*toEuler2)() = &Matrix3f::toEuler;
+        bool (Matrix3f::*toEuler3)(Eulerf&, RotationOrder) = &Matrix3f::toEuler;
+        // bool (Matrix3f::*toEuler4)(Eulerf&) = &Matrix3f::toEuler;
+
         Matrix3f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::createFromEuler;
         Matrix3f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::createFromEuler;
         // to ensure RotationOrder with default argument...
@@ -103,7 +108,6 @@ void wrapMatrix3()
         .def( self / float() )
         .def( self * float() )
         .def( self * Matrix3f() )
-        .def( self * Vector3f() )
 
         .def( self += float() )
         .def( self += Matrix3f() )
@@ -150,6 +154,11 @@ void wrapMatrix3()
         .def("setFromEuler", setFromEuler2)
         .def("setFromEuler", &matrix3_setFromEuler1_wrap)
         .def("setFromEuler", &matrix3_setFromEuler2_wrap)
+
+        .def("toEuler", toEuler1)
+        // .def("toEuler", toEuler2)
+        .def("toEuler", toEuler3)
+        // .def("toEuler", toEuler4)
 
         .def("createFromEuler", createFromEuler1)
         .def("createFromEuler", createFromEuler2)

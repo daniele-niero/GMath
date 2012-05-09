@@ -72,7 +72,6 @@ namespace gmath
             Matrix3<real> operator / (real value) const;
             Matrix3<real> operator * (real value) const;
             Matrix3<real> operator * (const Matrix3<real> &other) const;
-            Vector3<real> operator * (const Vector3<real> &vector) const;
 
             /*------ Arithmetic updates ------*/
             void operator += (real value);

@@ -83,8 +83,6 @@ namespace gmath
             Matrix4<real> operator / (const real &value) const;
             Matrix4<real> operator * (const real &value) const;
             Matrix4<real> operator * (const Matrix4<real> &other) const;
-            Vector4<real> operator * (const Vector4<real> &vector) const;
-            Vector3<real> operator * (const Vector3<real> &vector) const;
 
             /*------ Arithmetic updates ------*/
             void operator += (const real &value);
@@ -94,8 +92,6 @@ namespace gmath
             void operator /= (const real &value);
             void operator *= (const real &value);
             void operator *= (const Matrix4<real> &other);
-            void operator *= (const Vector4<real> &vector);
-            void operator *= (const Vector3<real> &vector);
 
             /*------ Comparisons ------*/
             bool operator == (const Matrix4<real> &other) const;
@@ -134,8 +130,8 @@ namespace gmath
             Matrix4<real> inverse() const;
             void inverseInPlace();
 
-//          Matrix4<real> orthogonal() const;
-//          void orthogonalInPlace();
+            Matrix4<real> orthogonal() const;
+            void orthogonalInPlace();
 
             Vector3<real> getScale() const;
             Matrix4<real> addScale(const Vector3<real> &scale);
@@ -147,14 +143,14 @@ namespace gmath
             void setScaleInPlace(const Vector3<real> &scale);
             void setScaleInPlace(real sX, real sY, real sZ);
 
-//          void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
-//          void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
-//          static Matrix4<real> createFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
-//          static Matrix4<real> createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
+            void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
+            void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
+            static Matrix4<real> createFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
+            static Matrix4<real> createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
 
             /* Remeber to take out scale first */
-//          Euler<real> toEuler(RotationOrder order=XYZ);
-//          bool toEuler(Euler<real>& eulerAngles, RotationOrder order=XYZ);
+            Euler<real> toEuler(RotationOrder order=XYZ) const; 
+            bool toEuler(Euler<real>& eulerAngles, RotationOrder order=XYZ) const;
 
             /* Returns a rotation matrix that rotates one vector into another.
 

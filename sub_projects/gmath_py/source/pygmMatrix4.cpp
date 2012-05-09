@@ -106,8 +106,6 @@ void wrapMatrix4()
         .def( self / float() )
         .def( self * float() )
         .def( self * Matrix4f() )
-        .def( self * Vector4f() )
-        .def( self * Vector3f() )
 
         .def( self += float() )
         .def( self += Matrix4f() )
