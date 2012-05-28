@@ -1,7 +1,7 @@
 # A math library for 3D graphic.
-# Copyright (C) 2010 Daniele Niero
+# Copyright (C) 2010-2012 Daniele Niero
 
-# Author contact: nieroinfo@gmail.com
+# Author contact: daniele . niero @ gmail . com
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

@@ -258,6 +258,22 @@
 				"buffer_size": 1990,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "SConstruct",
+			"settings":
+			{
+				"buffer_size": 2712,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/gmQuaternion.h",
+			"settings":
+			{
+				"buffer_size": 2835,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -296,6 +312,8 @@
 	},
 	"file_history":
 	[
+		"/Users/danieleniero/Documents/Programming/GMath/.hg/hgrc",
+		"/Users/danieleniero/.hgrc",
 		"/Users/danieleniero/Documents/Programming/pytml/pytml.sublime-project",
 		"/Users/danieleniero/Documents/Programming/GMath/SConstruct",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py",
@@ -421,9 +439,7 @@
 		"/Users/danieleniero/Documents/Programming/GMath/build/darwin/release/python/openGLViewport.py",
 		"/Users/danieleniero/Desktop/RentMessage.txt",
 		"/Users/danieleniero/Documents/Programming/GMath/.hgignore",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pymgVector4.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/references/gmath/vector4.py"
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h"
 	],
 	"find":
 	{
@@ -608,7 +624,6 @@
 	"groups":
 	[
 		{
-			"selected": 8,
 			"sheets":
 			[
 				{
@@ -763,8 +778,8 @@
 						"selection":
 						[
 							[
-								228,
-								238
+								462,
+								462
 							]
 						],
 						"settings":
@@ -843,18 +858,74 @@
 						"selection":
 						[
 							[
-								1990,
-								1990
+								1073,
+								1073
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "SConstruct",
+					"settings":
+					{
+						"buffer_size": 2712,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								58,
+								58
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "include/gmQuaternion.h",
+					"settings":
+					{
+						"buffer_size": 2835,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								109,
+								109
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 328.0,
+						"translation.y": 297.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

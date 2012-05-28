@@ -1,6 +1,6 @@
 import os
 
-py_ver = 2.6
+py_ver = 2.7
 
 python_include_path = "/System/Library/Frameworks/Python.framework/Versions/%s/include/python%s" %(py_ver, py_ver)
 python_lib_path = "/System/Library/Frameworks/Python.framework/Versions/%s/lib" %py_ver
