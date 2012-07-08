@@ -62,7 +62,9 @@ namespace gmath
 
             /*------ coordinate access ------*/
             real operator[] (int i) const;
-            real& operator[] (int i);
+            real &operator[] (int i);
+            real operator() (int row, int col) const;
+            real &operator() (int row, int col);
 
             /*------ Arithmetic operations ------*/
             Matrix3<real> operator + (real value) const;

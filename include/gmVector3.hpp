@@ -24,7 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real>::Vector3()
-{ }
+{
+    x=(real)0.0; 
+    y=(real)0.0;
+    z=(real)0.0; 
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real>::Vector3(real inX, real inY, real inZ)
@@ -98,7 +102,6 @@ Vector3<real> Vector3<real>::operator - (const Vector3<real> & other) const
     return newVector3;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-
 template <typename real>
 Vector3<real> Vector3<real>::operator * (real scalar) const
 {

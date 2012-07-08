@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template <typename real>
 Matrix4<real>::Matrix4()
 {
-     data[0]=(real)1;  data[1]=(real)0;  data[2]=(real)0;  data[3]=(real)0;
-     data[4]=(real)0;  data[5]=(real)1;  data[6]=(real)0;  data[7]=(real)0;
-     data[8]=(real)0;  data[9]=(real)0; data[10]=(real)1; data[11]=(real)0;
-    data[12]=(real)0; data[13]=(real)0; data[14]=(real)0; data[15]=(real)1;
+     data[0]=(real)1.0;  data[1]=(real)0.0;  data[2]=(real)0.0;  data[3]=(real)0.0;
+     data[4]=(real)0.0;  data[5]=(real)1.0;  data[6]=(real)0.0;  data[7]=(real)0.0;
+     data[8]=(real)0.0;  data[9]=(real)0.0; data[10]=(real)1.0; data[11]=(real)0.0;
+    data[12]=(real)0.0; data[13]=(real)0.0; data[14]=(real)0.0; data[15]=(real)1.0;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -116,6 +116,32 @@ real& Matrix4<real>::operator[] (int i)
     }
     else {
         throw out_of_range("gmath::Vector4: index out of range");
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+real Matrix4<real>::operator() (int row, int col) const
+{
+    if (row>=0 && row<4 && col>=0 && col<4)
+    {
+        return this->data[row*4+col];
+    }
+    else
+    {
+        throw out_of_range("gmath::Matrix4: row or column index out of range");
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+real &Matrix4<real>::operator() (int row, int col)
+{
+    if (row>=0 && row<4 && col>=0 && col<4)
+    {
+        return this->data[row*4+col];
+    }
+    else
+    {
+        throw out_of_range("gmath::Matrix4: row or column index out of range");
     }
 }
 /*------ Arithmetic operations ------*/
@@ -393,7 +419,7 @@ Vector4<real> Matrix4<real>::getRow2(unsigned int i) const
     {
         throw out_of_range("gmath::Matrix4: index out of range");
     }
-    return Vector3<real>( data[i*4], data[i*4+1], data[i*4+2], data[i*4+3] );
+    return Vector4<real>( data[i*4], data[i*4+1], data[i*4+2], data[i*4+3] );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>

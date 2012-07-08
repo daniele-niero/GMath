@@ -73,8 +73,10 @@ namespace gmath
 
             /*------ coordinate access ------*/
             real operator[] (int i) const;
-            real& operator[] (int i);
-
+            real &operator[] (int i);
+            real operator() (int row, int col) const;
+            real &operator() (int row, int col);
+ 
             /*------ Arithmetic operations ------*/
             Matrix4<real> operator + (const real &value) const;
             Matrix4<real> operator + (const Matrix4<real> &other) const;
@@ -114,6 +116,7 @@ namespace gmath
 
             void setPosition(const Vector3<real> &pos);
             void addPosition(const Vector3<real> &pos);
+            /** Move the matrix accordingly to its axis, no the world axis */
             void translate(const Vector3<real> &pos);
             Vector3<real> getPosition() const;
 
@@ -123,7 +126,7 @@ namespace gmath
             Matrix4<real> transpose() const;
             void transposeInPlace();
 
-            /** The deterMINant of a matrix is a floating point value which is used to
+            /** The determinant of a matrix is a floating point value which is used to
                 indicate whether the matrix has an inverse or not. If zero, then no inverse exists. */
             real determinant() const;
 
@@ -148,7 +151,7 @@ namespace gmath
             static Matrix4<real> createFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
             static Matrix4<real> createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
 
-            /* Remeber to take out scale first */
+            /** Remember to take out scale first */
             Euler<real> toEuler(RotationOrder order=XYZ) const; 
             bool toEuler(Euler<real>& eulerAngles, RotationOrder order=XYZ) const;
 

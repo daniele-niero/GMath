@@ -39,8 +39,8 @@ void wrapEuler()
         .def_readwrite("z", &Eulerf::z)
 
         .def("__str__", &Eulerf::toString)
-        .def("__getitem__", getitem_wrap<Eulerf>)
-        .def("__setitem__", setitem_wrap<Eulerf>)
+        .def("__getitem__", &getitem_wrap<Eulerf>)
+        .def("__setitem__", &setitem_wrap<Eulerf>)
 
         .def( self == Eulerf() )
         .def( self != Eulerf() )

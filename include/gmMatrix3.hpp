@@ -23,7 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /*------ constructors ------*/
 template <typename real>
 Matrix3<real>::Matrix3()
-{}
+{
+    data[0]=(real)1.0; data[1]=(real)0.0; data[2]=(real)0.0;
+    data[3]=(real)0.0; data[4]=(real)1.0; data[5]=(real)0.0;
+    data[6]=(real)0.0; data[7]=(real)0.0; data[8]=(real)1.0;
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix3<real>::Matrix3(
@@ -31,7 +35,9 @@ Matrix3<real>::Matrix3(
     real yx, real yy, real yz,
     real zx, real zy, real zz)
 {
-    set(xx, xy, xz, yx, yy, yz, zx, zy, zz);
+    data[0]=xx; data[1]=xy; data[2]=xz;
+    data[3]=yx; data[4]=yy; data[5]=yz;
+    data[6]=zx; data[7]=zy; data[8]=zz;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -91,6 +97,32 @@ real& Matrix3<real>::operator[] (int i)
     }
     else {
         throw out_of_range("gmath::Matrix3: index out of range");
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+real Matrix3<real>::operator() (int row, int col) const
+{
+    if (row>=0 && row<3 && col>=0 && col<3)
+    {
+        return this->data[row*3+col];
+    }
+    else
+    {
+        throw out_of_range("gmath::Matrix3: row or column index out of range");
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+real &Matrix3<real>::operator() (int row, int col)
+{
+    if (row>=0 && row<3 && col>=0 && col<3)
+    {
+        return this->data[row*3+col];
+    }
+    else
+    {
+        throw out_of_range("gmath::Matrix3: row or column index out of range");
     }
 }
 /*------ Arithmetic operations ------*/
@@ -425,7 +457,7 @@ Matrix3<real> Matrix3<real>::orthogonal() const
 template <typename real>
 void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
 {
-    // Code take it from WildMagig 5  -  www.geometrictools.com  -  here the matrix is transpose
+    // Code take it from WildMagic 5  -  www.geometrictools.com  -  here the matrix is transpose
     // Algorithm uses Gram-Schmidt orthogonalization.  If 'this' matrix is
     // M = [m0|m1|m2], then orthonormal output matrix is Q = [q0|q1|q2],
     //
@@ -437,8 +469,7 @@ void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     // product of vectors A and B.
 
     // Compute q0. length xAxis
-    real invLength = (real)1 / sqrt(data[0]*data[0] +
-        data[1]*data[1] + data[2]*data[2]);
+    real invLength = (real)(1.0 / sqrt(data[0]*data[0] + data[1]*data[1] + data[2]*data[2]));
 
     data[0] *= invLength;
     data[1] *= invLength;
@@ -452,8 +483,7 @@ void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[4] -= dot0*data[1];
     data[5] -= dot0*data[2];
 
-    invLength = (real)1 / sqrt(data[3]*data[3] +
-        data[4]*data[4] + data[5]*data[5]);
+    invLength = (real)(1.0 / sqrt(data[3]*data[3] + data[4]*data[4] + data[5]*data[5]));
 
     data[3] *= invLength;
     data[4] *= invLength;
@@ -470,8 +500,7 @@ void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
     data[7] -= dot0*data[1] + dot1*data[4];
     data[8] -= dot0*data[2] + dot1*data[5];
 
-    invLength = (real)1 / sqrt(data[6]*data[6] +
-        data[7]*data[7] + data[8]*data[8]);
+    invLength = (real)(1.0 / sqrt(data[6]*data[6] + data[7]*data[7] + data[8]*data[8]));
 
     data[6] *= invLength;
     data[7] *= invLength;

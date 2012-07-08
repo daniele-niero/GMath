@@ -38,6 +38,14 @@ float getitem_wrap(GMathType* self, int index)
 }
 
 
+template <typename GMathMatrix>
+float call_wrap(GMathMatrix* self, int row, int col)
+{
+    return self->operator()(row, col);
+}
+
+
+
 void wrapRoot();
 
 #endif //PYGMROOT_H

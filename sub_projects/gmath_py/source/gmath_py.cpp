@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "pygmVector4.h"
 #include "pygmMatrix3.h"
 #include "pygmMatrix4.h"
+#include "pygmQuaternion.h"
 
 
 BOOST_PYTHON_MODULE(gmath)
@@ -39,5 +40,6 @@ BOOST_PYTHON_MODULE(gmath)
     wrapVector4();
     wrapMatrix3();
     wrapMatrix4();
+    wrapQuaternion();
 }
 

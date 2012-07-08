@@ -47,13 +47,16 @@ void matrix4_setdata_wrap(Matrix4f* self, list &inlist)
     }
 }
 
-Matrix4f (Matrix4f::*addScale1)(float, float, float)= &Matrix4f::addScale;
+void (Matrix4f::*setRow1)(unsigned int i, const Vector3f&) = &Matrix4f::setRow;
+void (Matrix4f::*setRow2)(unsigned int i, const Vector4f&) = &Matrix4f::setRow;
+
+Matrix4f (Matrix4f::*addScale1)(float, float, float) = &Matrix4f::addScale;
 Matrix4f (Matrix4f::*addScale2)(const Vector3f&) = &Matrix4f::addScale;
-void (Matrix4f::*addScaleInPlace1)(float, float, float)= &Matrix4f::addScaleInPlace;
+void (Matrix4f::*addScaleInPlace1)(float, float, float) = &Matrix4f::addScaleInPlace;
 void (Matrix4f::*addScaleInPlace2)(const Vector3f&) = &Matrix4f::addScaleInPlace;
-Matrix4f (Matrix4f::*setScale1)(float, float, float)= &Matrix4f::setScale;
+Matrix4f (Matrix4f::*setScale1)(float, float, float) = &Matrix4f::setScale;
 Matrix4f (Matrix4f::*setScale2)(const Vector3f&) = &Matrix4f::setScale;
-void (Matrix4f::*setScaleInPlace1)(float, float, float)= &Matrix4f::setScaleInPlace;
+void (Matrix4f::*setScaleInPlace1)(float, float, float) = &Matrix4f::setScaleInPlace;
 void (Matrix4f::*setScaleInPlace2)(const Vector3f&) = &Matrix4f::setScaleInPlace;
 // Matrix4f (*createScale1)(float, float, float)= &Matrix4f::createScale;
 // Matrix4f (*createScale2)(const Vector3f&) = &Matrix4f::createScale;
@@ -92,12 +95,14 @@ void wrapMatrix4()
                    float, float, float, float>() )
         .def( init<const Matrix4f &>() )
         .def( init<const Vector4f &, const Vector4f &, const Vector4f &, const Vector4f &>() )
+        .def( init<const Vector3f &, const Vector3f &, const Vector3f &, const Vector3f &>() )
 
         .add_property("data", &matrix4_getdata_wrap, &matrix4_setdata_wrap)
 
         .def("__str__", &Matrix4f::toString)
-        .def("__getitem__", getitem_wrap<Matrix4f>)
-        .def("__setitem__", setitem_wrap<Matrix4f>)
+        .def("__getitem__", &getitem_wrap<Matrix4f>)
+        .def("__setitem__", &setitem_wrap<Matrix4f>)
+        .def("__call__", &call_wrap<Matrix4f>)
 
         .def( self + float() )
         .def( self + Matrix4f() )
@@ -120,6 +125,11 @@ void wrapMatrix4()
 
         .def("setToIdentity", &Matrix4f::setToIdentity)
         .def("set", &Matrix4f::set)
+
+        .def("getRow", &Matrix4f::getRow)
+        .def("getRow2", &Matrix4f::getRow2)
+        .def("setRow", setRow1)
+        .def("setRow", setRow2)
 
         .def("setPosition", &Matrix4f::setPosition)
         .def("addPosition", &Matrix4f::addPosition)

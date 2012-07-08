@@ -26,12 +26,12 @@ install_path = os.path.join(env['install_path'], 'python%s/site-packages' %confi
 if sys.platform == "win32":
     env.Append(CCFLAGS='/EHsc')
     env.Append(no_import_lib=1)
-    env.Append(SHLIBSUFFIX='.pyd')
+    shlib_suffix='.pyd'
 if sys.platform == "darwin":
-    env.Append(SHLIBPREFIX='')
-    env.Append(SHLIBSUFFIX='.so')
+    print 'it\'s a mac'
+    shlib_suffix='.so'
 if sys.platform == "linux2":
-    env.Append(SHLIBSUFFIX='.so')
+    shlib_suffix='.so'
 
 env.Append(CCFLAGS = '-DBOOST_PYTHON_STATIC_LIB -DBOOST_PYTHON_MAX_ARITY=17')
                   
@@ -51,7 +51,9 @@ python_binding = env.SharedLibrary(
     CPPDEFINES='BUILD_BINDINGS',
     LIBS=[static_boostpython, 
           'gmath', 
-          config.python_lib]
+          config.python_lib],
+    SHLIBPREFIX='',
+    SHLIBSUFFIX=shlib_suffix
     )
 
 env.Install(install_path, python_binding)

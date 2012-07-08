@@ -23,7 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /*------ Constructors ------*/
 template <typename real>
 Vector4<real>::Vector4()
-{}
+{
+    x=(real)0.0;
+    y=(real)0.0;
+    z=(real)0.0;
+    w=(real)0.0;
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector4<real>::Vector4(real inX, real inY, real inZ, real inW)
@@ -56,25 +61,19 @@ Vector4<real>::Vector4(const real* list)
 template <typename real>
 real Vector4<real>::operator[] (int i) const
 {
-    if      (i==0) { return x; }
-    else if (i==1) { return y; }
-    else if (i==2) { return z; }
-    else if (i==3) { return w; }
-    else {
+    if (i>3){
         throw out_of_range("gmath::Vector4: index out of range");
     }
+    return *(&x+i);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 real& Vector4<real>::operator[] (int i)
 {
-    if      (i==0) { return x; }
-    else if (i==1) { return y; }
-    else if (i==2) { return z; }
-    else if (i==3) { return w; }
-    else {
+    if (i==0){
         throw out_of_range("gmath::Vector4: index out of range");
     }
+    return *(&x+i);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>

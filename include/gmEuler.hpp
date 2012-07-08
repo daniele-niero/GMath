@@ -23,7 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 /*-----------------------------------------------------------------------------------*/
 template<typename real>
 Euler<real>::Euler()
-{}
+{
+    x=(real)0.0;
+    y=(real)0.0;
+    z=(real)0.0;
+}
 /*-----------------------------------------------------------------------------------*/
 template<typename real>
 Euler<real>::Euler(const Euler<real>& other)

@@ -98,8 +98,9 @@ void wrapMatrix3()
         .add_property("data", &matrix3_getdata_wrap, &matrix3_setdata_wrap)
 
         .def("__str__", &Matrix3f::toString)
-        .def("__getitem__", getitem_wrap<Matrix3f>)
-        .def("__setitem__", setitem_wrap<Matrix3f>)
+        .def("__getitem__", &getitem_wrap<Matrix3f>)
+        .def("__setitem__", &setitem_wrap<Matrix3f>)
+        .def("__call__", &call_wrap<Matrix3f>)
 
         .def( self + float() )
         .def( self + Matrix3f() )
