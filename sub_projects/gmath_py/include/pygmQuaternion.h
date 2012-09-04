@@ -19,24 +19,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include <boost/python.hpp>
-#include "pygmRoot.h"
-#include "pygmMath.h"
+#ifndef PYGMQUATERNION_H
+#define PYGMQUATERNION_H
 
-using namespace boost::python;
-using namespace gmath;
+#include "gmQuaternion.h"
 
+void wrapQuaternion();
 
-void wrapMath()
-{
-    def("acos", &Math<float>::acos);
-    def("asin", &Math<float>::asin);
-    def("toRadians", &Math<float>::toRadians);
-    def("toDegrees", &Math<float>::toDegrees);
-    scope().attr("EPSILON") = Math<float>::EPSILON;
-    scope().attr("PI") = Math<float>::PI;
-    scope().attr("HALFPI") = Math<float>::HALFPI;
-    scope().attr("MAX") = Math<float>::MAX;
-    scope().attr("MIN") = Math<float>::MIN;
-    scope().attr("SMALLEST") = Math<float>::SMALLEST;
-}
+#endif //PYGMQUATERNION_H

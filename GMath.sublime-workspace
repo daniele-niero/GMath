@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"return",
+				"returnQuat"
+			],
+			[
+				"reverse",
+				"reverseInPlace"
+			],
+			[
+				"fromMatr",
+				"fromMatrix"
+			],
+			[
 				"rea",
 				"real"
 			],
@@ -196,135 +208,19 @@
 	"buffers":
 	[
 		{
-			"file": "include/gmQuaternion.h",
+			"file": "sub_projects/gmath_py/source/pygmRoot.cpp",
 			"settings":
 			{
-				"buffer_size": 3492,
+				"buffer_size": 1407,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "include/gmQuaternion.hpp",
+			"file": "sub_projects/gmath_py/source/pygmMath.cpp",
 			"settings":
 			{
-				"buffer_size": 13460,
+				"buffer_size": 1408,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Searching 202 files for \"sqrt\"\n\n/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix3_8hpp_source.html:\n  489: <a name=\"l00432\"></a>00432     real invLength = (real)1 / sqrt(data[0]*data[0] +\n  504: <a name=\"l00447\"></a>00447     invLength = (real)1 / sqrt(data[3]*data[3] +\n  522: <a name=\"l00465\"></a>00465     invLength = (real)1 / sqrt(data[6]*data[6] +\n 1047: <a name=\"l00990\"></a>00990     real k3    = sin(angle)/sqrt(len2);\n\n/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmMatrix4_8hpp_source.html:\n  915: <a name=\"l00858\"></a>00858     real k3    = sin(angle)/sqrt(len2);\n\n/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector3_8hpp_source.html:\n  354: <a name=\"l00297\"></a>00297     <span class=\"keywordflow\">return</span> (real)sqrt( (<span class=\"keywordtype\">double</span>)dot );\n  439: <a name=\"l00382\"></a>00382         retVec -= normal * (eta*dot + sqrt(k));\n  453: <a name=\"l00396\"></a>00396         *<span class=\"keyword\">this</span> -= normal * (eta*dot + sqrt(k));\n\n/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector4_8hpp_source.html:\n  297: <a name=\"l00240\"></a>00240     <span class=\"keywordflow\">return</span> (real)sqrt( (<span class=\"keywordtype\">double</span>)dot );\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp:\n  472:     real invLength = (real)1 / sqrt(data[0]*data[0] +\n  487:     invLength = (real)1 / sqrt(data[3]*data[3] +\n  505:     invLength = (real)1 / sqrt(data[6]*data[6] +\n 1030:     real k3    = sin(angle)/sqrt(len2);\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp:\n  630:     real invLength = (real)1 / sqrt(data[0]*data[0] +\n  645:     invLength = (real)1 / sqrt(data[4]*data[4] +\n  663:     invLength = (real)1 / sqrt(data[8]*data[8] +\n 1062:     real k3    = sin(angle)/sqrt(len2);\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmQuaternion.hpp:\n  202:         root = sqrt(trace + (real)1.0);  // 2w\n  224:         root = sqrtf(mat(i,i) - mat(j,j) - mat(k,k) + (real)1);\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp:\n  300:     return (real)sqrt( (double)dot );\n  385:         retVec -= normal * (eta*dot + sqrt(k));\n  399:         *this -= normal * (eta*dot + sqrt(k));\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp:\n  239:     return (real)sqrt( (double)dot );\n\n/Users/danieleniero/Documents/Programming/GMath/references/matrfaq.html:\n 2162:     return( sqrt(qa-&gt;qw*qa-&gt;qw+\n 2299:       S = 0.5 / sqrt(T)\n 2317:         S  = sqrt( 1.0 + mr[0] - mr[5] - mr[10] ) * 2;\n 2325:         S  = sqrt( 1.0 + mr[5] - mr[0] - mr[10] ) * 2;\n 2333:         S  = sqrt( 1.0 + mr[10] - mr[0] - mr[5] ) * 2;\n 2378:     sin_angle  = sqrt( 1.0 - cos_angle * cos_angle );\n 2423:     sin_angle  = sqrt( 1.0 - cos_angle * cos_angle );\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py:\n  387:         k3    = math.sin(angle)/math.sqrt(len2)\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py.orig:\n  387:         k3    = math.sin(angle)/math.sqrt(len2)\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py:\n  187:         q_abs = math.sqrt(self.x*self.x + self.y*self.y +\n  193:         q_abs = math.sqrt(self.x*self.x + self.y*self.y +\n  249:             s = math.sin(angle)/math.sqrt(x*x+y*y+z*z)\n  270:             s = math.sin(angle)/math.sqrt(x*x+y*y+z*z)\n  303:             s = 0.5/math.sqrt(t)\n  313:                 s = math.sqrt(1.0+d0-d1-d2)*2.0\n  319:                 s = math.sqrt(1.0+d1-d0-d2)*2.0\n  325:                 s = math.sqrt(1.0+d2-d0-d1)*2.0\n  344:             s = 0.5/math.sqrt(t)\n  354:                 s = math.sqrt(1.0+d1-d2-d3)*2.0\n  360:                 s = math.sqrt(1.0+d2-d1-d3)*2.0\n  366:                 s = math.sqrt(1.0+d3-d1-d2)*2.0\n  450: #        return math.sqrt(self.w*self.w + self.x*self.x +\n  520: #            s = math.sin(angle)/math.sqrt(x*x+y*y+z*z)\n  572: #            s = 0.5/math.sqrt(t)\n  582: #                s = math.sqrt(1.0+d1-d2-d3)*2.0\n  588: #                s = math.sqrt(1.0+d2-d1-d3)*2.0\n  594: #                s = math.sqrt(1.0+d3-d1-d2)*2.0\n  610: #        b = math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)\n  639: #        b = math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/vector3.py:\n  245:         return math.sqrt(dot)\n  262:             nlen = 1.0/math.sqrt(dot)\n  278:             nlen = 1.0/math.sqrt(dot)\n  326:             return self.multiplyByScalar(eta).subInPlace( N.multiplyByScalar(eta*dot + math.sqrt(k)))\n  343:             return self.multiplyByScalarInPlace(eta).subInPlace( N.multiplyByScalar(eta*dot + math.sqrt(k)))\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/vector4.py:\n  236:         return math.sqrt(dot)\n  247:         nlen = 1.0/math.sqrt(dot)\n  262:         nlen = 1.0/math.sqrt(dot)\n\n60 matches across 15 files\n\n\nSearching 97 files for \"sqrt\"\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp:\n  472:     real invLength = (real)1 / sqrt(data[0]*data[0] +\n  487:     invLength = (real)1 / sqrt(data[3]*data[3] +\n  505:     invLength = (real)1 / sqrt(data[6]*data[6] +\n 1030:     real k3    = sin(angle)/sqrt(len2);\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp:\n  630:     real invLength = (real)1 / sqrt(data[0]*data[0] +\n  645:     invLength = (real)1 / sqrt(data[4]*data[4] +\n  663:     invLength = (real)1 / sqrt(data[8]*data[8] +\n 1062:     real k3    = sin(angle)/sqrt(len2);\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmQuaternion.hpp:\n  202:         root = sqrt(trace + (real)1.0);  // 2w\n  224:         root = sqrtf(mat(i,i) - mat(j,j) - mat(k,k) + (real)1);\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp:\n  300:     return (real)sqrt( (double)dot );\n  385:         retVec -= normal * (eta*dot + sqrt(k));\n  399:         *this -= normal * (eta*dot + sqrt(k));\n\n/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp:\n  239:     return (real)sqrt( (double)dot );\n\n/Users/danieleniero/Documents/Programming/GMath/references/matrfaq.html:\n 2162:     return( sqrt(qa-&gt;qw*qa-&gt;qw+\n 2299:       S = 0.5 / sqrt(T)\n 2317:         S  = sqrt( 1.0 + mr[0] - mr[5] - mr[10] ) * 2;\n 2325:         S  = sqrt( 1.0 + mr[5] - mr[0] - mr[10] ) * 2;\n 2333:         S  = sqrt( 1.0 + mr[10] - mr[0] - mr[5] ) * 2;\n 2378:     sin_angle  = sqrt( 1.0 - cos_angle * cos_angle );\n 2423:     sin_angle  = sqrt( 1.0 - cos_angle * cos_angle );\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py:\n  387:         k3    = math.sin(angle)/math.sqrt(len2)\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py.orig:\n  387:         k3    = math.sin(angle)/math.sqrt(len2)\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py:\n  187:         q_abs = math.sqrt(self.x*self.x + self.y*self.y +\n  193:         q_abs = math.sqrt(self.x*self.x + self.y*self.y +\n  249:             s = math.sin(angle)/math.sqrt(x*x+y*y+z*z)\n  270:             s = math.sin(angle)/math.sqrt(x*x+y*y+z*z)\n  303:             s = 0.5/math.sqrt(t)\n  313:                 s = math.sqrt(1.0+d0-d1-d2)*2.0\n  319:                 s = math.sqrt(1.0+d1-d0-d2)*2.0\n  325:                 s = math.sqrt(1.0+d2-d0-d1)*2.0\n  344:             s = 0.5/math.sqrt(t)\n  354:                 s = math.sqrt(1.0+d1-d2-d3)*2.0\n  360:                 s = math.sqrt(1.0+d2-d1-d3)*2.0\n  366:                 s = math.sqrt(1.0+d3-d1-d2)*2.0\n  450: #        return math.sqrt(self.w*self.w + self.x*self.x +\n  520: #            s = math.sin(angle)/math.sqrt(x*x+y*y+z*z)\n  572: #            s = 0.5/math.sqrt(t)\n  582: #                s = math.sqrt(1.0+d1-d2-d3)*2.0\n  588: #                s = math.sqrt(1.0+d2-d1-d3)*2.0\n  594: #                s = math.sqrt(1.0+d3-d1-d2)*2.0\n  610: #        b = math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)\n  639: #        b = math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/vector3.py:\n  245:         return math.sqrt(dot)\n  262:             nlen = 1.0/math.sqrt(dot)\n  278:             nlen = 1.0/math.sqrt(dot)\n  326:             return self.multiplyByScalar(eta).subInPlace( N.multiplyByScalar(eta*dot + math.sqrt(k)))\n  343:             return self.multiplyByScalarInPlace(eta).subInPlace( N.multiplyByScalar(eta*dot + math.sqrt(k)))\n\n/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/vector4.py:\n  236:         return math.sqrt(dot)\n  247:         nlen = 1.0/math.sqrt(dot)\n  262:         nlen = 1.0/math.sqrt(dot)\n\n51 matches across 11 files\n",
-			"settings":
-			{
-				"buffer_size": 8901,
-				"line_ending": "Unix",
-				"name": "Find Results",
-				"scratch": true
-			}
-		},
-		{
-			"file": "include/gmMatrix3.h",
-			"settings":
-			{
-				"buffer_size": 7109,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmMatrix3.hpp",
-			"settings":
-			{
-				"buffer_size": 37355,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmMatrix4.hpp",
-			"settings":
-			{
-				"buffer_size": 43736,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/source/pygmMatrix3.cpp",
-			"settings":
-			{
-				"buffer_size": 7056,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmMatrix4.h",
-			"settings":
-			{
-				"buffer_size": 8007,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/include/pygmRoot.h",
-			"settings":
-			{
-				"buffer_size": 1286,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/source/pygmEuler.cpp",
-			"settings":
-			{
-				"buffer_size": 1756,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/source/pygmMatrix4.cpp",
-			"settings":
-			{
-				"buffer_size": 6164,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "sub_projects/gmath_py/source/pygmQuaternion.cpp",
-			"settings":
-			{
-				"buffer_size": 1952,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/danieleniero/Downloads/ilmbase-1.0.2/Imath/ImathQuat.h",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmVector4.h",
-			"settings":
-			{
-				"buffer_size": 2988,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "references/old_purepython/quaternion.py",
-			"settings":
-			{
-				"buffer_size": 23334,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Package Control Messages\n========================\n\nPerforce:\n--------\n\n  Perforce integration 1.0.14 Changelog:\n  \n  Change\n  - Added the possibility to submit the Default changelist\n\n  Perforce integration 1.0.13 Changelog:\n  \n  Add\n  - Added a way to Select which Graphical Diff Application to use\n  \n  Change\n  - Started the Diff Application in another threat to free Sublime Text 2\n  - Fixed typo\n\n  Perforce integration 1.0.12 Changelog:\n  \n  Add\n  - Added propper support for P4CONFIG \n\n  Perforce integration 1.0.11 Changelog:\n  \n  Add\n  - Added a Submit command\n\n  Perforce integration 1.0.10 Changelog:\n  \n  Bug Fix\n  - Fixed Mac OSX version\n  \n  Add\n  - Added context menus\n\n  Perforce integration 1.0.9 Changelog:\n  \n  Bug Fix\n  - Only list changelists belonging to the current user\n\n  Perforce integration 1.0.8 Changelog:\n  \n  Bug Fix\n  - Fixed issues with multiple return arguments\n  - Fixed problems with invalid command path\n  \n  Add\n  - The graphical diff application is now configurable\n\n  Perforce integration 1.0.7 Changelog:\n  \n  Bug Fix\n  - Better support for client workspaces\n\n  Perforce integration 1.0.6 Changelog:\n  \n  New Features\n   - Added rename and delete\n   - Added an option to have checkouts done when modifying the file\n\n  Perforce integration 1.0.5 Changelog:\n  \n  New Features\n   - Added support for creating and modifying changelists\n   - Added an option to have the status bar display warnings\n   - Fixed an issue listing files with spaces in them\n   - Refactored code\n   - Better clean up of temporary files\n\n  Perforce integration 1.0.4 Changelog:\n  \n  New Features\n   - Added Sublime Commands to each available commands. They can now be launched using the Command Palette\n\n  Perforce integration 1.0.3 Changelog:\n  \n  New Features\n   - Added a List of Checked Out files with their corresponding changelists and local paths that allow easy opening of these files\n  \n   - Added diff and Graphical Diff with Depot\n  \n   - Cleaned up the settings usage for Sublime Text 2, all settings are now in Perforce.sublime-settings\n",
-			"settings":
-			{
-				"buffer_size": 2062,
-				"line_ending": "Unix",
-				"name": "Package Control Messages",
-				"scratch": true
 			}
 		}
 	],
@@ -364,26 +260,34 @@
 	},
 	"file_history":
 	[
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmQuaternion.h",
+		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmQuaternion.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
-		"/Users/danieleniero/Downloads/ilmbase-1.0.2/Imath/ImathQuat.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmQaternion.hpp",
+		"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathMath.h",
+		"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmQuaternion.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmQuaternion.h",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
+		"/Users/danieleniero/Downloads/ilmbase-1.0.2/Imath/ImathQuat.h",
+		"/Users/danieleniero/Documents/Programming/GMath/GMath.sublime-project",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmQuaternion.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmQaternion.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pymgVector4.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmVector3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/build/darwin/release/python/openGLViewport.py",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8h_source.html",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8hpp_source.html",
@@ -409,7 +313,6 @@
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix3.py.orig",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/matrix4.py",
-		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/utils.py",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/vector3.py",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/vector4.py",
@@ -423,12 +326,9 @@
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmEuler.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMath.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py.orig",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMath.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmRoot.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/include/tester.h",
@@ -487,11 +387,7 @@
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x65.html",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x67.html",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x69.html",
-		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6c.html",
-		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6d.html",
-		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6e.html",
-		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6f.html",
-		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x70.html"
+		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/functions_func_0x6c.html"
 	],
 	"find":
 	{
@@ -502,6 +398,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2",
 			"/Users/danieleniero/Documents/Programming/GMath",
 			"/Users/danieleniero/Documents/Programming/GMath/include",
 			"/Users/danieleniero/Documents/Programming/GMath/source",
@@ -516,6 +413,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"inver",
+			"invert",
+			"sinx_over_x",
+			"angle4D",
+			"slerp",
 			"getitem_wrap",
 			"sqrt",
 			"set",
@@ -698,18 +600,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "include/gmQuaternion.h",
+					"file": "sub_projects/gmath_py/source/pygmRoot.cpp",
 					"settings":
 					{
-						"buffer_size": 3492,
+						"buffer_size": 1407,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3004,
-								3004
+								1403,
+								1403
 							]
 						],
 						"settings":
@@ -719,768 +621,41 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 886.0,
+						"translation.y": 274.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "include/gmQuaternion.hpp",
+					"file": "sub_projects/gmath_py/source/pygmMath.cpp",
 					"settings":
 					{
-						"buffer_size": 13460,
+						"buffer_size": 1408,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8970,
-								8970
-							]
-						],
-						"settings":
-						{
-							"spell_check": false,
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3214.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"settings":
-					{
-						"buffer_size": 8901,
-						"regions":
-						{
-							"match":
-							{
-								"flags": 112,
-								"regions":
-								[
-									[
-										192,
-										196
-									],
-									[
-										275,
-										279
-									],
-									[
-										358,
-										362
-									],
-									[
-										443,
-										447
-									],
-									[
-										613,
-										617
-									],
-									[
-										805,
-										809
-									],
-									[
-										931,
-										935
-									],
-									[
-										1041,
-										1045
-									],
-									[
-										1231,
-										1235
-									],
-									[
-										1395,
-										1399
-									],
-									[
-										1451,
-										1455
-									],
-									[
-										1507,
-										1511
-									],
-									[
-										1565,
-										1569
-									],
-									[
-										1687,
-										1691
-									],
-									[
-										1743,
-										1747
-									],
-									[
-										1799,
-										1803
-									],
-									[
-										1857,
-										1861
-									],
-									[
-										1966,
-										1970
-									],
-									[
-										2020,
-										2024
-									],
-									[
-										2165,
-										2169
-									],
-									[
-										2231,
-										2235
-									],
-									[
-										2285,
-										2289
-									],
-									[
-										2391,
-										2395
-									],
-									[
-										2505,
-										2509
-									],
-									[
-										2554,
-										2558
-									],
-									[
-										2582,
-										2586
-									],
-									[
-										2644,
-										2648
-									],
-									[
-										2706,
-										2710
-									],
-									[
-										2772,
-										2776
-									],
-									[
-										2833,
-										2837
-									],
-									[
-										3001,
-										3005
-									],
-									[
-										3148,
-										3152
-									],
-									[
-										3277,
-										3281
-									],
-									[
-										3342,
-										3346
-									],
-									[
-										3423,
-										3427
-									],
-									[
-										3485,
-										3489
-									],
-									[
-										3535,
-										3539
-									],
-									[
-										3575,
-										3579
-									],
-									[
-										3630,
-										3634
-									],
-									[
-										3685,
-										3689
-									],
-									[
-										3740,
-										3744
-									],
-									[
-										3780,
-										3784
-									],
-									[
-										3835,
-										3839
-									],
-									[
-										3890,
-										3894
-									],
-									[
-										3941,
-										3945
-									],
-									[
-										4023,
-										4027
-									],
-									[
-										4074,
-										4078
-									],
-									[
-										4115,
-										4119
-									],
-									[
-										4171,
-										4175
-									],
-									[
-										4227,
-										4231
-									],
-									[
-										4275,
-										4279
-									],
-									[
-										4352,
-										4356
-									],
-									[
-										4518,
-										4522
-									],
-									[
-										4563,
-										4567
-									],
-									[
-										4608,
-										4612
-									],
-									[
-										4717,
-										4721
-									],
-									[
-										4833,
-										4837
-									],
-									[
-										4957,
-										4961
-									],
-									[
-										4998,
-										5002
-									],
-									[
-										5039,
-										5043
-									],
-									[
-										5219,
-										5223
-									],
-									[
-										5275,
-										5279
-									],
-									[
-										5331,
-										5335
-									],
-									[
-										5389,
-										5393
-									],
-									[
-										5511,
-										5515
-									],
-									[
-										5567,
-										5571
-									],
-									[
-										5623,
-										5627
-									],
-									[
-										5681,
-										5685
-									],
-									[
-										5790,
-										5794
-									],
-									[
-										5844,
-										5848
-									],
-									[
-										5989,
-										5993
-									],
-									[
-										6055,
-										6059
-									],
-									[
-										6109,
-										6113
-									],
-									[
-										6215,
-										6219
-									],
-									[
-										6329,
-										6333
-									],
-									[
-										6378,
-										6382
-									],
-									[
-										6406,
-										6410
-									],
-									[
-										6468,
-										6472
-									],
-									[
-										6530,
-										6534
-									],
-									[
-										6596,
-										6600
-									],
-									[
-										6657,
-										6661
-									],
-									[
-										6825,
-										6829
-									],
-									[
-										6972,
-										6976
-									],
-									[
-										7101,
-										7105
-									],
-									[
-										7166,
-										7170
-									],
-									[
-										7247,
-										7251
-									],
-									[
-										7309,
-										7313
-									],
-									[
-										7359,
-										7363
-									],
-									[
-										7399,
-										7403
-									],
-									[
-										7454,
-										7458
-									],
-									[
-										7509,
-										7513
-									],
-									[
-										7564,
-										7568
-									],
-									[
-										7604,
-										7608
-									],
-									[
-										7659,
-										7663
-									],
-									[
-										7714,
-										7718
-									],
-									[
-										7765,
-										7769
-									],
-									[
-										7847,
-										7851
-									],
-									[
-										7898,
-										7902
-									],
-									[
-										7939,
-										7943
-									],
-									[
-										7995,
-										7999
-									],
-									[
-										8051,
-										8055
-									],
-									[
-										8099,
-										8103
-									],
-									[
-										8176,
-										8180
-									],
-									[
-										8342,
-										8346
-									],
-									[
-										8387,
-										8391
-									],
-									[
-										8432,
-										8436
-									],
-									[
-										8541,
-										8545
-									],
-									[
-										8657,
-										8661
-									],
-									[
-										8781,
-										8785
-									],
-									[
-										8822,
-										8826
-									],
-									[
-										8863,
-										8867
-									]
-								],
-								"scope": ""
-							}
-						},
-						"selection":
-						[
-							[
-								5367,
-								5367
-							]
-						],
-						"settings":
-						{
-							"detect_indentation": false,
-							"output_tag": 2,
-							"result_base_dir": "",
-							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
-							"result_line_regex": "^ +([0-9]+):",
-							"scroll_past_end": true,
-							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1598.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "include/gmMatrix3.h",
-					"settings":
-					{
-						"buffer_size": 7109,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2102,
-								2012
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 803.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "include/gmMatrix3.hpp",
-					"settings":
-					{
-						"buffer_size": 37355,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								18715,
-								18715
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 8142.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "include/gmMatrix4.hpp",
-					"settings":
-					{
-						"buffer_size": 43736,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4772,
-								4772
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1684.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "sub_projects/gmath_py/source/pygmMatrix3.cpp",
-					"settings":
-					{
-						"buffer_size": 7056,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4253,
-								4253
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1276.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "include/gmMatrix4.h",
-					"settings":
-					{
-						"buffer_size": 8007,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2337,
-								2337
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 788.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "sub_projects/gmath_py/include/pygmRoot.h",
-					"settings":
-					{
-						"buffer_size": 1286,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1265,
-								1265
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 300.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "sub_projects/gmath_py/source/pygmEuler.cpp",
-					"settings":
-					{
-						"buffer_size": 1756,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1311,
-								1311
+								1213,
+								1213
 							],
 							[
-								1362,
-								1362
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 315.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "sub_projects/gmath_py/source/pygmMatrix4.cpp",
-					"settings":
-					{
-						"buffer_size": 6164,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3992,
-								3992
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1339.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "sub_projects/gmath_py/source/pygmQuaternion.cpp",
-					"settings":
-					{
-						"buffer_size": 1952,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1370,
-								1370
+								1263,
+								1263
 							],
 							[
-								1426,
-								1426
+								1307,
+								1307
+							],
+							[
+								1351,
+								1351
+							],
+							[
+								1405,
+								1405
 							]
 						],
 						"settings":
@@ -1490,122 +665,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 341.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 3,
-			"sheets":
-			[
-				{
-					"buffer": 12,
-					"file": "/Users/danieleniero/Downloads/ilmbase-1.0.2/Imath/ImathQuat.h",
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4554.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "include/gmVector4.h",
-					"settings":
-					{
-						"buffer_size": 2988,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2832,
-								2861
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1078.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "references/old_purepython/quaternion.py",
-					"settings":
-					{
-						"buffer_size": 23334,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14513,
-								14513
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 11461.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"settings":
-					{
-						"buffer_size": 2062,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2062,
-								2062
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 248.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1630,18 +690,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.805989714066,
 			1.0
 		],
 		"rows":
@@ -1704,6 +757,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 249.0,
+	"side_bar_width": 228.0,
 	"status_bar_visible": true
 }
