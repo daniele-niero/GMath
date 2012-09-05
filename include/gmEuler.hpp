@@ -138,7 +138,7 @@ template <typename real>
 std::string Euler<real>::toString() const
 {
     std::stringstream oss;
-    oss << "gmath::Euler(" << x << ", " << y << ", " << z << ");" << std::endl;
+    oss << "gmath::Euler(" << x << ", " << y << ", " << z << ");";
 
     return oss.str();
 }

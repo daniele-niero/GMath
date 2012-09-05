@@ -33,6 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace gmath
 {
 
+	// Quaternion forward declaration
+	template <typename real>
+	class Quaternion;
+
     /**
     Matrix class (3x3).
     [Xx, Xy, Xz]
@@ -53,15 +57,26 @@ namespace gmath
                     real yx, real yy, real yz, real yw,
                     real zx, real zy, real zz, real zw,
                     real px, real py, real pz, real pw);
+
             Matrix4(const Matrix4<real> &other);
+
             Matrix4(const Vector4<real> &row0,
                     const Vector4<real> &row1,
                     const Vector4<real> &row2,
                     const Vector4<real> &row3);
+
             Matrix4(const Vector3<real> &row0,
                     const Vector3<real> &row1,
                     const Vector3<real> &row2,
                     const Vector3<real> &row3);
+
+			Matrix4(const Vector3<real> &row0,
+                    const Vector3<real> &row1,
+                    const Vector3<real> &row2);
+
+			Matrix4(const Quaternion<real>& quat);
+			Matrix4(const Quaternion<real>& quat, const Vector3<real>& pos);
+
             Matrix4(const real* list);
 
             /*------ properties ------*/
@@ -110,18 +125,36 @@ namespace gmath
                      real px, real py, real pz, real pw);
 
             Vector3<real> getRow(unsigned int i) const;
-            Vector4<real> getRow2(unsigned int i) const;
+            Vector3<real> getAxisX() const;
+            Vector3<real> getAxisY() const;
+            Vector3<real> getAxisZ() const;
+            
             void setRow(unsigned int i, const Vector3<real> &vec);
+            void setAxisX(const Vector3<real> &vec);
+            void setAxisY(const Vector3<real> &vec);
+            void setAxisZ(const Vector3<real> &vec);
+
+            Vector4<real> getRow2(unsigned int i) const;
             void setRow(unsigned int i, const Vector4<real> &vec);
 
             void setPosition(const Vector3<real> &pos);
+            void setPosition(real inX, real inY, real inZ);
             void addPosition(const Vector3<real> &pos);
+            void addPosition(real inX, real inY, real inZ);
             /** Move the matrix accordingly to its axis, no the world axis */
             void translate(const Vector3<real> &pos);
+            void translate(real inX, real inY, real inZ);
             Vector3<real> getPosition() const;
 
-            void setRotation(const Matrix3<real>& rotationMatrix);
-            Matrix3<real> getRotation() const;
+            void fromMatrix3(const Matrix3<real>& rotationMatrix);
+			void fromQuaternion(const Quaternion<real>& rotationQuat);
+            Matrix3<real> toMatrix3() const;
+			Quaternion<real> toQuaternion() const;
+
+			void setRotation(const Matrix3<real>& rotationMatrix) {return fromMatrix3(rotationMatrix);}
+			void setRotation(const Quaternion<real>& rotationQuat) {return fromQuaternion(rotationQuat);}
+
+			Vector3<real> rotateVector(const Vector3<real> &vec) const;
 
             Matrix4<real> transpose() const;
             void transposeInPlace();
@@ -146,7 +179,7 @@ namespace gmath
             void setScaleInPlace(const Vector3<real> &scale);
             void setScaleInPlace(real sX, real sY, real sZ);
 
-            void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
+            void setFromEuler(real angleX, real angleY, real angleZ, RotationOrder order=XYZ);
             void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
             static Matrix4<real> createFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
             static Matrix4<real> createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
@@ -166,15 +199,17 @@ namespace gmath
                 Efficiently Building a Matrix to Rotate One Vector to Another
                 Journal of Graphics Tools, 4(4):1-4, 1999
                 http://www.acm.org/jgt/papers/MollerHughes99/ */
-//          void setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
+            void setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
 //          static Matrix4<real> createFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
 
             /** Look from pos to target.
               *
               * The resulting transformation is a rotation Matrix where the primaryAxis points to target.
               * The secondaryAxis is as close as possible to the up vector. */
-            void lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
-            static Matrix4<real> createLookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+			void lookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+			// Like the previous lookAt but this one takes the position from the matrix itself
+			void lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+            static Matrix4<real> createLookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
 
             void setFromAxisAngle(const Vector3<real> &axis, real angle);
             static Matrix4<real> createFromAxisAngle(const Vector3<real> &axis, real angle);

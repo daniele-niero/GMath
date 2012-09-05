@@ -72,6 +72,30 @@ Quaternion<real>::Quaternion(const real *list)
     this->z = list[2];
     this->w = list[3];
 }
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real>::Quaternion(const Matrix3<real>& inMat)
+{
+    this->fromMatrix3(inMat);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real>::Quaternion(const Matrix4<real>& inMat)
+{
+    this->fromMatrix4(inMat);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real>::Quaternion(const Vector3<real>& axis, real angle)
+{
+    this->fromAxisAngle(axis, angle);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real>::Quaternion(real angleX, real angleY, real angleZ)
+{
+    self->fromEuler(angleX, angleY, angleZ);
+}
 /*------ Coordinate access ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -106,6 +130,12 @@ const real* Quaternion<real>::ptr() const
 /*-----------------------------------------------------------------------------------------------------------------*/
 /*------ Arithmetic operations ------*/
 template <typename real>
+Quaternion<real> Quaternion<real>::operator - () const
+{
+	return this->inverse();
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 Quaternion<real> Quaternion<real>::operator + (const Quaternion<real> &other) const
 {
     Quaternion<real> newQuaternion(x+other.x, y+other.y, z+other.z, w+other.w);
@@ -139,6 +169,22 @@ Quaternion<real> Quaternion<real>::operator * (const Quaternion<real> &other) co
     result.w = w*other.w - x*other.x - y*other.y - z*other.z;
 
     return result;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Quaternion<real>::operator * (const Vector3<real>& vec) const
+{
+    // First we make a temp quaternion:
+    Vector3<real> r;
+    float tx, ty, tz, tw;
+    tx =   w * vec.x + y * vec.z - z * vec.y;
+    ty =   w * vec.y + z * vec.x - x * vec.z;
+    tz =   w * vec.z + x * vec.y - y * vec.x;
+    tw = - x * vec.x - y * vec.y - z * vec.z;
+    r.x = tw * -x + tx * w + ty * -z - tz * -y;
+    r.y = tw * -y + ty * w + tz * -x - tx * -z;
+    r.z = tw * -z + tz * w + tx * -y - ty * -x;
+    return r;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -206,8 +252,8 @@ void Quaternion<real>::operator /= (real scalar)
     if (scalar == (real)0.0)
     {
         x = NAN;
-        y = NAN; //Math<real>::MIN;
-        z = NAN; //Math<real>::MIN;
+        y = NAN;
+        z = NAN;
         w = NAN;
     }
     else
@@ -245,7 +291,7 @@ void Quaternion<real>::operator = (const Quaternion<real> & other)
     x = other.x;
     y = other.y;
     z = other.z;
-    w = other.z;
+    w = other.w;
 }
 /*------ Methods ------*/
 template <typename real>
@@ -258,21 +304,39 @@ void Quaternion<real>::set(real inX, real inY, real inZ, real inW)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Quaternion<real> Quaternion<real>::inverse() const
+void Quaternion<real>::setToIdentity()
 {
-    Quaternion<real> returnQuat;
-    returnQuat.inverseInPlace();
-    return returnQuat;
+	x=(real)0.0; y=(real)0.0; z=(real)0.0; w=(real)1.0; 
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-void Quaternion<real>::inverseInPlace()
+Vector3<real> Quaternion<real>::getAxisX() const
 {
-    real qdot = this->dot(*this);
-    w /= qdot;
-    x = -x / qdot;
-    y = -y / qdot;
-    z = -z / qdot;
+    Vector3<real> r;
+    r.x = x*x + w*w - z*z - y*y;
+    r.y = (real)2.0*(x*y + z*w);
+    r.z = (real)2.0*(x*z - y*w);
+    return r;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Quaternion<real>::getAxisY() const
+{
+    Vector3<real> r;
+    r.x = (real)2.0*(y*x - z*w);
+    r.y = y*y + w*w - x*x - z*z;
+    r.z = (real)2.0*(y*z + x*w);
+    return r;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Quaternion<real>::getAxisZ() const
+{
+    Vector3<real> r;
+    r.x = (real)2.0*(z*x + y*w);
+    r.y = (real)2.0*(z*y - x*w);
+    r.z = z*z + w*w - y*y - x*x;
+    return r;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -375,10 +439,315 @@ Matrix4<real> Quaternion<real>::toMatrix4() const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+void Quaternion<real>::setMatrix4(Matrix4<real>& outMat) const
+{
+    real xx = (real)2.0*x*x;
+    real yy = (real)2.0*y*y;
+    real zz = (real)2.0*z*z;
+    real xy = (real)2.0*x*y;
+    real zw = (real)2.0*z*w;
+    real xz = (real)2.0*x*z;
+    real yw = (real)2.0*y*w;
+    real yz = (real)2.0*y*z;
+    real xw = (real)2.0*x*w;
+    outMat.set(
+            (real)1.0-yy-zz, xy-zw, xz+yw, (real)0.0,
+            xy+zw, (real)1.0-xx-zz, yz-xw, (real)0.0,
+            xz-yw, yz+xw, (real)1.0-xx-yy, (real)0.0,
+            (real)0.0, (real)0.0, (real)0.0, (real)1.0
+            );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::setMatrix4(Matrix4<real>& outMat, const Vector3<real>& scale, const Vector3<real>& pos) const
+{
+    real xx = (real)2.0*x*x;
+    real yy = (real)2.0*y*y;
+    real zz = (real)2.0*z*z;
+    real xy = (real)2.0*x*y;
+    real zw = (real)2.0*z*w;
+    real xz = (real)2.0*x*z;
+    real yw = (real)2.0*y*w;
+    real yz = (real)2.0*y*z;
+    real xw = (real)2.0*x*w;
+    outMat.set(
+            (real)1.0-yy-zz, xy-zw, xz+yw, (real)0.0,
+            xy+zw, (real)1.0-xx-zz, yz-xw, (real)0.0,
+            xz-yw, yz+xw, (real)1.0-xx-yy, (real)0.0,
+            pos.x, pos.y, pos.z, (real)1.0);
+	outMat.setScale(scale);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::fromAxisAngle(const Vector3<real>& axis, real angle)
+{
+    // assert:  axis[] is unit length
+    //
+    // The quaternion representing the rotation is
+    //   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
+
+    real halfAngle = (real)0.5*angle;
+    real sinAngle = (real)sin(halfAngle);
+    w = (real)cos(halfAngle);
+    x = sinAngle*axis.x;
+    y = sinAngle*axis.y;
+    z = sinAngle*axis.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::toAxisAngle (Vector3<real>& outAxis, real& outAngle) const
+{
+    // The quaternion representing the rotation is
+    //   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
+
+    real sqrLength = x*x + y*y
+        + z*z;
+
+    if (sqrLength > Math<real>::EPSILON)
+    {
+        outAngle = ((real)2)*Math<real>::acos(w);
+        real invLength;
+		if (sqrLength != (real)0)
+			invLength = (real)1/sqrt(sqrLength);
+		else
+			invLength = (real)0;
+        outAxis.x = x*invLength;
+        outAxis.y = y*invLength;
+        outAxis.z = z*invLength;
+    }
+    else
+    {
+        // Angle is 0 (mod 2*pi), so any axis will do.
+        outAngle = (real)0;
+        outAxis.set((real)1, (real)0, (real)0);
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::fromEuler(real angleX, real angleY, real angleZ, RotationOrder order)
+{
+	Quaternion<real> XQuat(Vector3<real>::XAXIS, angleX);
+    Quaternion<real> YQuat(Vector3<real>::YAXIS, angleY);
+    Quaternion<real> ZQuat(Vector3<real>::ZAXIS, angleZ);
+
+    switch (order)
+    {
+    case XYZ :
+        (*this) = XQuat*(YQuat*ZQuat);
+        break;
+    case XZY :
+        (*this) = XQuat*(ZQuat*YQuat);
+        break;
+    case YXZ :
+        (*this) = YQuat*(XQuat*ZQuat);
+        break;
+    case YZX :
+        (*this) = YQuat*(ZQuat*XQuat);
+        break;
+    case ZXY :
+        (*this) = ZQuat*(XQuat*YQuat);
+        break;
+    case ZYX :
+        (*this) = ZQuat*(YQuat*XQuat);
+        break;
+    }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::fromEuler(const Euler<real>& euler, RotationOrder order)
+{
+	this->fromEuler(euler.x, euler.y, euler.z, order);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Euler<real> Quaternion<real>::toEuler(RotationOrder order) const
+{
+	Matrix3<real> mat = this->toMatrix3();
+	return mat.toEuler(order);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 Quaternion<real> Quaternion<real>::duplicate() const
 {
     Quaternion<real> retQuat(x, y, z, w);
     return retQuat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+real Quaternion<real>::length () const
+{
+	return sqrt(w*w + x*x + y*y + z*z);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+real Quaternion<real>::squaredLength () const
+{
+	return w*w + x*x + y*y + z*z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::normalizeInPlace ()
+{
+	real length = lenght();
+
+	if (length > Math::<real>::EPSILON)
+	{
+		real invLength = ((real)1)/length;
+		w *= invLength;
+		x *= invLength;
+		y *= invLength;
+		z *= invLength;
+	}
+	else
+	{
+		w = (real)0;
+		x = (real)0;
+		y = (real)0;
+		z = (real)0;
+	}
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Quaternion<real>::normalize () const
+{
+	Quaternion<real> retQuat;
+	real length = lenght();
+
+	if (length > Math::<real>::EPSILON)
+	{
+		real invLength = ((real)1)/length;
+		retQuat.w = w*invLength;
+		retQuat.x = x*invLength;
+		retQuat.y = y*invLength;
+		retQuat.z = z*invLength;
+	}
+	else
+	{
+		retQuat.w = (real)0;
+		retQuat.x = (real)0;
+		retQuat.y = (real)0;
+		retQuat.z = (real)0;
+	}
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::inverseInPlace ()
+{
+	real norm = squaredLength();
+	if (norm > (real)0)
+	{
+		real invNorm = ((real)1)/norm;
+		w = w*invNorm;
+		x = -x*invNorm;
+		y = -y*invNorm;
+		z = -z*invNorm;
+	}
+	else
+	{
+		// Return an invalid result to flag the error.
+		set((real)0, (real)0, (real)0, (real)0);
+	}
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Quaternion<real>::inverse () const
+{
+	Quaternion inv;
+
+	real norm = squaredLength();
+	if (norm > (real)0)
+	{
+		real invNorm = ((real)1)/norm;
+		inv.w = w*invNorm;
+		inv.x = -x*invNorm;
+		inv.y = -y*invNorm;
+		inv.z = -z*invNorm;
+	}
+	else
+	{
+		// Return an invalid result to flag the error.
+		inv.set((real)0, (real)0, (real)0, (real)0);
+	}
+
+	return inv;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Quaternion<real>::conjugateInPlace ()
+{
+	set(-x, -y, -z, w);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Quaternion<real>::conjugate () const
+{
+	return Quaternion(-x, -y, -z, w);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Quaternion<real>::exp () const
+{
+	// If q = A*(x*i+y*j+z*k) where (x,y,z) is unit length, then
+	// exp(q) = cos(A)+sin(A)*(x*i+y*j+z*k).  If sin(A) is near zero,
+	// use exp(q) = cos(A)+A*(x*i+y*j+z*k) since A/sin(A) has limit 1.
+
+	Quaternion result;
+
+	real angle = (real)sqrt(x*x + y*y + z*z);
+
+	real sn = (real)sin(angle);
+	result.w = (real)cos(angle);
+
+	if ((real)fabs(sn) >= Math<real>::EPSILON)
+	{
+		real coeff = sn/angle;
+
+		result.x = coeff*this->x;
+		result.y = coeff*this->y;
+		result.z = coeff*this->z;
+		//result.w = coeff*this->w;
+	}
+	else
+	{
+		result.x = this->x;
+		result.y = this->y;
+		result.z = this->z;
+		//result.w = this->w;
+	}
+
+	return result;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Quaternion<real>::log () const
+{
+	// If q = cos(A)+sin(A)*(x*i+y*j+z*k) where (x,y,z) is unit length, then
+	// log(q) = A*(x*i+y*j+z*k).  If sin(A) is near zero, use log(q) =
+	// sin(A)*(x*i+y*j+z*k) since sin(A)/A has limit 1.
+
+	Quaternion result;
+	result.w = (real)0;
+
+	if ((real)fabs(w) < (real)1)
+	{
+		real angle = Math<real>::acos(w);
+		real sn = (real)sin(angle);
+		if ((real)fabs(sn) >= Math<real>::EPSILON)
+		{
+			real coeff = angle/sn;
+			result.x = coeff*this->x;
+			result.y = coeff*this->y;
+			result.z = coeff*this->z;
+			//result.w = coeff*this->w;
+			return result;
+		}
+	}
+
+	result.x = this->x;
+	result.y = this->y;
+	result.z = this->z;
+	result.w = this->w;
+	return result;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -389,24 +758,26 @@ real Quaternion<real>::dot(const Quaternion<real> & other) const
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Quaternion<real> Quaternion<real>::slerp(const Quaternion<real> &q1, const Quaternion<real> &q2, real t, bool shortestPath)
-{
+{	
+	Quaternion<real> Q2 = q2;
     if (q1.dot(q2)<(real)0.0)
     {
-        q2 = q2.inverse();
+        Q2 = q2.inverse();
     }
 
-    Quaternion<real> qd = q1 - q2;
+    Quaternion<real> qd = q1 - Q2;
     real lengthD = (real) sqrt (qd.dot(qd));
 
-    Quaternion<real> qs = q1 + q2;
+    Quaternion<real> qs = q1 + Q2;
     real lengthS = (real) sqrt (qs.dot(qs));
 
     real a = (real)2.0 * (real) atan2(lengthD, lengthS);
     real s = (real)1.0 - t;
 
-    Quaternion<real> q = 
-        sinx_over_x<real>(s * a) / sinx_over_x<real>(a) * s * q1 +
-        sinx_over_x<real>(t * a) / sinx_over_x<real>(a) * t * q2 ;
+	
+	Quaternion<real> q = 
+        q1 * (sinx_over_x<real>(s * a) / sinx_over_x<real>(a) * s)  +
+        Q2 * (sinx_over_x<real>(t * a) / sinx_over_x<real>(a) * t) ;
 
     return q;
 }
@@ -415,11 +786,8 @@ template <typename real>
 std::string Quaternion<real>::toString() const
 {
     std::stringstream oss;
-    oss << "gmath::Quaternion("<< x <<", "<< y <<", "<< z <<", "<< w <<");"<< std::endl;
+    oss << "gmath::Quaternion("<< x <<", "<< y <<", "<< z <<", "<< w <<");";
 
     return oss.str();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-
-
-

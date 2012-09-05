@@ -118,10 +118,10 @@ Vector4<real> Vector4<real>::operator / (real scalar) const
     Vector4<real> newVector4;
     if (scalar == (real)0.0)
     {
-        newVector4.x = Math<real>::MIN;
-        newVector4.y = Math<real>::MIN;
-        newVector4.z = Math<real>::MIN;
-        newVector4.w = Math<real>::MIN;
+        newVector4.x = NAN;
+        newVector4.y = NAN;
+        newVector4.z = NAN;
+        newVector4.w = NAN;
     }
     else
     {
@@ -167,9 +167,9 @@ void Vector4<real>::operator /= (real scalar)
 {
     if (scalar == (real)0.0)
     {
-        x = NAN; //Math<real>::MIN;
-        y = NAN; //Math<real>::MIN;
-        z = NAN; //Math<real>::MIN;
+        x = NAN;
+        y = NAN;
+        z = NAN;
         w = NAN;
     }
     else
@@ -288,7 +288,7 @@ template <typename real>
 std::string Vector4<real>::toString() const
 {
     std::stringstream oss;
-    oss << "gmath::Vector4(" << x << ", " << y << ", " << z << ", " << w << ");" << std::endl;
+    oss << "gmath::Vector4(" << x << ", " << y << ", " << z << ", " << w << ");";
 
     return oss.str();
 }

@@ -94,7 +94,13 @@ Vector3<real> Vector3<real>::operator + (const Vector3<real> & other) const
     return newVector3;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
-
+template <typename real>
+Vector3<real> Vector3<real>::operator - () const
+{
+    Vector3<real> newVector3(-x, -y, -z);
+    return newVector3;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Vector3<real>::operator - (const Vector3<real> & other) const
 {
@@ -106,6 +112,14 @@ template <typename real>
 Vector3<real> Vector3<real>::operator * (real scalar) const
 {
     Vector3<real> newVector3(x*scalar, y*scalar, z*scalar);
+
+    return newVector3;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Vector3<real>::operator * (const Vector3<real> & other) const
+{
+    Vector3<real> newVector3(x*other.x, y*other.y, z*other.z);
 
     return newVector3;
 }
@@ -138,9 +152,9 @@ Vector3<real> Vector3<real>::operator / (real scalar) const
     Vector3<real> newVector3;
     if (scalar == (real)0.0)
     {
-        newVector3.x = NAN; //Math<real>::MIN;
-        newVector3.y = NAN; //Math<real>::MIN;
-        newVector3.z = NAN; //Math<real>::MIN;
+        newVector3.x = NAN;
+        newVector3.y = NAN;
+        newVector3.z = NAN;
     }
     else
     {
@@ -150,6 +164,29 @@ Vector3<real> Vector3<real>::operator / (real scalar) const
     }
 
     return newVector3;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Vector3<real>::operator / (const Vector3<real> & other) const
+{
+    Vector3<real> newVector;
+
+    if (other.x == (real)0.0)
+        newVector.x = NAN;
+	else
+		newVector.x = x/other.x;
+
+	if (other.y == (real)0.0)
+        newVector.y = NAN;
+	else
+		newVector.y = y/other.y;
+
+	if (other.z == (real)0.0)
+        newVector.z = NAN;
+	else
+		newVector.z = z/other.z;
+        
+    return newVector;
 }
 /*------ Arithmetic updates ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -178,6 +215,14 @@ void Vector3<real>::operator *= (real scalar)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+void Vector3<real>::operator *= (const Vector3<real> & other)
+{
+    x*=other.x; 
+	y*=other.y; 
+	z*=other.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 void Vector3<real>::operator *= (const Matrix3<real> &mat)
 {
     this->set(
@@ -202,9 +247,9 @@ void Vector3<real>::operator /= (real scalar)
 {
     if (scalar == (real)0.0)
     {
-        x = NAN; //Math<real>::MIN;
-        y = NAN; //Math<real>::MIN;
-        z = NAN; //Math<real>::MIN;
+        x = NAN;
+        y = NAN;
+        z = NAN;
     }
     else
     {
@@ -212,6 +257,25 @@ void Vector3<real>::operator /= (real scalar)
         y /= scalar;
         z /= scalar;
     }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Vector3<real>::operator /= (const Vector3<real> &other)
+{
+    if (other.x == (real)0.0)
+        x = NAN;
+    else
+        x /= other.x;
+
+	if (other.y == (real)0.0)
+        y = NAN;
+    else
+        y /= other.y;
+
+	if (other.z == (real)0.0)
+        z = NAN;
+    else
+        z /= other.z;
 }
 /*------ Comparisons ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -307,9 +371,16 @@ real Vector3<real>::squaredLength() const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+real Vector3<real>::squaredDistance(const Vector3<real> & other) const
+{
+    Vector3<real> distVec( (*this)-(other) );
+    return distVec.squaredLength();
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 real Vector3<real>::distance(const Vector3<real> & other) const
 {
-    Vector3<real> distVec(operator - (other));
+    Vector3<real> distVec( (*this)-(other) );
     return distVec.length();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -408,7 +479,7 @@ template <typename real>
 std::string Vector3<real>::toString() const
 {
     std::stringstream oss;
-    oss << "gmath::Vector3(" << x << ", " << y << ", " << z << ");" << std::endl;
+    oss << "gmath::Vector3(" << x << ", " << y << ", " << z << ");";
 
     return oss.str();
 }

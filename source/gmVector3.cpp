@@ -39,4 +39,8 @@ namespace gmath
 	template<> const Vector3<double> Vector3<double>::N_XAXIS(-1.0, 0.0, 0.0);
 	template<> const Vector3<double> Vector3<double>::N_YAXIS(0.0, -1.0, 0.0);
 	template<> const Vector3<double> Vector3<double>::N_ZAXIS(0.0, 0.0, -1.0);
+
+
+	template<> const Vector3<double> Vector3<double>::ZERO(0.0, 0.0, 0.0);
+	template<> const Vector3<float> Vector3<float>::ZERO(0.0f, 0.0f, 0.0f);
 }

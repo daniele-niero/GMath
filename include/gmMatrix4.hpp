@@ -77,6 +77,31 @@ Matrix4<real>::Matrix4(
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+Matrix4<real>::Matrix4(
+    const Vector3<real> &row0,
+    const Vector3<real> &row1,
+    const Vector3<real> &row2)
+{
+    memcpy(&data[0],  row0.ptr(), 3*sizeof(real));
+    memcpy(&data[4],  row1.ptr(), 3*sizeof(real));
+    memcpy(&data[8],  row2.ptr(), 3*sizeof(real));
+    data[12]=(real)0.0; data[13]=(real)0.0; data[14]=(real)0.0; data[15]=(real)1.0;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Matrix4<real>::Matrix4(const Quaternion<real> &quat)
+{
+	quat.setMatrix4((*this));
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Matrix4<real>::Matrix4(const Quaternion<real> &quat, const Vector3<real> &pos)
+{
+	quat.setMatrix4((*this));
+	this->setPosition(pos);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 Matrix4<real>::Matrix4(const real* list)
 {
     memcpy(data, list, 16*sizeof(real));
@@ -413,6 +438,24 @@ Vector3<real> Matrix4<real>::getRow(unsigned int i) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
+Vector3<real> Matrix4<real>::getAxisX() const
+{
+    return getRow(1);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Vector3<real> Matrix4<real>::getAxisY() const
+{
+    return getRow(2);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+Vector3<real> Matrix4<real>::getAxisZ() const
+{
+    return getRow(3);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
 Vector4<real> Matrix4<real>::getRow2(unsigned int i) const
 {
     if (i>3)
@@ -432,6 +475,24 @@ void Matrix4<real>::setRow(unsigned int i, const Vector3<real> &vec)
     data[i*4]   = vec.x;
     data[i*4+1] = vec.y;
     data[i*4+2] = vec.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setAxisX(const Vector3<real> &vec)
+{
+    setRow(1, vec);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setAxisY(const Vector3<real> &vec)
+{
+    setRow(2, vec);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::setAxisZ(const Vector3<real> &vec)
+{
+    setRow(3, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -456,6 +517,14 @@ void Matrix4<real>::setPosition(const Vector3<real> &pos)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+void Matrix4<real>::setPosition(real inX, real inY, real inZ)
+{
+    data[12] = inX;
+    data[13] = inY;
+    data[14] = inZ;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 void Matrix4<real>::addPosition(const Vector3<real> &pos)
 {
     data[12] += pos.x;
@@ -464,13 +533,29 @@ void Matrix4<real>::addPosition(const Vector3<real> &pos)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+void Matrix4<real>::addPosition(real inX, real inY, real inZ)
+{
+    data[12] += inX;
+    data[13] += inY;
+    data[14] += inZ;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 void Matrix4<real>::translate (const Vector3<real> &pos)
 {
     data[12] += pos.x * data[0] + pos.y * data[4] + pos.z * data[8];
     data[13] += pos.x * data[1] + pos.y * data[5] + pos.z * data[9];
     data[14] += pos.x * data[2] + pos.y * data[6] + pos.z * data[10];
-    //data[12] += pos.x * data[3] + pos.y * data[4] + pos.z * data[8];
 }
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix4<real>::translate(real inX, real inY, real inZ)
+{
+    data[12] += inX * data[0] + inY * data[4] + inZ * data[8];
+    data[13] += inX * data[1] + inY * data[5] + inZ * data[9];
+    data[14] += inX * data[2] + inY * data[6] + inZ * data[10];
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Matrix4<real>::getPosition() const
 {
@@ -478,7 +563,7 @@ Vector3<real> Matrix4<real>::getPosition() const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-void Matrix4<real>::setRotation(const Matrix3<real>& rotationMatrix)
+void Matrix4<real>::fromMatrix3(const Matrix3<real>& rotationMatrix)
 {
     const real* rot = &rotationMatrix.data[0];
     data[0]=rot[0];  data[1]=rot[1];  data[2]=rot[2];  
@@ -487,13 +572,38 @@ void Matrix4<real>::setRotation(const Matrix3<real>& rotationMatrix)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Matrix3<real> Matrix4<real>::getRotation() const
+void Matrix4<real>::fromQuaternion(const Quaternion<real>& rotationQuat)
+{
+	rotationQuat.setMatrix4( (*this) );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Matrix3<real> Matrix4<real>::toMatrix3() const
 {
     Matrix3<real> rot(
         data[0],  data[1],  data[2],  
         data[4],  data[5],  data[6],
         data[8],  data[9],  data[10]);
     return rot;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Matrix4<real>::toQuaternion() const
+{
+	Quaternion<real> quat;
+    quat.fromMatrix4( (*this) );
+    return quat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Matrix4<real>::rotateVector(const Vector3<real> &vec) const
+{
+	Vector3<real> retVec(
+        data[0] * this->x + data[1] * this->y + data[2]  * this->z,
+        data[4] * this->x + data[5] * this->y + data[6]  * this->z,
+        data[8] * this->x + data[9] * this->y + data[10] * this->z
+        );
+	return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -865,7 +975,7 @@ void Matrix4<real>::setScaleInPlace(real sX, real sY, real sZ)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-void Matrix4<real>::setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
+void Matrix4<real>::setFromEuler(real angleX, real angleY, real angleZ, RotationOrder order)
 {
     real cx, sx, cy, sy, cz, sz;
 
@@ -894,22 +1004,22 @@ void Matrix4<real>::setFromEuler(const real& angleX, const real& angleY, const r
     switch (order)
     {
     case XYZ :
-        this.setRotation( XMat*(YMat*ZMat) );
+        this->setRotation( XMat*(YMat*ZMat) );
         break;
     case XZY :
-        this.setRotation( XMat*(ZMat*YMat) );
+        this->setRotation( XMat*(ZMat*YMat) );
         break;
     case YXZ :
-        this.setRotation( YMat*(XMat*ZMat) );
+        this->setRotation( YMat*(XMat*ZMat) );
         break;
     case YZX :
-        this.setRotation( YMat*(ZMat*XMat) );
+        this->setRotation( YMat*(ZMat*XMat) );
         break;
     case ZXY :
-        this.setRotation( ZMat*(XMat*YMat) );
+        this->setRotation( ZMat*(XMat*YMat) );
         break;
     case ZYX :
-        this.setRotation( ZMat*(YMat*XMat) );
+        this->setRotation( ZMat*(YMat*XMat) );
         break;
     }
 }
@@ -947,14 +1057,17 @@ Euler<real> Matrix4<real>::toEuler(RotationOrder order) const
 template<typename real>
 bool Matrix4<real>::toEuler(Euler<real>& eulerAngles, RotationOrder order) const
 {
-    Matrix3<real> mat3;
-    bool ret = mat3.toEuler(eulerAngles, order);
-    this->setRotation(mat3);
-    return ret;
+	return this->toMatrix3().toEuler(eulerAngles);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 void Matrix4<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
+{
+	this->lookAt(this->getPosition(), pointAt, normal, primaryAxis, secondaryAxis);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template<typename real>
+void Matrix4<real>::lookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
     real f = fabs( pointAt.dot(normal) );
     if (f > 1.0-Math<real>::EPSILON)
@@ -970,8 +1083,8 @@ void Matrix4<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &no
     }
 
     Vector3<real> xVec, yVec, zVec, pAt, nor;
-    pAt = pointAt - this->getPosition();
-    nor = normal - this->getPosition();
+    pAt = pointAt - pos;
+    nor = normal - pos;
 
     if (primaryAxis == POSX || primaryAxis == NEGX)
     {
@@ -1036,16 +1149,17 @@ void Matrix4<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &no
         }
     }
 
-    data[0]=xVec.x; data[1]=xVec.y;  data[2]=xVec.z;
-    data[4]=yVec.x; data[5]=yVec.y;  data[6]=yVec.z;
-    data[8]=zVec.x; data[9]=zVec.y; data[10]=zVec.z;
+	this->setAxisX(xVec);
+	this->setAxisY(yVec);
+	this->setAxisZ(zVec);
+	this->setPosition(pos);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-Matrix4<real> Matrix4<real>::createLookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
+Matrix4<real> Matrix4<real>::createLookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
-    Matrix3<real> mat;
-    mat.lookAt(pointAt, normal, primaryAxis, secondaryAxis);
+    Matrix4<real> mat;
+    mat.lookAt(pos, pointAt, normal, primaryAxis, secondaryAxis);
     return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -1087,7 +1201,7 @@ std::string Matrix4<real>::toString() const
     oss << "gmath::Matrix3(" << data[ 0] << ", " << data[ 1] << ", " << data[ 2] << ", " << data[ 3] << std::endl;
     oss << "               " << data[ 4] << ", " << data[ 5] << ", " << data[ 6] << ", " << data[ 7] << std::endl;
     oss << "               " << data[ 8] << ", " << data[ 9] << ", " << data[10] << ", " << data[11] << std::endl;
-    oss << "               " << data[12] << ", " << data[13] << ", " << data[14] << ", " << data[15] << ");" << std::endl;
+    oss << "               " << data[12] << ", " << data[13] << ", " << data[14] << ", " << data[15] << ");";
 
     return oss.str();
 }

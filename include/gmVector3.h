@@ -71,18 +71,23 @@ namespace gmath
 			/*------ Arithmetic operations ------*/
 			Vector3<real> operator + (const Vector3<real> & other) const;
 			Vector3<real> operator - (const Vector3<real> & other) const;
+			Vector3<real> operator - () const;
 			Vector3<real> operator * (real scalar) const;
+			Vector3<real> operator * (const Vector3<real> & other) const;
 			Vector3<real> operator * (const Matrix3<real> &mat) const;
             Vector3<real> operator * (const Matrix4<real> &mat) const;
 			Vector3<real> operator / (real scalar) const;
+			Vector3<real> operator / (const Vector3<real> & other) const;
 
 			/*------ Arithmetic updates ------*/
 			void operator += (const Vector3<real> & other);
 			void operator -= (const Vector3<real> & other);
 			void operator *= (real scalar);
+			void operator *= (const Vector3<real> & other);
             void operator *= (const Matrix3<real> &mat);
             void operator *= (const Matrix4<real> &mat);
 			void operator /= (real scalar);
+			void operator /= (const Vector3<real> & other);
 
 			/*------ Arithmetic comparisons ------*/
 			bool operator == (const Vector3<real> & other) const;
@@ -120,6 +125,7 @@ namespace gmath
 
 			/** Find the distance between this vector and the given vector */
 			real distance(const Vector3<real> & other) const;
+			real squaredDistance(const Vector3<real> & other) const;
 
 			Vector3<real> normalize() const;
 			void normalizeInPlace();
@@ -165,6 +171,7 @@ namespace gmath
 			static const Vector3 N_YAXIS;
 			static const Vector3 N_ZAXIS;
 
+			static const Vector3 ZERO;
 	};
 
 	#include "gmVector3.hpp"

@@ -42,6 +42,10 @@ namespace gmath
         Quaternion(real x, real y, real z, real w);
         Quaternion(const Quaternion<real> &values);
         Quaternion(const real *list);
+        Quaternion(const Matrix3<real>& inMat);
+        Quaternion(const Matrix4<real>& inMat);
+        Quaternion(const Vector3<real>& axis, real angle);
+        Quaternion(real angleX, real angleY, real angleZ);
 
         /*------ properties ------*/
         real x, y, z, w;
@@ -55,10 +59,12 @@ namespace gmath
         const real* ptr() const;
 
         /*------ Arithmetic operations ------*/
+		Quaternion<real> operator - () const;
         Quaternion<real> operator + (const Quaternion<real> &other) const;
         Quaternion<real> operator - (const Quaternion<real> &other) const;
         Quaternion<real> operator * (const Quaternion<real> &other) const;
         Quaternion<real> operator * (real scalar) const;
+        Vector3<real> operator * (const Vector3<real> &vec) const;
         Quaternion<real> operator / (real scalar) const;
 
         /*------ Arithmetic updates ------*/
@@ -83,21 +89,45 @@ namespace gmath
             @param inZ The wanted value for z
             @param inW The wanted value for w */
         void set(real inX, real inY, real inZ, real inW);
+        void setToIdentity();
 
-        Quaternion<real> inverse() const;
-        void inverseInPlace();
+		/** return a Quaternion that is the exact copy of this one */
+        Quaternion<real> duplicate() const;
+
+        Vector3<real> getAxisY() const;
+        Vector3<real> getAxisX() const;
+        Vector3<real> getAxisZ() const;
 
         template <typename gmMatrixType>
         void fromMatrix(const gmMatrixType &mat);
-
         void fromMatrix3(const Matrix3<real> &mat);
         Matrix3<real> toMatrix3() const;
-
         void fromMatrix4(const Matrix4<real> &mat);
         Matrix4<real> toMatrix4() const;
+		void setMatrix4(Matrix4<real>& outMat) const;
+		void setMatrix4(Matrix4<real>& outMat, const Vector3<real>& scale, const Vector3<real>& pos) const;
 
-        /** return a Quaternion that is the exact copy of this one */
-        Quaternion<real> duplicate() const;
+        void fromAxisAngle(const Vector3<real>& axis, real angle);
+		void toAxisAngle(Vector3<real>& outAxis, real& outAngle) const;
+
+        void fromEuler(real angleX, real angleY, real angleZ, RotationOrder order=XYZ);
+		void fromEuler(const Euler<real>& euler, RotationOrder order=XYZ);
+		Euler<real> toEuler(RotationOrder order=XYZ) const;
+
+		real length () const;
+		real squaredLength () const;
+		
+		void normalizeInPlace();
+		Quaternion<real> normalize() const;
+
+		Quaternion<real> inverse() const;
+        void inverseInPlace();
+
+		void conjugateInPlace();
+		Quaternion<real> conjugate() const;
+
+		Quaternion<real> exp() const;
+		Quaternion<real> log() const;
 
         /** Perform the dot product between this vector and the given vector */
         real dot(const Quaternion<real> & other) const;
@@ -107,19 +137,13 @@ namespace gmath
             Spherical linear interpolation.
             Assumes q1 and q2 are normalized and that q1 != -q2.
         
-            This method does *not* interpolate along the shortest
-            arc between q1 and q2.  If you desire interpolation
-            along the shortest arc, and q1^q2 is negative, then
-            consider calling slerpShortestArc(), below, or flipping
+            This method does *not* interpolate along the shortest arc between q1 and q2.  If you desire interpolation
+            along the shortest arc, and q1^q2 is negative, then consider calling slerpShortestArc(), below, or flipping
             the second quaternion explicitly.
         
-            The implementation of squad() depends on a slerp()
-            that interpolates as is, without the automatic
-            flipping.
+            The implementation of squad() depends on a slerp() that interpolates as is, without the automatic flipping.
         
-            Don Hatch explains the method we use here on his
-            web page, The Right Way to Calculate Stuff, at
-            http://www.plunk.org/~hatch/rightway.php */
+            Don Hatch explains the method we use here on his web page, The Right Way to Calculate Stuff, at http://www.plunk.org/~hatch/rightway.php */
         Quaternion<real> slerp(const Quaternion<real> &q1, const Quaternion<real> &q2, real t, bool shortestPath=true);
 
         std::string toString() const;
