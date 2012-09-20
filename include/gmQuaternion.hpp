@@ -1,23 +1,24 @@
-/*
-A math library for 3D graphic.
-Copyright (C) 2010-2012 Daniele Niero
+/* Copyright (c) 2012, Daniele Niero
+All rights reserved.
 
-Author contact: daniele . niero @ gmail . com
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 3
-of the License, or (at your option) any later version.
+1. Redistributions of source code must retain the above copyright notice, this 
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, 
+   this list of conditions and the following disclaimer in the documentation 
+   and/or other materials provided with the distribution.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
 //--------------------------------------------------------------------------
@@ -132,7 +133,7 @@ const real* Quaternion<real>::ptr() const
 template <typename real>
 Quaternion<real> Quaternion<real>::operator - () const
 {
-	return this->inverse();
+	return Quaternion(-x, -y, -z, -w);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -174,17 +175,22 @@ Quaternion<real> Quaternion<real>::operator * (const Quaternion<real> &other) co
 template <typename real>
 Vector3<real> Quaternion<real>::operator * (const Vector3<real>& vec) const
 {
-    // First we make a temp quaternion:
-    Vector3<real> r;
-    float tx, ty, tz, tw;
-    tx =   w * vec.x + y * vec.z - z * vec.y;
-    ty =   w * vec.y + z * vec.x - x * vec.z;
-    tz =   w * vec.z + x * vec.y - y * vec.x;
-    tw = - x * vec.x - y * vec.y - z * vec.z;
-    r.x = tw * -x + tx * w + ty * -z - tz * -y;
-    r.y = tw * -y + ty * w + tz * -x - tx * -z;
-    r.z = tw * -z + tz * w + tx * -y - ty * -x;
-    return r;
+    float tx, ty, tz;
+	float rx, ry, rz;
+
+	tx = y * vec.z - z * vec.y;
+	ty = z * vec.x - x * vec.z;
+	tz = x * vec.y - y * vec.x;
+
+	rx = y * tz - z * ty;
+	ry = z * tx - x * tz;
+	rz = x * ty - y * tx;
+
+	Vector3<real> v = vec;
+	v.x -= (tx*w-rx)*(real)2; 
+	v.y -= (ty*w-ry)*(real)2;
+	v.z -= (tz*w-rz)*(real)2;
+	return v;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -312,31 +318,19 @@ void Quaternion<real>::setToIdentity()
 template <typename real>
 Vector3<real> Quaternion<real>::getAxisX() const
 {
-    Vector3<real> r;
-    r.x = x*x + w*w - z*z - y*y;
-    r.y = (real)2.0*(x*y + z*w);
-    r.z = (real)2.0*(x*z - y*w);
-    return r;
+    return (*this) * Vector3<real>::XAXIS; 
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Quaternion<real>::getAxisY() const
 {
-    Vector3<real> r;
-    r.x = (real)2.0*(y*x - z*w);
-    r.y = y*y + w*w - x*x - z*z;
-    r.z = (real)2.0*(y*z + x*w);
-    return r;
+    return (*this) * Vector3<real>::YAXIS; 
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Quaternion<real>::getAxisZ() const
 {
-    Vector3<real> r;
-    r.x = (real)2.0*(z*x + y*w);
-    r.y = (real)2.0*(z*y - x*w);
-    r.z = z*z + w*w - y*y - x*x;
-    return r;
+    return (*this) * Vector3<real>::ZAXIS; 
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -757,12 +751,12 @@ real Quaternion<real>::dot(const Quaternion<real> & other) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Quaternion<real> Quaternion<real>::slerp(const Quaternion<real> &q1, const Quaternion<real> &q2, real t, bool shortestPath)
+void Quaternion<real>::slerpInPlace(const Quaternion<real> &q1, const Quaternion<real> &q2, real t, bool shortestPath)
 {	
 	Quaternion<real> Q2 = q2;
     if (q1.dot(q2)<(real)0.0)
     {
-        Q2 = q2.inverse();
+        Q2 = -q2;
     }
 
     Quaternion<real> qd = q1 - Q2;
@@ -774,12 +768,32 @@ Quaternion<real> Quaternion<real>::slerp(const Quaternion<real> &q1, const Quate
     real a = (real)2.0 * (real) atan2(lengthD, lengthS);
     real s = (real)1.0 - t;
 
-	
-	Quaternion<real> q = 
+	(*this) = 
         q1 * (sinx_over_x<real>(s * a) / sinx_over_x<real>(a) * s)  +
         Q2 * (sinx_over_x<real>(t * a) / sinx_over_x<real>(a) * t) ;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Quaternion<real>::slerp(const Quaternion<real> &q2, real t, bool shortestPath) const
+{	
+	Quaternion<real> Q2 = q2;
+    if ((*this).dot(q2)<(real)0.0)
+    {
+        Q2 = -q2;
+    }
 
-    return q;
+    Quaternion<real> qd = (*this) - Q2;
+    real lengthD = (real) sqrt (qd.dot(qd));
+
+    Quaternion<real> qs = (*this) + Q2;
+    real lengthS = (real) sqrt (qs.dot(qs));
+
+    real a = (real)2.0 * (real) atan2(lengthD, lengthS);
+    real s = (real)1.0 - t;
+
+	return
+        (*this) * (sinx_over_x<real>(s * a) / sinx_over_x<real>(a) * s)  +
+        Q2 * (sinx_over_x<real>(t * a) / sinx_over_x<real>(a) * t) ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>

@@ -1,23 +1,24 @@
-/*
-A math library for 3D graphic.
-Copyright (C) 2010-2012 Daniele Niero
+/* Copyright (c) 2012, Daniele Niero
+All rights reserved.
 
-Author contact: daniele . niero @ gmail . com
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 3
-of the License, or (at your option) any later version.
+1. Redistributions of source code must retain the above copyright notice, this 
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, 
+   this list of conditions and the following disclaimer in the documentation 
+   and/or other materials provided with the distribution.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
 #ifndef GMVECTOR3_H
@@ -114,7 +115,8 @@ namespace gmath
 			/** Perform the cross product between this vector and the given vector,
 			 *  and always return a normalised vector.
 			 *  This function is useful to reduce lines of code. */
-			Vector3<real> crossNormalized(const Vector3<real> & other) const;
+			Vector3<real> crossNormalize(const Vector3<real> & other) const;
+			void crossNormalizeInPlace(const Vector3<real> & other);
 
 			/** Perform the dot product between this vector and the given vector */
 			real dot(const Vector3<real> & other) const;
@@ -159,6 +161,13 @@ namespace gmath
 							  Note that normal should be normalized
 				@param eta The relative index of refraction. */
 			void refractInPlace(const Vector3<real> & normal, real eta);
+
+			/** interpolate between this vector and the given one. return a new vector */
+			Vector3<real> linearInterpolate(const Vector3<real> & other, real weight) const;
+
+			/** interpolate between this vector and the given one. At the end store the result on this vector */
+			void linearInterpolateInPlace(const Vector3<real> & other, real weight);
+
 
 			std::string toString() const;
 

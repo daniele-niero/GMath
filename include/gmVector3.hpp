@@ -1,23 +1,24 @@
-/*
-A math library for 3D graphic.
-Copyright (C) 2010-2012 Daniele Niero
+/* Copyright (c) 2012, Daniele Niero
+All rights reserved.
 
-Author contact: daniele . niero @ gmail . com
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 3
-of the License, or (at your option) any later version.
+1. Redistributions of source code must retain the above copyright notice, this 
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, 
+   this list of conditions and the following disclaimer in the documentation 
+   and/or other materials provided with the distribution.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
 /*------ Constructors ------*/
@@ -128,9 +129,9 @@ template <typename real>
 Vector3<real> Vector3<real>::operator * (const Matrix3<real> &mat) const
 {
     Vector3<real> retVec(
-        mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2] * this->z,
-        mat.data[3] * this->x + mat.data[4] * this->y + mat.data[5] * this->z,
-        mat.data[6] * this->x + mat.data[7] * this->y + mat.data[8] * this->z
+        mat.data[0] * this->x + mat.data[3] * this->y + mat.data[6] * this->z,
+        mat.data[1] * this->x + mat.data[4] * this->y + mat.data[7] * this->z,
+        mat.data[2] * this->x + mat.data[5] * this->y + mat.data[8] * this->z
         );
     return retVec;
 }
@@ -139,9 +140,9 @@ template <typename real>
 Vector3<real> Vector3<real>::operator * (const Matrix4<real> &mat) const
 {
     Vector3<real> retVec(
-        mat.data[0] * this->x + mat.data[1] * this->y + mat.data[2]  * this->z + mat.data[12],
-        mat.data[4] * this->x + mat.data[5] * this->y + mat.data[6]  * this->z + mat.data[13],
-        mat.data[8] * this->x + mat.data[9] * this->y + mat.data[10] * this->z + mat.data[14]
+        mat.data[0] * this->x + mat.data[4] * this->y + mat.data[8]  * this->z + mat.data[12],
+        mat.data[1] * this->x + mat.data[5] * this->y + mat.data[9]  * this->z + mat.data[13],
+        mat.data[2] * this->x + mat.data[6] * this->y + mat.data[10] * this->z + mat.data[14]
         );
     return retVec;
 }
@@ -342,13 +343,20 @@ void Vector3<real>::crossInPlace(const Vector3<real> & other)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Vector3<real> Vector3<real>::crossNormalized(const Vector3<real> & other) const
+Vector3<real> Vector3<real>::crossNormalize(const Vector3<real> & other) const
 {
     Vector3<real> retVec(y*other.z - z*other.y,
                          z*other.x - x*other.z,
                          x*other.y - y*other.x);
     retVec.normalizeInPlace();
     return retVec;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Vector3<real>::crossNormalizeInPlace(const Vector3<real> & other)
+{
+    crossInPlace(other);
+    normalizeInPlace();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -424,9 +432,8 @@ void Vector3<real>::normalizeInPlace()
 template <typename real>
 real Vector3<real>::angle(const Vector3<real> & other) const
 {
-    Vector3<real> thisNorm( this->normalize() );
-    Vector3<real> otherNorm( other.normalize() );
-    return (real)acos((double)(thisNorm.dot(otherNorm)) / (thisNorm.length()*thisNorm.length()));
+	real ang = Math<real>::acos((double)(dot(other))); 
+    return ang;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -473,6 +480,22 @@ void Vector3<real>::refractInPlace(const Vector3<real> & normal, real eta)
     {
         this->set(real(0.0), real(0.0), real(0.0));
     }
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Vector3<real>::linearInterpolate(const Vector3<real> & other, real weight) const
+{
+	return Vector3<real>((other.x - x) * weight + x,
+						 (other.y - y) * weight + y,
+						 (other.z - z) * weight + z);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Vector3<real>::linearInterpolateInPlace(const Vector3<real> & other, real weight)
+{
+	x = (other.x - x) * weight + x;
+	y = (other.y - y) * weight + y;
+	z = (other.z - z) * weight + z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>

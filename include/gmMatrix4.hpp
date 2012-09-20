@@ -1,23 +1,24 @@
-/*
-A math library for 3D graphic.
-Copyright (C) 2010-2012 Daniele Niero
+/* Copyright (c) 2012, Daniele Niero
+All rights reserved.
 
-Author contact: daniele . niero @ gmail . com
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 3
-of the License, or (at your option) any later version.
+1. Redistributions of source code must retain the above copyright notice, this 
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, 
+   this list of conditions and the following disclaimer in the documentation 
+   and/or other materials provided with the distribution.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
 /*------ constructors ------*/
@@ -440,19 +441,19 @@ Vector3<real> Matrix4<real>::getRow(unsigned int i) const
 template<typename real>
 Vector3<real> Matrix4<real>::getAxisX() const
 {
-    return getRow(1);
+    return getRow(0);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 Vector3<real> Matrix4<real>::getAxisY() const
 {
-    return getRow(2);
+    return getRow(1);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 Vector3<real> Matrix4<real>::getAxisZ() const
 {
-    return getRow(3);
+    return getRow(2);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -480,19 +481,19 @@ void Matrix4<real>::setRow(unsigned int i, const Vector3<real> &vec)
 template<typename real>
 void Matrix4<real>::setAxisX(const Vector3<real> &vec)
 {
-    setRow(1, vec);
+    setRow(0, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 void Matrix4<real>::setAxisY(const Vector3<real> &vec)
 {
-    setRow(2, vec);
+    setRow(1, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 void Matrix4<real>::setAxisZ(const Vector3<real> &vec)
 {
-    setRow(3, vec);
+    setRow(2, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -1069,89 +1070,83 @@ void Matrix4<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &no
 template<typename real>
 void Matrix4<real>::lookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
-    real f = fabs( pointAt.dot(normal) );
+	Vector3<real> primary, secondary, terziary;
+    
+	primary = pointAt - pos;
+    secondary = normal - pos;
+	primary.normalizeInPlace();
+	secondary.normalizeInPlace();
+
+    /*
+	real f = fabs( primary.dot(secondary) );
     if (f > 1.0-Math<real>::EPSILON)
-        throw GMathError("gmath::Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them.");
+        throw GMathError("Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them."); */
+    
+	terziary = secondary.cross(primary);
+    secondary = primary.cross(terziary);
 
-    real pMult = (real)1.0;
-    real sMult = (real)1.0;
-    if ((int)primaryAxis<0) {
-        pMult *= (real)-1.0;
+	if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
+	{
+        primary  *= (real)-1.0;
+		terziary *= (real)-1.0;
     }
-    if ((int)secondaryAxis<0) {
-        sMult = (real)-1.0;
+    else if ( ((int)primaryAxis>0) && ((int)secondaryAxis<0) ) 
+	{
+        secondary *= (real)-1.0;
+		terziary  *= (real)-1.0;
     }
-
-    Vector3<real> xVec, yVec, zVec, pAt, nor;
-    pAt = pointAt - pos;
-    nor = normal - pos;
+	else if ( ((int)primaryAxis<0) && ((int)secondaryAxis<0) )
+	{
+		primary   *= (real)-1.0;
+		secondary *= (real)-1.0;
+	} 
 
     if (primaryAxis == POSX || primaryAxis == NEGX)
     {
         if (secondaryAxis == POSY || secondaryAxis == NEGY)
         {
-            xVec = pAt * pMult;
-            yVec = nor * pMult;
-            zVec = xVec.cross(yVec);
-            zVec.normalizeInPlace();
-            yVec = zVec.cross(xVec);
+			this->setAxisX(primary);
+			this->setAxisY(secondary);
+			this->setAxisZ(-terziary);
         }
         else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
         {
-            xVec = pAt * pMult;
-            zVec = nor * sMult;
-            yVec = zVec.cross(xVec);
-            yVec.normalizeInPlace();
-            zVec = xVec.cross(yVec);
-            //zVec.normalizeInPlace();
+            this->setAxisX(primary);
+			this->setAxisY(terziary);
+			this->setAxisZ(secondary);
         }
     }
     else if (primaryAxis == POSY || primaryAxis == NEGY)
     {
-        if (secondaryAxis == POSX || primaryAxis == NEGX)
+        if (secondaryAxis == POSX || secondaryAxis == NEGX)
         {
-            yVec = pAt * pMult;
-            xVec = nor * sMult;
-            zVec = xVec.cross(yVec);
-            zVec.normalizeInPlace();
-            xVec = yVec.cross(zVec);
-            //xVec.normalizeInPlace()
+            this->setAxisX(secondary);
+			this->setAxisY(primary);
+			this->setAxisZ(terziary);
         }
-        else if (secondaryAxis == POSZ || secondaryAxis == NEGX)
+        else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
         {
-            yVec = pAt * pMult;
-            zVec = nor * sMult;
-            xVec = yVec.cross(zVec);
-            xVec.normalizeInPlace();
-            zVec = xVec.cross(yVec);
-            //zVec.normalizeInPlace()
+            this->setAxisX(terziary);
+			this->setAxisY(primary);
+			this->setAxisZ(-secondary);
         }
     }
     else if (primaryAxis == POSZ || primaryAxis == NEGZ)
     {
         if (secondaryAxis == POSX || secondaryAxis == NEGX)
         {
-            zVec = pAt * pMult;
-            xVec = nor * sMult;
-            yVec = zVec.cross(xVec);
-            yVec.normalizeInPlace();
-            xVec = yVec.cross(zVec);
-            //xVec.normalizeInPlace();
+            this->setAxisX(secondary);
+			this->setAxisY(-terziary);
+			this->setAxisZ(primary);
         }
         else if (secondaryAxis == POSY || secondaryAxis == NEGY)
         {
-            zVec = pAt * pMult;
-            yVec = nor * sMult;
-            xVec = yVec.cross(zVec);
-            xVec.normalizeInPlace();
-            yVec = zVec.cross(xVec);
-            //yVec.normalizeInPlace();
+            this->setAxisX(terziary);
+			this->setAxisY(secondary);
+			this->setAxisZ(primary);
         }
     }
 
-	this->setAxisX(xVec);
-	this->setAxisY(yVec);
-	this->setAxisZ(zVec);
 	this->setPosition(pos);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -1198,7 +1193,7 @@ template <typename real>
 std::string Matrix4<real>::toString() const
 {
     std::stringstream oss;
-    oss << "gmath::Matrix3(" << data[ 0] << ", " << data[ 1] << ", " << data[ 2] << ", " << data[ 3] << std::endl;
+    oss << "gmath::Matrix4(" << data[ 0] << ", " << data[ 1] << ", " << data[ 2] << ", " << data[ 3] << std::endl;
     oss << "               " << data[ 4] << ", " << data[ 5] << ", " << data[ 6] << ", " << data[ 7] << std::endl;
     oss << "               " << data[ 8] << ", " << data[ 9] << ", " << data[10] << ", " << data[11] << std::endl;
     oss << "               " << data[12] << ", " << data[13] << ", " << data[14] << ", " << data[15] << ");";

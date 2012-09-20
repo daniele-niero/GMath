@@ -20,49 +20,9 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABI
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
+#include "../include/gmRoot.h"
 
-using namespace std;
-
-template <typename real>
-real Math<real>::acos (real x)
+namespace gmath
 {
-    if (-(real)1 < x) {
-        if (x < (real)1) {
-            return (real) ::acos((double)x);
-        }
-        else {
-            return (real)0;
-        }
-    }
-    else {
-        return PI;
-    }
-}
-
-template <typename real>
-real Math<real>::asin (real x)
-{
-    if (-(real)1 < x) {
-        if (x < (real)1) {
-            return (real) ::asin((double)x);
-        }
-        else {
-            return Math<real>::HALFPI;
-        }
-    }
-    else {
-        return -Math<real>::HALFPI;
-    }
-}
-
-template <typename real>
-real Math<real>::toRadians(real x)
-{
-	return x*(PI/(real)180.0);
-}
-
-template <typename real>
-real Math<real>::toDegrees(real x)
-{
-	return x*((real)180.0/PI);
+	std::string GMathError::prefix = "GMathError: ";
 }
