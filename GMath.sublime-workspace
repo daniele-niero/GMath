@@ -222,6 +222,30 @@
 				"buffer_size": 1408,
 				"line_ending": "Unix"
 			}
+		},
+		{
+			"file": "include/gmQuaternion.h",
+			"settings":
+			{
+				"buffer_size": 4665,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "include/gmQuaternion.hpp",
+			"settings":
+			{
+				"buffer_size": 14396,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
+			"settings":
+			{
+				"buffer_size": 21354,
+				"line_ending": "Unix"
+			}
 		}
 	],
 	"build_system": "",
@@ -413,6 +437,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"slerp",
+			"slerpShortestArc",
 			"inver",
 			"invert",
 			"sinx_over_x",
@@ -595,7 +621,6 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
 				{
@@ -666,6 +691,90 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 248.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "include/gmQuaternion.h",
+					"settings":
+					{
+						"buffer_size": 4665,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1498.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "include/gmQuaternion.hpp",
+					"settings":
+					{
+						"buffer_size": 14396,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13476,
+								13476
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1655.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
+					"settings":
+					{
+						"buffer_size": 21354,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								11836,
+								11841
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2047.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

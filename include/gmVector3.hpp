@@ -334,9 +334,9 @@ Vector3<real> Vector3<real>::cross(const Vector3<real> & other) const
 template <typename real>
 void Vector3<real>::crossInPlace(const Vector3<real> & other)
 {
-    float newx = y*other.z - z*other.y;
-    float newy = z*other.x - x*other.z;
-    float newz = x*other.y - y*other.x;
+    real newx = y*other.z - z*other.y;
+    real newy = z*other.x - x*other.z;
+    real newz = x*other.y - y*other.x;
     x = newx;
     y = newy;
     z = newz;

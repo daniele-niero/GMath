@@ -175,8 +175,8 @@ Quaternion<real> Quaternion<real>::operator * (const Quaternion<real> &other) co
 template <typename real>
 Vector3<real> Quaternion<real>::operator * (const Vector3<real>& vec) const
 {
-    float tx, ty, tz;
-	float rx, ry, rz;
+    real tx, ty, tz;
+	real rx, ry, rz;
 
 	tx = y * vec.z - z * vec.y;
 	ty = z * vec.x - x * vec.z;
@@ -372,7 +372,7 @@ void Quaternion<real>::fromMatrix(const gmMatrixType &mat)
         int k = next[j];
 
         root = sqrt(mat(i,i) - mat(j,j) - mat(k,k) + (real)1.0);
-        float* quat[3] = { &x, &y, &z };
+        real* quat[3] = { &x, &y, &z };
         *quat[i] = (real)0.5*root;
         root = (real)0.5/root;
         this->w = (mat(k,j) - mat(j,k))*root;
