@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Daniele Niero
+/* Copyright (c) 2010-13, Daniele Niero
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without 
@@ -91,9 +91,6 @@ namespace gmath
             @param inW The wanted value for w */
         void set(real inX, real inY, real inZ, real inW);
         void setToIdentity();
-
-		/** return a Quaternion that is the exact copy of this one */
-        Quaternion<real> duplicate() const;
 
         Vector3<real> getAxisY() const;
         Vector3<real> getAxisX() const;

@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Daniele Niero
+/* Copyright (c) 2010-13, Daniele Niero
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without 
@@ -24,11 +24,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 /*------ constructors ------*/
 template <typename real>
 Matrix3<real>::Matrix3()
-{
-    data[0]=(real)1.0; data[1]=(real)0.0; data[2]=(real)0.0;
-    data[3]=(real)0.0; data[4]=(real)1.0; data[5]=(real)0.0;
-    data[6]=(real)0.0; data[7]=(real)0.0; data[8]=(real)1.0;
-}
+{}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix3<real>::Matrix3(
@@ -555,29 +551,7 @@ Vector3<real> Matrix3<real>::getScale() const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Matrix3<real> Matrix3<real>::addScale(const Vector3<real> &scale)
-{
-    Matrix3<real> mat(
-        data[0]+scale.x, data[1]+scale.x, data[2]+scale.x,
-        data[3]+scale.y, data[4]+scale.y, data[5]+scale.y,
-        data[6]+scale.z, data[7]+scale.z, data[8]+scale.z
-        );
-    return mat;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Matrix3<real> Matrix3<real>::addScale(real sX, real sY, real sZ)
-{
-    Matrix3<real> mat(
-        data[0]+sX, data[1]+sX, data[2]+sX,
-        data[3]+sY, data[4]+sY, data[5]+sY,
-        data[6]+sZ, data[7]+sZ, data[8]+sZ
-        );
-    return mat;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-void Matrix3<real>::addScaleInPlace(const Vector3<real> &scale)
+void Matrix3<real>::addScale(const Vector3<real> &scale)
 {
     data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
     data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
@@ -585,15 +559,15 @@ void Matrix3<real>::addScaleInPlace(const Vector3<real> &scale)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-void Matrix3<real>::addScaleInPlace(real sX, real sY, real sZ)
+void Matrix3<real>::addScale(real sX, real sY, real sZ)
 {
-    data[0]+=sX; data[1]+=sX; data[2]+=sX;
-    data[3]+=sY; data[4]+=sY; data[5]+=sY;
-    data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
+    data[0]+=sX; data[1]+=sX; data[2]+sX;
+    data[3]+=sY; data[4]+=sY; data[5]+sY;
+    data[6]+=sZ; data[7]+=sZ; data[8]+sZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Matrix3<real> Matrix3<real>::setScale(const Vector3<real> &scale)
+void Matrix3<real>::setScale(const Vector3<real> &scale)
 {
     Vector3<real> x(data[0], data[1], data[2]);
     Vector3<real> y(data[3], data[4], data[5]);
@@ -605,14 +579,14 @@ Matrix3<real> Matrix3<real>::setScale(const Vector3<real> &scale)
     y *= scale.y;
     z *= scale.z;
 
-    return Matrix3<real>(
-            x.x, x.y, x.z,
-            y.x, y.y, y.z,
-            z.x, z.y, z.z );
+    this->set(
+        x.x, x.y, x.z,
+        y.x, y.y, y.z,
+        z.x, z.y, z.z );
 }
 /*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Matrix3<real> Matrix3<real>::setScale(real sX, real sY, real sZ)
+void Matrix3<real>::setScale(real sX, real sY, real sZ)
 {
     Vector3<real> x(data[0], data[1], data[2]);
     Vector3<real> y(data[3], data[4], data[5]);
@@ -624,62 +598,10 @@ Matrix3<real> Matrix3<real>::setScale(real sX, real sY, real sZ)
     y *= sY;
     z *= sZ;
 
-    return Matrix3<real>(
-            x.x, x.y, x.z,
-            y.x, y.y, y.z,
-            z.x, z.y, z.z );
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-void Matrix3<real>::setScaleInPlace(const Vector3<real> &scale)
-{
-    Vector3<real> x(data[0], data[1], data[2]);
-    Vector3<real> y(data[3], data[4], data[5]);
-    Vector3<real> z(data[6], data[7], data[8]);
-    x.normalizeInPlace();
-    y.normalizeInPlace();
-    z.normalizeInPlace();
-    x *= scale.x;
-    y *= scale.y;
-    z *= scale.z;
-
-    data[0]=x.x; data[1]=x.y; data[2]=x.z;
-    data[3]=y.x; data[4]=y.y; data[5]=y.z;
-    data[6]=z.x; data[7]=z.y; data[8]=z.z;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-void Matrix3<real>::setScaleInPlace(real sX, real sY, real sZ)
-{
-    Vector3<real> x(data[0], data[1], data[2]);
-    Vector3<real> y(data[3], data[4], data[5]);
-    Vector3<real> z(data[6], data[7], data[8]);
-    x.normalizeInPlace();
-    y.normalizeInPlace();
-    z.normalizeInPlace();
-    x *= sX;
-    y *= sY;
-    z *= sZ;
-
-    data[0]=x.x; data[1]=x.y; data[2]=x.z;
-    data[3]=y.x; data[4]=y.y; data[5]=y.z;
-    data[6]=z.x; data[7]=z.y; data[8]=z.z;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Matrix3<real> Matrix3<real>::createScale(const Vector3<real> &scale)
-{
-    return Matrix3<real>(scale.x, (real)0.0, (real)0.0,
-                         (real)0.0, scale.y, (real)0.0,
-                         (real)0.0, (real)0.0, scale.z);
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Matrix3<real> Matrix3<real>::createScale(real sX, real sY, real sZ)
-{
-    return Matrix3<real>(sX, (real)0.0, (real)0.0,
-                         (real)0.0, sY, (real)0.0,
-                         (real)0.0, (real)0.0, sZ);
+    this->set(
+        x.x, x.y, x.z,
+        y.x, y.y, y.z,
+        z.x, z.y, z.z );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -737,22 +659,6 @@ template <typename real>
 void Matrix3<real>::setFromEuler(const Euler<real> &rotation, RotationOrder order)
 {
     setFromEuler(rotation.x, rotation.y, rotation.z, order);
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template<typename real>
-Matrix3<real> Matrix3<real>::createFromEuler(const Euler<real> &rotation, RotationOrder order)
-{
-    Matrix3<real> newMat;
-    newMat.setFromEuler(rotation.x, rotation.y, rotation.z, order);
-    return newMat;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template<typename real>
-Matrix3<real> Matrix3<real>::createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
-{
-    Matrix3<real> newMat;
-    newMat.setFromEuler(angleX, angleY, angleZ, order);
-    return newMat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -921,7 +827,7 @@ void Matrix3<real>::setFromVectorToVector(const Vector3<real> &fromVec, const Ve
             {
                 this->data[i*3+j] =  - c1*uvals[i]*uvals[j] - c2*vvals[i]*vvals[j] + c3*vvals[i]*uvals[j];
             }
-            this->data[i*4] += (real)1.0;
+            // this->data[i*4] += (real)1.0;
         }
     }
     else  // the most common case, unless "from"="to", or "from"=-"to"
@@ -947,14 +853,6 @@ void Matrix3<real>::setFromVectorToVector(const Vector3<real> &fromVec, const Ve
         this->data[7] = hvyz + v.x;
         this->data[8] = e + hvz*v.z;
     }
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template<typename real>
-Matrix3<real> Matrix3<real>::createFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
-{
-    Matrix3<real> retMat;
-    retMat.setFromVectorToVector(fromVec, toVec);
-    return retMat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -1068,14 +966,6 @@ void Matrix3<real>::setFromAxisAngle(const Vector3<real> &axis, real angle)
     data[0] = k1*sqr_a+k2; data[1] = k1ab+k3c;    data[2] = k1ac-k3b;
     data[3] = k1ab-k3c;    data[4] = k1*sqr_b+k2; data[5] = k1bc+k3a;
     data[6] = k1ac+k3b;    data[7] = k1bc-k3a;    data[8] = k1*sqr_c+k2;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template<typename real>
-Matrix3<real> Matrix3<real>::createFromAxisAngle(const Vector3<real> &axis, real angle)
-{
-    Matrix3<real> mat;
-    mat.setFromAxisAngle(axis, angle);
-    return mat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>

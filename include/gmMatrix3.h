@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Daniele Niero
+/* Copyright (c) 2010-13, Daniele Niero
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without 
@@ -31,152 +31,154 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 namespace gmath
 {
+// Quaternion forward declaration
+template <typename real>
+class Quaternion;
 
-    /** Matrix class (3x3). @n
-            [Xx, Xy, Xz] @n
-            [Yx, Yy, Yz] @n
-            [Zx, Zy, Zz] @n
+/** Matrix class (3x3). @n
+        [Xx, Xy, Xz] @n
+        [Yx, Yy, Yz] @n
+        [Zx, Zy, Zz] @n
 
-        This class represents a 3x3 matrix that can be used to store
-        rotations transformations. */
-    template <typename real>
-    class Matrix3
-    {
-        public:
-            /*------ constructors ------*/
-            Matrix3();
-            Matrix3(real xx, real xy, real xz,
-                    real yx, real yy, real yz,
-                    real zx, real zy, real zz);
-            Matrix3(const Matrix3<real> &other);
-            Matrix3(const Vector3<real> &axisX,
-                    const Vector3<real> &axisY,
-                    const Vector3<real> &axisZ);
-            Matrix3(const real* list);
+    This class represents a 3x3 matrix that can be used to store
+    rotations transformations. */
+template <typename real>
+class Matrix3
+{
+public:
+    /*------ constructors ------*/
+    Matrix3();
+    Matrix3(real xx, real xy, real xz,
+            real yx, real yy, real yz,
+            real zx, real zy, real zz);
+    Matrix3(const Matrix3<real> &other);
+    Matrix3(const Vector3<real> &axisX,
+            const Vector3<real> &axisY,
+            const Vector3<real> &axisZ);
+    Matrix3(const Quaternion<real>& quat);
+    Matrix3(const real* list);
 
-            /*------ properties ------*/
-            real data[9];
+    /*------ properties ------*/
+    real data[9];
 
-            /** Pointer access for direct copying. */
-            real* ptr();
-            const real* ptr() const;
+    /** Pointer access for direct copying. */
+    real* ptr();
+    const real* ptr() const;
 
-            /*------ coordinate access ------*/
-            real operator[] (int i) const;
-            real &operator[] (int i);
-            real operator() (int row, int col) const;
-            real &operator() (int row, int col);
+    /*------ coordinate access ------*/
+    real operator[] (int i) const;
+    real &operator[] (int i);
+    real operator() (int row, int col) const;
+    real &operator() (int row, int col);
 
-            /*------ Arithmetic operations ------*/
-            Matrix3<real> operator + (real value) const;
-            Matrix3<real> operator + (const Matrix3<real> &other) const;
-            Matrix3<real> operator - (real value) const;
-            Matrix3<real> operator - (const Matrix3<real> &other) const;
-            Matrix3<real> operator / (real value) const;
-            Matrix3<real> operator * (real value) const;
-            Matrix3<real> operator * (const Matrix3<real> &other) const;
+    /*------ Arithmetic operations ------*/
+    Matrix3<real> operator - ();
+    Matrix3<real> operator - (real value) const;
+    Matrix3<real> operator - (const Matrix3<real> &other) const;
+    Matrix3<real> operator + (real value) const;
+    Matrix3<real> operator + (const Matrix3<real> &other) const;
+    Matrix3<real> operator / (real value) const;
+    Matrix3<real> operator * (real value) const;
+    Matrix3<real> operator * (const Matrix3<real> &other) const;
 
-            /*------ Arithmetic updates ------*/
-            void operator += (real value);
-            void operator += (const Matrix3<real> &other);
-            void operator -= (real value);
-            void operator -= (const Matrix3<real> &other);
-            void operator /= (real value);
-            void operator *= (real value);
-            void operator *= (const Matrix3<real> &other);
+    /*------ Arithmetic updates ------*/
+    void operator += (real value);
+    void operator += (const Matrix3<real> &other);
+    void operator -= (real value);
+    void operator -= (const Matrix3<real> &other);
+    void operator /= (real value);
+    void operator *= (real value);
+    void operator *= (const Matrix3<real> &other);
 
-            /*------ Comparisons ------*/
-            bool operator == (const Matrix3<real> &other) const;
-            bool operator != (const Matrix3<real> &other) const;
+    /*------ Comparisons ------*/
+    bool operator == (const Matrix3<real> &other) const;
+    bool operator != (const Matrix3<real> &other) const;
 
-            /*------ Assignment ------*/
-            void operator = (const Matrix3<real> &other);
+    /*------ Assignment ------*/
+    void operator = (const Matrix3<real> &other);
 
-            /*------ methods ------*/
-            void setToIdentity();
-            void set(real xx, real xy, real xz,
-                     real yx, real yy, real yz,
-                     real zx, real zy, real zz);
+    /*------ methods ------*/
+    void setToIdentity();
+    void set(real xx, real xy, real xz,
+             real yx, real yy, real yz,
+             real zx, real zy, real zz);
 
-            Vector3<real> getRow(unsigned int i) const;
-            void setRow(unsigned int i, const Vector3<real> &vec);
+    Vector3<real> getRow(unsigned int i) const;
+    void setRow(unsigned int i, const Vector3<real> &vec);
 
-			Vector3<real> getAxisX() const;
-			Vector3<real> getAxisY() const;
-			Vector3<real> getAxisZ() const;
-			void setAxisX(const Vector3<real>& vec);
-			void setAxisY(const Vector3<real>& vec);
-			void setAxisZ(const Vector3<real>& vec);
+	Vector3<real> getAxisX() const;
+	Vector3<real> getAxisY() const;
+	Vector3<real> getAxisZ() const;
+	void setAxisX(const Vector3<real>& vec);
+	void setAxisY(const Vector3<real>& vec);
+	void setAxisZ(const Vector3<real>& vec);
 
-            Matrix3<real> transpose() const;
-            void transposeInPlace();
+    void setRotation(const Quaternion<real>& rotationQuat);
+    void setRotation(const Euler<real> &rotation, RotationOrder order=XYZ);
+    void setRotation(real angleX, real angleY, real angleZ, RotationOrder order=XYZ);
 
-            /** The deterMINant of a matrix is a floating point value which is used to
-                indicate whether the matrix has an inverse or not. If zero, then no inverse exists. */
-            real determinant() const;
+    void setScale(const Vector3<real> &scale);
+    void setScale(real sX, real sY, real sZ);
+    void addScale(const Vector3<real> &scale);
+    void addScale(real sX, real sY, real sZ);
+    Vector3<real> getScale() const;
 
-            Matrix3<real> inverse() const;
-            void inverseInPlace();
+    /** Remember to take out scale first */
+    Quaternion<real> toQuaternion() const;
+    void toQuaternion(Quaternion<real> &outQauternion) const;
+    Euler<real> toEuler(RotationOrder order=XYZ) const; 
+    bool toEuler(Euler<real> &outEuler, RotationOrder order=XYZ) const;
 
-            Matrix3<real> orthogonal() const;
-            void orthogonalInPlace();
+    void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order);
+    void setFromEuler(const Euler<real> &rotation, RotationOrder order);
+    Euler<real> toEuler(RotationOrder order);
+    bool toEuler(Euler<real>& euler, RotationOrder order);
 
-            Vector3<real> getScale() const;
-            Matrix3<real> addScale(const Vector3<real> &scale);
-            Matrix3<real> addScale(real sX, real sY, real sZ);
-            void addScaleInPlace(const Vector3<real> &scale);
-            void addScaleInPlace(real sX, real sY, real sZ);
-            Matrix3<real> setScale(const Vector3<real> &scale);
-            Matrix3<real> setScale(real sX, real sY, real sZ);
-            void setScaleInPlace(const Vector3<real> &scale);
-            void setScaleInPlace(real sX, real sY, real sZ);
-            static Matrix3<real> createScale(const Vector3<real> &scale);
-            static Matrix3<real> createScale(real sX, real sY, real sZ);
-            
-            void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
-            void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
-            static Matrix3<real> createFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
-            static Matrix3<real> createFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
+    Matrix3<real> transpose() const;
+    void transposeInPlace();
 
-            /** Remeber to take out scale first */
-            Euler<real> toEuler(RotationOrder order=XYZ);
-            bool toEuler(Euler<real>& eulerAngles, RotationOrder order=XYZ);
+    /** The deterMINant of a matrix is a floating point value which is used to
+        indicate whether the matrix has an inverse or not. If zero, then no inverse exists. */
+    real determinant() const;
 
-            /** Returns a rotation matrix that rotates one vector into another.
+    Matrix3<real> inverse() const;
+    void inverseInPlace();
 
-                The generated rotation matrix will rotate the vector _from into
-                the vector to. _from and to must be unit vectors!
+    Matrix3<real> orthogonal() const;
+    void orthogonalInPlace();
+    
+    /** Returns a rotation matrix that rotates one vector into another.
 
-                This method is based on the code from:
+        The generated rotation matrix will rotate the vector _from into
+        the vector to. _from and to must be unit vectors!
 
-                Tomas Moller, John Hughes
-                Efficiently Building a Matrix to Rotate One Vector to Another
-                Journal of Graphics Tools, 4(4):1-4, 1999
-                http://www.acm.org/jgt/papers/MollerHughes99/ */
-            void setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
-            static Matrix3<real> createFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
+        This method is based on the code from:
 
-            /** Look from pos to target.
+        Tomas Moller, John Hughes
+        Efficiently Building a Matrix to Rotate One Vector to Another
+        Journal of Graphics Tools, 4(4):1-4, 1999
+        http://www.acm.org/jgt/papers/MollerHughes99/ */
+    void setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
+    void setFromAxisAngle(const Vector3<real> &axis, real angle);
 
-                The resulting transformation is a rotation Matrix where the primaryAxis points to target.
-                The secondaryAxis is as close as possible to the up vector. */
-            void lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
-            static Matrix3<real> createLookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+    /** Look from pos to target.
 
-            void setFromAxisAngle(const Vector3<real> &axis, real angle);
-            static Matrix3<real> createFromAxisAngle(const Vector3<real> &axis, real angle);
+        The resulting transformation is a rotation Matrix where the primaryAxis points to target.
+        The secondaryAxis is as close as possible to the up vector. */
+    void lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+    static Matrix3<real> createLookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
 
-            std::string toString() const;
+    std::string toString() const;
 
-            // Special Matrices.
-            static const Matrix3 IDENTITY;
-    };
+    // Special Matrices.
+    static const Matrix3 IDENTITY;
+};
 
-    #include "gmMatrix3.hpp"
+#include "gmMatrix3.hpp"
 
 
-    typedef Matrix3<float> Matrix3f;
-    typedef Matrix3<double> Matrix3d;
+typedef Matrix3<float> Matrix3f;
+typedef Matrix3<double> Matrix3d;
 }
 
 #endif // GMMATRIX3_H

@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Daniele Niero
+/* Copyright (c) 2010-13, Daniele Niero
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without 

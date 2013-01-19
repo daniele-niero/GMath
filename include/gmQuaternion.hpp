@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, Daniele Niero
+/* Copyright (c) 2010-13, Daniele Niero
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without 
@@ -95,7 +95,7 @@ Quaternion<real>::Quaternion(const Vector3<real>& axis, real angle)
 template <typename real>
 Quaternion<real>::Quaternion(real angleX, real angleY, real angleZ)
 {
-    self->fromEuler(angleX, angleY, angleZ);
+    this->fromEuler(angleX, angleY, angleZ);
 }
 /*------ Coordinate access ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -582,11 +582,11 @@ real Quaternion<real>::squaredLength () const
 template <typename real>
 void Quaternion<real>::normalizeInPlace ()
 {
-	real length = lenght();
+	real len = length();
 
-	if (length > Math::<real>::EPSILON)
+	if (len > Math<real>::EPSILON)
 	{
-		real invLength = ((real)1)/length;
+		real invLength = ((real)1)/len;
 		w *= invLength;
 		x *= invLength;
 		y *= invLength;
@@ -605,11 +605,11 @@ template <typename real>
 Quaternion<real> Quaternion<real>::normalize () const
 {
 	Quaternion<real> retQuat;
-	real length = lenght();
+	real len = length();
 
-	if (length > Math::<real>::EPSILON)
+	if (len > Math<real>::EPSILON)
 	{
-		real invLength = ((real)1)/length;
+		real invLength = ((real)1)/len;
 		retQuat.w = w*invLength;
 		retQuat.x = x*invLength;
 		retQuat.y = y*invLength;
@@ -622,6 +622,7 @@ Quaternion<real> Quaternion<real>::normalize () const
 		retQuat.y = (real)0;
 		retQuat.z = (real)0;
 	}
+    return retQuat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
