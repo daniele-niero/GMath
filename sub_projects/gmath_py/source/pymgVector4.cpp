@@ -30,41 +30,41 @@ using namespace gmath;
 
 void wrapVector4()
 {
-    class_<Vector4f>("Vector4", init<>())
-        .def( init<float, float, float, float>() )
-        .def( init<const Vector4f &>() )
+    class_<Vector4d>("Vector4", init<>())
+        .def( init<double, double, double, double>() )
+        .def( init<const Vector4d &>() )
 
-        .def_readwrite("x", &Vector4f::x)
-        .def_readwrite("y", &Vector4f::y)
-        .def_readwrite("z", &Vector4f::z)
-        .def_readwrite("w", &Vector4f::w)
+        .def_readwrite("x", &Vector4d::x)
+        .def_readwrite("y", &Vector4d::y)
+        .def_readwrite("z", &Vector4d::z)
+        .def_readwrite("w", &Vector4d::w)
 
-        .def( "__str__", &Vector4f::toString )
-        .def("__getitem__", getitem_wrap<Vector4f>)
-        .def("__setitem__", setitem_wrap<Vector4f>)
+        .def( "__str__", &Vector4d::toString )
+        .def("__getitem__", getitem_wrap<Vector4d>)
+        .def("__setitem__", setitem_wrap<Vector4d>)
 
-        .def( self + Vector4f() )
-        .def( self - Vector4f() )
-        .def( self * float() )
-        .def( self / float() )
+        .def( self + Vector4d() )
+        .def( self - Vector4d() )
+        .def( self - self )
+        .def( self * double() )
+        .def( self / double() )
 
-        .def( self += Vector4f() )
-        .def( self -= Vector4f() )
-        .def( self *= float() )
-        .def( self /= float() )
+        .def( self += Vector4d() )
+        .def( self -= Vector4d() )
+        .def( self *= double() )
+        .def( self /= double() )
 
-        .def( self == Vector4f() )
-        .def( self != Vector4f() )
+        .def( self == Vector4d() )
+        .def( self != Vector4d() )
 
-        .def("set", &Vector4f::set)
-        .def("duplicate", &Vector4f::duplicate)
+        .def("set", &Vector4d::set)
 
-        .def("dot", &Vector4f::dot)
-        .def("length", &Vector4f::length)
-        .def("squaredLength", &Vector4f::squaredLength)
+        .def("dot", &Vector4d::dot)
+        .def("length", &Vector4d::length)
+        .def("squaredLength", &Vector4d::squaredLength)
         
-        .def("normalize", &Vector4f::normalize)
-        .def("normalizeInPlace", &Vector4f::normalizeInPlace)
+        .def("normalize", &Vector4d::normalize)
+        .def("normalizeInPlace", &Vector4d::normalizeInPlace)
         ;
 }
 

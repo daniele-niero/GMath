@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define PYGMMATRIX4_H
 
 #include "gmMatrix4.h"
+#include "gmQuaternion.h"
 
 void wrapMatrix4();
 

@@ -126,13 +126,11 @@ public:
     /** Remember to take out scale first */
     Quaternion<real> toQuaternion() const;
     void toQuaternion(Quaternion<real> &outQauternion) const;
-    Euler<real> toEuler(RotationOrder order=XYZ) const; 
-    bool toEuler(Euler<real> &outEuler, RotationOrder order=XYZ) const;
 
-    void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order);
-    void setFromEuler(const Euler<real> &rotation, RotationOrder order);
-    Euler<real> toEuler(RotationOrder order);
-    bool toEuler(Euler<real>& euler, RotationOrder order);
+    void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
+    void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
+    Euler<real> toEuler(RotationOrder order=XYZ) const;
+    bool toEuler(Euler<real>& euler, RotationOrder order=XYZ) const;
 
     Matrix3<real> transpose() const;
     void transposeInPlace();

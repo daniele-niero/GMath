@@ -1,23 +1,24 @@
-/*
-A math library for 3D graphic.
-Copyright (C) 2010-2012 Daniele Niero
+/* Copyright (c) 2012, Daniele Niero
+All rights reserved.
 
-Author contact: daniele . niero @ gmail . com
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 3
-of the License, or (at your option) any later version.
+1. Redistributions of source code must retain the above copyright notice, this 
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, 
+   this list of conditions and the following disclaimer in the documentation 
+   and/or other materials provided with the distribution.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
+OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) 
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
 #include <boost/python.hpp>
@@ -29,143 +30,120 @@ using namespace gmath;
 
 
 namespace {
-list matrix4_getdata_wrap(Matrix4f* self)
-{
-    list retData;
-    for (int i=0; i<16; i++)
+    list matrix4_getdata_wrap(Matrix4d* self)
     {
-        retData.append(self->data[i]);
+        list retData;
+        for (int i=0; i<16; i++)
+        {
+            retData.append(self->data[i]);
+        }
+        return retData;
     }
-    return retData;
-}
 
-void matrix4_setdata_wrap(Matrix4f* self, list &inlist)
-{
-    for (int i=0; i<16; i++)
+    void matrix4_setdata_wrap(Matrix4d* self, list &inlist)
     {
-        self->data[i] = extract<float>(inlist[i]);
+        for (int i=0; i<16; i++)
+        {
+            self->data[i] = extract<double>(inlist[i]);
+        }
     }
-}
-
-void (Matrix4f::*setRow1)(unsigned int i, const Vector3f&) = &Matrix4f::setRow;
-void (Matrix4f::*setRow2)(unsigned int i, const Vector4f&) = &Matrix4f::setRow;
-
-Matrix4f (Matrix4f::*addScale1)(float, float, float) = &Matrix4f::addScale;
-Matrix4f (Matrix4f::*addScale2)(const Vector3f&) = &Matrix4f::addScale;
-void (Matrix4f::*addScaleInPlace1)(float, float, float) = &Matrix4f::addScaleInPlace;
-void (Matrix4f::*addScaleInPlace2)(const Vector3f&) = &Matrix4f::addScaleInPlace;
-Matrix4f (Matrix4f::*setScale1)(float, float, float) = &Matrix4f::setScale;
-Matrix4f (Matrix4f::*setScale2)(const Vector3f&) = &Matrix4f::setScale;
-void (Matrix4f::*setScaleInPlace1)(float, float, float) = &Matrix4f::setScaleInPlace;
-void (Matrix4f::*setScaleInPlace2)(const Vector3f&) = &Matrix4f::setScaleInPlace;
-// Matrix4f (*createScale1)(float, float, float)= &Matrix4f::createScale;
-// Matrix4f (*createScale2)(const Vector3f&) = &Matrix4f::createScale;
-
-// void (Matrix4f::*setFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix4f::setFromEuler;
-// void (Matrix4f::*setFromEuler2)(const Eulerf&, RotationOrder) = &Matrix4f::setFromEuler;
-// // to ensure RotationOrder with default argument...
-// void matrix4_setFromEuler1_wrap(Matrix4f* self, const float& x, const float& y, const float& z)
-// {
-//     self->setFromEuler(x, y, z);
-// }
-// void matrix4_setFromEuler2_wrap(Matrix4f* self, const Eulerf& euler)
-// {
-//     self->setFromEuler(euler);
-// }
-
-// Matrix4f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix4f::createFromEuler;
-// Matrix4f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix4f::createFromEuler;
-// // to ensure RotationOrder with default argument...
-// Matrix4f matrix4_createFromEuler1_wrap(const float& x, const float& y, const float& z)
-// {
-//     return Matrix4f::createFromEuler(x, y, z);
-// }
-// Matrix4f matrix4_createFromEuler2_wrap(const Eulerf& euler)
-// {
-//     return Matrix4f::createFromEuler(euler);
-// }
 }
 
 void wrapMatrix4()
 {
-    class_<Matrix4f>("Matrix4", init<>())
-        .def( init<float, float, float, float,  
-                   float, float, float, float,
-                   float, float, float, float,
-                   float, float, float, float>() )
-        .def( init<const Matrix4f &>() )
-        .def( init<const Vector4f &, const Vector4f &, const Vector4f &, const Vector4f &>() )
-        .def( init<const Vector3f &, const Vector3f &, const Vector3f &, const Vector3f &>() )
+    class_<Matrix4d>("Matrix4", init<>())
+        .def( init<double, double, double, double,  
+                   double, double, double, double,
+                   double, double, double, double,
+                   double, double, double, double>() )
+        .def( init<const Matrix4d &>() )
+        .def( init<const Vector4d &, const Vector4d &, const Vector4d &, const Vector4d &>() )
+        .def( init<const Vector3d &, const Vector3d &, const Vector3d &, const Vector3d &>() )
+        .def( init<const Vector3d &, const Vector3d &, const Vector3d &>() )
+        .def( init<const Quaternion<double> &>() )
+        .def( init<const Quaternion<double> &, const Vector3d &>() )
 
         .add_property("data", &matrix4_getdata_wrap, &matrix4_setdata_wrap)
 
-        .def("__str__", &Matrix4f::toString)
-        .def("__getitem__", &getitem_wrap<Matrix4f>)
-        .def("__setitem__", &setitem_wrap<Matrix4f>)
-        .def("__call__", &call_wrap<Matrix4f>)
+        .def("__str__", &Matrix4d::toString)
+        .def("__getitem__", &getitem_wrap<Matrix4d>)
+        .def("__setitem__", &setitem_wrap<Matrix4d>)
+        .def("__call__", &call_wrap<Matrix4d>)
 
-        .def( self + float() )
-        .def( self + Matrix4f() )
-        .def( self - float() )
-        .def( self - Matrix4f() )
-        .def( self / float() )
-        .def( self * float() )
-        .def( self * Matrix4f() )
+        .def( self + double() )
+        .def( self + Matrix4d() )
+        .def( self - double() )
+        .def( self - Matrix4d() )
+        .def( self / double() )
+        .def( self * double() )
+        .def( self * Matrix4d() )
 
-        .def( self += float() )
-        .def( self += Matrix4f() )
-        .def( self -= float() )
-        .def( self -= Matrix4f() )
-        .def( self /= float() )
-        .def( self *= float() )
-        .def( self *= Matrix4f() )
+        .def( self += double() )
+        .def( self += Matrix4d() )
+        .def( self -= double() )
+        .def( self -= Matrix4d() )
+        .def( self /= double() )
+        .def( self *= double() )
+        .def( self *= Matrix4d() )
 
-        .def( self == Matrix4f() )
-        .def( self != Matrix4f() )
+        .def( self == Matrix4d() )
+        .def( self != Matrix4d() )
 
-        .def("setToIdentity", &Matrix4f::setToIdentity)
-        .def("set", &Matrix4f::set)
+        .def("setToIdentity", &Matrix4d::setToIdentity)
+        .def("set", &Matrix4d::set)
 
-        .def("getRow", &Matrix4f::getRow)
-        .def("getRow2", &Matrix4f::getRow2)
-        .def("setRow", setRow1)
-        .def("setRow", setRow2)
+        .def("getRow", &Matrix4d::getRow)
+        .def("getRow2", &Matrix4d::getRow2)
+        .def("setRow", (void (Matrix4d::*)(unsigned int, const Vector3d &))&Matrix4d::setRow)
+        .def("setRow", (void (Matrix4d::*)(unsigned int, const Vector4d &))&Matrix4d::setRow)
 
-        .def("setPosition", &Matrix4f::setPosition)
-        .def("addPosition", &Matrix4f::addPosition)
-        .def("translate", &Matrix4f::translate)
-        .def("getPosition", &Matrix4f::getPosition)
+        .def("getAxisX", &Matrix4d::getAxisX)
+        .def("getAxisY", &Matrix4d::getAxisY)
+        .def("getAxisZ", &Matrix4d::getAxisZ)
 
-        .def("setRotation", &Matrix4f::setRotation)
-        .def("getRotation", &Matrix4f::getRotation)
+        .def("setAxisX", &Matrix4d::setAxisX)
+        .def("setAxisY", &Matrix4d::setAxisY)
+        .def("setAxisZ", &Matrix4d::setAxisZ)
 
-        .def("transpose", &Matrix4f::transpose)
-        .def("transposeInPlace", &Matrix4f::transposeInPlace)
+        .def("setPosition", (void (Matrix4d::*)(double, double, double))&Matrix4d::setPosition)
+        .def("setPosition", (void (Matrix4d::*)(const Vector3d &))&Matrix4d::setPosition)
+        .def("addPosition", (void (Matrix4d::*)(double, double, double))&Matrix4d::addPosition)
+        .def("addPosition", (void (Matrix4d::*)(const Vector3d &))&Matrix4d::addPosition)
+        .def("translate", (void (Matrix4d::*)(double, double, double))&Matrix4d::translate)
+        .def("translate", (void (Matrix4d::*)(const Vector3d &))&Matrix4d::translate)
+        .def("getPosition", &Matrix4d::getPosition)
 
-        .def("determinant", &Matrix4f::determinant)
+        .def("setRotation", (void (Matrix4d::*)(const Matrix3d &))&Matrix4d::setRotation)
+        .def("setRotation", (void (Matrix4d::*)(const Quaterniond &))&Matrix4d::setRotation)
+        .def("setRotation", (void (Matrix4d::*)(const Eulerd &, RotationOrder))&Matrix4d::setRotation)
+        .def("setRotation", (void (Matrix4d::*)(double, double, double, RotationOrder))&Matrix4d::setRotation)
+        
+        .def("setScale", (void (Matrix4d::*)(const Vector3d &))&Matrix4d::setScale)
+        .def("setScale", (void (Matrix4d::*)(double, double, double))&Matrix4d::setScale)
+        .def("addScale", (void (Matrix4d::*)(const Vector3d &))&Matrix4d::addScale)
+        .def("addScale", (void (Matrix4d::*)(double, double, double))&Matrix4d::addScale)
+        .def("getScale", &Matrix4d::getScale)
 
-        .def("inverse", &Matrix4f::inverse)
-        .def("inverseInPlace", &Matrix4f::inverseInPlace)
+        .def("transpose", &Matrix4d::transpose)
+        .def("transposeInPlace", &Matrix4d::transposeInPlace)
 
-        .def("getScale", &Matrix4f::getScale)
-        .def("addScale", addScale1)
-        .def("addScale", addScale2)
-        .def("addScaleInPlace", addScaleInPlace1)
-        .def("addScaleInPlace", addScaleInPlace2)
-        .def("setScale", setScale1)
-        .def("setScale", setScale2)
-        .def("setScaleInPlace", setScaleInPlace1)
-        .def("setScaleInPlace", setScaleInPlace2)
+        .def("determinant", &Matrix4d::determinant)
 
-        .def("lookAt", &Matrix4f::lookAt)
-        .def("createLookAt", &Matrix3f::createLookAt)
+        .def("inverse", &Matrix4d::inverse)
+        .def("inverseInPlace", &Matrix4d::inverseInPlace)
+
+        .def("orthogonal", &Matrix4d::orthogonal)
+        .def("orthogonalInPlace", &Matrix4d::orthogonalInPlace)
+
+        .def("setFromVectorToVector", &Matrix4d::setFromVectorToVector)
+
+        .def("lookAt", (void (Matrix4d::*)(const Vector3d &, const Vector3d &, const Vector3d &, Axis, Axis))&Matrix4d::lookAt)
+        .def("lookAt", (void (Matrix4d::*)(const Vector3d &, const Vector3d &, Axis, Axis))&Matrix4d::lookAt)
+        .def("createLookAt", &Matrix3d::createLookAt)
         .staticmethod("createLookAt")
 
-        .def("setFromAxisAngle", &Matrix4f::setFromAxisAngle)
-        .def("createFromAxisAngle", &Matrix4f::createFromAxisAngle)
-        .staticmethod("createFromAxisAngle")
+        .def("setFromAxisAngle", &Matrix4d::setFromAxisAngle)
 
-        .def_readonly("IDENTITY", &Matrix4f::IDENTITY)
-
+        .def_readonly("IDENTITY", &Matrix4d::IDENTITY)
         ;
 }

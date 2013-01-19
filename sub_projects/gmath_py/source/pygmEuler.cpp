@@ -29,29 +29,29 @@ using namespace gmath;
 
 void wrapEuler()
 {
-    class_<Eulerf>("Euler", init<>())
-        .def( init<const Eulerf &>() )
-        .def( init<float, float, float>() )
-        .def( init<const Vector3f &>() )
+    class_<Eulerd>("Euler", init<>())
+        .def( init<const Eulerd &>() )
+        .def( init<double, double, double>() )
+        .def( init<const Vector3d &>() )
 
-        .def_readwrite("x", &Eulerf::x)
-        .def_readwrite("y", &Eulerf::y)
-        .def_readwrite("z", &Eulerf::z)
+        .def_readwrite("x", &Eulerd::x)
+        .def_readwrite("y", &Eulerd::y)
+        .def_readwrite("z", &Eulerd::z)
 
-        .def("__str__", &Eulerf::toString)
-        .def("__getitem__", &getitem_wrap<Eulerf>)
-        .def("__setitem__", &setitem_wrap<Eulerf>)
+        .def("__str__", &Eulerd::toString)
+        .def("__getitem__", &getitem_wrap<Eulerd>)
+        .def("__setitem__", &setitem_wrap<Eulerd>)
 
-        .def( self == Eulerf() )
-        .def( self != Eulerf() )
+        .def( self == Eulerd() )
+        .def( self != Eulerd() )
 
-        .def("set", &Eulerf::set)
-        .def("toDegrees", &Eulerf::toDegrees)
-        .def("toRadians", &Eulerf::toRadians)
-        .def("toDegreesInPlace", &Eulerf::toDegreesInPlace)
-        .def("toRadiansInPlace", &Eulerf::toRadiansInPlace)
+        .def("set", &Eulerd::set)
+        .def("toDegrees", &Eulerd::toDegrees)
+        .def("toRadians", &Eulerd::toRadians)
+        .def("toDegreesInPlace", &Eulerd::toDegreesInPlace)
+        .def("toRadiansInPlace", &Eulerd::toRadiansInPlace)
 
-        .def("toVector", &Eulerf::toVector)
+        .def("toVector", &Eulerd::toVector)
         ;
 }
 

@@ -315,13 +315,6 @@ void Vector3<real>::set(real inX, real inY, real inZ)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Vector3<real> Vector3<real>::duplicate() const
-{
-    Vector3<real> retVec(x, y, z);
-    return retVec;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
 Vector3<real> Vector3<real>::cross(const Vector3<real> & other) const
 {
     Vector3<real> retVec(

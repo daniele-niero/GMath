@@ -662,7 +662,7 @@ void Matrix3<real>::setFromEuler(const Euler<real> &rotation, RotationOrder orde
 }
 /*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-Euler<real> Matrix3<real>::toEuler(RotationOrder order)
+Euler<real> Matrix3<real>::toEuler(RotationOrder order) const
 {
     Euler<real> retAngles;
     toEuler(retAngles, order);
@@ -670,7 +670,7 @@ Euler<real> Matrix3<real>::toEuler(RotationOrder order)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-bool Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order)
+bool Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order) const
 {
     real C;
     switch (order)

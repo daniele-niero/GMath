@@ -561,13 +561,6 @@ Euler<real> Quaternion<real>::toEuler(RotationOrder order) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Quaternion<real> Quaternion<real>::duplicate() const
-{
-    Quaternion<real> retQuat(x, y, z, w);
-    return retQuat;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
 real Quaternion<real>::length () const
 {
 	return sqrt(w*w + x*x + y*y + z*z);

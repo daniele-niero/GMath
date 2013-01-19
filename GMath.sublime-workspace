@@ -4,6 +4,42 @@
 		"selected_items":
 		[
 			[
+				"MA",
+				"Matrix3d"
+			],
+			[
+				"trans",
+				"transposeInPlace"
+			],
+			[
+				"tra",
+				"transpose"
+			],
+			[
+				"linear",
+				"linearInterpolateInPlace"
+			],
+			[
+				"Vector",
+				"Vector3d"
+			],
+			[
+				"Vec",
+				"Vector3d"
+			],
+			[
+				"se",
+				"set"
+			],
+			[
+				"Mat",
+				"Matrix3"
+			],
+			[
+				"out",
+				"outQuaternion"
+			],
+			[
 				"return",
 				"returnQuat"
 			],
@@ -50,10 +86,6 @@
 			[
 				"rot",
 				"rotation"
-			],
-			[
-				"Vector",
-				"Vector3"
 			],
 			[
 				"scr",
@@ -114,10 +146,6 @@
 			[
 				"pa",
 				"paintGLForPicking	(attribute, function)"
-			],
-			[
-				"se",
-				"selectedObj	(attribute, instance)"
 			],
 			[
 				"obj",
@@ -184,10 +212,6 @@
 				"createFromVectorToVector"
 			],
 			[
-				"MA",
-				"Matrix3f"
-			],
-			[
 				"toDe",
 				"toDegreesInPlace"
 			],
@@ -208,43 +232,27 @@
 	"buffers":
 	[
 		{
-			"file": "sub_projects/gmath_py/source/pygmRoot.cpp",
+			"file": "sub_projects/gmath_py/source/pygmMatrix3.cpp",
 			"settings":
 			{
-				"buffer_size": 1407,
+				"buffer_size": 5211,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "sub_projects/gmath_py/source/pygmMath.cpp",
+			"file": "include/gmMatrix3.hpp",
 			"settings":
 			{
-				"buffer_size": 1408,
-				"line_ending": "Unix"
+				"buffer_size": 34237,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "include/gmQuaternion.h",
+			"file": "include/gmMatrix3.h",
 			"settings":
 			{
-				"buffer_size": 4665,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "include/gmQuaternion.hpp",
-			"settings":
-			{
-				"buffer_size": 14396,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
-			"settings":
-			{
-				"buffer_size": 21354,
-				"line_ending": "Unix"
+				"buffer_size": 6712,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -284,34 +292,44 @@
 	},
 	"file_history":
 	[
-		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pymgVector4.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmVector3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmQuaternion.cpp",
-		"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathMath.h",
-		"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix3.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmQuaternion.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmQuaternion.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix3.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmMatrix4.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/source/gmMatrix3.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMatrix4.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.hpp",
+		"/Users/danieleniero/Documents/Programming/GMath/include/gmRoot.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix4.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/config.py",
+		"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmEuler.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMath.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmRoot.cpp",
+		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/quaternion.py",
+		"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathMath.h",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py",
+		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmRoot.h",
 		"/Users/danieleniero/Downloads/ilmbase-1.0.2/Imath/ImathQuat.h",
 		"/Users/danieleniero/Documents/Programming/GMath/GMath.sublime-project",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector4.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.hpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmQuaternion.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/gmath_py.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/include/gmQaternion.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pymgVector4.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmVector3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix4.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmVector3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/build/darwin/release/python/openGLViewport.py",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8h_source.html",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmEuler_8hpp_source.html",
@@ -326,10 +344,6 @@
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector3_8hpp_source.html",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector4_8h_source.html",
 		"/Users/danieleniero/Documents/Programming/GMath/documentation/html/gmVector4_8hpp_source.html",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmEuler.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.h",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmMath.hpp",
-		"/Users/danieleniero/Documents/Programming/GMath/include/gmRoot.h",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/__init__.py",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/_nurbsCurve.py",
 		"/Users/danieleniero/Documents/Programming/GMath/references/old_purepython/constants.py",
@@ -343,18 +357,13 @@
 		"/Users/danieleniero/Documents/Programming/GMath/SConscript.py",
 		"/Users/danieleniero/Documents/Programming/GMath/SConstruct",
 		"/Users/danieleniero/Documents/Programming/GMath/source/gmMath.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/source/gmMatrix3.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/source/gmMatrix4.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/source/gmVector3.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/examples/Qt_viewport/openGLViewport.py",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmEuler.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMath.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmMatrix3.h",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/include/pygmVector4.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/SConscript.py.orig",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmMath.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/source/pygmRoot.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/include/tester.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/include/testMatrix3.h",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/include/testVector3.h",
@@ -363,7 +372,6 @@
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testMatrix3.cpp",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testMatrix3.cpp.orig",
 		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/tests/source/testVector3.cpp",
-		"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py/config.py",
 		"/Users/danieleniero/Documents/Programming/GMath/.hg/hgrc",
 		"/Users/danieleniero/.hgrc",
 		"/Users/danieleniero/Documents/Programming/pytml/pytml.sublime-project",
@@ -419,9 +427,13 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"/Users/danieleniero/Documents/Programming/GMath/include",
+			"/Users/danieleniero/Documents/Programming/GMath",
+			"/Users/danieleniero/Documents/Programming/GMath/sub_projects/gmath_py",
+			"/Users/danieleniero/Documents/Programming/GMath/include",
 			"/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2",
 			"/Users/danieleniero/Documents/Programming/GMath",
 			"/Users/danieleniero/Documents/Programming/GMath/include",
@@ -437,6 +449,32 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"transposeInPlace",
+			"dupli",
+			".duplicate",
+			"duplicate",
+			"addSacale",
+			"/* Copyright (c) 2012, Daniele Niero",
+			"/* Copyright (c) 2010-13, Daniele Niero",
+			"fromVectorTo",
+			"fromAxis",
+			"setFromVectorToVector",
+			"setFromEuler",
+			"setRotation",
+			"lenght",
+			"length",
+			"lenght",
+			"Eulerf",
+			"Quaternionf",
+			"Matrix4f",
+			"Matrix3f",
+			"Vector3f",
+			"Vector4f",
+			"float",
+			"ƒloat",
+			"float",
+			"/*",
+			"float",
 			"slerp",
 			"slerpShortestArc",
 			"inver",
@@ -538,20 +576,7 @@
 			"cube",
 			"node",
 			"ArraySize",
-			"JointA",
-			"_nodeShelfItemClicked",
-			"site_main",
-			"generic_page",
-			"jobModel",
-			"anim_in",
-			"controller",
-			"ref",
-			"getLatest",
-			"Theme - Default",
-			"bufferName",
-			"sublime_plugin",
-			"args[0]",
-			"sublimeplugin"
+			"JointA"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -559,6 +584,17 @@
 		"regex": false,
 		"replace_history":
 		[
+			"/* Copyright (c) 2010-13, Daniele Niero",
+			"fromEuler",
+			"length",
+			"Eulerd",
+			"Quaterniond",
+			"Matrix4d",
+			"Matrix3d",
+			"Vector3d",
+			"Vector4d",
+			"double",
+			"real",
 			"z",
 			"y",
 			"x",
@@ -621,22 +657,23 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "sub_projects/gmath_py/source/pygmRoot.cpp",
+					"file": "sub_projects/gmath_py/source/pygmMatrix3.cpp",
 					"settings":
 					{
-						"buffer_size": 1407,
+						"buffer_size": 5211,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1403,
-								1403
+								5140,
+								5140
 							]
 						],
 						"settings":
@@ -646,41 +683,25 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 274.0,
+						"translation.y": 1397.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "sub_projects/gmath_py/source/pygmMath.cpp",
+					"file": "include/gmMatrix3.hpp",
 					"settings":
 					{
-						"buffer_size": 1408,
+						"buffer_size": 34237,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1213,
-								1213
-							],
-							[
-								1263,
-								1263
-							],
-							[
-								1307,
-								1307
-							],
-							[
-								1351,
-								1351
-							],
-							[
-								1405,
-								1405
+								24806,
+								24806
 							]
 						],
 						"settings":
@@ -690,25 +711,31 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 248.0,
+						"translation.y": 10947.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
 				{
 					"buffer": 2,
-					"file": "include/gmQuaternion.h",
+					"file": "include/gmMatrix3.h",
 					"settings":
 					{
-						"buffer_size": 4665,
+						"buffer_size": 6712,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4982,
+								4982
 							]
 						],
 						"settings":
@@ -718,63 +745,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1498.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "include/gmQuaternion.hpp",
-					"settings":
-					{
-						"buffer_size": 14396,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13476,
-								13476
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1655.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Users/danieleniero/Downloads/Programming/ilmbase-1.0.2/Imath/ImathQuat.h",
-					"settings":
-					{
-						"buffer_size": 21354,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11836,
-								11841
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2047.0,
+						"translation.y": 2267.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -799,11 +770,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.571936793342,
 			1.0
 		],
 		"rows":
@@ -813,6 +791,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
 	"replace":
 	{
 		"height": 62.0
@@ -866,6 +848,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 228.0,
+	"side_bar_width": 117.0,
 	"status_bar_visible": true
 }

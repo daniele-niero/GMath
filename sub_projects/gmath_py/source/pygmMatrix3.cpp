@@ -29,7 +29,7 @@ using namespace gmath;
 
 
 namespace {
-        list matrix3_getdata_wrap(Matrix3f* self)
+        list matrix3_getdata_wrap(Matrix3d* self)
         {
             list retData;
             for (int i=0; i<9; i++)
@@ -39,147 +39,119 @@ namespace {
             return retData;
         }
 
-        void matrix3_setdata_wrap(Matrix3f* self, list &inlist)
+        void matrix3_setdata_wrap(Matrix3d* self, list &inlist)
         {
             for (int i=0; i<9; i++)
             {
-                self->data[i] = extract<float>(inlist[i]);
+                self->data[i] = extract<double>(inlist[i]);
             }
         }
 
-        Matrix3f (Matrix3f::*addScale1)(float, float, float)= &Matrix3f::addScale;
-        Matrix3f (Matrix3f::*addScale2)(const Vector3f&) = &Matrix3f::addScale;
-        void (Matrix3f::*addScaleInPlace1)(float, float, float)= &Matrix3f::addScaleInPlace;
-        void (Matrix3f::*addScaleInPlace2)(const Vector3f&) = &Matrix3f::addScaleInPlace;
-        Matrix3f (Matrix3f::*setScale1)(float, float, float)= &Matrix3f::setScale;
-        Matrix3f (Matrix3f::*setScale2)(const Vector3f&) = &Matrix3f::setScale;
-        void (Matrix3f::*setScaleInPlace1)(float, float, float)= &Matrix3f::setScaleInPlace;
-        void (Matrix3f::*setScaleInPlace2)(const Vector3f&) = &Matrix3f::setScaleInPlace;
-        Matrix3f (*createScale1)(float, float, float)= &Matrix3f::createScale;
-        Matrix3f (*createScale2)(const Vector3f&) = &Matrix3f::createScale;
-
-        void (Matrix3f::*setFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::setFromEuler;
-        void (Matrix3f::*setFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::setFromEuler;
         // to ensure RotationOrder with default argument...
-        void matrix3_setFromEuler1_wrap(Matrix3f* self, const float& x, const float& y, const float& z)
+        void setFromEulerWithArg1(Matrix3d* self, const double& x, const double& y, const double& z)
         {
             self->setFromEuler(x, y, z);
         }
-        void matrix3_setFromEuler2_wrap(Matrix3f* self, const Eulerf& euler)
+        void setFromEulerWithArg2(Matrix3d* self, const Eulerd& euler)
         {
             self->setFromEuler(euler);
         }
 
-        Eulerf (Matrix3f::*toEuler1)(RotationOrder) = &Matrix3f::toEuler;
-        // Eulerf (Matrix3f::*toEuler2)() = &Matrix3f::toEuler;
-        bool (Matrix3f::*toEuler3)(Eulerf&, RotationOrder) = &Matrix3f::toEuler;
-        // bool (Matrix3f::*toEuler4)(Eulerf&) = &Matrix3f::toEuler;
 
-        Matrix3f (*createFromEuler1)(const float&, const float&, const float&, RotationOrder) = &Matrix3f::createFromEuler;
-        Matrix3f (*createFromEuler2)(const Eulerf&, RotationOrder) = &Matrix3f::createFromEuler;
-        // to ensure RotationOrder with default argument...
-        Matrix3f matrix3_createFromEuler1_wrap(const float& x, const float& y, const float& z)
+        Eulerd toEulerWithArg1(Matrix3d* self, RotationOrder order)
         {
-            return Matrix3f::createFromEuler(x, y, z);
+            return self->toEuler(order);
         }
-        Matrix3f matrix3_createFromEuler2_wrap(const Eulerf& euler)
+        bool toEulerWithArg2(Matrix3d* self, Eulerd& outEuler, RotationOrder order)
         {
-            return Matrix3f::createFromEuler(euler);
+            return self->toEuler(outEuler, order);
+        }
+        Eulerd toEulerWithArg3(Matrix3d* self)
+        {
+            return self->toEuler();
+        }
+        bool toEulerWithArg4(Matrix3d* self, Eulerd& outEuler)
+        {
+            return self->toEuler(outEuler);
         }
 }
 
 void wrapMatrix3()
 {
-    class_<Matrix3f>("Matrix3", init<>())
-        .def( init<float, float, float, float, float, float, float, float, float>() )
-        .def( init<const Matrix3f &>() )
-        .def( init<const Vector3f &, const Vector3f &, const Vector3f &>() )
+    class_<Matrix3d>("Matrix3", init<>())
+        .def( init<double, double, double, double, double, double, double, double, double>() )
+        .def( init<const Matrix3d &>() )
+        .def( init<const Vector3d &, const Vector3d &, const Vector3d &>() )
 
         .add_property("data", &matrix3_getdata_wrap, &matrix3_setdata_wrap)
 
-        .def("__str__", &Matrix3f::toString)
-        .def("__getitem__", &getitem_wrap<Matrix3f>)
-        .def("__setitem__", &setitem_wrap<Matrix3f>)
-        .def("__call__", &call_wrap<Matrix3f>)
+        .def("__str__", &Matrix3d::toString)
+        .def("__getitem__", &getitem_wrap<Matrix3d>)
+        .def("__setitem__", &setitem_wrap<Matrix3d>)
+        .def("__call__", &call_wrap<Matrix3d>)
 
-        .def( self + float() )
-        .def( self + Matrix3f() )
-        .def( self - float() )
-        .def( self - Matrix3f() )
-        .def( self / float() )
-        .def( self * float() )
-        .def( self * Matrix3f() )
+        .def( self + double() )
+        .def( self + Matrix3d() )
+        .def( self - double() )
+        .def( self - Matrix3d() )
+        .def( self / double() )
+        .def( self * double() )
+        .def( self * Matrix3d() )
 
-        .def( self += float() )
-        .def( self += Matrix3f() )
-        .def( self -= float() )
-        .def( self -= Matrix3f() )
-        .def( self /= float() )
-        .def( self *= float() )
-        .def( self *= Matrix3f() )
+        .def( self += double() )
+        .def( self += Matrix3d() )
+        .def( self -= double() )
+        .def( self -= Matrix3d() )
+        .def( self /= double() )
+        .def( self *= double() )
+        .def( self *= Matrix3d() )
 
-        .def( self == Matrix3f() )
-        .def( self != Matrix3f() )
+        .def( self == Matrix3d() )
+        .def( self != Matrix3d() )
 
-        .def("setToIdentity", &Matrix3f::setToIdentity)
-        .def("set", &Matrix3f::set)
+        .def("setToIdentity", &Matrix3d::setToIdentity)
+        .def("set", &Matrix3d::set)
 
-        .def("getRow", &Matrix3f::getRow)
-        .def("setRow", &Matrix3f::setRow)
+        .def("getRow", &Matrix3d::getRow)
+        .def("setRow", &Matrix3d::setRow)
 
-        .def("transpose", &Matrix3f::transpose)
-        .def("transposeInPlace", &Matrix3f::transposeInPlace)
-
-        .def("determinant", &Matrix3f::determinant)
-
-        .def("inverse", &Matrix3f::inverse)
-        .def("inverseInPlace", &Matrix3f::inverseInPlace)
-
-        .def("orthogonal", &Matrix3f::orthogonal)
-        .def("orthogonalInPlace", &Matrix3f::orthogonalInPlace)
-
-        .def("getScale", &Matrix3f::getScale)
-        .def("addScale", addScale1)
-        .def("addScale", addScale2)
-        .def("addScaleInPlace", addScaleInPlace1)
-        .def("addScaleInPlace", addScaleInPlace2)
-        .def("setScale", setScale1)
-        .def("setScale", setScale2)
-        .def("setScaleInPlace", setScaleInPlace1)
-        .def("setScaleInPlace", setScaleInPlace2)
-        .def("createScale", createScale1)
-        .def("createScale", createScale2)
+        .def("getScale", &Matrix3d::getScale)
+        .def("addScale", (void (Matrix3d::*)(double, double, double))&Matrix3d::addScale)
+        .def("addScale", (void (Matrix3d::*)(const Vector3d&))&Matrix3d::addScale)
+        .def("setScale", (void (Matrix3d::*)(double, double, double))&Matrix3d::setScale)
+        .def("setScale", (void (Matrix3d::*)(const Vector3d&))&Matrix3d::setScale)
         .staticmethod("createScale")
 
-        .def("setFromEuler", setFromEuler1)
-        .def("setFromEuler", setFromEuler2)
-        .def("setFromEuler", &matrix3_setFromEuler1_wrap)
-        .def("setFromEuler", &matrix3_setFromEuler2_wrap)
+        .def("setFromEuler", (void (Matrix3d::*)(const double&, const double&, const double&, RotationOrder))&Matrix3d::setFromEuler)
+        .def("setFromEuler", (void (Matrix3d::*)(const Eulerd&, RotationOrder))&Matrix3d::setFromEuler)
+        .def("setFromEuler", setFromEulerWithArg1)
+        .def("setFromEuler", setFromEulerWithArg2)
 
-        .def("toEuler", toEuler1)
-        // .def("toEuler", toEuler2)
-        .def("toEuler", toEuler3)
-        // .def("toEuler", toEuler4)
+        .def("toEuler", toEulerWithArg1)
+        .def("toEuler", toEulerWithArg2)
+        .def("toEuler", toEulerWithArg3)
+        .def("toEuler", toEulerWithArg4)
+        
+        .def("transpose", &Matrix3d::transpose)
+        .def("transposeInPlace", &Matrix3d::transposeInPlace)
 
-        .def("createFromEuler", createFromEuler1)
-        .def("createFromEuler", createFromEuler2)
-        .def("createFromEuler", &matrix3_createFromEuler1_wrap)
-        .def("createFromEuler", &matrix3_createFromEuler2_wrap)
-        .staticmethod("createFromEuler")
+        .def("determinant", &Matrix3d::determinant)
 
-        .def("setFromVectorToVector", &Matrix3f::setFromVectorToVector)
-        .def("createFromVectorToVector", &Matrix3f::createFromVectorToVector)
-        .staticmethod("createFromVectorToVector")
+        .def("inverse", &Matrix3d::inverse)
+        .def("inverseInPlace", &Matrix3d::inverseInPlace)
 
-        .def("lookAt", &Matrix3f::lookAt)
-        .def("createLookAt", &Matrix3f::createLookAt)
+        .def("orthogonal", &Matrix3d::orthogonal)
+        .def("orthogonalInPlace", &Matrix3d::orthogonalInPlace)
+        
+        .def("setFromVectorToVector", &Matrix3d::setFromVectorToVector)
+        .def("setFromAxisAngle", &Matrix3d::setFromAxisAngle)
+
+        .def("lookAt", &Matrix3d::lookAt)
+        .def("createLookAt", &Matrix3d::createLookAt)
         .staticmethod("createLookAt")
 
-        .def("setFromAxisAngle", &Matrix3f::setFromAxisAngle)
-        .def("createFromAxisAngle", &Matrix3f::createFromAxisAngle)
-        .staticmethod("createFromAxisAngle")
 
-        .def_readonly("IDENTITY", &Matrix3f::IDENTITY)
+        .def_readonly("IDENTITY", &Matrix3d::IDENTITY)
 
         ;
 }

@@ -29,14 +29,14 @@ using namespace gmath;
 
 void wrapMath()
 {
-    def("acos", &Math<float>::acos);
-    def("asin", &Math<float>::asin);
-    def("toRadians", &Math<float>::toRadians);
-    def("toDegrees", &Math<float>::toDegrees);
-    scope().attr("EPSILON") = Math<float>::EPSILON;
-    scope().attr("PI") = Math<float>::PI;
-    scope().attr("HALFPI") = Math<float>::HALFPI;
-    scope().attr("MAX") = Math<float>::MAX;
-    scope().attr("MIN") = Math<float>::MIN;
-    scope().attr("SMALLEST") = Math<float>::SMALLEST;
+    def("acos", &Math<double>::acos);
+    def("asin", &Math<double>::asin);
+    def("toRadians", &Math<double>::toRadians);
+    def("toDegrees", &Math<double>::toDegrees);
+    scope().attr("EPSILON") = Math<double>::EPSILON;
+    scope().attr("PI") = Math<double>::PI;
+    scope().attr("HALFPI") = Math<double>::HALFPI;
+    scope().attr("MAX") = Math<double>::MAX;
+    scope().attr("MIN") = Math<double>::MIN;
+    scope().attr("SMALLEST") = Math<double>::SMALLEST;
 }

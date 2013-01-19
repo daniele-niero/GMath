@@ -57,6 +57,7 @@ namespace gmath
 		/*------ Arithmetic operations ------*/
 		Vector4<real> operator + (const Vector4<real> & other) const;
 		Vector4<real> operator - (const Vector4<real> & other) const;
+		Vector4<real> operator - () const;
 		Vector4<real> operator * (real scalar) const;
 		Vector4<real> operator / (real scalar) const;
 
@@ -81,9 +82,6 @@ namespace gmath
 			@param inZ The wanted value for z
 			@param inW The wanted value for w */
 		void set(real inX, real inY, real inZ, real inW);
-
-		/** return a Vector3 that is the exact copy of this one */
-		Vector4<real> duplicate() const;
 
 		/** Perform the dot product between this vector and the given vector */
 		real dot(const Vector4<real> & other) const;

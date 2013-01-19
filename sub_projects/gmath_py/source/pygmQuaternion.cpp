@@ -30,47 +30,45 @@ using namespace gmath;
 
 void wrapQuaternion()
 {
-    class_<Quaternionf>("Quaternion", init<>())
-        .def( init<float, float, float, float>() )
-        .def( init<const Quaternionf &>() )
+    class_<Quaterniond>("Quaternion", init<>())
+        .def( init<double, double, double, double>() )
+        .def( init<const Quaterniond &>() )
 
-        .def_readwrite("x", &Quaternionf::x)
-        .def_readwrite("y", &Quaternionf::y)
-        .def_readwrite("z", &Quaternionf::z)
-        .def_readwrite("w", &Quaternionf::w)
+        .def_readwrite("x", &Quaterniond::x)
+        .def_readwrite("y", &Quaterniond::y)
+        .def_readwrite("z", &Quaterniond::z)
+        .def_readwrite("w", &Quaterniond::w)
 
-        .def( "__str__", &Quaternionf::toString )
-        .def("__getitem__", &getitem_wrap<Quaternionf>)
-        .def("__setitem__", &setitem_wrap<Quaternionf>)
+        .def( "__str__", &Quaterniond::toString )
+        .def("__getitem__", &getitem_wrap<Quaterniond>)
+        .def("__setitem__", &setitem_wrap<Quaterniond>)
 
-        .def( self + Quaternionf() )
-        .def( self - Quaternionf() )
-        .def( self * float() )
-        .def( self / float() )
+        .def( self + Quaterniond() )
+        .def( self - Quaterniond() )
+        .def( self * double() )
+        .def( self / double() )
 
-        .def( self += Quaternionf() )
-        .def( self -= Quaternionf() )
-        .def( self *= float() )
-        .def( self /= float() )
+        .def( self += Quaterniond() )
+        .def( self -= Quaterniond() )
+        .def( self *= double() )
+        .def( self /= double() )
 
-        .def( self == Quaternionf() )
-        .def( self != Quaternionf() )
+        .def( self == Quaterniond() )
+        .def( self != Quaterniond() )
 
-        .def("set", &Quaternionf::set)
+        .def("set", &Quaterniond::set)
 
-        .def("inverse", &Quaternionf::inverse)
-        .def("inverseInPlace", &Quaternionf::inverse)
+        .def("inverse", &Quaterniond::inverse)
+        .def("inverseInPlace", &Quaterniond::inverse)
 
-        .def("fromMatrix3", &Quaternionf::fromMatrix3)
-        .def("toMatrix3", &Quaternionf::toMatrix3)
-        .def("fromMatrix4", &Quaternionf::fromMatrix4)
-        .def("toMatrix4", &Quaternionf::toMatrix4)
+        .def("fromMatrix3", &Quaterniond::fromMatrix3)
+        .def("toMatrix3", &Quaterniond::toMatrix3)
+        .def("fromMatrix4", &Quaterniond::fromMatrix4)
+        .def("toMatrix4", &Quaterniond::toMatrix4)
 
-        .def("duplicate", &Quaternionf::duplicate)
+        .def("dot", &Quaterniond::dot)
 
-        .def("dot", &Quaternionf::dot)
-
-        // .def("slerp", &Quaternionf::slerp)
+        .def("slerp", &Quaterniond::slerp)
         ;
 }
 

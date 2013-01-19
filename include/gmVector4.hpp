@@ -106,6 +106,13 @@ Vector4<real> Vector4<real>::operator - (const Vector4<real> & other) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
+Vector4<real> Vector4<real>::operator - () const
+{
+    Vector4<real> newVector4(-x, -y, -z, -w);
+    return newVector4;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
 Vector4<real> Vector4<real>::operator * (real scalar) const
 {
     Vector4<real> newVector4(x*scalar, y*scalar, z*scalar, w*scalar);
@@ -218,13 +225,6 @@ void Vector4<real>::set(real inX, real inY, real inZ, real inW)
     y = inY;
     z = inZ;
     w = inW;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-Vector4<real> Vector4<real>::duplicate() const
-{
-    Vector4<real> retVec(x, y, z, w);
-    return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>

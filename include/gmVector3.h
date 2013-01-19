@@ -105,8 +105,6 @@ namespace gmath
 			    @param inZ The wanted value for z */
 			void set(real inX, real inY, real inZ);
 
-			/** return a Vector3 that is the exact copy of this one */
-			Vector3<real> duplicate() const;
 
 			/** Perform the cross product between this vector and the given vector */
 			Vector3<real> cross(const Vector3<real> & other) const;
