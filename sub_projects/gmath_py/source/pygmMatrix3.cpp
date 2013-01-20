@@ -120,7 +120,6 @@ void wrapMatrix3()
         .def("addScale", (void (Matrix3d::*)(const Vector3d&))&Matrix3d::addScale)
         .def("setScale", (void (Matrix3d::*)(double, double, double))&Matrix3d::setScale)
         .def("setScale", (void (Matrix3d::*)(const Vector3d&))&Matrix3d::setScale)
-        .staticmethod("createScale")
 
         .def("setFromEuler", (void (Matrix3d::*)(const double&, const double&, const double&, RotationOrder))&Matrix3d::setFromEuler)
         .def("setFromEuler", (void (Matrix3d::*)(const Eulerd&, RotationOrder))&Matrix3d::setFromEuler)
