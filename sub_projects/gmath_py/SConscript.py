@@ -17,44 +17,61 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+
+cyan   = '\033[96m'
+purple = '\033[95m'
+blue   = '\033[94m'
+green  = '\033[92m'
+yellow = '\033[93m'
+red    = '\033[91m'
+end    = '\033[0m'
+
+
 import sys, os
 import config
 
 Import('env')
-install_path = os.path.join(env['install_path'], 'python%s/site-packages' %config.py_ver)
 
-if sys.platform == "win32":
-    env.Append(CCFLAGS='/EHsc')
-    env.Append(no_import_lib=1)
-    shlib_suffix='.pyd'
-if sys.platform == "darwin":
-    print 'it\'s a mac'
-    shlib_suffix='.so'
-if sys.platform == "linux2":
-    shlib_suffix='.so'
+if env.has_key('install'):
+    install_path = env['install']
+else:
+    from distutils.sysconfig import get_python_lib
+    print(get_python_lib())
+    print yellow+'Guessing install path: '+purple+get_python_lib()
+    install_path = get_python_lib()
 
-env.Append(CCFLAGS = '-DBOOST_PYTHON_STATIC_LIB -DBOOST_PYTHON_MAX_ARITY=17')
+# if sys.platform == "win32":
+#     env.Append(CCFLAGS='/EHsc')
+#     env.Append(no_import_lib=1)
+#     shlib_suffix='.pyd'
+# if sys.platform == "darwin":
+#     print 'it\'s a mac'
+#     shlib_suffix='.so'
+# if sys.platform == "linux2":
+#     shlib_suffix='.so'
+
+# env.Append(CCFLAGS = '-DBOOST_PYTHON_STATIC_LIB -DBOOST_PYTHON_MAX_ARITY=17')
                   
-env.Append(CPPPATH=['include',
-                    config.python_include_path,
-                    config.boost_include_path,
-                    os.environ['GMATH_INCLUDE']] )
+# env.Append(CPPPATH=['include',
+#                     config.python_include_path,
+#                     config.boost_include_path,
+#                     os.environ['GMATH_INCLUDE']] )
 
-env.Append(LIBPATH = [config.python_lib_path,
-                      config.boost_lib_path, 
-                      os.environ['GMATH_LIB']])
+# env.Append(LIBPATH = [config.python_lib_path,
+#                       config.boost_lib_path, 
+#                       os.environ['GMATH_LIB']])
 
-static_boostpython = File( os.path.join(config.boost_lib_path, config.boost_python_lib) )
-python_binding = env.SharedLibrary(
-    target='gmath',
-    source=Glob('source/*.cpp'),
-    CPPDEFINES='BUILD_BINDINGS',
-    LIBS=[static_boostpython, 
-          'gmath', 
-          config.python_lib],
-    SHLIBPREFIX='',
-    SHLIBSUFFIX=shlib_suffix
-    )
+# static_boostpython = File( os.path.join(config.boost_lib_path, config.boost_python_lib) )
+# python_binding = env.SharedLibrary(
+#     target='gmath',
+#     source=Glob('source/*.cpp'),
+#     CPPDEFINES='BUILD_BINDINGS',
+#     LIBS=[static_boostpython, 
+#           'gmath', 
+#           config.python_lib],
+#     SHLIBPREFIX='',
+#     SHLIBSUFFIX=shlib_suffix
+#     )
 
-env.Install(install_path, python_binding)
+# env.Install(install_path, python_binding)
 
