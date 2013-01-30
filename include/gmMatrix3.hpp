@@ -24,7 +24,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 /*------ constructors ------*/
 template <typename real>
 Matrix3<real>::Matrix3()
-{}
+{
+    data[0]=(real)1.0; data[1]=(real)0.0; data[2]=(real)0.0;
+    data[3]=(real)0.0; data[4]=(real)1.0; data[5]=(real)0.0;
+    data[6]=(real)0.0; data[7]=(real)0.0; data[8]=(real)1.0;
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix3<real>::Matrix3(
@@ -561,9 +565,9 @@ void Matrix3<real>::addScale(const Vector3<real> &scale)
 template <typename real>
 void Matrix3<real>::addScale(real sX, real sY, real sZ)
 {
-    data[0]+=sX; data[1]+=sX; data[2]+sX;
-    data[3]+=sY; data[4]+=sY; data[5]+sY;
-    data[6]+=sZ; data[7]+=sZ; data[8]+sZ;
+    data[0]+=sX; data[1]+=sX; data[2]+=sX;
+    data[3]+=sY; data[4]+=sY; data[5]+=sY;
+    data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -670,111 +674,201 @@ Euler<real> Matrix3<real>::toEuler(RotationOrder order) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-bool Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order) const
+void Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order) const
 {
-    real C;
     switch (order)
     {
     case XYZ :
-        euler.y = Math<real>::asin(-data[2]);
-        C = (real)cos((double)euler.y);
-        if ( C<(real)1 || C>(real)-1)
-        {
-            euler.x = atan2(data[5], data[8]);
-            euler.z = atan2(data[1], data[0]);
-            return true;
-        }
-        else
-        {
-            euler.z = (real)0;
-            euler.x = atan2(-data[5], data[8]);
-            return false;
-        }
+		if (data[6] < (real)1)
+		{
+			if (data[6] > -(real)1)
+			{
+				// y_angle = asin(r02)
+				// x_angle = atan2(-r12,r22)
+				// z_angle = atan2(-r01,r00)
+				euler.y = (real)asin((double)data[6]);
+				euler.x = atan2(-data[7], data[8]);
+				euler.z = atan2(-data[3], data[0]);
+			}
+			else
+			{
+				// y_angle = -pi/2
+				// z_angle - x_angle = atan2(r10,r11)
+				// WARNING.  The solution is not unique.  Choosing z_angle = 0.
+				euler.y = -Math<real>::HALFPI;
+				euler.x = -atan2(data[1], data[4]);
+				euler.z = (real)0;
+			}
+		}
+		else
+		{
+			// y_angle = +pi/2
+			// z_angle + x_angle = atan2(r10,r11)
+			// WARNING.  The solutions is not unique.  Choosing z_angle = 0.
+			euler.y = Math<real>::HALFPI;
+			euler.x = atan2(data[1], data[4]);
+			euler.z = (real)0;
+		}
 
     case XZY :
-        euler.z = Math<real>::asin(data[1]);
-        C = (real)cos((double)euler.z);
-        if ( C<(real)1 || C>(real)-1)
-        {
-            euler.x = atan2(-data[7], data[4]);
-            euler.y = atan2(-data[2], data[0]);
-            return true;
-        }
-        else
-        {
-            // WARNING.  The solution is not unique.  Choosing y_angle = 0.
-            euler.x = atan2(data[6] ,data[8]);
-            euler.y = (real)0;
-            return false;
-        }
+        if (data[3] < (real)1)
+		{
+			if (data[3] > -(real)1)
+			{
+				// z_angle = asin(-r01)
+				// x_angle = atan2(r21,r11)
+				// y_angle = atan2(r02,r00)
+				euler.z = (real)asin(-(double)data[3]);
+				euler.x = atan2(data[5], data[4]);
+				euler.y = atan2(data[6], data[0]);
+			}
+			else
+			{
+				// z_angle = +pi/2
+				// y_angle - x_angle = atan2(-r20,r22)
+				// WARNING.  The solution is not unique.  Choosing y_angle = 0.
+				euler.z = Math<real>::HALFPI;
+				euler.x = -atan2(-data[2], data[8]);
+				euler.y = (real)0;
+			}
+		}
+		else
+		{
+			// z_angle = -pi/2
+			// y_angle + x_angle = atan2(-r20,r22)
+			// WARNING.  The solution is not unique.  Choosing y_angle = 0.
+			euler.z = -Math<real>::HALFPI;
+			euler.x = atan2(-data[2], data[8]);
+			euler.y = (real)0;
+		}
 
     case YXZ :
-        euler.x = Math<real>::asin(data[5]);
-        C = (real)cos((double)euler.x);
-        if ( C<(real)1 || C>(real)-1)
-        {
-            euler.y = atan2(-data[2], data[8]);
-            euler.z = atan2(-data[3], data[4]);
-            return true;
-        }
-        else
-        {
-            // WARNING.  The solution is not unique.  Choosing z_angle = 0.
-            euler.y = atan2(data[1], data[0]);
-            euler.z = (real)0;
-            return false;
-        }
+        if (data[7] < (real)1)
+		{
+			if (data[7] > -(real)1)
+			{
+				// x_angle = asin(-r12)
+				// y_angle = atan2(r02,r22)
+				// z_angle = atan2(r10,r11)
+				euler.x = (real)asin(-(double)data[7]);
+				euler.y = atan2(data[2], data[8]);
+				euler.z = atan2(data[1], data[4]);
+			}
+			else
+			{
+				// x_angle = +pi/2
+				// z_angle - y_angle = atan2(-r01,r00)
+				// WARNING.  The solution is not unique.  Choosing z_angle = 0.
+				euler.x = Math<real>::HALFPI;
+				euler.y = -atan2(-data[3], data[0]);
+				euler.z = (real)0;
+			}
+		}
+		else
+		{
+			// x_angle = -pi/2
+			// z_angle + y_angle = atan2(-r01,r00)
+			// WARNING.  The solution is not unique.  Choosing z_angle = 0.
+			euler.x = -Math<real>::HALFPI;
+			euler.y = atan2(-data[3], data[0]);
+			euler.z = (real)0;
+		}
 
     case YZX :
-        euler.z = Math<real>::asin(-data[3]);
-        C = (real)cos((double)euler.z);
-        if ( C<(real)1 || C>(real)-1)
-        {
-            euler.y = atan2(data[6], data[0]);
-            euler.x = atan2(data[5], data[4]);
-            return true;
-        }
-        else
-        {
-            // WARNING.  The solution is not unique.  Choosing x_angle = 0.
-            euler.y = atan2(data[7], data[8]);
-            euler.x = (real)0;
-            return false;
-        }
+        if (data[1] < (real)1)
+		{
+			if (data[1] > -(real)1)
+			{
+				// z_angle = asin(r10)
+				// y_angle = atan2(-r20,r00)
+				// x_angle = atan2(-r12,r11)
+				euler.z = (real)asin((double)data[1]);
+				euler.y = atan2(-data[2], data[0]);
+				euler.x = atan2(-data[7], data[4]);
+			}
+			else
+			{
+				// z_angle = -pi/2
+				// x_angle - y_angle = atan2(r21,r22)
+				// WARNING.  The solution is not unique.  Choosing x_angle = 0.
+				euler.z = -Math<real>::HALFPI;
+				euler.y = -atan2(data[5], data[8]);
+				euler.x = (real)0;
+			}
+		}
+		else
+		{
+			// z_angle = +pi/2
+			// x_angle + y_angle = atan2(r21,r22)
+			// WARNING.  The solution is not unique.  Choosing x_angle = 0.
+			euler.z = Math<real>::HALFPI;
+			euler.y = atan2(data[5], data[8]);
+			euler.x = (real)0;
+		}
 
     case ZXY :
-        euler.x = Math<real>::asin(-data[7]);
-        C = (real)cos((double)euler.x);
-        if ( C<(real)1 || C>(real)-1)
-        {
-            euler.z = atan2(data[1], data[4]);
-            euler.y = atan2(data[6], data[8]);
-            return true;
-        }
-        else
-        {
-            // WARNING.  The solution is not unique.  Choosing y_angle = 0.
-            euler.z = atan2(data[2], data[0]);
-            euler.y = (real)0;
-            return false;
-        }
+        if (data[5] < (real)1)
+		{
+			if (data[5] > -(real)1)
+			{
+				// x_angle = asin(r21)
+				// z_angle = atan2(-r01,r11)
+				// y_angle = atan2(-r20,r22)
+				euler.x = (real)asin((double)data[5]);
+				euler.z = atan2(-data[3], data[4]);
+				euler.y = atan2(-data[2], data[8]);
+			}
+			else
+			{
+				// x_angle = -pi/2
+				// y_angle - z_angle = atan2(r02,r00)
+				// WARNING.  The solution is not unique.  Choosing y_angle = 0.
+				euler.x = -Math<real>::HALFPI;
+				euler.z = -atan2(data[6], data[0]);
+				euler.y = (real)0;
+			}
+		}
+		else
+		{
+			// x_angle = +pi/2
+			// y_angle + z_angle = atan2(r02,r00)
+			// WARNING.  The solution is not unique.  Choosing y_angle = 0.
+			euler.x = Math<real>::HALFPI;
+			euler.z = atan2(data[6], data[0]);
+			euler.y = (real)0;
+		}
 
     case ZYX :
-        euler.y = Math<real>::asin(data[6]);
-        C = (real)cos((double)euler.y);
-        if ( C<(real)1 || C>(real)-1)
-        {
-            euler.z = atan2(-data[3], data[0]);
-            euler.x = atan2(-data[7], data[8]);
-            return true;
-        }
-        else
-        {
-            // WARNING.  The solution is not unique.  Choosing x_angle = 0.
-            euler.z = atan2(-data[1], data[2]);
-            euler.x = (real)0;
-            return false;
-        }
+        if (data[2] < (real)1)
+		{
+			if (data[2] > -(real)1)
+			{
+				// y_angle = asin(-r20)
+				// z_angle = atan2(r10,r00)
+				// x_angle = atan2(r21,r22)
+				euler.y = (real)asin(-(double)data[2]);
+				euler.z = atan2(data[1], data[0]);
+				euler.x = atan2(data[5], data[8]);
+			}
+			else
+			{
+				// y_angle = +pi/2
+				// x_angle - z_angle = atan2(r01,r02)
+				// WARNING.  The solution is not unique.  Choosing x_angle = 0.
+				euler.y = Math<real>::HALFPI;
+				euler.z = -atan2(data[3], data[6]);
+				euler.x = (real)0;
+			}
+		}
+		else
+		{
+			// y_angle = -pi/2
+			// x_angle + z_angle = atan2(-r01,-r02)
+			// WARNING.  The solution is not unique.  Choosing x_angle = 0;
+			euler.y = -Math<real>::HALFPI;
+			euler.z = atan2(-data[3], -data[6]);
+			euler.x = (real)0;
+		}
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -827,7 +921,7 @@ void Matrix3<real>::setFromVectorToVector(const Vector3<real> &fromVec, const Ve
             {
                 this->data[i*3+j] =  - c1*uvals[i]*uvals[j] - c2*vvals[i]*vvals[j] + c3*vvals[i]*uvals[j];
             }
-            // this->data[i*4] += (real)1.0;
+            this->data[i*4] += (real)1.0;
         }
     }
     else  // the most common case, unless "from"="to", or "from"=-"to"

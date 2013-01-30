@@ -34,6 +34,10 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 namespace gmath
 {
 
+	// Quaternion forward declaration
+	template <typename real>
+	class Quaternion;
+
 /**
 Matrix class (4x4).
 [Xx, Xy, Xz, Xw,]
@@ -159,7 +163,7 @@ public:
     Quaternion<real> toQuaternion() const;
     Euler<real> toEuler(RotationOrder order=XYZ) const; 
     void toMatrix3(Matrix3<real> &outMatrix3) const;
-    void toQuaternion(Quaternion<real> &outQauternion) const;
+    void toQuaternion(Quaternion<real> &outQuaternion) const;
     bool toEuler(Euler<real> &outEuler, RotationOrder order=XYZ) const;
 
     Vector3<real> rotateVector(const Vector3<real> &vec) const;

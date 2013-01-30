@@ -130,7 +130,7 @@ public:
     void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
     void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
     Euler<real> toEuler(RotationOrder order=XYZ) const;
-    bool toEuler(Euler<real>& euler, RotationOrder order=XYZ) const;
+    void toEuler(Euler<real>& euler, RotationOrder order=XYZ) const;
 
     Matrix3<real> transpose() const;
     void transposeInPlace();

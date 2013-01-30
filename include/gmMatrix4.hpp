@@ -27,7 +27,12 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix4<real>::Matrix4()
-{}
+{
+     data[0]=(real)1.0;  data[1]=(real)0.0;  data[2]=(real)0.0;  data[3]=(real)0.0;
+     data[4]=(real)0.0;  data[5]=(real)1.0;  data[6]=(real)0.0;  data[7]=(real)0.0;
+     data[8]=(real)0.0;  data[9]=(real)0.0; data[10]=(real)1.0; data[11]=(real)0.0;
+    data[12]=(real)0.0; data[13]=(real)0.0; data[14]=(real)0.0; data[15]=(real)1.0;
+}
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix4<real>::Matrix4(
@@ -68,10 +73,10 @@ Matrix4<real>::Matrix4(
     const Vector3<real> &row2,
     const Vector3<real> &row3)
 {
-    memcpy(&data[0],  row0.ptr(), 3*sizeof(real)); data[3]=(real)0.0;
-    memcpy(&data[4],  row1.ptr(), 3*sizeof(real)); data[7]=(real)0.0;
-    memcpy(&data[8],  row2.ptr(), 3*sizeof(real)); data[11]=(real)0.0;
-    memcpy(&data[12], row3.ptr(), 3*sizeof(real)); data[15]=(real)1.0;
+    memcpy(&data[0],  row0.ptr(), 3*sizeof(real));
+    memcpy(&data[4],  row1.ptr(), 3*sizeof(real));
+    memcpy(&data[8],  row2.ptr(), 3*sizeof(real));
+    memcpy(&data[12], row3.ptr(), 3*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -80,10 +85,10 @@ Matrix4<real>::Matrix4(
     const Vector3<real> &row1,
     const Vector3<real> &row2)
 {
-    memcpy(&data[0],  row0.ptr(), 3*sizeof(real)); data[3]=(real)0.0;
-    memcpy(&data[4],  row1.ptr(), 3*sizeof(real)); data[7]=(real)0.0;
-    memcpy(&data[8],  row2.ptr(), 3*sizeof(real)); data[11]=(real)0.0;
-    data[12]=(real)0.0; data[13]=(real)0.0; data[14]=(real)0.0; data[15]=(real)1.0;
+    memcpy(&data[0],  row0.ptr(), 3*sizeof(real));
+    memcpy(&data[4],  row1.ptr(), 3*sizeof(real));
+    memcpy(&data[8],  row2.ptr(), 3*sizeof(real));
+    data[12]=(real)0.0; data[13]=(real)0.0; data[14]=(real)0.0;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -406,8 +411,7 @@ void Matrix4<real>::operator = (const Matrix4<real> &other)
     data[14] = other.data[14];
     data[15] = other.data[15];
 }
-/*-----------------------------------------------------------------------------------------------------------------*/
-/*------ Sets and Gets ------*/
+/*------ Methods ------*/
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::setToIdentity()
