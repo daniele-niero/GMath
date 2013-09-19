@@ -18,60 +18,61 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import os, sys
-import SConsOutputColors as output_colors
+# import SConsOutputColors as output_colors
 
-vars = Variables()
-vars.AddVariables( EnumVariable('build', 'Set the build type', 'release', allowed_values=('release', 'debug')),
-                   EnumVariable('library', 'Set the type of library to build', 'static', allowed_values=('static', 'shared', 'python')),
-                   BoolVariable('tests', 'Set to "yes" or "t" to build the test suite.', 0),
-                   BoolVariable('docs', 'Set to "yes" or "t" to build documentation with Doxygen.', 0),
-                   PathVariable('install_path', 'Set where to install the library', '.', PathVariable.PathIsDirCreate) )
+#-------------------------------------------------------------------------------------------------------------------
+# preparing the SCons Environment
+#-------------------------------------------------------------------------------------------------------------------
+scons_vars = Variables()
+scons_vars.AddVariables( 
+    EnumVariable('build', 'Set the build type', 'release', allowed_values=('release', 'debug')),
+    EnumVariable('library', 'Set the type of library to build', 'static', allowed_values=('static', 'shared', 'python')),
+    BoolVariable('docs', 'Set to "yes" or "t" to build documentation with Doxygen.', 0),
+    PathVariable('install', 'Set where to install the library', os.path.abspath(os.path.join('.', 'bin')), PathVariable.PathAccept) )
 
+env = Environment(variables = scons_vars)
+# generates the help
+Help(scons_vars.GenerateHelpText(env))
+# customizes output
+# output_colors.append_to_environment(env)
 
-env = Environment(variables = vars)
-output_colors.append_to_environment(env)
-
-if env['install_path'] == ".":
-    env['install_path'] = os.path.join('./lib', sys.platform, env['build'], env['library'])
-else:
-    pass
-env['install_path'] = os.path.abspath(env['install_path'])
-
-
-Help(vars.GenerateHelpText(env))
-
-# mostly needed by the python Sconscript
-os.environ["GMATH_INCLUDE"] = os.path.abspath("./include")
-os.environ["GMATH_LIB"]     = env['install_path'].replace('python', 'static')
-
-script = None
-
+#-------------------------------------------------------------------------------------------------------------------
+# Set up the Release or Debug 
+#-------------------------------------------------------------------------------------------------------------------
 if env['build']=='release':
     env.Append(CCFLAGS = '-DRELEASE')
 elif env['build']=='debug':
     env.Append(CCFLAGS = '-g')
     env.Append(CCFLAGS = '-DDEBUG')
 
+#-------------------------------------------------------------------------------------------------------------------
+# Deciding wich Sconscipt to use.
+# if we are building a static or shared library, then we will use the Sconscript for build GMath C++
+# if we are building the python wrapper than we will use the Sconscript in  ./sub_projects/gmath_py
+#-------------------------------------------------------------------------------------------------------------------
+script = None
 
-if env['library'] == 'static':
+if env['library'] == 'static' or env['library'] == 'shared':
     script = 'SConscript.py'
-elif env['library'] == 'shared':
-    script = 'SConscript.py'
+    # prepare a suitable build path
+    env['build_path'] = os.path.join('./build', sys.platform, env['build'], env['library'])
 elif env['library'] == 'python':
     sys.path.append(os.path.abspath('./sub_projects/gmath_py'))
     script = './sub_projects/gmath_py/SConscript.py'
+    # prepare a suitable build path
+    python_ver = '%i.%i' %(sys.version_info.major, sys.version_info.minor)
+    env['build_path'] = os.path.join('./build', sys.platform, 'python'+python_ver)
 
 
-if env['tests']:
-    script = './sub_projects/tests/SConscript.py'
+SConscript(
+    script, 'env') 
+    # variant_dir=env['build_path'], 
+    # duplicate=0)
 
+#-------------------------------------------------------------------------------------------------------------------
+# End finally, if the the user decided to build the doc, just fire the doxygen command
+#-------------------------------------------------------------------------------------------------------------------
 if env['docs']:
     doc_command = "doxygen resources/doxygen/doxy_config"
     os.system(doc_command)
-
-SConscript(
-    script, 'env', 
-    variant_dir=os.path.join('./build', sys.platform, env['build'], env['library']), 
-    duplicate=0)
-
 

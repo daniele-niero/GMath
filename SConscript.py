@@ -19,18 +19,28 @@
 
 import os, sys
 
+# import the environmet. This is a little SCons magic... mmm...
 Import('env')
-install_path = env['install_path']
 
-
+#-------------------------------------------------------------------------------------------------------------------
+# Some windows extra configurations
+#-------------------------------------------------------------------------------------------------------------------
 if sys.platform == "win32":
-    env.Append(CCFLAGS='/EHsc')
+    env.Append(CCFLAGS=['/EHsc', '/Zl', '/MD'])
     env.Append(no_import_lib=1)
 
-
+#-------------------------------------------------------------------------------------------------------------------
+# Build the specified library
+#-------------------------------------------------------------------------------------------------------------------
 if env['library']=='static' :
-   lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
+    lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
+
 elif env['library']=='shared' :
 	lib = env.SharedLibrary('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 
-env.Install(install_path, lib)
+#-------------------------------------------------------------------------------------------------------------------
+# Install the library if and only if the user specify a path usign the extra argument "install"
+# for example scons library=static install=/usr/local/bin
+#-------------------------------------------------------------------------------------------------------------------
+if env.has_key('install'): 
+    Default( env.Install(env['install'], lib) )
