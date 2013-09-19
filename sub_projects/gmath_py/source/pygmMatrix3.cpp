@@ -62,7 +62,7 @@ namespace {
         {
             return self->toEuler(order);
         }
-        bool toEulerWithArg2(Matrix3d* self, Eulerd& outEuler, RotationOrder order)
+        void toEulerWithArg2(Matrix3d* self, Eulerd& outEuler, RotationOrder order)
         {
             return self->toEuler(outEuler, order);
         }
@@ -70,7 +70,7 @@ namespace {
         {
             return self->toEuler();
         }
-        bool toEulerWithArg4(Matrix3d* self, Eulerd& outEuler)
+        void toEulerWithArg4(Matrix3d* self, Eulerd& outEuler)
         {
             return self->toEuler(outEuler);
         }
