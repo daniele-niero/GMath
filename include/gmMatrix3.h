@@ -113,10 +113,6 @@ public:
 	void setAxisY(const Vector3<real>& vec);
 	void setAxisZ(const Vector3<real>& vec);
 
-    void setRotation(const Quaternion<real>& rotationQuat);
-    void setRotation(const Euler<real> &rotation, RotationOrder order=XYZ);
-    void setRotation(real angleX, real angleY, real angleZ, RotationOrder order=XYZ);
-
     void setScale(const Vector3<real> &scale);
     void setScale(real sX, real sY, real sZ);
     void addScale(const Vector3<real> &scale);
@@ -124,8 +120,9 @@ public:
     Vector3<real> getScale() const;
 
     /** Remember to take out scale first */
+	void fromQuaternion(const Quaternion<real>& rotationQuat);
     Quaternion<real> toQuaternion() const;
-    void toQuaternion(Quaternion<real> &outQauternion) const;
+    void toQuaternion(Quaternion<real> &outQuaternion) const;
 
     void fromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
     void fromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);

@@ -746,9 +746,37 @@ void Matrix4<real>::toQuaternion(Quaternion<real> &outQuaternion) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-bool Matrix4<real>::toEuler(Euler<real>& eulerAngles, RotationOrder order) const
+void Matrix4<real>::toEuler(Euler<real>& eulerAngles, RotationOrder order) const
 {
     return this->toMatrix3().toEuler(eulerAngles);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix4<real>::fromMatrix3(const Matrix3<real> &inMat3)
+{
+	memcpy(&data[0],  &inMat3.data[0], 3*sizeof(real));
+	memcpy(&data[4],  &inMat3.data[3], 3*sizeof(real));
+	memcpy(&data[8],  &inMat3.data[6], 3*sizeof(real));
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix4<real>::fromQuaternion(const Quaternion<real> &inQuat)
+{
+	*this = inQuat.toMatrix4();
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix4<real>::fromEuler(const real &angleX, const real &angleY, const real &angleZ, RotationOrder order)
+{
+	Matrix3<real> rotationMat;
+	rotationMat.fromEuler(angleX, angleY, angleZ, order);
+	this->fromMatrix3(rotationMat);
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix4<real>::fromEuler(const Euler<real> &rotation, RotationOrder order)
+{
+	fromEuler(rotation.x, rotation.y, rotation.z, order);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>

@@ -545,32 +545,6 @@ void Matrix3<real>::orthogonalInPlace() //primaryAxis, secondaryAxis)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-Vector3<real> Matrix3<real>::getScale() const
-{
-    Vector3<real> x(data[0], data[1], data[2]);
-    Vector3<real> y(data[3], data[4], data[5]);
-    Vector3<real> z(data[6], data[7], data[8]);
-
-    return Vector3<real>(x.length(), y.length(), z.length());
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-void Matrix3<real>::addScale(const Vector3<real> &scale)
-{
-    data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
-    data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
-    data[6]+=scale.z; data[7]+=scale.z; data[8]+=scale.z;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
-void Matrix3<real>::addScale(real sX, real sY, real sZ)
-{
-    data[0]+=sX; data[1]+=sX; data[2]+=sX;
-    data[3]+=sY; data[4]+=sY; data[5]+=sY;
-    data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
-}
-/*-----------------------------------------------------------------------------------------------------------------*/
-template <typename real>
 void Matrix3<real>::setScale(const Vector3<real> &scale)
 {
     Vector3<real> x(data[0], data[1], data[2]);
@@ -588,7 +562,7 @@ void Matrix3<real>::setScale(const Vector3<real> &scale)
         y.x, y.y, y.z,
         z.x, z.y, z.z );
 }
-/*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::setScale(real sX, real sY, real sZ)
 {
@@ -606,6 +580,52 @@ void Matrix3<real>::setScale(real sX, real sY, real sZ)
         x.x, x.y, x.z,
         y.x, y.y, y.z,
         z.x, z.y, z.z );
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix3<real>::addScale(const Vector3<real> &scale)
+{
+	data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
+	data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
+	data[6]+=scale.z; data[7]+=scale.z; data[8]+=scale.z;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix3<real>::addScale(real sX, real sY, real sZ)
+{
+	data[0]+=sX; data[1]+=sX; data[2]+=sX;
+	data[3]+=sY; data[4]+=sY; data[5]+=sY;
+	data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Vector3<real> Matrix3<real>::getScale() const
+{
+	Vector3<real> x(data[0], data[1], data[2]);
+	Vector3<real> y(data[3], data[4], data[5]);
+	Vector3<real> z(data[6], data[7], data[8]);
+
+	return Vector3<real>(x.length(), y.length(), z.length());
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix3<real>::fromQuaternion(const Quaternion<real>& rotationQuat)
+{
+	*this = rotationQuat.toMatrix4();
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+Quaternion<real> Matrix3<real>::toQuaternion() const
+{
+	Quaternion<real> quat;
+	quat.fromMatrix3( (*this) );
+	return quat;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+template <typename real>
+void Matrix3<real>::toQuaternion(Quaternion<real> &outQuaternion) const
+{
+	outQuaternion.fromMatrix3( (*this) );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -664,7 +684,7 @@ void Matrix3<real>::fromEuler(const Euler<real> &rotation, RotationOrder order)
 {
     fromEuler(rotation.x, rotation.y, rotation.z, order);
 }
-/*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 Euler<real> Matrix3<real>::toEuler(RotationOrder order) const
 {

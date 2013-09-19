@@ -164,8 +164,13 @@ public:
     Euler<real> toEuler(RotationOrder order=XYZ) const; 
     void toMatrix3(Matrix3<real> &outMatrix3) const;
     void toQuaternion(Quaternion<real> &outQuaternion) const;
-    bool toEuler(Euler<real> &outEuler, RotationOrder order=XYZ) const;
+    void toEuler(Euler<real> &outEuler, RotationOrder order=XYZ) const;
 
+	void fromMatrix3(const Matrix3<real> &inMat3);
+	void fromQuaternion(const Quaternion<real> &inQuat);
+	void fromEuler(const real &angleX, const real &angleY, const real &angleZ, RotationOrder order=XYZ);
+	void fromEuler(const Euler<real> &inEuler, RotationOrder order=XYZ);
+	
     Vector3<real> rotateVector(const Vector3<real> &vec) const;
 
     Matrix4<real> transpose() const;
