@@ -1,3 +1,12 @@
+# Please, copy this file to confing.py (create if necessary) and change it to accomodate your system.
+# The mandatory attributes are:
+#  * python_include_path
+#  * python_lib_path
+#  * python_lib
+#  * boost_include_path
+#  * boost_lib_path
+#  * boost_python_lib
+
 import os
 
 py_ver = 2.6

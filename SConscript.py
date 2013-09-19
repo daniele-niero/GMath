@@ -26,17 +26,17 @@ Import('env')
 # Some windows extra configurations
 #-------------------------------------------------------------------------------------------------------------------
 if sys.platform == "win32":
-    env.Append(CCFLAGS='/EHsc')
+    env.Append(CCFLAGS=['/EHsc', '/Zl', '/MD'])
     env.Append(no_import_lib=1)
 
 #-------------------------------------------------------------------------------------------------------------------
 # Build the specified library
 #-------------------------------------------------------------------------------------------------------------------
 if env['library']=='static' :
-   lib = env.Library('gmath', Glob(env['build_path']+"/*.cpp"), CPPPATH=['include'])
+    lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 
 elif env['library']=='shared' :
-	lib = env.SharedLibrary('gmath', Glob(env['build_path']+"/*.cpp"), CPPPATH=['include'])
+	lib = env.SharedLibrary('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 
 #-------------------------------------------------------------------------------------------------------------------
 # Install the library if and only if the user specify a path usign the extra argument "install"

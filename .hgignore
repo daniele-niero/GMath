@@ -20,3 +20,5 @@ lib/*
 documentation/*
 build/*
 sub_projects\gmath_py\config.py
+bin/
+*.exp

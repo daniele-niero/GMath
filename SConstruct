@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 import os, sys
-import SConsOutputColors as output_colors
+# import SConsOutputColors as output_colors
 
 #-------------------------------------------------------------------------------------------------------------------
 # preparing the SCons Environment
@@ -28,13 +28,13 @@ scons_vars.AddVariables(
     EnumVariable('build', 'Set the build type', 'release', allowed_values=('release', 'debug')),
     EnumVariable('library', 'Set the type of library to build', 'static', allowed_values=('static', 'shared', 'python')),
     BoolVariable('docs', 'Set to "yes" or "t" to build documentation with Doxygen.', 0),
-    PathVariable('install', 'Set where to install the library', None, PathVariable.PathAccept) )
+    PathVariable('install', 'Set where to install the library', os.path.abspath(os.path.join('.', 'bin')), PathVariable.PathAccept) )
 
 env = Environment(variables = scons_vars)
 # generates the help
 Help(scons_vars.GenerateHelpText(env))
 # customizes output
-output_colors.append_to_environment(env)
+# output_colors.append_to_environment(env)
 
 #-------------------------------------------------------------------------------------------------------------------
 # Set up the Release or Debug 
