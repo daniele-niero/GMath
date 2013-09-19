@@ -135,14 +135,14 @@ void wrapMatrix4()
         .def("orthogonal", &Matrix4d::orthogonal)
         .def("orthogonalInPlace", &Matrix4d::orthogonalInPlace)
 
-        .def("setFromVectorToVector", &Matrix4d::setFromVectorToVector)
+        .def("fromVectorToVector", &Matrix4d::fromVectorToVector)
 
         .def("lookAt", (void (Matrix4d::*)(const Vector3d &, const Vector3d &, const Vector3d &, Axis, Axis))&Matrix4d::lookAt)
         .def("lookAt", (void (Matrix4d::*)(const Vector3d &, const Vector3d &, Axis, Axis))&Matrix4d::lookAt)
         .def("createLookAt", &Matrix3d::createLookAt)
         .staticmethod("createLookAt")
 
-        .def("setFromAxisAngle", &Matrix4d::setFromAxisAngle)
+        .def("fromAxisAngle", &Matrix4d::fromAxisAngle)
 
         .def_readonly("IDENTITY", &Matrix4d::IDENTITY)
         ;

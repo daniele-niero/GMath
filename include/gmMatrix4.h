@@ -193,7 +193,7 @@ public:
         Efficiently Building a Matrix to Rotate One Vector to Another
         Journal of Graphics Tools, 4(4):1-4, 1999
         http://www.acm.org/jgt/papers/MollerHughes99/ */
-    void setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
+    void fromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
 
     /** Look from pos to target.
       *
@@ -204,7 +204,7 @@ public:
     void lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
     static Matrix4<real> createLookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
 
-    void setFromAxisAngle(const Vector3<real> &axis, real angle);
+    void fromAxisAngle(const Vector3<real> &axis, real angle);
 
     std::string toString() const;
 

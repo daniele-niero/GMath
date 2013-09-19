@@ -127,8 +127,8 @@ public:
     Quaternion<real> toQuaternion() const;
     void toQuaternion(Quaternion<real> &outQauternion) const;
 
-    void setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
-    void setFromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
+    void fromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order=XYZ);
+    void fromEuler(const Euler<real> &rotation, RotationOrder order=XYZ);
     Euler<real> toEuler(RotationOrder order=XYZ) const;
     void toEuler(Euler<real>& euler, RotationOrder order=XYZ) const;
 
@@ -156,8 +156,8 @@ public:
         Efficiently Building a Matrix to Rotate One Vector to Another
         Journal of Graphics Tools, 4(4):1-4, 1999
         http://www.acm.org/jgt/papers/MollerHughes99/ */
-    void setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
-    void setFromAxisAngle(const Vector3<real> &axis, real angle);
+    void fromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec);
+    void fromAxisAngle(const Vector3<real> &axis, real angle);
 
     /** Look from pos to target.
 

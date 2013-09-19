@@ -609,7 +609,7 @@ void Matrix3<real>::setScale(real sX, real sY, real sZ)
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-void Matrix3<real>::setFromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
+void Matrix3<real>::fromEuler(const real& angleX, const real& angleY, const real& angleZ, RotationOrder order)
 {
     real cx, sx, cy, sy, cz, sz;
 
@@ -660,9 +660,9 @@ void Matrix3<real>::setFromEuler(const real& angleX, const real& angleY, const r
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-void Matrix3<real>::setFromEuler(const Euler<real> &rotation, RotationOrder order)
+void Matrix3<real>::fromEuler(const Euler<real> &rotation, RotationOrder order)
 {
-    setFromEuler(rotation.x, rotation.y, rotation.z, order);
+    fromEuler(rotation.x, rotation.y, rotation.z, order);
 }
 /*-----------------------------------------------------------------------------------------------------------------*//*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -873,7 +873,7 @@ void Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order) const
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-void Matrix3<real>::setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
+void Matrix3<real>::fromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
 {
     Vector3<real> x, u, v;
     real e = fromVec.dot(toVec);
@@ -1040,7 +1040,7 @@ Matrix3<real> Matrix3<real>::createLookAt(const Vector3<real> &pointAt, const Ve
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-void Matrix3<real>::setFromAxisAngle(const Vector3<real> &axis, real angle)
+void Matrix3<real>::fromAxisAngle(const Vector3<real> &axis, real angle)
 {
     real sqr_a = axis.x*axis.x;
     real sqr_b = axis.y*axis.y;

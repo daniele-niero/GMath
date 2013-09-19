@@ -192,7 +192,7 @@ void testMatrix3_FromEuler()
 		0.707107, 0.000000, -0.707107,
 	    0.000000, 1.000000,  0.000000,
 	    0.707107, 0.000000,  0.707107);
-	mat.setFromEuler(euler.toRadians(), gmath::XYZ);
+	mat.fromEuler(euler.toRadians(), gmath::XYZ);
 	ASSERT(mat==supposedResult);
 
 	euler.set(45.0, 0.0, 0.0);
@@ -200,7 +200,7 @@ void testMatrix3_FromEuler()
 		1.000000,  0.000000, 0.000000,
 		0.000000,  0.707107, 0.707107,
 		0.000000, -0.707107, 0.707107);
-	mat.setFromEuler(euler.toRadians(), gmath::XYZ);
+	mat.fromEuler(euler.toRadians(), gmath::XYZ);
 	ASSERT(mat==supposedResult);
 
 	euler.set(0.0, 0.0, 45.0);
@@ -208,7 +208,7 @@ void testMatrix3_FromEuler()
 		0.707107, 0.707107, 0.000000,
 	   -0.707107, 0.707107, 0.000000,
 		0.000000, 0.000000, 1.000000);
-	mat.setFromEuler(euler.toRadians(), gmath::XYZ);
+	mat.fromEuler(euler.toRadians(), gmath::XYZ);
 	ASSERT(mat==supposedResult);
 
 	euler.set(45.0, 45.0, 45.0);
@@ -216,7 +216,7 @@ void testMatrix3_FromEuler()
 		0.5, 0.5, -0.707106781187,
 	    -0.146446609407, 0.853553390593, 0.5,
 		0.853553390593, -0.146446609407, 0.5);
-	mat.setFromEuler(euler.toRadians(), gmath::XYZ);
+	mat.fromEuler(euler.toRadians(), gmath::XYZ);
 	ASSERT(mat==supposedResult);
 
 	euler.set(42.5, 24.75, 70.75);
@@ -224,7 +224,7 @@ void testMatrix3_FromEuler()
 		 0.299406, 0.857368, -0.418660,
 		-0.602805, 0.510102,  0.613533,
 		 0.739582, 0.068675,  0.669553);
-	mat.setFromEuler(euler.toRadians(), gmath::XYZ);
+	mat.fromEuler(euler.toRadians(), gmath::XYZ);
 	ASSERT(mat==supposedResult);
 }
 
@@ -233,7 +233,7 @@ bool doToEulerTest(Matrix3d& m, Matrix3d& r, Eulerd& e, Eulerd& s)
 	for (int i=0; i<6; i++)
 	{
 		bool result;
-		r.setFromEuler(s.toRadians(), (RotationOrder)i);
+		r.fromEuler(s.toRadians(), (RotationOrder)i);
 		m = r;
 		result = m.toEuler(e, (RotationOrder)i);
 		e.toDegreesInPlace();

@@ -399,7 +399,7 @@ class Matrix3(object):
                         k1ab-k3c,    k1*sqr_b+k2, k1bc+k3a,
                         k1ac+k3b,    k1bc-k3a,    k1*sqr_c+k2])
 
-    def setFromAxisAngle(self, axis, angle):
+    def fromAxisAngle(self, axis, angle):
         rotationMatrix = self.rotation(axis, angle)
         self.multiplyByMatrix3InPlace(rotationMatrix)
 
@@ -533,7 +533,7 @@ class Matrix3(object):
             retMat = ZMat.multiplyByMatrix3(YMat.multiplyByMatrix3(XMat))
         return retMat
 
-    def setFromEuler(self, x, y, z, order=constants.xyz):
+    def fromEuler(self, x, y, z, order=constants.xyz):
         self.setValues(Matrix3.createFromEuler(x, y, z, order))
 
 

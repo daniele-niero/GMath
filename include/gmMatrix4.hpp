@@ -1003,7 +1003,7 @@ void Matrix4<real>::inverseInPlace()
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
-void Matrix4<real>::setFromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
+void Matrix4<real>::fromVectorToVector(const Vector3<real> &fromVec, const Vector3<real> &toVec)
 {
     Vector3<real> x, u, v;
     real e = fromVec.dot(toVec);
@@ -1176,7 +1176,7 @@ Matrix4<real> Matrix4<real>::createLookAt(const Vector3<real> &pos, const Vector
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
-void Matrix4<real>::setFromAxisAngle(const Vector3<real> &axis, real angle)
+void Matrix4<real>::fromAxisAngle(const Vector3<real> &axis, real angle)
 {
     real sqr_a = axis.x*axis.x;
     real sqr_b = axis.y*axis.y;

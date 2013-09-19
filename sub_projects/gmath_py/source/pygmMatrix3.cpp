@@ -49,13 +49,13 @@ namespace {
         }
 
         // to ensure RotationOrder with default argument...
-        void setFromEulerWithArg1(Matrix3d* self, const double& x, const double& y, const double& z)
+        void fromEulerWithArg1(Matrix3d* self, const double& x, const double& y, const double& z)
         {
-            self->setFromEuler(x, y, z);
+            self->fromEuler(x, y, z);
         }
-        void setFromEulerWithArg2(Matrix3d* self, const Eulerd& euler)
+        void fromEulerWithArg2(Matrix3d* self, const Eulerd& euler)
         {
-            self->setFromEuler(euler);
+            self->fromEuler(euler);
         }
 
 
@@ -122,10 +122,10 @@ void wrapMatrix3()
         .def("setScale", (void (Matrix3d::*)(double, double, double))&Matrix3d::setScale)
         .def("setScale", (void (Matrix3d::*)(const Vector3d&))&Matrix3d::setScale)
 
-        .def("setFromEuler", (void (Matrix3d::*)(const double&, const double&, const double&, RotationOrder))&Matrix3d::setFromEuler)
-        .def("setFromEuler", (void (Matrix3d::*)(const Eulerd&, RotationOrder))&Matrix3d::setFromEuler)
-        .def("setFromEuler", setFromEulerWithArg1)
-        .def("setFromEuler", setFromEulerWithArg2)
+        .def("fromEuler", (void (Matrix3d::*)(const double&, const double&, const double&, RotationOrder))&Matrix3d::fromEuler)
+        .def("fromEuler", (void (Matrix3d::*)(const Eulerd&, RotationOrder))&Matrix3d::fromEuler)
+        .def("fromEuler", fromEulerWithArg1)
+        .def("fromEuler", fromEulerWithArg2)
 
         .def("toEuler", toEulerWithArg1)
         .def("toEuler", toEulerWithArg2)
@@ -143,8 +143,8 @@ void wrapMatrix3()
         .def("orthogonal", &Matrix3d::orthogonal)
         .def("orthogonalInPlace", &Matrix3d::orthogonalInPlace)
         
-        .def("setFromVectorToVector", &Matrix3d::setFromVectorToVector)
-        .def("setFromAxisAngle", &Matrix3d::setFromAxisAngle)
+        .def("fromVectorToVector", &Matrix3d::fromVectorToVector)
+        .def("fromAxisAngle", &Matrix3d::fromAxisAngle)
 
         .def("lookAt", &Matrix3d::lookAt)
         .def("createLookAt", &Matrix3d::createLookAt)
