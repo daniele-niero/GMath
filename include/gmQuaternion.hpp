@@ -29,10 +29,10 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 template <typename real>
 inline real sinx_over_x (real x)
 {
-    if (x * x < Math<real>::EPSILON)
-        return (real)1.0;
-    else
-        return (real) sin (x) / x;
+	if (x * x < Math<real>::EPSILON)
+		return (real)1.0;
+	else
+		return (real) sin (x) / x;
 }
 
 
@@ -41,9 +41,9 @@ inline real sinx_over_x (real x)
 template <typename real>
 Quaternion<real>::Quaternion()
 {
-    x=(real)0.0; 
-    y=(real)0.0;
-    z=(real)0.0;
+	x=(real)0.0; 
+	y=(real)0.0;
+	z=(real)0.0;
     w=(real)1.0;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -352,9 +352,9 @@ void Quaternion<real>::fromMatrix(const gmMatrixType &mat)
         root = sqrt(trace + (real)1.0);  // 2w
         w = (real)0.5*root;
         root = (real)0.5/root;  // 1/(4w)
-        x = (mat(2,1) - mat(1,2))*root;
-        y = (mat(0,2) - mat(2,0))*root;
-        z = (mat(1,0) - mat(0,1))*root;
+		x = (mat(1,2) - mat(2,1))*root;
+		y = (mat(2,0) - mat(0,2))*root;
+		z = (mat(0,1) - mat(1,0))*root;
     }
     else
     {
@@ -375,9 +375,9 @@ void Quaternion<real>::fromMatrix(const gmMatrixType &mat)
         real* quat[3] = { &x, &y, &z };
         *quat[i] = (real)0.5*root;
         root = (real)0.5/root;
-        this->w = (mat(k,j) - mat(j,k))*root;
-        *quat[j] = (mat(j,i) + mat(i,j))*root;
-        *quat[k] = (mat(k,i) + mat(i,k))*root;
+        this->w = (mat(j,k) - mat(k,j))*root;
+        *quat[j] = (mat(i,j) + mat(j,i))*root;
+        *quat[k] = (mat(i,k) + mat(k,i))*root;
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -400,16 +400,16 @@ Matrix3<real> Quaternion<real>::toMatrix3() const
     real yz = (real)2.0*y*z;
     real xw = (real)2.0*x*w;
     return Matrix3<real>(
-            (real)1.0-yy-zz, xy-zw, xz+yw,
-            xy+zw, (real)1.0-xx-zz, yz-xw,
-            xz-yw, yz+xw, (real)1.0-xx-yy
+            (real)1.0-yy-zz, xy+zw,           xz-yw,
+            xy-zw,           (real)1.0-xx-zz, yz+xw,
+            xz+yw,           yz-xw,           (real)1.0-xx-yy 
             );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Quaternion<real>::fromMatrix4(const Matrix4<real> &mat)
 {
-    this->fromMatrix< Matrix4<real> >(mat);
+    this->fromMatrix<Matrix4<real>>(mat);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -425,10 +425,10 @@ Matrix4<real> Quaternion<real>::toMatrix4() const
     real yz = (real)2.0*y*z;
     real xw = (real)2.0*x*w;
     return Matrix4<real>(
-            (real)1.0-yy-zz, xy-zw, xz+yw, (real)0.0,
-            xy+zw, (real)1.0-xx-zz, yz-xw, (real)0.0,
-            xz-yw, yz+xw, (real)1.0-xx-yy, (real)0.0,
-            (real)0.0, (real)0.0, (real)0.0, (real)1.0
+            (real)1.0-yy-zz, xy+zw,           xz-yw,           (real)0.0,
+            xy-zw,           (real)1.0-xx-zz, yz+xw,           (real)0.0,
+            xz+yw,           yz-xw,           (real)1.0-xx-yy, (real)0.0,
+            (real)0.0,       (real)0.0,       (real)0.0,       (real)1.0
             );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
