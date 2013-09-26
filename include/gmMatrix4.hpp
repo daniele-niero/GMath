@@ -1127,8 +1127,8 @@ void Matrix4<real>::lookAt(const Vector3<real> &pos, const Vector3<real> &pointA
     if (f > 1.0-Math<real>::EPSILON)
         throw GMathError("Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them."); */
     
-	terziary = secondary.cross(primary);
-    secondary = primary.cross(terziary);
+	terziary = secondary.crossNormalize(primary);
+    secondary = primary.crossNormalize(terziary);
 
 	if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
 	{

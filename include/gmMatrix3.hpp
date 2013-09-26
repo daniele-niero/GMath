@@ -985,8 +985,8 @@ void Matrix3<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &no
         throw GMathError("gmath::Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them.");
 	*/
     
-	terziary = primary.cross(secondary);
-    secondary = terziary.cross(primary);
+	terziary = primary.crossNormalize(secondary);
+    secondary = terziary.crossNormalize(primary);
 
 	if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
 	{
