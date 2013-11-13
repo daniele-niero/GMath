@@ -22,3 +22,4 @@ build/*
 sub_projects\gmath_py\config.py
 bin/
 *.exp
+.p4ignore

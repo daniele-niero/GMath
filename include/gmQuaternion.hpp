@@ -178,13 +178,13 @@ Vector3<real> Quaternion<real>::operator * (const Vector3<real>& vec) const
     real tx, ty, tz;
 	real rx, ry, rz;
 
-	tx = y * vec.z - z * vec.y;
-	ty = z * vec.x - x * vec.z;
-	tz = x * vec.y - y * vec.x;
+    tx = z * vec.y - y * vec.z;
+    ty = x * vec.z - z * vec.x;
+    tz = y * vec.x - x * vec.y;
 
-	rx = y * tz - z * ty;
-	ry = z * tx - x * tz;
-	rz = x * ty - y * tx;
+    rx = z * ty - y * tz;
+    ry = x * tz - z * tx;
+    rz = y * tx - x * ty;
 
 	Vector3<real> v = vec;
 	v.x -= (tx*w-rx)*(real)2; 
