@@ -94,14 +94,14 @@ Matrix4<real>::Matrix4(
 template <typename real>
 Matrix4<real>::Matrix4(const Quaternion<real> &quat)
 {
-	quat.setMatrix4((*this));
+    quat.setMatrix4((*this));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Matrix4<real>::Matrix4(const Quaternion<real> &quat, const Vector3<real> &pos)
 {
-	quat.setMatrix4((*this));
-	this->setPosition(pos);
+    quat.setMatrix4((*this));
+    this->setPosition(pos);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -582,7 +582,7 @@ void Matrix4<real>::setRotation(const Matrix3<real>& rotationMatrix)
 template <typename real>
 void Matrix4<real>::setRotation(const Quaternion<real>& rotationQuat)
 {
-	rotationQuat.setMatrix4( (*this) );
+    rotationQuat.setMatrix4( (*this) );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
@@ -717,7 +717,7 @@ Matrix3<real> Matrix4<real>::toMatrix3() const
 template <typename real>
 Quaternion<real> Matrix4<real>::toQuaternion() const
 {
-	Quaternion<real> quat;
+    Quaternion<real> quat;
     quat.fromMatrix4( (*this) );
     return quat;
 }
@@ -754,40 +754,40 @@ void Matrix4<real>::toEuler(Euler<real>& eulerAngles, RotationOrder order) const
 template <typename real>
 void Matrix4<real>::fromMatrix3(const Matrix3<real> &inMat3)
 {
-	memcpy(&data[0],  &inMat3.data[0], 3*sizeof(real));
-	memcpy(&data[4],  &inMat3.data[3], 3*sizeof(real));
-	memcpy(&data[8],  &inMat3.data[6], 3*sizeof(real));
+    memcpy(&data[0],  &inMat3.data[0], 3*sizeof(real));
+    memcpy(&data[4],  &inMat3.data[3], 3*sizeof(real));
+    memcpy(&data[8],  &inMat3.data[6], 3*sizeof(real));
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::fromQuaternion(const Quaternion<real> &inQuat)
 {
-	*this = inQuat.toMatrix4();
+    *this = inQuat.toMatrix4();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::fromEuler(const real &angleX, const real &angleY, const real &angleZ, RotationOrder order)
 {
-	Matrix3<real> rotationMat;
-	rotationMat.fromEuler(angleX, angleY, angleZ, order);
-	this->fromMatrix3(rotationMat);
+    Matrix3<real> rotationMat;
+    rotationMat.fromEuler(angleX, angleY, angleZ, order);
+    this->fromMatrix3(rotationMat);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix4<real>::fromEuler(const Euler<real> &rotation, RotationOrder order)
 {
-	fromEuler(rotation.x, rotation.y, rotation.z, order);
+    fromEuler(rotation.x, rotation.y, rotation.z, order);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Matrix4<real>::rotateVector(const Vector3<real> &vec) const
 {
-	Vector3<real> retVec(
+    Vector3<real> retVec(
         data[0] * this->x + data[1] * this->y + data[2]  * this->z,
         data[4] * this->x + data[5] * this->y + data[6]  * this->z,
         data[8] * this->x + data[9] * this->y + data[10] * this->z
         );
-	return retVec;
+    return retVec;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -1109,71 +1109,72 @@ void Matrix4<real>::fromVectorToVector(const Vector3<real> &fromVec, const Vecto
 template<typename real>
 void Matrix4<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
-	this->lookAt(this->getPosition(), pointAt, normal, primaryAxis, secondaryAxis);
+    this->lookAt(this->getPosition(), pointAt, normal, primaryAxis, secondaryAxis);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>
 void Matrix4<real>::lookAt(const Vector3<real> &pos, const Vector3<real> &pointAt, const Vector3<real> &normal, Axis primaryAxis, Axis secondaryAxis)
 {
-	Vector3<real> primary, secondary, terziary;
+    Vector3<real> primary, secondary, terziary;
     
-	primary = pointAt - pos;
+    primary = pointAt - pos;
     secondary = normal - pos;
-	primary.normalizeInPlace();
-	secondary.normalizeInPlace();
+    primary.normalizeInPlace();
+    secondary.normalizeInPlace();
 
     /*
-	real f = fabs( primary.dot(secondary) );
+    real f = fabs( primary.dot(secondary) );
     if (f > 1.0-Math<real>::EPSILON)
         throw GMathError("Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them."); */
     
-	terziary = secondary.crossNormalize(primary);
+    terziary = secondary.crossNormalize(primary);
     secondary = primary.crossNormalize(terziary);
 
-	if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
-	{
+
+    if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
+    {
         primary  *= (real)-1.0;
-		terziary *= (real)-1.0;
+        terziary *= (real)-1.0;
     }
     else if ( ((int)primaryAxis>0) && ((int)secondaryAxis<0) ) 
-	{
-        secondary *= (real)-1.0;
-		terziary  *= (real)-1.0;
-    }
-	else if ( ((int)primaryAxis<0) && ((int)secondaryAxis<0) )
-	{
-		primary   *= (real)-1.0;
-		secondary *= (real)-1.0;
-	} 
-
-    if (primaryAxis == POSX || primaryAxis == NEGX)
     {
-        if (secondaryAxis == POSY || secondaryAxis == NEGY)
-        {
+        secondary *= (real)-1.0;
+        terziary  *= (real)-1.0;
+    }
+    else if ( ((int)primaryAxis<0) && ((int)secondaryAxis<0) )
+    {
+        primary   *= (real)-1.0;
+        secondary *= (real)-1.0;
+    } 
+
+	if (primaryAxis == POSX || primaryAxis == NEGX)
+	{
+		if (secondaryAxis == POSY || secondaryAxis == NEGY)
+		{
 			this->setAxisX(primary);
 			this->setAxisY(secondary);
 			this->setAxisZ(-terziary);
-        }
-        else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
-        {
-            this->setAxisX(primary);
+		}
+		else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
+		{
+			this->setAxisX(primary);
 			this->setAxisY(terziary);
 			this->setAxisZ(secondary);
-        }
-    }
-    else if (primaryAxis == POSY || primaryAxis == NEGY)
-    {
-        if (secondaryAxis == POSX || secondaryAxis == NEGX)
-        {
-            this->setAxisX(secondary);
+		}
+	}
+	else if (primaryAxis == POSY || primaryAxis == NEGY)
+	{
+		if (secondaryAxis == POSX || secondaryAxis == NEGX)
+		{
+			this->setAxisX(secondary);
 			this->setAxisY(primary);
 			this->setAxisZ(terziary);
-        }
-        else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
-        {
-            this->setAxisX(terziary);
-			this->setAxisY(primary);
-			this->setAxisZ(-secondary);
+		}
+		else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
+		{
+            this->setAxisX(-terziary);
+            this->setAxisY(primary);
+            this->setAxisZ(secondary);
         }
     }
     else if (primaryAxis == POSZ || primaryAxis == NEGZ)
@@ -1181,18 +1182,18 @@ void Matrix4<real>::lookAt(const Vector3<real> &pos, const Vector3<real> &pointA
         if (secondaryAxis == POSX || secondaryAxis == NEGX)
         {
             this->setAxisX(secondary);
-			this->setAxisY(-terziary);
-			this->setAxisZ(primary);
+            this->setAxisY(-terziary);
+            this->setAxisZ(primary);
         }
         else if (secondaryAxis == POSY || secondaryAxis == NEGY)
         {
             this->setAxisX(terziary);
-			this->setAxisY(secondary);
-			this->setAxisZ(primary);
+            this->setAxisY(secondary);
+            this->setAxisZ(primary);
         }
     }
 
-	this->setPosition(pos);
+    this->setPosition(pos);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template<typename real>

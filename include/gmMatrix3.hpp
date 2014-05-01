@@ -365,37 +365,37 @@ void Matrix3<real>::setRow(unsigned int i, const Vector3<real> &vec)
 template <typename real>
 Vector3<real> Matrix3<real>::getAxisX() const
 {
-	return getRow(0);
+    return getRow(0);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Matrix3<real>::getAxisY() const
 {
-	return getRow(1);
+    return getRow(1);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Matrix3<real>::getAxisZ() const
 {
-	return getRow(2);
+    return getRow(2);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::setAxisX(const Vector3<real>& vec)
 {
-	setRow(0, vec);
+    setRow(0, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::setAxisY(const Vector3<real>& vec)
 {
-	setRow(1, vec);
+    setRow(1, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::setAxisZ(const Vector3<real>& vec)
 {
-	setRow(2, vec);
+    setRow(2, vec);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -585,47 +585,47 @@ void Matrix3<real>::setScale(real sX, real sY, real sZ)
 template <typename real>
 void Matrix3<real>::addScale(const Vector3<real> &scale)
 {
-	data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
-	data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
-	data[6]+=scale.z; data[7]+=scale.z; data[8]+=scale.z;
+    data[0]+=scale.x; data[1]+=scale.x; data[2]+=scale.x;
+    data[3]+=scale.y; data[4]+=scale.y; data[5]+=scale.y;
+    data[6]+=scale.z; data[7]+=scale.z; data[8]+=scale.z;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::addScale(real sX, real sY, real sZ)
 {
-	data[0]+=sX; data[1]+=sX; data[2]+=sX;
-	data[3]+=sY; data[4]+=sY; data[5]+=sY;
-	data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
+    data[0]+=sX; data[1]+=sX; data[2]+=sX;
+    data[3]+=sY; data[4]+=sY; data[5]+=sY;
+    data[6]+=sZ; data[7]+=sZ; data[8]+=sZ;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Vector3<real> Matrix3<real>::getScale() const
 {
-	Vector3<real> x(data[0], data[1], data[2]);
-	Vector3<real> y(data[3], data[4], data[5]);
-	Vector3<real> z(data[6], data[7], data[8]);
+    Vector3<real> x(data[0], data[1], data[2]);
+    Vector3<real> y(data[3], data[4], data[5]);
+    Vector3<real> z(data[6], data[7], data[8]);
 
-	return Vector3<real>(x.length(), y.length(), z.length());
+    return Vector3<real>(x.length(), y.length(), z.length());
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::fromQuaternion(const Quaternion<real>& rotationQuat)
 {
-	*this = rotationQuat.toMatrix4();
+    *this = rotationQuat.toMatrix4();
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 Quaternion<real> Matrix3<real>::toQuaternion() const
 {
-	Quaternion<real> quat;
-	quat.fromMatrix3( (*this) );
-	return quat;
+    Quaternion<real> quat;
+    quat.fromMatrix3( (*this) );
+    return quat;
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
 void Matrix3<real>::toQuaternion(Quaternion<real> &outQuaternion) const
 {
-	outQuaternion.fromMatrix3( (*this) );
+    outQuaternion.fromMatrix3( (*this) );
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
@@ -699,196 +699,196 @@ void Matrix3<real>::toEuler(Euler<real>& euler, RotationOrder order) const
     switch (order)
     {
     case XYZ :
-		if (data[6] < (real)1)
-		{
-			if (data[6] > -(real)1)
-			{
-				// y_angle = asin(r02)
-				// x_angle = atan2(-r12,r22)
-				// z_angle = atan2(-r01,r00)
-				euler.y = (real)asin((double)data[6]);
-				euler.x = atan2(-data[7], data[8]);
-				euler.z = atan2(-data[3], data[0]);
-			}
-			else
-			{
-				// y_angle = -pi/2
-				// z_angle - x_angle = atan2(r10,r11)
-				// WARNING.  The solution is not unique.  Choosing z_angle = 0.
-				euler.y = -Math<real>::HALFPI;
-				euler.x = -atan2(data[1], data[4]);
-				euler.z = (real)0;
-			}
-		}
-		else
-		{
-			// y_angle = +pi/2
-			// z_angle + x_angle = atan2(r10,r11)
-			// WARNING.  The solutions is not unique.  Choosing z_angle = 0.
-			euler.y = Math<real>::HALFPI;
-			euler.x = atan2(data[1], data[4]);
-			euler.z = (real)0;
-		}
+        if (data[6] < (real)1)
+        {
+            if (data[6] > -(real)1)
+            {
+                // y_angle = asin(r02)
+                // x_angle = atan2(-r12,r22)
+                // z_angle = atan2(-r01,r00)
+                euler.y = (real)asin((double)data[6]);
+                euler.x = atan2(-data[7], data[8]);
+                euler.z = atan2(-data[3], data[0]);
+            }
+            else
+            {
+                // y_angle = -pi/2
+                // z_angle - x_angle = atan2(r10,r11)
+                // WARNING.  The solution is not unique.  Choosing z_angle = 0.
+                euler.y = -Math<real>::HALFPI;
+                euler.x = -atan2(data[1], data[4]);
+                euler.z = (real)0;
+            }
+        }
+        else
+        {
+            // y_angle = +pi/2
+            // z_angle + x_angle = atan2(r10,r11)
+            // WARNING.  The solutions is not unique.  Choosing z_angle = 0.
+            euler.y = Math<real>::HALFPI;
+            euler.x = atan2(data[1], data[4]);
+            euler.z = (real)0;
+        }
 
     case XZY :
         if (data[3] < (real)1)
-		{
-			if (data[3] > -(real)1)
-			{
-				// z_angle = asin(-r01)
-				// x_angle = atan2(r21,r11)
-				// y_angle = atan2(r02,r00)
-				euler.z = (real)asin(-(double)data[3]);
-				euler.x = atan2(data[5], data[4]);
-				euler.y = atan2(data[6], data[0]);
-			}
-			else
-			{
-				// z_angle = +pi/2
-				// y_angle - x_angle = atan2(-r20,r22)
-				// WARNING.  The solution is not unique.  Choosing y_angle = 0.
-				euler.z = Math<real>::HALFPI;
-				euler.x = -atan2(-data[2], data[8]);
-				euler.y = (real)0;
-			}
-		}
-		else
-		{
-			// z_angle = -pi/2
-			// y_angle + x_angle = atan2(-r20,r22)
-			// WARNING.  The solution is not unique.  Choosing y_angle = 0.
-			euler.z = -Math<real>::HALFPI;
-			euler.x = atan2(-data[2], data[8]);
-			euler.y = (real)0;
-		}
+        {
+            if (data[3] > -(real)1)
+            {
+                // z_angle = asin(-r01)
+                // x_angle = atan2(r21,r11)
+                // y_angle = atan2(r02,r00)
+                euler.z = (real)asin(-(double)data[3]);
+                euler.x = atan2(data[5], data[4]);
+                euler.y = atan2(data[6], data[0]);
+            }
+            else
+            {
+                // z_angle = +pi/2
+                // y_angle - x_angle = atan2(-r20,r22)
+                // WARNING.  The solution is not unique.  Choosing y_angle = 0.
+                euler.z = Math<real>::HALFPI;
+                euler.x = -atan2(-data[2], data[8]);
+                euler.y = (real)0;
+            }
+        }
+        else
+        {
+            // z_angle = -pi/2
+            // y_angle + x_angle = atan2(-r20,r22)
+            // WARNING.  The solution is not unique.  Choosing y_angle = 0.
+            euler.z = -Math<real>::HALFPI;
+            euler.x = atan2(-data[2], data[8]);
+            euler.y = (real)0;
+        }
 
     case YXZ :
         if (data[7] < (real)1)
-		{
-			if (data[7] > -(real)1)
-			{
-				// x_angle = asin(-r12)
-				// y_angle = atan2(r02,r22)
-				// z_angle = atan2(r10,r11)
-				euler.x = (real)asin(-(double)data[7]);
-				euler.y = atan2(data[2], data[8]);
-				euler.z = atan2(data[1], data[4]);
-			}
-			else
-			{
-				// x_angle = +pi/2
-				// z_angle - y_angle = atan2(-r01,r00)
-				// WARNING.  The solution is not unique.  Choosing z_angle = 0.
-				euler.x = Math<real>::HALFPI;
-				euler.y = -atan2(-data[3], data[0]);
-				euler.z = (real)0;
-			}
-		}
-		else
-		{
-			// x_angle = -pi/2
-			// z_angle + y_angle = atan2(-r01,r00)
-			// WARNING.  The solution is not unique.  Choosing z_angle = 0.
-			euler.x = -Math<real>::HALFPI;
-			euler.y = atan2(-data[3], data[0]);
-			euler.z = (real)0;
-		}
+        {
+            if (data[7] > -(real)1)
+            {
+                // x_angle = asin(-r12)
+                // y_angle = atan2(r02,r22)
+                // z_angle = atan2(r10,r11)
+                euler.x = (real)asin(-(double)data[7]);
+                euler.y = atan2(data[2], data[8]);
+                euler.z = atan2(data[1], data[4]);
+            }
+            else
+            {
+                // x_angle = +pi/2
+                // z_angle - y_angle = atan2(-r01,r00)
+                // WARNING.  The solution is not unique.  Choosing z_angle = 0.
+                euler.x = Math<real>::HALFPI;
+                euler.y = -atan2(-data[3], data[0]);
+                euler.z = (real)0;
+            }
+        }
+        else
+        {
+            // x_angle = -pi/2
+            // z_angle + y_angle = atan2(-r01,r00)
+            // WARNING.  The solution is not unique.  Choosing z_angle = 0.
+            euler.x = -Math<real>::HALFPI;
+            euler.y = atan2(-data[3], data[0]);
+            euler.z = (real)0;
+        }
 
     case YZX :
         if (data[1] < (real)1)
-		{
-			if (data[1] > -(real)1)
-			{
-				// z_angle = asin(r10)
-				// y_angle = atan2(-r20,r00)
-				// x_angle = atan2(-r12,r11)
-				euler.z = (real)asin((double)data[1]);
-				euler.y = atan2(-data[2], data[0]);
-				euler.x = atan2(-data[7], data[4]);
-			}
-			else
-			{
-				// z_angle = -pi/2
-				// x_angle - y_angle = atan2(r21,r22)
-				// WARNING.  The solution is not unique.  Choosing x_angle = 0.
-				euler.z = -Math<real>::HALFPI;
-				euler.y = -atan2(data[5], data[8]);
-				euler.x = (real)0;
-			}
-		}
-		else
-		{
-			// z_angle = +pi/2
-			// x_angle + y_angle = atan2(r21,r22)
-			// WARNING.  The solution is not unique.  Choosing x_angle = 0.
-			euler.z = Math<real>::HALFPI;
-			euler.y = atan2(data[5], data[8]);
-			euler.x = (real)0;
-		}
+        {
+            if (data[1] > -(real)1)
+            {
+                // z_angle = asin(r10)
+                // y_angle = atan2(-r20,r00)
+                // x_angle = atan2(-r12,r11)
+                euler.z = (real)asin((double)data[1]);
+                euler.y = atan2(-data[2], data[0]);
+                euler.x = atan2(-data[7], data[4]);
+            }
+            else
+            {
+                // z_angle = -pi/2
+                // x_angle - y_angle = atan2(r21,r22)
+                // WARNING.  The solution is not unique.  Choosing x_angle = 0.
+                euler.z = -Math<real>::HALFPI;
+                euler.y = -atan2(data[5], data[8]);
+                euler.x = (real)0;
+            }
+        }
+        else
+        {
+            // z_angle = +pi/2
+            // x_angle + y_angle = atan2(r21,r22)
+            // WARNING.  The solution is not unique.  Choosing x_angle = 0.
+            euler.z = Math<real>::HALFPI;
+            euler.y = atan2(data[5], data[8]);
+            euler.x = (real)0;
+        }
 
     case ZXY :
         if (data[5] < (real)1)
-		{
-			if (data[5] > -(real)1)
-			{
-				// x_angle = asin(r21)
-				// z_angle = atan2(-r01,r11)
-				// y_angle = atan2(-r20,r22)
-				euler.x = (real)asin((double)data[5]);
-				euler.z = atan2(-data[3], data[4]);
-				euler.y = atan2(-data[2], data[8]);
-			}
-			else
-			{
-				// x_angle = -pi/2
-				// y_angle - z_angle = atan2(r02,r00)
-				// WARNING.  The solution is not unique.  Choosing y_angle = 0.
-				euler.x = -Math<real>::HALFPI;
-				euler.z = -atan2(data[6], data[0]);
-				euler.y = (real)0;
-			}
-		}
-		else
-		{
-			// x_angle = +pi/2
-			// y_angle + z_angle = atan2(r02,r00)
-			// WARNING.  The solution is not unique.  Choosing y_angle = 0.
-			euler.x = Math<real>::HALFPI;
-			euler.z = atan2(data[6], data[0]);
-			euler.y = (real)0;
-		}
+        {
+            if (data[5] > -(real)1)
+            {
+                // x_angle = asin(r21)
+                // z_angle = atan2(-r01,r11)
+                // y_angle = atan2(-r20,r22)
+                euler.x = (real)asin((double)data[5]);
+                euler.z = atan2(-data[3], data[4]);
+                euler.y = atan2(-data[2], data[8]);
+            }
+            else
+            {
+                // x_angle = -pi/2
+                // y_angle - z_angle = atan2(r02,r00)
+                // WARNING.  The solution is not unique.  Choosing y_angle = 0.
+                euler.x = -Math<real>::HALFPI;
+                euler.z = -atan2(data[6], data[0]);
+                euler.y = (real)0;
+            }
+        }
+        else
+        {
+            // x_angle = +pi/2
+            // y_angle + z_angle = atan2(r02,r00)
+            // WARNING.  The solution is not unique.  Choosing y_angle = 0.
+            euler.x = Math<real>::HALFPI;
+            euler.z = atan2(data[6], data[0]);
+            euler.y = (real)0;
+        }
 
     case ZYX :
         if (data[2] < (real)1)
-		{
-			if (data[2] > -(real)1)
-			{
-				// y_angle = asin(-r20)
-				// z_angle = atan2(r10,r00)
-				// x_angle = atan2(r21,r22)
-				euler.y = (real)asin(-(double)data[2]);
-				euler.z = atan2(data[1], data[0]);
-				euler.x = atan2(data[5], data[8]);
-			}
-			else
-			{
-				// y_angle = +pi/2
-				// x_angle - z_angle = atan2(r01,r02)
-				// WARNING.  The solution is not unique.  Choosing x_angle = 0.
-				euler.y = Math<real>::HALFPI;
-				euler.z = -atan2(data[3], data[6]);
-				euler.x = (real)0;
-			}
-		}
-		else
-		{
-			// y_angle = -pi/2
-			// x_angle + z_angle = atan2(-r01,-r02)
-			// WARNING.  The solution is not unique.  Choosing x_angle = 0;
-			euler.y = -Math<real>::HALFPI;
-			euler.z = atan2(-data[3], -data[6]);
-			euler.x = (real)0;
-		}
+        {
+            if (data[2] > -(real)1)
+            {
+                // y_angle = asin(-r20)
+                // z_angle = atan2(r10,r00)
+                // x_angle = atan2(r21,r22)
+                euler.y = (real)asin(-(double)data[2]);
+                euler.z = atan2(data[1], data[0]);
+                euler.x = atan2(data[5], data[8]);
+            }
+            else
+            {
+                // y_angle = +pi/2
+                // x_angle - z_angle = atan2(r01,r02)
+                // WARNING.  The solution is not unique.  Choosing x_angle = 0.
+                euler.y = Math<real>::HALFPI;
+                euler.z = -atan2(data[3], data[6]);
+                euler.x = (real)0;
+            }
+        }
+        else
+        {
+            // y_angle = -pi/2
+            // x_angle + z_angle = atan2(-r01,-r02)
+            // WARNING.  The solution is not unique.  Choosing x_angle = 0;
+            euler.y = -Math<real>::HALFPI;
+            euler.z = atan2(-data[3], -data[6]);
+            euler.x = (real)0;
+        }
     }
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
@@ -974,79 +974,80 @@ void Matrix3<real>::lookAt(const Vector3<real> &pointAt, const Vector3<real> &no
 {
     Vector3<real> primary, secondary, terziary;
     
-	primary = pointAt;
+    primary = pointAt;
     secondary = normal;
-	primary.normalizeInPlace();
-	secondary.normalizeInPlace();
+    primary.normalizeInPlace();
+    secondary.normalizeInPlace();
 
-	/*
+    /*
     real f = fabs( primary.dot(secondary) );
     if (f > 1.0-Math<real>::EPSILON)
         throw GMathError("gmath::Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them.");
-	*/
+    */
     
-	terziary = primary.crossNormalize(secondary);
-    secondary = terziary.crossNormalize(primary);
+    terziary = secondary.crossNormalize(primary);
+    secondary = primary.crossNormalize(terziary);
 
-	if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
-	{
+
+    if ( ((int)primaryAxis<0) && ((int)secondaryAxis>0) ) 
+    {
         primary  *= (real)-1.0;
-		terziary *= (real)-1.0;
+        terziary *= (real)-1.0;
     }
     else if ( ((int)primaryAxis>0) && ((int)secondaryAxis<0) ) 
-	{
+    {
         secondary *= (real)-1.0;
-		terziary  *= (real)-1.0;
+        terziary  *= (real)-1.0;
     }
-	else if ( ((int)primaryAxis<0) && ((int)secondaryAxis<0) )
-	{
-		primary   *= (real)-1.0;
-		secondary *= (real)-1.0;
-	} 
+    else if ( ((int)primaryAxis<0) && ((int)secondaryAxis<0) )
+    {
+        primary   *= (real)-1.0;
+        secondary *= (real)-1.0;
+    } 
 
     if (primaryAxis == POSX || primaryAxis == NEGX)
     {
         if (secondaryAxis == POSY || secondaryAxis == NEGY)
         {
-			this->setAxisX(primary);
-			this->setAxisY(secondary);
-			this->setAxisZ(terziary);
+            this->setAxisX(primary);
+            this->setAxisY(secondary);
+            this->setAxisZ(-terziary);
         }
         else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
         {
             this->setAxisX(primary);
-			this->setAxisY(terziary);
-			this->setAxisZ(secondary);
+            this->setAxisY(terziary);
+            this->setAxisZ(secondary);
         }
     }
     else if (primaryAxis == POSY || primaryAxis == NEGY)
     {
-        if (secondaryAxis == POSX || primaryAxis == NEGX)
+        if (secondaryAxis == POSX || secondaryAxis == NEGX)
         {
             this->setAxisX(secondary);
-			this->setAxisY(primary);
-			this->setAxisZ(terziary);
+            this->setAxisY(primary);
+            this->setAxisZ(terziary);
         }
-        else if (secondaryAxis == POSZ || secondaryAxis == NEGX)
+        else if (secondaryAxis == POSZ || secondaryAxis == NEGZ)
         {
-            this->setAxisX(terziary);
-			this->setAxisY(primary);
-			this->setAxisZ(secondary);
+            this->setAxisX(-terziary);
+            this->setAxisY(primary);
+            this->setAxisZ(secondary);
         }
     }
     else if (primaryAxis == POSZ || primaryAxis == NEGZ)
     {
         if (secondaryAxis == POSX || secondaryAxis == NEGX)
         {
-            this->setAxisX(terziary);
-			this->setAxisY(secondary);
-			this->setAxisZ(primary);
+            this->setAxisX(secondary);
+            this->setAxisY(-terziary);
+            this->setAxisZ(primary);
         }
         else if (secondaryAxis == POSY || secondaryAxis == NEGY)
         {
             this->setAxisX(terziary);
-			this->setAxisY(secondary);
-			this->setAxisZ(primary);
+            this->setAxisY(secondary);
+            this->setAxisZ(primary);
         }
     }
 }
