@@ -25,20 +25,22 @@ import os, sys
 # import the environmet. This is a little SCons magic... mmm...
 Import('env')
 
-#-------------------------------------------------------------------------------------------------------------------
-# Some windows extra configurations
-#-------------------------------------------------------------------------------------------------------------------
-if sys.platform == "win32":
-    env.Append(CCFLAGS=['/EHsc', '/Zl', '/MD'])
-    env.Append(no_import_lib=1)
 
 #-------------------------------------------------------------------------------------------------------------------
 # Build the specified library
 #-------------------------------------------------------------------------------------------------------------------
 if env['library']=='static' :
+    if sys.platform == "win32":
+        env.Append(CCFLAGS=['/EHsc', '/Zl', '/MD'])
+        env.Append(no_import_lib=1)
+
     lib = env.Library('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 
 elif env['library']=='shared' :
+    if sys.platform == "win32":
+        env.Append(CCFLAGS=['/EHsc', '/MD'])
+        env.Append(no_import_lib=1)
+
 	lib = env.SharedLibrary('gmath', Glob("source/*.cpp"), CPPPATH=['include'])
 
 #-------------------------------------------------------------------------------------------------------------------
