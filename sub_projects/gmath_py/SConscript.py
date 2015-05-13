@@ -22,63 +22,67 @@
 
 
 import sys, os
+
 try:
     import config
 except:
     error = """ config.py file not found. 
-    Please, copy 'config_example' to config.py (create if necessary) and change it to accomodate your system.
+    Please, copy 'sub_projects/gmath_py/config_example' to 'sub_projects/gmath_py/config.py' (create if necessary) and change it to accomodate your system.
     The mandatory attributes are:
      * python_include_path
      * python_lib_path
      * python_lib
      * boost_include_path
      * boost_lib_path
-     * boost_python_lib """
+     * boost_python_lib 
+    Optional attributes are:
+     * library_name
+    """
     raise EnvironmentError(error)
 
 Import('env')
 
-if env.has_key('install'):
-    install_path = env['install']
+if hasattr(config, "library_name"):
+  library_name = config.library_name
 else:
-    from distutils.sysconfig import get_python_lib
-    print(get_python_lib())
-    print 'Guessing install path: '+get_python_lib()
-    install_path = get_python_lib()
+  library_name = "gmath"
 
 if sys.platform == "win32":
-    env.Append(CCFLAGS=['/EHsc', '/Zl', '/MD'])
+    module_name = '/DGMATH_PY_MODULE_NAME=%s' %library_name
+    env.Append(CCFLAGS=['/EHsc', '/Zl', '/MD', module_name])
     env.Append(no_import_lib=1)
     shlib_suffix='.pyd'
 if sys.platform == "darwin":
     print 'it\'s a mac'
+    env.Append(CCFLAGS=["-D%s" %library_name])
     shlib_suffix='.so'
 if sys.platform == "linux2":
+    env.Append(CCFLAGS=["-D%s" %library_name])
     shlib_suffix='.so'
+
 
 env.Append(CXXFLAGS = '-DBOOST_PYTHON_STATIC_LIB -DBOOST_PYTHON_MAX_ARITY=17')
                   
 env.Append(CPPPATH=['include',
-                    '../../include',
+                    '#include',
                     config.python_include_path,
                     config.boost_include_path] )
 
 
 env.Append(LIBPATH = [config.python_lib_path,
                       config.boost_lib_path,
-                      '../../bin'])
+                      '#bin'])
 
 
 python_binding = env.SharedLibrary(
-    target='gmath',
-    source=Glob('source/*.cpp'),
+    target=library_name,
+    source=Glob('#source/*.cpp')+Glob('source/*.cpp'),
     CPPDEFINES='BUILD_BINDINGS',
-    LIBS=['gmath',
-          config.boost_python_lib,
+    LIBS=[config.boost_python_lib,
           config.python_lib],
     SHLIBPREFIX='',
     SHLIBSUFFIX=shlib_suffix
     )
 
-env.Install(install_path, python_binding)
+env.Install(env['install'], python_binding)
 

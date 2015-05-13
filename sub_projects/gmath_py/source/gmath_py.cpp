@@ -32,7 +32,11 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #include "pygmQuaternion.h"
 
 
-BOOST_PYTHON_MODULE(gmath)
+#ifndef GMATH_PY_MODULE_NAME
+  #define GMATH_PY_MODULE_NAME gmath
+#endif  
+
+BOOST_PYTHON_MODULE(GMATH_PY_MODULE_NAME)
 {
     wrapRoot();
     wrapMath();

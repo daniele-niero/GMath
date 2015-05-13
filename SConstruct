@@ -21,7 +21,7 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 import os, sys
-# import SConsOutputColors as output_colors
+import SConsOutputColors as output_colors
 
 #-------------------------------------------------------------------------------------------------------------------
 # preparing the SCons Environment
@@ -33,11 +33,11 @@ scons_vars.AddVariables(
     BoolVariable('docs', 'Set to "yes" or "t" to build documentation with Doxygen.', 0),
     PathVariable('install', 'Set where to install the library', os.path.abspath(os.path.join('.', 'bin')), PathVariable.PathAccept) )
 
-env = Environment(variables = scons_vars)
+env = Environment(variables = scons_vars, MSVC_VERSION = "10.0")
 # generates the help
 Help(scons_vars.GenerateHelpText(env))
 # customizes output
-# output_colors.append_to_environment(env)
+output_colors.append_to_environment(env)
 
 #-------------------------------------------------------------------------------------------------------------------
 # Set up the Release or Debug 
@@ -48,29 +48,38 @@ elif env['build']=='debug':
     env.Append(CCFLAGS = '-g')
     env.Append(CCFLAGS = '-DDEBUG')
 
+env["gmathInclude"] = os.path.abspath(os.path.join('.', 'include'))
+env["gmathSource"]  = os.path.abspath(os.path.join('.', 'source'))
+
 #-------------------------------------------------------------------------------------------------------------------
 # Deciding wich Sconscipt to use.
 # if we are building a static or shared library, then we will use the Sconscript for build GMath C++
 # if we are building the python wrapper than we will use the Sconscript in  ./sub_projects/gmath_py
 #-------------------------------------------------------------------------------------------------------------------
-script = None
+
+cppScript = 'SConscript.py'
+# prepare a suitable build path
+env['build_path'] = os.path.join('./build', sys.platform, env['build'], env['library'])
+
+
+sys.path.append(os.path.abspath('./sub_projects/gmath_py'))
+pyScript = './sub_projects/gmath_py/SConscript.py'
+# prepare a suitable build path
+
 
 if env['library'] == 'static' or env['library'] == 'shared':
-    script = 'SConscript.py'
-    # prepare a suitable build path
-    env['build_path'] = os.path.join('./build', sys.platform, env['build'], env['library'])
+    SConscript(
+        cppScript, 'env', 
+        variant_dir=env['build_path'], 
+        duplicate=0)
+
 elif env['library'] == 'python':
-    sys.path.append(os.path.abspath('./sub_projects/gmath_py'))
-    script = './sub_projects/gmath_py/SConscript.py'
-    # prepare a suitable build path
     python_ver = '%i.%i' %(sys.version_info.major, sys.version_info.minor)
-    env['build_path'] = os.path.join('./build', sys.platform, 'python'+python_ver)
-
-
-SConscript(
-    script, 'env') 
-    # variant_dir=env['build_path'], 
-    # duplicate=0)
+    env['build_path'] = os.path.join(env['build_path'], 'python'+python_ver)
+    SConscript(
+        pyScript, 'env', 
+        variant_dir=env['build_path'], 
+        duplicate=0)
 
 #-------------------------------------------------------------------------------------------------------------------
 # End finally, if the the user decided to build the doc, just fire the doxygen command

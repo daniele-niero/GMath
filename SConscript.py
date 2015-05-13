@@ -25,6 +25,7 @@ import os, sys
 # import the environmet. This is a little SCons magic... mmm...
 Import('env')
 
+print env["build_path"]
 
 #-------------------------------------------------------------------------------------------------------------------
 # Build the specified library
