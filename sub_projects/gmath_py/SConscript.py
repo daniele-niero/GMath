@@ -54,10 +54,10 @@ if sys.platform == "win32":
     shlib_suffix='.pyd'
 if sys.platform == "darwin":
     print 'it\'s a mac'
-    env.Append(CCFLAGS=["-DGMATH_PY_MODULE_NAME%s" %library_name])
+    env.Append(CCFLAGS=["-DGMATH_PY_MODULE_NAME=%s" %library_name])
     shlib_suffix='.so'
 if sys.platform == "linux2":
-    env.Append(CCFLAGS=["-DGMATH_PY_MODULE_NAME%s" %library_name])
+    env.Append(CCFLAGS=["-DGMATH_PY_MODULE_NAME=%s" %library_name])
     shlib_suffix='.so'
 
 
