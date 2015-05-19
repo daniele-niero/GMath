@@ -409,7 +409,7 @@ Matrix3<real> Quaternion<real>::toMatrix3() const
 template <typename real>
 void Quaternion<real>::fromMatrix4(const Matrix4<real> &mat)
 {
-    this->fromMatrix<Matrix4<real>>(mat);
+    this->fromMatrix<Matrix4<real> >(mat);
 }
 /*-----------------------------------------------------------------------------------------------------------------*/
 template <typename real>
