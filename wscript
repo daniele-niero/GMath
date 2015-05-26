@@ -60,7 +60,7 @@ def build(ctx):
         library_name = "_win_gmath"
 
         source_files += ctx.path.find_node("sub_projects/gmath_py/source").ant_glob("*.cpp")
-        include_path += ['./sub_projects/gmath_py/include', python_include_path, boost_include_path]
+        include_path += ['.gmath_py/include', python_include_path, boost_include_path]
         pygmath = ctx.shlib(
             target      = library_name, 
             source      = source_files,
