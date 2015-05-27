@@ -1,0 +1,47 @@
+import sys
+try:
+    import config
+except:
+    error = """ config.py file not found. 
+    Please, copy 'sub_projects/gmath_py/config_example' to 'sub_projects/gmath_py/config.py' (create if necessary) and change it to accomodate your system.
+    The mandatory attributes are:
+     * python_include_path
+     * python_lib_path
+     * python_lib
+     * boost_include_path
+     * boost_lib_path
+     * boost_python_lib 
+    Optional attributes are:
+     * library_name
+    """
+    raise EnvironmentError(error)
+
+
+def get_library_name():
+    if hasattr(config, "library_name"):
+        library_name = config.library_name
+    else:
+        library_name = "gmath"
+    return library_name
+
+
+def build(ctx):
+    print("Python library can be only build as release and shared")
+
+    library_name = get_library_name()
+
+    ctx.env.source += ctx.path.find_node("source").ant_glob("*.cpp")
+    ctx.env.INCLUDES += ['../include', config.python_include_path, config.boost_include_path]
+    ctx.env.DEFINES += ['RELEASE', 'GMATH_PY_MODULE_NAME=%s' %library_name, 'BOOST_PYTHON_STATIC_LIB', 'BOOST_PYTHON_MAX_ARITY=17']
+
+
+    if sys.platform == "win32":
+        ctx.env.cxxshlib_PATTERN = "%s.pyd"
+        ctx.shlib(
+            target      = library_name, 
+            source      = ctx.env.source,
+            libpath     = [config.python_lib_path, config.boost_lib_path],
+            lib         = [config.python_lib, config.boost_python_lib],
+            cxxflags    = ['-EHsc', '-Zl', '-MD'],
+            install_path=ctx.env.install_path
+            )
