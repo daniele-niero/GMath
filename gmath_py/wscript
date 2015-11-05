@@ -1,47 +1,58 @@
-import sys
-try:
-    import config
-except:
-    error = """ config.py file not found. 
-    Please, copy 'sub_projects/gmath_py/config_example' to 'sub_projects/gmath_py/config.py' (create if necessary) and change it to accomodate your system.
-    The mandatory attributes are:
-     * python_include_path
-     * python_lib_path
-     * python_lib
-     * boost_include_path
-     * boost_lib_path
-     * boost_python_lib 
-    Optional attributes are:
-     * library_name
-    """
-    raise EnvironmentError(error)
+APPNAME = '_gmath.py'
+VERSION = '2.0'
+
+top = '.'
+out = 'build'
 
 
-def get_library_name():
-    if hasattr(config, "library_name"):
-        library_name = config.library_name
-    else:
-        library_name = "gmath"
-    return library_name
+def options(ctx):
+    ctx.load('swig')
+    ctx.load('compiler_cxx')
+    ctx.load('maya')
 
+def configure(ctx):
+    ctx.load('swig')
+    ctx.load('compiler_cxx')
+    ctx.load('maya')
+
+# def get_library_name():
+#     if hasattr(config, "library_name"):
+#         library_name = config.library_name
+#     else:
+#         library_name = "gmath"
+#     return library_name
+
+import time
+from waflib import Task, Logs
+class swig(Task.Task):
+    color   = 'PINK'
+    run_str = '${SWIG} ${SWIGFLAGS} ${SWIGPATH_ST:INCPATHS} ${SWIGDEF_ST:DEFINES} ${SRC}'
+
+    def scan(self):
+        # Logs.info('-> calling the scanner method')
+        bld = self.generator.bld
+        swigifies = []
+        for input in self.inputs:
+            Logs.info("SUKA " + str(input))
+            swigifies.append(bld.path.find_node(str(input).replace('.i', '_wrap.c')))
+        #     print input.read()
+        # Logs.info(swigifies)
+        return (swigifies, time.time())
+
+    def runnable_status(self):
+        ret = super(swig, self).runnable_status()
+        bld = self.generator.bld
+        print self.uid()
+        print('nodes:       %r' % bld.node_deps[self.uid()])
+        print('custom data: %r' % bld.raw_deps[self.uid()])
+        return ret
 
 def build(ctx):
-    print("Python library can be only build as release and shared")
+    tg = swig(env=ctx.env)
+    tg.set_inputs(ctx.path.ant_glob("*.i"))
+    ctx.add_to_group(tg)
 
-    library_name = get_library_name()
+    print tg.scan()
 
-    ctx.env.source += ctx.path.find_node("source").ant_glob("*.cpp")
-    ctx.env.INCLUDES += ['../include', config.python_include_path, config.boost_include_path]
-    ctx.env.DEFINES += ['RELEASE', 'GMATH_PY_MODULE_NAME=%s' %library_name, 'BOOST_PYTHON_STATIC_LIB', 'BOOST_PYTHON_MAX_ARITY=17']
-
-
-    if sys.platform == "win32":
-        ctx.env.cxxshlib_PATTERN = "%s.pyd"
-        ctx.shlib(
-            target      = library_name, 
-            source      = ctx.env.source,
-            libpath     = [config.python_lib_path, config.boost_lib_path],
-            lib         = [config.python_lib, config.boost_python_lib],
-            cxxflags    = ['-EHsc', '-Zl', '-MD'],
-            install_path=ctx.env.install_path
-            )
+    # help(tg)
+    

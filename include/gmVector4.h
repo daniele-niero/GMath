@@ -26,53 +26,51 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #include <string>
 #include <stdexcept>
 #include <math.h>
-#include "gmMath.h"
+#include "gmRoot.h"
 
 using namespace std;
 
 namespace gmath
 {
-
-	template<typename real>
 	class Vector4
 	{
 	public:
 		/*------ constructors ------*/
 		Vector4();
-		Vector4(real inX, real inY, real inZ, real inW);
-		Vector4(const Vector4<real> & other);
-		Vector4(const real* list);
+		Vector4(double inX, double inY, double inZ, double inW);
+		Vector4(const Vector4 & other);
+		Vector4(const double* list);
 
 		/*------ properties ------*/
-		real x, y, z, w;
+		double x, y, z, w;
 
 		/*------ coordinate access ------*/
-		real operator[] (int i) const;
-		real& operator[] (int i);
+		double operator[] (int i) const;
+		double& operator[] (int i);
 
 		/** Pointer access for direct copying. */
-		real* ptr();
-		const real* ptr() const;
+		double* data();
+		const double* data() const;
 
 		/*------ Arithmetic operations ------*/
-		Vector4<real> operator + (const Vector4<real> & other) const;
-		Vector4<real> operator - (const Vector4<real> & other) const;
-		Vector4<real> operator - () const;
-		Vector4<real> operator * (real scalar) const;
-		Vector4<real> operator / (real scalar) const;
+		Vector4 operator + (const Vector4 & other) const;
+		Vector4 operator - (const Vector4 & other) const;
+		Vector4 operator - () const;
+		Vector4 operator * (double scalar) const;
+		Vector4 operator / (double scalar) const;
 
 		/*------ Arithmetic updates ------*/
-		void operator += (const Vector4<real> & other);
-		void operator -= (const Vector4<real> & other);
-		void operator *= (real scalar);
-		void operator /= (real scalar);
+		void operator += (const Vector4 & other);
+		void operator -= (const Vector4 & other);
+		void operator *= (double scalar);
+		void operator /= (double scalar);
 
 		/*------ Arithmetic comparisons ------*/
-		bool operator == (const Vector4<real> & other) const;
-		bool operator != (const Vector4<real> & other) const;
+		bool operator == (const Vector4 & other) const;
+		bool operator != (const Vector4 & other) const;
 
 		/*------ Arithmetic assignment ------*/
-		void operator = (const Vector4<real> & other);
+		void operator = (const Vector4 & other);
 
 		/*------ methods ------*/
 
@@ -81,25 +79,20 @@ namespace gmath
 			@param inY The wanted value for y
 			@param inZ The wanted value for z
 			@param inW The wanted value for w */
-		void set(real inX, real inY, real inZ, real inW);
+		void set(double inX, double inY, double inZ, double inW);
 
 		/** Perform the dot product between this vector and the given vector */
-		real dot(const Vector4<real> & other) const;
+		double dot(const Vector4 & other) const;
 
 		/** Calculate the length of this vector */
-		real length() const;
-		real squaredLength() const;
+		double length() const;
+		double squaredLength() const;
 
-		Vector4<real> normalize() const;
+		Vector4 normalize() const;
 		void normalizeInPlace();
 
 		std::string toString() const;
 	};
-
-	#include "gmVector4.hpp"
-
-	typedef Vector4<float> Vector4f;
-	typedef Vector4<double> Vector4d;
 }
 
 #endif // GMVECTOR4_H
