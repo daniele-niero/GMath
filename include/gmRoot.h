@@ -24,6 +24,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #ifndef GMROOT_H
 #define GMROOT_H
 
+#include <float.h>
 #include <math.h>
 #include <sstream>
 #include <exception>

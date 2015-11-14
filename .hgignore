@@ -24,5 +24,5 @@ bin/
 *.exp
 .p4ignore
 config.py
-waf-*
+.waf-*
 .lock-waf_*

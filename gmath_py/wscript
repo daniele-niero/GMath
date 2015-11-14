@@ -1,3 +1,7 @@
+import os, sys
+
+from waflib import Logs
+
 APPNAME = '_gmath.py'
 VERSION = '2.0'
 
@@ -6,53 +10,40 @@ out = 'build'
 
 
 def options(ctx):
-    ctx.load('swig')
     ctx.load('compiler_cxx')
-    ctx.load('maya')
+    gr=ctx.add_option_group("Maya Configuration options")
+    gr.add_option("--with-maya", 
+                   default=False,  
+                   help='Set if you want to build gmath for Maya and link it against mayapy (Maya\'s python). ' 
+                        'If false, the following options will not be taken in consideration. '
+                        'Also note that choosing Maya, the python options will be overridden to link against mayapy. '
+                        '[default: %default]')
+    ctx.load('maya', tooldir=r'../wafTools')
+    ctx.load('python', tooldir=r'../wafTools')
 
 def configure(ctx):
-    ctx.load('swig')
     ctx.load('compiler_cxx')
-    ctx.load('maya')
-
-# def get_library_name():
-#     if hasattr(config, "library_name"):
-#         library_name = config.library_name
-#     else:
-#         library_name = "gmath"
-#     return library_name
-
-import time
-from waflib import Task, Logs
-class swig(Task.Task):
-    color   = 'PINK'
-    run_str = '${SWIG} ${SWIGFLAGS} ${SWIGPATH_ST:INCPATHS} ${SWIGDEF_ST:DEFINES} ${SRC}'
-
-    def scan(self):
-        # Logs.info('-> calling the scanner method')
-        bld = self.generator.bld
-        swigifies = []
-        for input in self.inputs:
-            Logs.info("SUKA " + str(input))
-            swigifies.append(bld.path.find_node(str(input).replace('.i', '_wrap.c')))
-        #     print input.read()
-        # Logs.info(swigifies)
-        return (swigifies, time.time())
-
-    def runnable_status(self):
-        ret = super(swig, self).runnable_status()
-        bld = self.generator.bld
-        print self.uid()
-        print('nodes:       %r' % bld.node_deps[self.uid()])
-        print('custom data: %r' % bld.raw_deps[self.uid()])
-        return ret
+    if ctx.options.with_maya:
+        ctx.load('maya', tooldir=r'../wafTools')
+    else:
+        ctx.load('python', tooldir=r'../wafTools')
+    if sys.platform=="win32":
+        ctx.env.cxxshlib_PATTERN = '%s.pyd'
+    elif sys.platform=='darwin':
+        ctx.env.cxxshlib_PATTERN = '%s.so'
+        
 
 def build(ctx):
-    tg = swig(env=ctx.env)
-    tg.set_inputs(ctx.path.ant_glob("*.i"))
-    ctx.add_to_group(tg)
+    swig_build = ctx(rule='swig -c++ -python -modern -DMAYA -I../../include -outdir . -outcurrentdir ${SRC}', source='gmRoot.i', name='swig')
 
-    print tg.scan()
+    ctx.shlib(
+        source = ctx.path.find_node("../source").ant_glob("*.cpp")+ctx.path.find_node("./build").ant_glob("*.cxx"), 
+        target = '_gmath',
 
-    # help(tg)
-    
+        includes = ["../include", ctx.env['MAYA_PYTHON_INCLUDE']],
+
+        lib = 'python2.7',
+        libpath = ctx.env['MAYA_PYTHON_LIB'],
+
+        use='swig'
+        )
