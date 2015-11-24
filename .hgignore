@@ -27,3 +27,5 @@ config.py
 .waf-*
 .lock-waf_*
 msvs/
+waf-*
+gmath_py\configure.*
