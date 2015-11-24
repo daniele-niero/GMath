@@ -32,8 +32,12 @@ def configure(ctx):
     else:
         ctx.load('python', tooldir=r'../waftools')
 
+    if sys.platform=='win32':
+        print "^^^^^^", ctx.env.cxxflags 
+        ctx.env.append_value('CXXFLAGS', ['-EHsc'])
+
 def build(ctx):
-    from waflib.Build import POST_LAZY, POST_AT_ONCE
+    from waflib.Build import POST_LAZY
     ctx.post_mode = POST_LAZY
 
     with_maya = ''
@@ -66,8 +70,8 @@ def build(ctx):
 
         includes = [os.path.join(ctx.path.abspath(), "../include"), ctx.env['PYTHON_INCLUDE']],
 
-        lib = 'python'+ctx.env['PYTHON_VERSION'],
-        libpath = ctx.env['PYTHON_LIB'],
+        lib = ctx.env['PYTHON_LIB'],
+        libpath = ctx.env['PYTHON_LIBPATH'],
 
         install_path = ctx.env['PREFIX'],
 
@@ -78,13 +82,12 @@ def build(ctx):
 # support for the "dynamic_source" attribute follows
 # taken from waf playground/dynamic_build
 
-from waflib import Build, Utils, TaskGen
+from waflib import TaskGen
 @TaskGen.feature('cxx')
 @TaskGen.before('process_source', 'process_rule')
 def dynamic_post(self):
     """
     bld(dynamic_source='*.cxx', ..) will search for source files to add to the attribute 'source'
-    we could also call "eval" or whatever expression
     """
     if not getattr(self, 'dynamic_source', None):
         return
