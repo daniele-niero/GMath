@@ -436,12 +436,12 @@ namespace gmath{
         // The quaternion representing the rotation is
         //   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
 
-        double halfAngle = 0.5*angle;
-        double sinAngle = -sin(halfAngle);
+        double halfAngle = angle/2.0;
+        Vector3 quatVec = axis.normalize() * sin(halfAngle);
         w = cos(halfAngle);
-        x = sinAngle*axis.x;
-        y = sinAngle*axis.y;
-        z = sinAngle*axis.z;
+        x = quatVec.x;
+        y = quatVec.y;
+        z = quatVec.z;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
     void Quaternion::toAxisAngle (Vector3& outAxis, double& outAngle) const
