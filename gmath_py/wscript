@@ -31,49 +31,48 @@ def configure(ctx):
         ctx.load('maya', tooldir=r'../waftools')
     else:
         ctx.load('python', tooldir=r'../waftools')
-    if sys.platform=="win32":
-        ctx.env.cxxshlib_PATTERN = '%s.pyd'
-    elif sys.platform=='darwin':
-        ctx.env.cxxshlib_PATTERN = '%s.so'
 
 def build(ctx):
     from waflib.Build import POST_LAZY, POST_AT_ONCE
-    # # ctx.post_mode = POST_AT_ONCE
     ctx.post_mode = POST_LAZY
 
     with_maya = ''
     if ctx.options.with_maya:
         with_maya = '-DMAYA'
 
-    ctx(rule='swig -c++ -python -modern %s -I../../include -outdir . -outcurrentdir ${SRC}' %with_maya, 
+    buildNode = ctx.path.ctx.bldnode
+    swigTargets = [buildNode.make_node('gmath.py'), buildNode.make_node('gmRoot_wrap.cxx')]
+
+    ctx(rule='swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(with_maya, ctx.path.abspath()), 
         source='gmRoot.i', 
-        target=['gmath.py', 'gmRoot_wrap.cxx'],
+        target=swigTargets,
         name='swig', 
         color='YELLOW')
 
     ctx.add_manual_dependency(
         ctx.path.find_node('gmRoot.i'),
-        ctx.path.find_node('.').ant_glob('*.i')
+        ctx.path.ant_glob('*.i')
         )
 
-    ctx.install_files('${PREFIX}', ['./build/gmath.py'])
-    
+    ctx.install_files('${PREFIX}', [buildNode.find_node('gmath.py')])
+
     ctx.add_group()
     ctx.shlib(
         source = ctx.path.find_node("../source").ant_glob("*.cpp"), 
         dynamic_source='*_wrap.cxx',
         target = '_gmath',
 
-        includes = ["../include", ctx.env['PYTHON_INCLUDE']],
+        features = ['pyext_patterns'],
+
+        includes = [os.path.join(ctx.path.abspath(), "../include"), ctx.env['PYTHON_INCLUDE']],
 
         lib = 'python'+ctx.env['PYTHON_VERSION'],
         libpath = ctx.env['PYTHON_LIB'],
 
         install_path = ctx.env['PREFIX'],
 
-        after=['gmath.py', 'gmRoot_wrap.cxx'],
-        use=['gmath.py', 'gmRoot_wrap.cxx']
-
+        after=swigTargets,
+        use='swig'
         )
 
 # support for the "dynamic_source" attribute follows
@@ -89,8 +88,10 @@ def dynamic_post(self):
     """
     if not getattr(self, 'dynamic_source', None):
         return
+
+    buildNode = self.path.ctx.bldnode
     self.source = Utils.to_list(self.source)
-    dynamic_source = self.path.get_bld().ant_glob(self.dynamic_source, remove=False)
+    dynamic_source = buildNode.ant_glob(self.dynamic_source, remove=False)
     if not dynamic_source:
         Logs.warn("*** nothing dynamically added ***")
     self.source.extend(dynamic_source)
