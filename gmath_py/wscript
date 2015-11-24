@@ -1,0 +1,100 @@
+import os, sys
+
+from waflib import Logs
+
+APPNAME = '_gmath.py'
+VERSION = '2.0'
+
+top = '.'
+out = 'build'
+
+from waflib import Utils, Build
+from waflib.TaskGen import taskgen_method
+
+
+def options(ctx):
+    ctx.load('compiler_cxx')
+    gr=ctx.add_option_group("Maya Configuration options")
+    gr.add_option("--with-maya", 
+                  action='store_true',
+                  default=False,  
+                  help='Set if you want to build gmath for Maya and link it against mayapy (Maya\'s python). ' 
+                        'If false, the following options will not be taken in consideration. '
+                        'Also note that choosing Maya, the python options will be overridden to link against mayapy. '
+                        '[default: %default]')
+    ctx.load('maya', tooldir=r'../waftools')
+    ctx.load('python', tooldir=r'../waftools')
+
+def configure(ctx):
+    ctx.load('compiler_cxx')
+    if ctx.options.with_maya:
+        ctx.load('maya', tooldir=r'../waftools')
+    else:
+        ctx.load('python', tooldir=r'../waftools')
+
+def build(ctx):
+    from waflib.Build import POST_LAZY, POST_AT_ONCE
+    ctx.post_mode = POST_LAZY
+
+    with_maya = ''
+    if ctx.options.with_maya:
+        with_maya = '-DMAYA'
+
+    buildNode = ctx.path.ctx.bldnode
+    swigTargets = [buildNode.make_node('gmath.py'), buildNode.make_node('gmRoot_wrap.cxx')]
+
+    ctx(rule='swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(with_maya, ctx.path.abspath()), 
+        source='gmRoot.i', 
+        target=swigTargets,
+        name='swig', 
+        color='YELLOW')
+
+    ctx.add_manual_dependency(
+        ctx.path.find_node('gmRoot.i'),
+        ctx.path.ant_glob('*.i')
+        )
+
+    ctx.install_files('${PREFIX}', [buildNode.find_node('gmath.py')])
+
+    ctx.add_group()
+    ctx.shlib(
+        source = ctx.path.find_node("../source").ant_glob("*.cpp"), 
+        dynamic_source='*_wrap.cxx',
+        target = '_gmath',
+
+        features = ['pyext_patterns'],
+
+        includes = [os.path.join(ctx.path.abspath(), "../include"), ctx.env['PYTHON_INCLUDE']],
+
+        lib = 'python'+ctx.env['PYTHON_VERSION'],
+        libpath = ctx.env['PYTHON_LIB'],
+
+        install_path = ctx.env['PREFIX'],
+
+        after=swigTargets,
+        use='swig'
+        )
+
+# support for the "dynamic_source" attribute follows
+# taken from waf playground/dynamic_build
+
+from waflib import Build, Utils, TaskGen
+@TaskGen.feature('cxx')
+@TaskGen.before('process_source', 'process_rule')
+def dynamic_post(self):
+    """
+    bld(dynamic_source='*.cxx', ..) will search for source files to add to the attribute 'source'
+    we could also call "eval" or whatever expression
+    """
+    if not getattr(self, 'dynamic_source', None):
+        return
+
+    buildNode = self.path.ctx.bldnode
+    self.source = Utils.to_list(self.source)
+    dynamic_source = buildNode.ant_glob(self.dynamic_source, remove=False)
+    if not dynamic_source:
+        Logs.warn("*** nothing dynamically added ***")
+    self.source.extend(dynamic_source)
+
+
+

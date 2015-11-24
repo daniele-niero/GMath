@@ -24,15 +24,23 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #ifndef GMROOT_H
 #define GMROOT_H
 
-#ifdef _MSC_VER
-#define INFINITY (DBL_MAX+DBL_MAX)
-#define NAN (INFINITY-INFINITY)
-#endif
-
+#include <float.h>
 #include <math.h>
 #include <sstream>
 #include <exception>
 
+#ifdef _MSC_VER
+	#ifndef INFINITY 
+		#define INFINITY (DBL_MAX+DBL_MAX)
+	#endif
+	#ifndef NAN
+		#define NAN (INFINITY-INFINITY)
+	#endif
+#endif
+
+#ifdef LINUX
+	#include <memory.h>
+#endif
 
 namespace gmath
 {
@@ -89,6 +97,18 @@ namespace gmath
 		POSY = 2,
 		POSZ = 3
 	};
+
+	double acos(double x);
+	double asin(double x);
+	double toRadians(double x);
+	double toDegrees(double x);
+
+	const double EPSILON = 	1e-08;
+    const double PI = 		4.0*atan(1.0);
+    const double HALFPI = 	PI*0.5;
+    const double MAX = 		DBL_MAX;
+    const double MIN = 		-DBL_MAX;
+    const double SMALLEST = DBL_MIN;;
 }
 
 

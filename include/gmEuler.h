@@ -25,48 +25,55 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #define GMEULER_H
 
 #include "gmRoot.h"
-#include "gmMath.h"
 #include "gmVector3.h"
 
 namespace gmath
 {
-
-	template <typename real>
 	class Euler
 	{
-		public:
-			Euler();
-			Euler(const Euler<real>& other);
-			Euler(const real inX, const real inY, const real inZ);
-			Euler(const Vector3<real>& vec);
+	public:
+		enum Unit {
+			degrees,
+			radians
+		};
 
-			real x, y, z;
+		Euler(Unit inUnit=radians);
+		Euler(const Euler& other);
+		Euler(const double inX, const double inY, const double inZ, Unit inUnit=radians);
+		Euler(const Vector3& vec, Unit inUnit=radians);
 
-			/*------ coordinate access ------*/
-			real operator[] (int i) const;
-			real& operator[] (int i);
+		double x, y, z;
 
-			/*------ Comparisons ------*/
-			bool operator == (const Euler<real> &other) const;
-			bool operator != (const Euler<real> &other) const;
+		/** Pointer access for direct copying. */
+		double* data();
+		const double* data() const;
 
-			void set(const real inX, const real inY, const real inZ);
+		/*------ coordinate access ------*/
+		double operator[] (int i) const;
+		double& operator[] (int i);
 
-			Euler<real> toDegrees() const;
-			Euler<real> toRadians() const;
+		/*------ Comparisons ------*/
+		bool operator == (const Euler &other) const;
+		bool operator != (const Euler &other) const;
 
-			void toDegreesInPlace();
-			void toRadiansInPlace();
+		void set(const double inX, const double inY, const double inZ);
 
-			Vector3<real> toVector() const;
+		Unit getUnit() const;
+		/**
+		 set the unit and change the data accordingly, in place
+		 */
+		void setUnit(Unit inUnit);
 
-			std::string toString() const;
+		Euler toDegrees() const;
+		Euler toRadians() const;
+
+		Vector3 toVector() const;
+
+		std::string toString() const;
+
+	private:
+		Unit unit;
 	};
-
-	#include "gmEuler.hpp"
-
-	typedef Euler<float> Eulerf;
-	typedef Euler<double> Eulerd;
 }
 
 

@@ -26,7 +26,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #include <string>
 #include <stdexcept>
 #include <math.h>
-#include "gmMath.h"
+#include "gmRoot.h"
 #include "gmMatrix3.h"
 #include "gmMatrix4.h"
 
@@ -34,53 +34,52 @@ using namespace std;
 
 namespace gmath
 {
-    template <typename real>
     class Quaternion
     {
     public:
         /*------ constructors ------*/
         Quaternion();
-        Quaternion(real x, real y, real z, real w);
-        Quaternion(const Quaternion<real> &values);
-        Quaternion(const real *list);
-        Quaternion(const Matrix3<real>& inMat);
-        Quaternion(const Matrix4<real>& inMat);
-        Quaternion(const Vector3<real>& axis, real angle);
-        Quaternion(real angleX, real angleY, real angleZ);
+        Quaternion(double x, double y, double z, double w);
+        Quaternion(const Quaternion &values);
+        Quaternion(const double *list);
+        Quaternion(const Matrix3& inMat);
+        Quaternion(const Matrix4& inMat);
+        Quaternion(const Vector3& axis, double angle);
+        Quaternion(double angleX, double angleY, double angleZ);
 
         /*------ properties ------*/
-        real x, y, z, w;
+        double x, y, z, w;
 
         /*------ coordinate access ------*/
-        real operator[] (int i) const;
-        real& operator[] (int i);
+        double operator[] (int i) const;
+        double& operator[] (int i);
 
         /** Pointer access for direct copying. */
-        real* ptr();
-        const real* ptr() const;
+        double* data();
+        const double* data() const;
 
         /*------ Arithmetic operations ------*/
-		Quaternion<real> operator - () const;
-        Quaternion<real> operator + (const Quaternion<real> &other) const;
-        Quaternion<real> operator - (const Quaternion<real> &other) const;
-        Quaternion<real> operator * (const Quaternion<real> &other) const;
-        Quaternion<real> operator * (real scalar) const;
-        Vector3<real> operator * (const Vector3<real> &vec) const;
-        Quaternion<real> operator / (real scalar) const;
+		Quaternion operator - () const;
+        Quaternion operator + (const Quaternion &other) const;
+        Quaternion operator - (const Quaternion &other) const;
+        Quaternion operator * (const Quaternion &other) const;
+        Quaternion operator * (double scalar) const;
+        Vector3 operator * (const Vector3 &vec) const;
+        Quaternion operator / (double scalar) const;
 
         /*------ Arithmetic updates ------*/
-        void operator += (const Quaternion<real> &other);
-        void operator -= (const Quaternion<real> &other);
-        void operator *= (const Quaternion<real> &other);
-        void operator *= (real scalar);
-        void operator /= (real scalar);
+        void operator += (const Quaternion &other);
+        void operator -= (const Quaternion &other);
+        void operator *= (const Quaternion &other);
+        void operator *= (double scalar);
+        void operator /= (double scalar);
 
         /*------ Arithmetic comparisons ------*/
-        bool operator == (const Quaternion<real> &other) const;
-        bool operator != (const Quaternion<real> &other) const;
+        bool operator == (const Quaternion &other) const;
+        bool operator != (const Quaternion &other) const;
 
         /*------ Arithmetic assignment ------*/
-        void operator = (const Quaternion<real> & other);
+        void operator = (const Quaternion & other);
 
         /*------ methods ------*/
 
@@ -89,46 +88,44 @@ namespace gmath
             @param inY The wanted value for y
             @param inZ The wanted value for z
             @param inW The wanted value for w */
-        void set(real inX, real inY, real inZ, real inW);
+        void set(double inX, double inY, double inZ, double inW);
         void setToIdentity();
 
-        Vector3<real> getAxisY() const;
-        Vector3<real> getAxisX() const;
-        Vector3<real> getAxisZ() const;
+        Vector3 getAxisY() const;
+        Vector3 getAxisX() const;
+        Vector3 getAxisZ() const;
 
-        template <typename gmMatrixType>
-        void fromMatrix(const gmMatrixType &mat);
-        void fromMatrix3(const Matrix3<real> &mat);
-        Matrix3<real> toMatrix3() const;
-        void fromMatrix4(const Matrix4<real> &mat);
-        Matrix4<real> toMatrix4() const;
-		void setMatrix4(Matrix4<real>& outMat) const;
-		void setMatrix4(Matrix4<real>& outMat, const Vector3<real>& scale, const Vector3<real>& pos) const;
+        void fromMatrix3(const Matrix3 &mat);
+        void fromMatrix4(const Matrix4 &mat);
+        Matrix3 toMatrix3() const;
+        Matrix4 toMatrix4() const;
+		void setMatrix4(Matrix4& outMat) const;
+		void setMatrix4(Matrix4& outMat, const Vector3& scale, const Vector3& pos) const;
 
-        void fromAxisAngle(const Vector3<real>& axis, real angle);
-		void toAxisAngle(Vector3<real>& outAxis, real& outAngle) const;
+        void fromAxisAngle(const Vector3& axis, double angle);
+		void toAxisAngle(Vector3& outAxis, double& outAngle) const;
 
-        void fromEuler(real angleX, real angleY, real angleZ, RotationOrder order=XYZ);
-		void fromEuler(const Euler<real>& euler, RotationOrder order=XYZ);
-		Euler<real> toEuler(RotationOrder order=XYZ) const;
+        void fromEuler(double angleX, double angleY, double angleZ, RotationOrder order=XYZ);
+		void fromEuler(const Euler& euler, RotationOrder order=XYZ);
+		Euler toEuler(RotationOrder order=XYZ) const;
 
-		real length () const;
-		real squaredLength () const;
+		double length () const;
+		double squaredLength () const;
 		
 		void normalizeInPlace();
-		Quaternion<real> normalize() const;
+		Quaternion normalize() const;
 
-		Quaternion<real> inverse() const;
+		Quaternion inverse() const;
         void inverseInPlace();
 
 		void conjugateInPlace();
-		Quaternion<real> conjugate() const;
+		Quaternion conjugate() const;
 
-		Quaternion<real> exp() const;
-		Quaternion<real> log() const;
+		Quaternion exp() const;
+		Quaternion log() const;
 
         /** Perform the dot product between this vector and the given vector */
-        real dot(const Quaternion<real> & other) const;
+        double dot(const Quaternion & other) const;
 
         /*  This function comes from Imath, part of ILM's OpenEXR library.
 
@@ -142,17 +139,12 @@ namespace gmath
             The implementation of squad() depends on a slerp() that interpolates as is, without the automatic flipping.
         
             Don Hatch explains the method we use here on his web page, The Right Way to Calculate Stuff, at http://www.plunk.org/~hatch/rightway.php */
-        void slerpInPlace(const Quaternion<real> &q1, const Quaternion<real> &q2, real t, bool shortestPath=true);
-		Quaternion<real> slerp(const Quaternion<real> &q2, real t, bool shortestPath=true) const;
+        void slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath=true);
+		Quaternion slerp(const Quaternion &q2, double t, bool shortestPath=true) const;
 
 
         std::string toString() const;
     };
-
-    #include "gmQuaternion.hpp"
-
-    typedef Quaternion<float> Quaternionf;
-    typedef Quaternion<double> Quaterniond;
 }
 
 #endif // GMQUATERNION_H
