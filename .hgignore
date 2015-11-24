@@ -26,3 +26,4 @@ bin/
 config.py
 .waf-*
 .lock-waf_*
+msvs/
