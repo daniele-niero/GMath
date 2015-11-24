@@ -1,15 +1,14 @@
 import os, sys
 
 from waflib import Logs
+from waflib import Utils
+
 
 APPNAME = '_gmath.py'
 VERSION = '2.0'
 
 top = '.'
 out = 'build'
-
-from waflib import Utils, Build
-from waflib.TaskGen import taskgen_method
 
 
 def options(ctx):
@@ -25,6 +24,7 @@ def options(ctx):
     ctx.load('maya', tooldir=r'../waftools')
     ctx.load('python', tooldir=r'../waftools')
 
+
 def configure(ctx):
     ctx.load('compiler_cxx')
     if ctx.options.with_maya:
@@ -33,7 +33,6 @@ def configure(ctx):
         ctx.load('python', tooldir=r'../waftools')
 
     if sys.platform=='win32':
-        print "^^^^^^", ctx.env.cxxflags 
         ctx.env.append_value('CXXFLAGS', ['-EHsc'])
 
 def build(ctx):
@@ -41,13 +40,22 @@ def build(ctx):
     ctx.post_mode = POST_LAZY
 
     with_maya = ''
-    if ctx.options.with_maya:
+    if ctx.env.MAYA:
         with_maya = '-DMAYA'
 
     buildNode = ctx.path.ctx.bldnode
-    swigTargets = [buildNode.make_node('gmath.py'), buildNode.make_node('gmRoot_wrap.cxx')]
+    swigTargets = [buildNode.make_node('gmath.py'),
+                   buildNode.make_node('gmRoot_wrap.cxx')]
 
-    ctx(rule='swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(with_maya, ctx.path.abspath()), 
+    if with_maya :
+        rule = 'swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(with_maya, ctx.path.abspath())
+    else:
+        rule = 'swig -c++ -python -builtin -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %ctx.path.abspath()
+
+    Logs.info("Swig command: " + rule)
+
+
+    ctx(rule=rule, 
         source='gmRoot.i', 
         target=swigTargets,
         name='swig', 
@@ -81,14 +89,12 @@ def build(ctx):
 
 # support for the "dynamic_source" attribute follows
 # taken from waf playground/dynamic_build
-
+#
+# bld(dynamic_source='*.cxx', ..) will search for source files to add to the attribute 'source'
 from waflib import TaskGen
 @TaskGen.feature('cxx')
 @TaskGen.before('process_source', 'process_rule')
 def dynamic_post(self):
-    """
-    bld(dynamic_source='*.cxx', ..) will search for source files to add to the attribute 'source'
-    """
     if not getattr(self, 'dynamic_source', None):
         return
 
