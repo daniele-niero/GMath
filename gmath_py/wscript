@@ -14,7 +14,7 @@ out = 'build'
 def options(ctx):
     ctx.load('compiler_cxx')
     gr=ctx.add_option_group("Maya Configuration options")
-    gr.add_option("--with-maya", 
+    gr.add_option("--maya", 
                   action='store_true',
                   default=False,  
                   help='Set if you want to build gmath for Maya and link it against mayapy (Maya\'s python). ' 
@@ -27,7 +27,7 @@ def options(ctx):
 
 def configure(ctx):
     ctx.load('compiler_cxx')
-    if ctx.options.with_maya:
+    if ctx.options.maya:
         ctx.load('maya', tooldir=r'../waftools')
     else:
         ctx.load('python', tooldir=r'../waftools')
@@ -40,18 +40,20 @@ def build(ctx):
     from waflib.Build import POST_LAZY
     ctx.post_mode = POST_LAZY
 
-    with_maya = ''
+    maya = ''
     if ctx.env.MAYA:
-        with_maya = '-DMAYA'
+        maya = '-DMAYA'
 
-    ctx.path.find_or_declare('gmath.pyc').write('')
+    Logs.warn(ctx.path)
+
     buildNode = ctx.path.ctx.bldnode
+    buildNode.make_node('gmath.pyc').write('')
     swigTargets = [buildNode.make_node('gmath.py'),
                    buildNode.make_node('gmath.pyc'),
                    buildNode.make_node('gmRoot_wrap.cxx')]
 
-    if with_maya :
-        rule = 'swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(with_maya, ctx.path.abspath())
+    if maya :
+        rule = 'swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(maya, ctx.path.abspath())
     else:
         rule = 'swig -c++ -python -builtin -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %ctx.path.abspath()
 
