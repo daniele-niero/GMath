@@ -19,9 +19,18 @@ def configure(conf):
     conf.load('compiler_cxx')
     conf.load('doxygen', tooldir="./waftools")
 
+    print sys.platform
+    if sys.platform=="win32":
+        conf.env.append_value('DEFINES', ['WINDOWS'])
+    elif sys.platform=="darwin":
+        conf.env.append_value('DEFINES', ['MAC'])
+    elif sys.platform=="linux2":
+        conf.env.append_value('DEFINES', ['LINUX'])
+
     debenv = conf.env.derive().detach()
     
-    conf.env.append_value('CXXFLAGS', ['-EHsc'])
+    if sys.platform=="win32":
+        conf.env.append_value('CXXFLAGS', ['-EHsc'])
     conf.env.append_value('DEFINES', ['RELEASE'])
 
     conf.setenv('debug', debenv)
