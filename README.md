@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/bitbucket.org/daniele-niero/gmath/status.png)](https://drone.io/bitbucket.org/daniele-niero/gmath/latest)
+
 # Overview #
 
 **GMath** is a math ~~templated~~ library written in C++ with Python wrappers made with ~~Boost::Python~~ [**SWI**G](http://www.swig.org/).
