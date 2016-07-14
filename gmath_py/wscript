@@ -14,7 +14,7 @@ out = 'build'
 def options(ctx):
     ctx.load('compiler_cxx')
     gr=ctx.add_option_group("Maya Configuration options")
-    gr.add_option("--with-maya", 
+    gr.add_option("--maya", 
                   action='store_true',
                   default=False,  
                   help='Set if you want to build gmath for Maya and link it against mayapy (Maya\'s python). ' 
@@ -27,7 +27,7 @@ def options(ctx):
 
 def configure(ctx):
     ctx.load('compiler_cxx')
-    if ctx.options.with_maya:
+    if ctx.options.maya:
         ctx.load('maya', tooldir=r'../waftools')
     else:
         ctx.load('python', tooldir=r'../waftools')
@@ -35,25 +35,27 @@ def configure(ctx):
     if sys.platform=='win32':
         ctx.env.append_value('CXXFLAGS', ['-EHsc'])
 
+
 def build(ctx):
     from waflib.Build import POST_LAZY
     ctx.post_mode = POST_LAZY
 
-    with_maya = ''
+    maya = ''
     if ctx.env.MAYA:
-        with_maya = '-DMAYA'
+        maya = '-DMAYA'
+
+    Logs.warn(ctx.path)
 
     buildNode = ctx.path.ctx.bldnode
+    buildNode.make_node('gmath.pyc').write('')
     swigTargets = [buildNode.make_node('gmath.py'),
+                   buildNode.make_node('gmath.pyc'),
                    buildNode.make_node('gmRoot_wrap.cxx')]
 
-    if with_maya :
-        rule = 'swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(with_maya, ctx.path.abspath())
+    if maya :
+        rule = 'swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(maya, ctx.path.abspath())
     else:
         rule = 'swig -c++ -python -builtin -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %ctx.path.abspath()
-
-    Logs.info("Swig command: " + rule)
-
 
     ctx(rule=rule, 
         source='gmRoot.i', 
@@ -66,7 +68,7 @@ def build(ctx):
         ctx.path.ant_glob('*.i')
         )
 
-    ctx.install_files('${PREFIX}', [buildNode.find_node('gmath.py')])
+    ctx.install_files('${PREFIX}', [buildNode.find_node('gmath.py'), buildNode.find_node('gmath.pyc')])
 
     ctx.add_group()
     ctx.shlib(
@@ -74,7 +76,9 @@ def build(ctx):
         dynamic_source='*_wrap.cxx',
         target = '_gmath',
 
-        features = ['pyext_patterns'],
+        features = 'pyext_patterns cxx cxxshlib',
+
+        cflags  = '-O2 -Zhi',
 
         includes = [os.path.join(ctx.path.abspath(), "../include"), ctx.env['PYTHON_INCLUDE']],
 
@@ -83,7 +87,7 @@ def build(ctx):
 
         install_path = ctx.env['PREFIX'],
 
-        after=swigTargets,
+        # after=swigTargets,
         use='swig'
         )
 
