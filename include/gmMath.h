@@ -54,8 +54,6 @@ namespace gmath
 			static const real MIN;
 			static const real SMALLEST;
 	};
-
-	#include "gmMath.hpp"
 }
 
 #endif // GMMATH_H
