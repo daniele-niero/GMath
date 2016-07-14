@@ -80,5 +80,38 @@ namespace gmath{
         }
         #endif
     }
+
+    #ifdef MAYA
+    %pythoncode {
+        def getGlobalMatrix(pymelNode):
+            "Get the global Matrix of a PyNode (Transform)"
+            matrix = pymelNode.__apimdagpath__().inclusiveMatrix()
+            gmatrix = Matrix4()
+            gmatrix.fromMayaMatrix(matrix)
+            return gmatrix
+
+
+        def setGlobalMatrix(pymelNode, gmathMatrix):
+            "Set the global Matrix of a PyNode (Transform)"
+            dagPath = pymelNode.__apimdagpath__()
+            parentInv = Matrix4().fromMayaMatrix(dagPath.exclusiveMatrixInverse())
+            localMatrix = gmathMatrix * parentInv
+            cmds.xform(pymelNode.name(), matrix=localMatrix.data())
+
+
+        def getLocalMatrix(pymelNode):
+            "Get the local Matrix of a PyNode (Transform)"
+            dagPath = pymelNode.__apimdagpath__()
+            matrix = dagPath.inclusiveMatrix() * dagPath.exclusiveMatrixInverse()
+            gmatrix = Matrix4()
+            gmatrix.fromMayaMatrix(matrix)
+            return gmatrix
+
+
+        def setLocalMatrix(pymelNode, gmathMatrix):
+            "Set the local Matrix of a PyNode (Transform)"
+            cmds.xform(pymelNode.name(), matrix=gmathMatrix.data())
+    }
+    #endif
 }
 
