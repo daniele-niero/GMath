@@ -200,39 +200,43 @@ namespace gmath{
     }
     /*------ Arithmetic updates ------*/
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Quaternion::operator += (const Quaternion & other)
+    Quaternion& Quaternion::operator += (const Quaternion & other)
     {
         x += other.x;
         y += other.y;
         z += other.z;
         w += other.w;
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Quaternion::operator -= (const Quaternion & other)
+    Quaternion& Quaternion::operator -= (const Quaternion & other)
     {
         x -= other.x;
         y -= other.y;
         z -= other.z;
         w -= other.w;
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Quaternion::operator *= (double scalar)
+    Quaternion& Quaternion::operator *= (double scalar)
     {
         x *= scalar;
         y *= scalar;
         z *= scalar;
         w *= scalar;
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Quaternion::operator *= (const Quaternion &other)
+    Quaternion& Quaternion::operator *= (const Quaternion &other)
     {
         this->set(w*other.x + x*other.w + y*other.z - z*other.y,
                   w*other.y + y*other.w + z*other.x - x*other.z,
                   w*other.z + z*other.w + x*other.y - y*other.x,
                   w*other.w - x*other.x - y*other.y - z*other.z);
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Quaternion::operator /= (double scalar)
+    Quaternion& Quaternion::operator /= (double scalar)
     {
         if (scalar == 0.0)
         {
@@ -248,6 +252,7 @@ namespace gmath{
             z /= scalar;
             w /= scalar;
         }
+        return *this;
     }
     /*------ Comparisons ------*/
     /*-----------------------------------------------------------------------------------------------------------------*/

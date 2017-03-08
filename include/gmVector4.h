@@ -60,10 +60,10 @@ namespace gmath
 		Vector4 operator / (double scalar) const;
 
 		/*------ Arithmetic updates ------*/
-		void operator += (const Vector4 & other);
-		void operator -= (const Vector4 & other);
-		void operator *= (double scalar);
-		void operator /= (double scalar);
+		Vector4& operator += (const Vector4 & other);
+		Vector4& operator -= (const Vector4 & other);
+		Vector4& operator *= (double scalar);
+		Vector4& operator /= (double scalar);
 
 		/*------ Arithmetic comparisons ------*/
 		bool operator == (const Vector4 & other) const;

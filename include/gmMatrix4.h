@@ -101,13 +101,13 @@ namespace gmath
         Matrix4 operator * (const Matrix4 &other) const;
 
         /*------ Arithmetic updates ------*/
-        void operator += (const double &value);
-        void operator += (const Matrix4 &other);
-        void operator -= (const double &value);
-        void operator -= (const Matrix4 &other);
-        void operator /= (const double &value);
-        void operator *= (const double &value);
-        void operator *= (const Matrix4 &other);
+        Matrix4& operator += (const double &value);
+        Matrix4& operator += (const Matrix4 &other);
+        Matrix4& operator -= (const double &value);
+        Matrix4& operator -= (const Matrix4 &other);
+        Matrix4& operator /= (const double &value);
+        Matrix4& operator *= (const double &value);
+        Matrix4& operator *= (const Matrix4 &other);
 
         /*------ Comparisons ------*/
         bool operator == (const Matrix4 &other) const;

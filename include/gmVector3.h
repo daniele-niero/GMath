@@ -71,20 +71,20 @@ namespace gmath
 			Vector3 operator - () const;
 			Vector3 operator * (double scalar) const;
 			Vector3 operator * (const Vector3 & other) const;
-			Vector3 operator * (const Matrix3 &mat) const;
-            Vector3 operator * (const Matrix4 &mat) const;
+			Vector3 operator * (const Matrix3 & mat) const;
+            Vector3 operator * (const Matrix4 & mat) const;
 			Vector3 operator / (double scalar) const;
 			Vector3 operator / (const Vector3 & other) const;
 
 			/*------ Arithmetic updates ------*/
-			void operator += (const Vector3 & other);
-			void operator -= (const Vector3 & other);
-			void operator *= (double scalar);
-			void operator *= (const Vector3 & other);
-            void operator *= (const Matrix3 &mat);
-            void operator *= (const Matrix4 &mat);
-			void operator /= (double scalar);
-			void operator /= (const Vector3 & other);
+			Vector3& operator += (const Vector3 & other);
+			Vector3& operator -= (const Vector3 & other);
+			Vector3& operator *= (double scalar);
+			Vector3& operator *= (const Vector3 & other);
+            Vector3& operator *= (const Matrix3 & mat);
+            Vector3& operator *= (const Matrix4 & mat);
+			Vector3& operator /= (double scalar);
+			Vector3& operator /= (const Vector3 & other);
 
 			/*------ Arithmetic comparisons ------*/
 			bool operator == (const Vector3 & other) const;

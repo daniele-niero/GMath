@@ -181,53 +181,59 @@ namespace gmath
 	}
 	/*------ Arithmetic updates ------*/
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator += (const Vector3 & other)
+	Vector3& Vector3::operator += (const Vector3 & other)
 	{
 	    x += other.x;
 	    y += other.y;
 	    z += other.z;
+	    return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator -= (const Vector3 & other)
+	Vector3& Vector3::operator -= (const Vector3 & other)
 	{
 	    x -= other.x;
 	    y -= other.y;
 	    z -= other.z;
+	    return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator *= (double scalar)
+	Vector3& Vector3::operator *= (double scalar)
 	{
 	    x *= scalar;
 	    y *= scalar;
 	    z *= scalar;
+	    return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator *= (const Vector3 & other)
+	Vector3& Vector3::operator *= (const Vector3 & other)
 	{
 	    x*=other.x; 
 		y*=other.y; 
 		z*=other.z;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator *= (const Matrix3 &mat)
+	Vector3& Vector3::operator *= (const Matrix3 &mat)
 	{
 	    this->set(
 	        mat.data()[0] * this->x + mat.data()[1] * this->y + mat.data()[2] * this->z,
 	        mat.data()[3] * this->x + mat.data()[4] * this->y + mat.data()[5] * this->z,
 	        mat.data()[6] * this->x + mat.data()[7] * this->y + mat.data()[8] * this->z
 	        );
+	    return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator *= (const Matrix4 &mat)
+	Vector3& Vector3::operator *= (const Matrix4 &mat)
 	{
 	    this->set(
 	        mat.data()[0] * this->x + mat.data()[1] * this->y + mat.data()[2]  * this->z + mat.data()[12],
 	        mat.data()[4] * this->x + mat.data()[5] * this->y + mat.data()[6]  * this->z + mat.data()[13],
 	        mat.data()[8] * this->x + mat.data()[9] * this->y + mat.data()[10] * this->z + mat.data()[14]
 	        );
+	    return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator /= (double scalar)
+	Vector3& Vector3::operator /= (double scalar)
 	{
 	    if (scalar == 0.0)
 	    {
@@ -241,9 +247,10 @@ namespace gmath
 	        y /= scalar;
 	        z /= scalar;
 	    }
+	    return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Vector3::operator /= (const Vector3 &other)
+	Vector3& Vector3::operator /= (const Vector3 &other)
 	{
 	    if (other.x == 0.0)
 	        x = NAN;
@@ -259,6 +266,7 @@ namespace gmath
 	        z = NAN;
 	    else
 	        z /= other.z;
+	    return *this;
 	}
 	/*------ Comparisons ------*/
 	/*-----------------------------------------------------------------------------------------------------------------*/

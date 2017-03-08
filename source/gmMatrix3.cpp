@@ -221,30 +221,33 @@ namespace gmath
 	}
 	/*------ Arithmetic updates ------*/
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator += (double value)
+	Matrix3& Matrix3::operator += (double value)
 	{
 		_data[0]+=value; _data[1]+=value; _data[2]+=value;
 		_data[3]+=value; _data[4]+=value; _data[5]+=value;
 		_data[6]+=value; _data[7]+=value; _data[8]+=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator += (const Matrix3 &other)
+	Matrix3& Matrix3::operator += (const Matrix3 &other)
 	{
 		double* a = data();
 		const double* b = other.data();
 		_data[0]+=b[0]; _data[1]+=b[1]; _data[2]+=b[2];
 		_data[3]+=b[3]; _data[4]+=b[4]; _data[5]+=b[5];
 		_data[6]+=b[6]; _data[7]+=b[7]; _data[8]+=b[8];
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator -= (double value)
+	Matrix3& Matrix3::operator -= (double value)
 	{
 		_data[0]-=value; _data[1]-=value; _data[2]-=value;
 		_data[3]-=value; _data[4]-=value; _data[5]-=value;
 		_data[6]-=value; _data[7]-=value; _data[8]-=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator -= (const Matrix3 &other)
+	Matrix3& Matrix3::operator -= (const Matrix3 &other)
 	{
 		double* a = data();
 		const double* b = other.data();
@@ -252,23 +255,26 @@ namespace gmath
 		_data[0]-=b[0]; _data[1]-=b[1]; _data[2]-=b[2];
 		_data[3]-=b[3]; _data[4]-=b[4]; _data[5]-=b[5];
 		_data[6]-=b[6]; _data[7]-=b[7]; _data[8]-=b[8];
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator /= (double value)
+	Matrix3& Matrix3::operator /= (double value)
 	{
 		_data[0]/=value; _data[1]/=value; _data[2]/=value;
 		_data[3]/=value; _data[4]/=value; _data[5]/=value;
 		_data[6]/=value; _data[7]/=value; _data[8]/=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator *= (double value)
+	Matrix3& Matrix3::operator *= (double value)
 	{
 		_data[0]*=value; _data[1]*=value; _data[2]*=value;
 		_data[3]*=value; _data[4]*=value; _data[5]*=value;
 		_data[6]*=value; _data[7]*=value; _data[8]*=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix3::operator *= (const Matrix3 &other)
+	Matrix3& Matrix3::operator *= (const Matrix3 &other)
 	{
 		const double* a = &_data[0];
 		const double* b = &other._data[0];
@@ -285,6 +291,7 @@ namespace gmath
 		c[8] = _data[6]*b[2] + _data[7]*b[5] + _data[8]*b[8];
 
 		memcpy(_data, c, 9*sizeof(double));
+		return *this;
 	}
 	/*------ Comparisons ------*/
 	/*-----------------------------------------------------------------------------------------------------------------*/

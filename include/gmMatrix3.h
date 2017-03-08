@@ -80,13 +80,13 @@ namespace gmath
         Matrix3 operator * (const Matrix3 &other) const;
 
         /*------ Arithmetic updates ------*/
-        void operator += (double value);
-        void operator += (const Matrix3 &other);
-        void operator -= (double value);
-        void operator -= (const Matrix3 &other);
-        void operator /= (double value);
-        void operator *= (double value);
-        void operator *= (const Matrix3 &other);
+        Matrix3& operator += (double value);
+        Matrix3& operator += (const Matrix3 &other);
+        Matrix3& operator -= (double value);
+        Matrix3& operator -= (const Matrix3 &other);
+        Matrix3& operator /= (double value);
+        Matrix3& operator *= (double value);
+        Matrix3& operator *= (const Matrix3 &other);
 
         /*------ Comparisons ------*/
         bool operator == (const Matrix3 &other) const;

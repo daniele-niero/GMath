@@ -68,11 +68,11 @@ namespace gmath
         Quaternion operator / (double scalar) const;
 
         /*------ Arithmetic updates ------*/
-        void operator += (const Quaternion &other);
-        void operator -= (const Quaternion &other);
-        void operator *= (const Quaternion &other);
-        void operator *= (double scalar);
-        void operator /= (double scalar);
+        Quaternion& operator += (const Quaternion &other);
+        Quaternion& operator -= (const Quaternion &other);
+        Quaternion& operator *= (const Quaternion &other);
+        Quaternion& operator *= (double scalar);
+        Quaternion& operator /= (double scalar);
 
         /*------ Arithmetic comparisons ------*/
         bool operator == (const Quaternion &other) const;
