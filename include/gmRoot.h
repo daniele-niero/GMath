@@ -21,8 +21,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
-#ifndef GMROOT_H
-#define GMROOT_H
+#pragma once
 
 #include <float.h>
 #include <math.h>
@@ -110,6 +109,3 @@ namespace gmath
     const double MIN = 		-DBL_MAX;
     const double SMALLEST = DBL_MIN;;
 }
-
-
-#endif // GMROOT_H

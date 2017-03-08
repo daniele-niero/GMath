@@ -21,8 +21,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
-#ifndef GMMATRIX4_H
-#define GMMATRIX4_H
+#pragma once
 
 #include "gmRoot.h"
 #include "gmVector3.h"
@@ -215,5 +214,3 @@ namespace gmath
     };
 
 }
-
-#endif // GMMATRIX4_H

@@ -21,8 +21,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
-#ifndef GMVECTOR3_H
-#define GMVECTOR3_H
+#pragma once
 
 #include <string>
 #include <stdexcept>
@@ -177,7 +176,4 @@ namespace gmath
 			static const Vector3 ZERO;
 	};
 
-};
-
-
-#endif // GMVECTOR3_H
+}

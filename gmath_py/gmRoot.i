@@ -67,4 +67,5 @@
 %include "gmQuaternion.i"
 %include "gmMatrix3.i"
 %include "gmMatrix4.i"
+%include "gmXfo.i"
 

@@ -20,8 +20,7 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABI
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-#ifndef GMVECTOR4_H
-#define GMVECTOR4_H
+#pragma once
 
 #include <string>
 #include <stdexcept>
@@ -94,5 +93,3 @@ namespace gmath
 		std::string toString() const;
 	};
 }
-
-#endif // GMVECTOR4_H
