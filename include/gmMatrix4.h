@@ -21,8 +21,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 
-#ifndef GMMATRIX4_H
-#define GMMATRIX4_H
+#pragma once
 
 #include "gmRoot.h"
 #include "gmVector3.h"
@@ -101,13 +100,13 @@ namespace gmath
         Matrix4 operator * (const Matrix4 &other) const;
 
         /*------ Arithmetic updates ------*/
-        void operator += (const double &value);
-        void operator += (const Matrix4 &other);
-        void operator -= (const double &value);
-        void operator -= (const Matrix4 &other);
-        void operator /= (const double &value);
-        void operator *= (const double &value);
-        void operator *= (const Matrix4 &other);
+        Matrix4& operator += (const double &value);
+        Matrix4& operator += (const Matrix4 &other);
+        Matrix4& operator -= (const double &value);
+        Matrix4& operator -= (const Matrix4 &other);
+        Matrix4& operator /= (const double &value);
+        Matrix4& operator *= (const double &value);
+        Matrix4& operator *= (const Matrix4 &other);
 
         /*------ Comparisons ------*/
         bool operator == (const Matrix4 &other) const;
@@ -215,5 +214,3 @@ namespace gmath
     };
 
 }
-
-#endif // GMMATRIX4_H

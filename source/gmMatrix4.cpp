@@ -263,15 +263,16 @@ namespace gmath
 	/*-----------------------------------------------------------------------------------------------------------------*/
 	/*------ Arithmetic updates ------*/
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator += (const double &value)
+	Matrix4& Matrix4::operator += (const double &value)
 	{
 		 _data[0]+=value;  _data[1]+=value;  _data[2]+=value;  _data[3]+=value;
 		 _data[4]+=value;  _data[5]+=value;  _data[6]+=value;  _data[7]+=value;
 		 _data[8]+=value;  _data[9]+=value; _data[10]+=value; _data[11]+=value;
 		_data[12]+=value; _data[13]+=value; _data[14]+=value; _data[15]+=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator += (const Matrix4 &other)
+	Matrix4& Matrix4::operator += (const Matrix4 &other)
 	{
 		const double* b = other.data();
 
@@ -279,17 +280,19 @@ namespace gmath
 		 _data[4]+=b[4];   _data[5]+=b[5];   _data[6]+=b[6];   _data[7]+=b[7];
 		 _data[8]+=b[8];   _data[9]+=b[9];  _data[10]+=b[10]; _data[11]+=b[11];
 		_data[12]+=b[12]; _data[13]+=b[13]; _data[14]+=b[14]; _data[15]+=b[15];
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator -= (const double &value)
+	Matrix4& Matrix4::operator -= (const double &value)
 	{
 		 _data[0]-=value;  _data[1]-=value;  _data[2]-=value;  _data[3]-=value;
 		 _data[4]-=value;  _data[5]-=value;  _data[6]-=value;  _data[7]-=value;
 		 _data[8]-=value;  _data[9]-=value; _data[10]-=value; _data[11]-=value;
 		_data[12]-=value; _data[13]-=value; _data[14]-=value; _data[15]-=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator -= (const Matrix4 &other)
+	Matrix4& Matrix4::operator -= (const Matrix4 &other)
 	{
 		const double* b = other.data();
 
@@ -297,25 +300,28 @@ namespace gmath
 		 _data[4]-=b[4];   _data[5]-=b[5];   _data[6]-=b[6];   _data[7]-=b[7];
 		 _data[8]-=b[8];   _data[9]-=b[9];  _data[10]-=b[10]; _data[11]-=b[11];
 		_data[12]-=b[12]; _data[13]-=b[13]; _data[14]-=b[14]; _data[15]-=b[15];
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator /= (const double &value)
+	Matrix4& Matrix4::operator /= (const double &value)
 	{
 		 _data[0]/=value;  _data[1]/=value;  _data[2]/=value;  _data[3]/=value;
 		 _data[4]/=value;  _data[5]/=value;  _data[6]/=value;  _data[7]/=value;
 		 _data[8]/=value;  _data[9]/=value; _data[10]/=value; _data[11]/=value;
 		_data[12]/=value; _data[13]/=value; _data[14]/=value; _data[15]/=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator *= (const double &value)
+	Matrix4& Matrix4::operator *= (const double &value)
 	{
 		 _data[0]*=value;  _data[1]*=value;  _data[2]*=value;  _data[3]*=value;
 		 _data[4]*=value;  _data[5]*=value;  _data[6]*=value;  _data[7]*=value;
 		 _data[8]*=value;  _data[9]*=value; _data[10]*=value; _data[11]*=value;
 		_data[12]*=value; _data[13]*=value; _data[14]*=value; _data[15]*=value;
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
-	void Matrix4::operator *= (const Matrix4 &other)
+	Matrix4& Matrix4::operator *= (const Matrix4 &other)
 	{
 		const double* b = other.data();
 		set(
@@ -339,6 +345,7 @@ namespace gmath
 			_data[12]*b[2] + _data[13]*b[6] + _data[14]*b[10] + _data[15]*b[14],
 			_data[12]*b[3] + _data[13]*b[7] + _data[14]*b[11] + _data[15]*b[15]
 			);
+		return *this;
 	}
 	/*-----------------------------------------------------------------------------------------------------------------*/
 	/*------ Comparisons ------*/

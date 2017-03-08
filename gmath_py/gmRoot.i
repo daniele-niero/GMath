@@ -10,13 +10,16 @@
 %{
 #define SWIG_FILE_WITH_INIT
 #include "gmRoot.h"
-
 %}
 
 #ifdef MAYA
 %pythoncode {
-    from maya import OpenMaya
-    import pymel.core.datatypes as pmdt
+    MAYA_IMPLEMENTED = True
+    try:
+        from maya import cmds, OpenMaya
+        import pymel.core.datatypes as pmdt
+    except:
+        MAYA_IMPLEMENTED = False
 }
 #endif
 
@@ -64,4 +67,5 @@
 %include "gmQuaternion.i"
 %include "gmMatrix3.i"
 %include "gmMatrix4.i"
+%include "gmXfo.i"
 

@@ -22,73 +22,61 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 #pragma once
 
-#include <string>
-#include <stdexcept>
-#include <math.h>
-#include "gmRoot.h"
-
-using namespace std;
+#include "gmVector3.h"
+#include "gmQuaternion.h"
+#include "gmMatrix4.h"
 
 namespace gmath
-{
-	class Vector4
+{	
+	/** The Xfo type represents a 3D transform. 
+		It uses a Vector3 for translation and scaling as well as a Quaternion for its rotation. 
+		It was inspired by FabricEngine's own Xfo type 
+
+		@seealso Quat, Vec3, Euler, Mat44, Mat33 */
+	class Xfo
 	{
 	public:
-		/*------ constructors ------*/
-		Vector4();
-		Vector4(double inX, double inY, double inZ, double inW);
-		Vector4(const Vector4 & other);
-		Vector4(const double* list);
-
 		/*------ properties ------*/
-		double x, y, z, w;
+		Quaternion ori;
+		Vector3 tr;
+		Vector3 sc;
 
-		/*------ coordinate access ------*/
-		double operator[] (int i) const;
-		double& operator[] (int i);
-
-		/** Pointer access for direct copying. */
-		double* data();
-		const double* data() const;
+		/*------ constructors ------*/
+		Xfo();
+		Xfo(const Xfo& other);
+		Xfo(const Vector3 & tr);
+		Xfo(const Quaternion & ori);
+		Xfo(const Vector3 & tr, const Quaternion & ori);
+		Xfo(const Quaternion & ori, const Vector3 & tr, const Vector3 & sc);
+		Xfo(const Matrix4 & mat);
+		Xfo(const double & eulerX, const double & eulerY, const double & eulerZ, 
+		    const double & trX, const double & trY, const double & trZ,
+		    const double & scX, const double & scY, const double & scZ);
 
 		/*------ Arithmetic operations ------*/
-		Vector4 operator + (const Vector4 & other) const;
-		Vector4 operator - (const Vector4 & other) const;
-		Vector4 operator - () const;
-		Vector4 operator * (double scalar) const;
-		Vector4 operator / (double scalar) const;
+		Xfo operator * (const Xfo & other) const;
 
 		/*------ Arithmetic updates ------*/
-		Vector4& operator += (const Vector4 & other);
-		Vector4& operator -= (const Vector4 & other);
-		Vector4& operator *= (double scalar);
-		Vector4& operator /= (double scalar);
+		Xfo& operator *= (const Xfo & other);
 
 		/*------ Arithmetic comparisons ------*/
-		bool operator == (const Vector4 & other) const;
-		bool operator != (const Vector4 & other) const;
+		bool operator == (const Xfo & other) const;
+		bool operator != (const Xfo & other) const;
 
 		/*------ Arithmetic assignment ------*/
-		void operator = (const Vector4 & other);
+		void operator = (const Xfo & other);
 
 		/*------ methods ------*/
-
-		/** Set the three properties (x, y, z, w), with the given arguments
-			@param inX The wanted value for x
-			@param inY The wanted value for y
-			@param inZ The wanted value for z
-			@param inW The wanted value for w */
-		void set(double inX, double inY, double inZ, double inW);
-
-		/** Perform the dot product between this vector and the given vector */
-		double dot(const Vector4 & other) const;
-
-		/** Calculate the length of this vector */
-		double length() const;
-		double squaredLength() const;
-
-		Vector4 normalize() const;
-		void normalizeInPlace();
+		void setToIdentity();
+		void fromMatrix4(const Matrix4 & mat);
+		Matrix4 toMatrix4() const;
+		Vector3 transformVector(const Vector3 & vec) const;
+		Xfo inverse() const;
+		Xfo& inverseInPlace();
+		Vector3 inverseTransformVector(const Vector3 & vec) const;
+		Xfo slerp(const Xfo & other, const double & t) const;
+		Xfo& slerpInPlace(const Xfo & other, const double & t);
+		double distanceTo(const Xfo & other) const;
 
 		std::string toString() const;
 	};

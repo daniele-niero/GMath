@@ -135,31 +135,34 @@ namespace gmath {
     }
     /*------ Arithmetic updates ------*/
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Vector4::operator += (const Vector4 & other)
+    Vector4& Vector4::operator += (const Vector4 & other)
     {
         x += other.x;
         y += other.y;
         z += other.z;
         w += other.w;
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Vector4::operator -= (const Vector4 & other)
+    Vector4& Vector4::operator -= (const Vector4 & other)
     {
         x -= other.x;
         y -= other.y;
         z -= other.z;
         w -= other.w;
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Vector4::operator *= (double scalar)
+    Vector4& Vector4::operator *= (double scalar)
     {
         x *= scalar;
         y *= scalar;
         z *= scalar;
         w *= scalar;
+        return *this;
     }
     /*-----------------------------------------------------------------------------------------------------------------*/
-    void Vector4::operator /= (double scalar)
+    Vector4& Vector4::operator /= (double scalar)
     {
         if (scalar == 0.0)
         {
@@ -175,6 +178,7 @@ namespace gmath {
             z /= scalar;
             w /= scalar;
         }
+        return *this;
     }
     /*------ Comparisons ------*/
     /*-----------------------------------------------------------------------------------------------------------------*/

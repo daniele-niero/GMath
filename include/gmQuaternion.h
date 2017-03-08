@@ -20,8 +20,7 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABI
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-#ifndef GMQUATERNION_H
-#define GMQUATERNION_H
+#pragma once
 
 #include <string>
 #include <stdexcept>
@@ -68,11 +67,11 @@ namespace gmath
         Quaternion operator / (double scalar) const;
 
         /*------ Arithmetic updates ------*/
-        void operator += (const Quaternion &other);
-        void operator -= (const Quaternion &other);
-        void operator *= (const Quaternion &other);
-        void operator *= (double scalar);
-        void operator /= (double scalar);
+        Quaternion& operator += (const Quaternion &other);
+        Quaternion& operator -= (const Quaternion &other);
+        Quaternion& operator *= (const Quaternion &other);
+        Quaternion& operator *= (double scalar);
+        Quaternion& operator /= (double scalar);
 
         /*------ Arithmetic comparisons ------*/
         bool operator == (const Quaternion &other) const;
@@ -130,15 +129,7 @@ namespace gmath
         /*  This function comes from Imath, part of ILM's OpenEXR library.
 
             Spherical linear interpolation.
-            Assumes q1 and q2 are normalized and that q1 != -q2.
-        
-            This method does *not* interpolate along the shortest arc between q1 and q2.  If you desire interpolation
-            along the shortest arc, and q1^q2 is negative, then consider calling slerpShortestArc(), below, or flipping
-            the second quaternion explicitly.
-        
-            The implementation of squad() depends on a slerp() that interpolates as is, without the automatic flipping.
-        
-            Don Hatch explains the method we use here on his web page, The Right Way to Calculate Stuff, at http://www.plunk.org/~hatch/rightway.php */
+            Assumes q1 and q2 are normalized and that q1 != -q2. */
         void slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath=true);
 		Quaternion slerp(const Quaternion &q2, double t, bool shortestPath=true) const;
 
@@ -146,5 +137,3 @@ namespace gmath
         std::string toString() const;
     };
 }
-
-#endif // GMQUATERNION_H
