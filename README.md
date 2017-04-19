@@ -1,8 +1,6 @@
-[![Build Status](https://drone.io/bitbucket.org/daniele-niero/gmath/status.png)](https://drone.io/bitbucket.org/daniele-niero/gmath/latest)
+# Overview
 
-# Overview #
-
-**GMath** is a math ~~templated~~ library written in C++ with Python wrappers made with ~~Boost::Python~~ [**SWI**G](http://www.swig.org/).
+**GMath** is a math ~~templated~~ library written in C++ with Python wrappers made with ~~Boost::Python~~ [**SWIG**](http://www.swig.org/).
 
 It has been designed with Computer Graphic technical directors in mind, especially Character TDs.
 It's primary goal is not to be super fast (although it's not slow) but to be easy to understand and use.
@@ -10,7 +8,7 @@ It's primary goal is not to be super fast (although it's not slow) but to be eas
 **GMath** is a small and stright forward library; cpp source files are in ./source and headers are in ./include.
 You can simply build your cpp application using them or you can build a library out of them.
 
-## Build
+## Buil
 
 **GMath** uses [**waf**](https://github.com/waf-project/waf) to configure and build.
 
@@ -18,7 +16,7 @@ The only thing you need is to be sure that you have python installed for your sy
 Mac and Linux users already have python out of the box, Windows users should install it.
 You **don't need to install waf itself**, it is already included in the repo.
 
-### CPP Only
+### CPP Only  
 
 Building a static and/or shared library is incredibly easy.
 From the command line navigate to the folder where you have cloned the repo and input this command:
