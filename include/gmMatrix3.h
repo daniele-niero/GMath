@@ -33,7 +33,8 @@ namespace gmath
                 const Vector3 &axisY,
                 const Vector3 &axisZ);
         Matrix3(const Quaternion& quat);
-        Matrix3(const double* list);
+        Matrix3(const double* values);
+        Matrix3(const std::vector<double>& values);
 
         /** Pointer access for direct copying. */
         double* data();
@@ -76,7 +77,8 @@ namespace gmath
         void set(double xx, double xy, double xz,
                  double yx, double yy, double yz,
                  double zx, double zy, double zz);
-        void set(const double* list);
+        void set(const double* values);
+        void set(const std::vector<double>& values);
 
         Vector3 getRow(unsigned int i) const;
         void setRow(unsigned int i, const Vector3 &vec);

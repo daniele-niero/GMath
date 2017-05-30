@@ -3,7 +3,7 @@
 using namespace std;
 
 namespace gmath {
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     /*------ Constructors ------*/
     Vector4::Vector4()
     {
@@ -12,7 +12,7 @@ namespace gmath {
         z=0.0;
         w=0.0;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4::Vector4(double inX, double inY, double inZ, double inW)
     {
         x = inX;
@@ -20,7 +20,7 @@ namespace gmath {
         z = inZ;
         w = inW;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4::Vector4(const Vector4 & other)
     {
         x = other.x;
@@ -28,15 +28,17 @@ namespace gmath {
         z = other.z;
         w = other.w;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
-    Vector4::Vector4(const double* list)
+
+    Vector4::Vector4(const double* values)
     {
-        x = list[0];
-        y = list[1];
-        z = list[2];
-        w = list[3];
+        set(values);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
+    Vector4::Vector4(const std::vector<double>& values)
+    {
+        set(values);
+    }
+
     /*------ Coordinates access ------*/
     double Vector4::operator[] (int i) const
     {
@@ -45,7 +47,7 @@ namespace gmath {
         }
         return *(&x+i);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double& Vector4::operator[] (int i)
     {
         if (i==0){
@@ -53,17 +55,17 @@ namespace gmath {
         }
         return *(&x+i);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double* Vector4::data()
     {
     	return &x;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     const double* Vector4::data() const
     {
     	return &x;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     /*------ Arithmetic operations ------*/
     Vector4 Vector4::operator + (const Vector4 & other) const
     {
@@ -71,26 +73,26 @@ namespace gmath {
 
         return newVector4;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4 Vector4::operator - (const Vector4 & other) const
     {
         Vector4 newVector4(x-other.x, y-other.y, z-other.z, w-other.w);
         return newVector4;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4 Vector4::operator - () const
     {
         Vector4 newVector4(-x, -y, -z, -w);
         return newVector4;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4 Vector4::operator * (double scalar) const
     {
         Vector4 newVector4(x*scalar, y*scalar, z*scalar, w*scalar);
 
         return newVector4;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4 Vector4::operator / (double scalar) const
     {
         Vector4 newVector4;
@@ -111,8 +113,8 @@ namespace gmath {
 
         return newVector4;
     }
+
     /*------ Arithmetic updates ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
     Vector4& Vector4::operator += (const Vector4 & other)
     {
         x += other.x;
@@ -121,7 +123,7 @@ namespace gmath {
         w += other.w;
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4& Vector4::operator -= (const Vector4 & other)
     {
         x -= other.x;
@@ -130,7 +132,7 @@ namespace gmath {
         w -= other.w;
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4& Vector4::operator *= (double scalar)
     {
         x *= scalar;
@@ -139,7 +141,7 @@ namespace gmath {
         w *= scalar;
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4& Vector4::operator /= (double scalar)
     {
         if (scalar == 0.0)
@@ -158,8 +160,8 @@ namespace gmath {
         }
         return *this;
     }
+
     /*------ Comparisons ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
     bool Vector4::operator == (const Vector4 & other) const
     {
         return (fabs(x-other.x) < gmath::EPSILON && 
@@ -167,7 +169,7 @@ namespace gmath {
                 fabs(z-other.z) < gmath::EPSILON &&
                 fabs(w-other.w) < gmath::EPSILON);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     bool Vector4::operator != (const Vector4 & other) const
     {
         return (fabs(x-other.x) > gmath::EPSILON || 
@@ -175,8 +177,8 @@ namespace gmath {
                 fabs(z-other.z) > gmath::EPSILON ||
                 fabs(w-other.w) < gmath::EPSILON);
     }
+
     /*------ Assignments ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
     void Vector4::operator = (const Vector4 & other)
     {
         x = other.x;
@@ -184,6 +186,7 @@ namespace gmath {
         z = other.z;
         w = other.z;
     }
+    
     /*------ Methods ------*/
     void Vector4::set(double inX, double inY, double inZ, double inW)
     {
@@ -192,23 +195,42 @@ namespace gmath {
         z = inZ;
         w = inW;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
+    void Vector4::set(const double* values)
+	{
+	    x = values[0];
+	    y = values[1];
+	    z = values[2];
+	    w = values[3];
+	}
+    
+    void Vector4::set(const std::vector<double>& values)
+    {
+        if (values.size()!=4)
+            throw out_of_range("Matrix4: values must be of 4 elements");
+        
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+        this->w = values[3];
+    }
+
     double Vector4::dot(const Vector4 & other) const
     {
         return x*other.x + y*other.y + z*other.z + w*other.w;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double Vector4::length() const
     {
         double dot = x*x + y*y + z*z + w*w;
         return sqrt( dot );
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double Vector4::squaredLength() const
     {
         return x*x + y*y + z*z + w*w;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector4 Vector4::normalize() const
     {
         double len = length();
@@ -225,7 +247,7 @@ namespace gmath {
 
         return Vector4(x*nlen, y*nlen, z*nlen, w*nlen);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Vector4::normalizeInPlace()
     {
         double len = length();
@@ -245,7 +267,7 @@ namespace gmath {
         z *= nlen;
         w *= nlen;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     std::string Vector4::toString() const
     {
         std::stringstream oss;
@@ -253,5 +275,5 @@ namespace gmath {
 
         return oss.str();
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
 }

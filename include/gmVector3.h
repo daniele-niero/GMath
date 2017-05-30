@@ -7,6 +7,8 @@
 #include <vector>
 #include "gmRoot.h"
 
+#include <list>
+
 using namespace std;
 
 namespace gmath
@@ -28,7 +30,8 @@ namespace gmath
 			Vector3();
 			Vector3(double inX, double inY, double inZ);
 			Vector3(const Vector3 & other);
-			Vector3(const double* list);
+			Vector3(const double* values);
+			Vector3(const std::vector<double>& values); 
 
 			/*------ properties ------*/
 			double x, y, z;
@@ -76,7 +79,8 @@ namespace gmath
 			    @param inY The wanted value for y
 			    @param inZ The wanted value for z */
 			void set(double inX, double inY, double inZ);
-
+			void set(const double* values);
+			void set(const std::vector<double>& values);
 
 			/** Perform the cross product between this vector and the given vector */
 			Vector3 cross(const Vector3 & other) const;

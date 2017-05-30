@@ -18,11 +18,12 @@ namespace gmath
         Quaternion();
         Quaternion(double x, double y, double z, double w);
         Quaternion(const Quaternion &values);
-        Quaternion(const double *list);
         Quaternion(const Matrix3& inMat);
         Quaternion(const Matrix4& inMat);
         Quaternion(const Vector3& axis, double angle);
         Quaternion(double angleX, double angleY, double angleZ);
+        Quaternion(const double *values);
+        Quaternion(const std::vector<double>& values);
 
         /*------ properties ------*/
         double x, y, z, w;
@@ -66,6 +67,9 @@ namespace gmath
             @param inZ The wanted value for z
             @param inW The wanted value for w */
         void set(double inX, double inY, double inZ, double inW);
+        void set(const double *values);
+        void set(const std::vector<double>& values);
+
         void setToIdentity();
 
         Vector3 getAxisY() const;

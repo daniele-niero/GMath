@@ -18,7 +18,7 @@ namespace gmath{
 
 
     /*------ Constructors ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion::Quaternion()
     {
     	x=0.0; 
@@ -26,7 +26,7 @@ namespace gmath{
     	z=0.0;
         w=1.0;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion::Quaternion(double x, double y, double z, double w)
     {
         this->x = x;
@@ -34,44 +34,47 @@ namespace gmath{
         this->z = z;
         this->w = w;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
-    Quaternion::Quaternion(const Quaternion &values)
+
+    Quaternion::Quaternion(const Quaternion &other)
     {
-        this->x = values.x;
-        this->y = values.y;
-        this->z = values.z;
-        this->w = values.w;
+        this->x = other.x;
+        this->y = other.y;
+        this->z = other.z;
+        this->w = other.w;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
-    Quaternion::Quaternion(const double *list)
-    {
-        this->x = list[0];
-        this->y = list[1];
-        this->z = list[2];
-        this->w = list[3];
-    }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion::Quaternion(const Matrix3& inMat)
     {
         this->fromMatrix3(inMat);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion::Quaternion(const Matrix4& inMat)
     {
         this->fromMatrix4(inMat);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion::Quaternion(const Vector3& axis, double angle)
     {
         this->fromAxisAngle(axis, angle);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion::Quaternion(double angleX, double angleY, double angleZ)
     {
         this->fromEuler(angleX, angleY, angleZ);
     }
+
+    Quaternion::Quaternion(const double *values)
+    {
+        set(values);
+    }
+    
+    Quaternion::Quaternion(const std::vector<double>& values)
+    {
+        set(values);
+    }
+
     /*------ Coordinate access ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double Quaternion::operator[] (int i) const
     {
         if (i>3) {
@@ -79,7 +82,7 @@ namespace gmath{
         }
         return *(&x+i);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double& Quaternion::operator[] (int i)
     {
         if (i>3) {
@@ -87,43 +90,44 @@ namespace gmath{
         }
         return *(&x+i);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double* Quaternion::data()
     {
         return &x;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     const double* Quaternion::data() const
     {
         return &x;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     /*------ Arithmetic operations ------*/
+
     Quaternion Quaternion::operator - () const
     {
     	return Quaternion(-x, -y, -z, -w);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::operator + (const Quaternion &other) const
     {
         Quaternion newQuaternion(x+other.x, y+other.y, z+other.z, w+other.w);
 
         return newQuaternion;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::operator - (const Quaternion &other) const
     {
         Quaternion newQuaternion(x-other.x, y-other.y, z-other.z, w-other.w);
         return newQuaternion;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::operator * (double scalar) const
     {
         Quaternion newQuaternion(x*scalar, y*scalar, z*scalar, w*scalar);
 
         return newQuaternion;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::operator * (const Quaternion &other) const
     {
         Quaternion result;
@@ -135,7 +139,7 @@ namespace gmath{
 
         return result;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector3 Quaternion::operator * (const Vector3& vec) const
     {
         double tx, ty, tz;
@@ -155,7 +159,7 @@ namespace gmath{
     	v.z -= (tz*w-rz)*2;
     	return v;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::operator / (double scalar) const
     {
         Quaternion newQuaternion;
@@ -176,8 +180,9 @@ namespace gmath{
 
         return newQuaternion;
     }
+
     /*------ Arithmetic updates ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion& Quaternion::operator += (const Quaternion & other)
     {
         x += other.x;
@@ -186,7 +191,7 @@ namespace gmath{
         w += other.w;
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion& Quaternion::operator -= (const Quaternion & other)
     {
         x -= other.x;
@@ -195,7 +200,7 @@ namespace gmath{
         w -= other.w;
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion& Quaternion::operator *= (double scalar)
     {
         x *= scalar;
@@ -204,7 +209,7 @@ namespace gmath{
         w *= scalar;
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion& Quaternion::operator *= (const Quaternion &other)
     {
         this->set(w*other.x + x*other.w + y*other.z - z*other.y,
@@ -213,7 +218,7 @@ namespace gmath{
                   w*other.w - x*other.x - y*other.y - z*other.z);
         return *this;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion& Quaternion::operator /= (double scalar)
     {
         if (scalar == 0.0)
@@ -232,8 +237,9 @@ namespace gmath{
         }
         return *this;
     }
+
     /*------ Comparisons ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     bool Quaternion::operator == (const Quaternion & other) const
     {
         return (fabs(x-other.x) < gmath::EPSILON && 
@@ -241,7 +247,7 @@ namespace gmath{
                 fabs(z-other.z) < gmath::EPSILON &&
                 fabs(w-other.w) < gmath::EPSILON);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     bool Quaternion::operator != (const Quaternion & other) const
     {
         return (fabs(x-other.x) > gmath::EPSILON || 
@@ -249,8 +255,9 @@ namespace gmath{
                 fabs(z-other.z) > gmath::EPSILON ||
                 fabs(w-other.w) < gmath::EPSILON);
     }
+
     /*------ Assignments ------*/
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::operator = (const Quaternion & other)
     {
         x = other.x;
@@ -258,7 +265,9 @@ namespace gmath{
         z = other.z;
         w = other.w;
     }
+
     /*------ Methods ------*/
+    
     void Quaternion::set(double inX, double inY, double inZ, double inW)
     {
         x = inX;
@@ -266,27 +275,46 @@ namespace gmath{
         z = inZ;
         w = inW;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
+    void Quaternion::set(const double *values)
+    {
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+        this->w = values[3];
+    }
+    
+    void Quaternion::set(const std::vector<double>& values)
+    {
+        if (values.size()!=4)
+            throw out_of_range("Quaternion: values must be of 4 elments");
+        
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+        this->w = values[3];
+    }
+
     void Quaternion::setToIdentity()
     {
     	x=0.0; y=0.0; z=0.0; w=1.0; 
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector3 Quaternion::getAxisX() const
     {
         return (*this) * Vector3::XAXIS; 
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector3 Quaternion::getAxisY() const
     {
         return (*this) * Vector3::YAXIS; 
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Vector3 Quaternion::getAxisZ() const
     {
         return (*this) * Vector3::ZAXIS; 
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::fromMatrix3(const Matrix3& mat)
     {
         // Code from Geometric Tools www.geometrictools.com
@@ -336,7 +364,7 @@ namespace gmath{
     {
         fromMatrix3(mat.toMatrix3());
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Matrix3 Quaternion::toMatrix3() const
     {
         double xx = 2.0*x*x;
@@ -354,7 +382,7 @@ namespace gmath{
                 xz+yw,     yz-xw,     1.0-xx-yy 
                 );
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Matrix4 Quaternion::toMatrix4() const
     {
         double xx = 2.0*x*x;
@@ -373,7 +401,7 @@ namespace gmath{
                 0.0,       0.0,       0.0,       1.0
                 );
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::setMatrix4(Matrix4& outMat) const
     {
         double xx = 2.0*x*x;
@@ -392,7 +420,7 @@ namespace gmath{
                 0.0,       0.0,       0.0,       1.0
                 );
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::setMatrix4(Matrix4& outMat, const Vector3& scale, const Vector3& pos) const
     {
         double xx = 2.0*x*x;
@@ -411,7 +439,7 @@ namespace gmath{
                 pos.x,     pos.y,     pos.z,     1.0);
     	outMat.setScale(scale);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::fromAxisAngle(const Vector3& axis, double angle)
     {
         // assert:  axis[] is unit length
@@ -426,7 +454,7 @@ namespace gmath{
         y = quatVec.y;
         z = quatVec.z;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::toAxisAngle (Vector3& outAxis, double& outAngle) const
     {
         // The quaternion representing the rotation is
@@ -454,7 +482,7 @@ namespace gmath{
             outAxis.set(1, 0, 0);
         }
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::fromEuler(double angleX, double angleY, double angleZ, RotationOrder order)
     {
     	Quaternion XQuat(Vector3::XAXIS, angleX);
@@ -483,30 +511,30 @@ namespace gmath{
             break;
         }
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::fromEuler(const Euler& euler, RotationOrder order)
     {
         // ensure euler is radians
 		Euler r = euler.toRadians();
     	this->fromEuler(r.x, r.y, r.z, order);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Euler Quaternion::toEuler(RotationOrder order) const
     {
     	Matrix3 mat = this->toMatrix3();
     	return mat.toEuler(order);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double Quaternion::length () const
     {
     	return sqrt(w*w + x*x + y*y + z*z);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double Quaternion::squaredLength () const
     {
     	return w*w + x*x + y*y + z*z;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::normalizeInPlace ()
     {
     	double len = length();
@@ -527,7 +555,7 @@ namespace gmath{
     		z = 0;
     	}
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::normalize () const
     {
     	Quaternion retQuat;
@@ -550,7 +578,7 @@ namespace gmath{
     	}
         return retQuat;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::inverseInPlace ()
     {
     	double norm = squaredLength();
@@ -568,7 +596,7 @@ namespace gmath{
     		set(0, 0, 0, 0);
     	}
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::inverse () const
     {
     	Quaternion inv;
@@ -590,17 +618,17 @@ namespace gmath{
 
     	return inv;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::conjugateInPlace ()
     {
     	set(-x, -y, -z, w);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::conjugate () const
     {
     	return Quaternion(-x, -y, -z, w);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::exp () const
     {
     	// If q = A*(x*i+y*j+z*k) where (x,y,z) is unit length, then
@@ -633,7 +661,7 @@ namespace gmath{
 
     	return result;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::log () const
     {
     	// If q = cos(A)+sin(A)*(x*i+y*j+z*k) where (x,y,z) is unit length, then
@@ -664,12 +692,12 @@ namespace gmath{
     	result.w = this->w;
     	return result;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double Quaternion::dot(const Quaternion & other) const
     {
         return x*other.x + y*other.y + z*other.z + w*other.w;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     void Quaternion::slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath)
     {	
     	Quaternion Q2 = q2;
@@ -691,7 +719,7 @@ namespace gmath{
             q1 * (sinx_over_x(s * a) / sinx_over_x(a) * s)  +
             Q2 * (sinx_over_x(t * a) / sinx_over_x(a) * t) ;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     Quaternion Quaternion::slerp(const Quaternion &q2, double t, bool shortestPath) const
     {	
     	Quaternion Q2 = q2;
@@ -713,7 +741,7 @@ namespace gmath{
             (*this) * (sinx_over_x(s * a) / sinx_over_x(a) * s)  +
             Q2 * (sinx_over_x(t * a) / sinx_over_x(a) * t) ;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     std::string Quaternion::toString() const
     {
         std::stringstream oss;
@@ -721,5 +749,5 @@ namespace gmath{
 
         return oss.str();
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
 }

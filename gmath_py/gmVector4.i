@@ -1,19 +1,18 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmVector4.h"
 %}
 
+namespace gmath {
+    class Vector4;
+    %typemap(out) double* data %{
+        $result = PyTuple_New(4); // use however you know the size here
+        for (int i = 0; i < 4; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+}
 
-%typemap(out) double* data %{
-  $result = PyTuple_New(4); // use however you know the size here
-  for (int i = 0; i < 4; ++i) {
-    PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-  }
-%}
 
 %include "gmVector4.h"
 

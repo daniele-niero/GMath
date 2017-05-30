@@ -1,8 +1,4 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmXfo.h"
 %}

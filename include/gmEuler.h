@@ -17,6 +17,8 @@ namespace gmath
 		Euler(const Euler& other);
 		Euler(const double inX, const double inY, const double inZ, Unit inUnit=radians);
 		Euler(const Vector3& vec, Unit inUnit=radians);
+		Euler(const double *values, Unit inUnit=radians);
+        Euler(const std::vector<double>& values, Unit inUnit=radians);
 
 		double x, y, z;
 
@@ -33,6 +35,8 @@ namespace gmath
 		bool operator != (const Euler &other) const;
 
 		void set(const double inX, const double inY, const double inZ);
+		void set(const double *values);
+        void set(const std::vector<double>& values);
 
 		Unit getUnit() const;
 		/**

@@ -7,36 +7,40 @@ using namespace std;
 namespace gmath
 {
 	/*------ Constructors ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3::Vector3()
 	{
 	    x=0.0; 
 	    y=0.0;
 	    z=0.0; 
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3::Vector3(double inX, double inY, double inZ)
 	{
 	    x = inX;
 	    y = inY;
 	    z = inZ;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3::Vector3(const Vector3 & other)
 	{
 	    x = other.x;
 	    y = other.y;
 	    z = other.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
-	Vector3::Vector3(const double* list)
+
+	Vector3::Vector3(const double* values)
 	{
-	    x = list[0];
-	    y = list[1];
-	    z = list[2];
+	    set(values);
 	}
+
+	Vector3::Vector3(const vector<double>& values) 
+	{
+        set(values);
+    }
+
 	/*------ Coordinate access ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::operator[] (int i) const
 	{
 	    if (i>2) {
@@ -44,7 +48,7 @@ namespace gmath
 	    }
 	    return *(&x+i);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double& Vector3::operator[] (int i)
 	{
 	    if (i>2) {
@@ -52,51 +56,54 @@ namespace gmath
 	    }
 	    return *(&x+i);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
+	/*------ Data access ------*/
+
 	double* Vector3::data()
 	{
 	    return &x;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	const double* Vector3::data() const
 	{
 	    return &x;
 	}
+
 	/*------ Arithmetic operations ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator + (const Vector3 & other) const
 	{
 	    Vector3 newVector3(x+other.x, y+other.y, z+other.z);
 
 	    return newVector3;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator - () const
 	{
 	    Vector3 newVector3(-x, -y, -z);
 	    return newVector3;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator - (const Vector3 & other) const
 	{
 	    Vector3 newVector3(x-other.x, y-other.y, z-other.z);
 	    return newVector3;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator * (double scalar) const
 	{
 	    Vector3 newVector3(x*scalar, y*scalar, z*scalar);
 
 	    return newVector3;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator * (const Vector3 & other) const
 	{
 	    Vector3 newVector3(x*other.x, y*other.y, z*other.z);
 
 	    return newVector3;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator * (const Matrix3 &mat) const
 	{
 	    Vector3 retVec(
@@ -106,7 +113,7 @@ namespace gmath
 	        );
 	    return retVec;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator * (const Matrix4 &mat) const
 	{
 	    Vector3 retVec(
@@ -116,7 +123,7 @@ namespace gmath
 	        );
 	    return retVec;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator / (double scalar) const
 	{
 	    Vector3 newVector3;
@@ -135,7 +142,7 @@ namespace gmath
 
 	    return newVector3;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::operator / (const Vector3 & other) const
 	{
 	    Vector3 newVector;
@@ -157,8 +164,9 @@ namespace gmath
 	        
 	    return newVector;
 	}
+
 	/*------ Arithmetic updates ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator += (const Vector3 & other)
 	{
 	    x += other.x;
@@ -166,7 +174,7 @@ namespace gmath
 	    z += other.z;
 	    return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator -= (const Vector3 & other)
 	{
 	    x -= other.x;
@@ -174,7 +182,7 @@ namespace gmath
 	    z -= other.z;
 	    return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator *= (double scalar)
 	{
 	    x *= scalar;
@@ -182,7 +190,7 @@ namespace gmath
 	    z *= scalar;
 	    return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator *= (const Vector3 & other)
 	{
 	    x*=other.x; 
@@ -190,7 +198,7 @@ namespace gmath
 		z*=other.z;
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator *= (const Matrix3 &mat)
 	{
 	    this->set(
@@ -200,7 +208,7 @@ namespace gmath
 	        );
 	    return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator *= (const Matrix4 &mat)
 	{
 	    this->set(
@@ -210,7 +218,7 @@ namespace gmath
 	        );
 	    return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator /= (double scalar)
 	{
 	    if (scalar == 0.0)
@@ -227,7 +235,7 @@ namespace gmath
 	    }
 	    return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3& Vector3::operator /= (const Vector3 &other)
 	{
 	    if (other.x == 0.0)
@@ -246,38 +254,58 @@ namespace gmath
 	        z /= other.z;
 	    return *this;
 	}
+
 	/*------ Comparisons ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	bool Vector3::operator == (const Vector3 & other) const
 	{
 	    return (fabs(x-other.x) < gmath::EPSILON && 
 	            fabs(y-other.y) < gmath::EPSILON && 
 	            fabs(z-other.z) < gmath::EPSILON);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	bool Vector3::operator != (const Vector3 & other) const
 	{
 	    return (fabs(x-other.x) > gmath::EPSILON || 
 	            fabs(y-other.y) > gmath::EPSILON || 
 	            fabs(z-other.z) > gmath::EPSILON);
 	}
+
 	/*------ Assignments ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::operator = (const Vector3 & other)
 	{
 	    x = other.x;
 	    y = other.y;
 	    z = other.z;
 	}
+	
 	/*------ Methods ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::set(double inX, double inY, double inZ)
 	{
 	    x = inX;
 	    y = inY;
 	    z = inZ;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
+	void Vector3::set(const double* values)
+	{
+	    x = values[0];
+	    y = values[1];
+	    z = values[2];
+	}
+    
+    void Vector3::set(const std::vector<double>& values)
+    {
+        if (values.size()!=3)
+            throw out_of_range("Matrix3: values must be of 3 elements");
+        
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+    }
+
 	Vector3 Vector3::cross(const Vector3 & other) const
 	{
 	    Vector3 retVec(
@@ -286,7 +314,7 @@ namespace gmath
 	            x*other.y - y*other.x);
 	    return retVec;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::crossInPlace(const Vector3 & other)
 	{
 	    double newx = y*other.z - z*other.y;
@@ -296,7 +324,7 @@ namespace gmath
 	    y = newy;
 	    z = newz;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::crossNormalize(const Vector3 & other) const
 	{
 	    Vector3 retVec(y*other.z - z*other.y,
@@ -305,41 +333,41 @@ namespace gmath
 	    retVec.normalizeInPlace();
 	    return retVec;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::crossNormalizeInPlace(const Vector3 & other)
 	{
 	    crossInPlace(other);
 	    normalizeInPlace();
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::dot(const Vector3 & other) const
 	{
 	    return x*other.x + y*other.y + z*other.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::length() const
 	{
 	    double dot = x*x + y*y + z*z;
 	    return sqrt( dot );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::squaredLength() const
 	{
 	    return x*x + y*y + z*z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::squaredDistance(const Vector3 & other) const
 	{
 	    Vector3 distVec( (*this)-(other) );
 	    return distVec.squaredLength();
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::distance(const Vector3 & other) const
 	{
 	    Vector3 distVec( (*this)-(other) );
 	    return distVec.length();
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::normalize() const
 	{
 	    double len = length();
@@ -355,7 +383,7 @@ namespace gmath
 
 	    return Vector3(x*nlen, y*nlen, z*nlen);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::normalizeInPlace()
 	{
 	    double len = length();
@@ -374,25 +402,25 @@ namespace gmath
 	    y*=nlen;
 	    z*=nlen;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Vector3::angle(const Vector3 & other) const
 	{
 		double ang = gmath::acos((dot(other))); 
 	    return ang;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::reflect(const Vector3 & normal) const
 	{
 	    double dot = this->dot(normal);
 	    return ( normal * (2.0*dot) ) - *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::reflectInPlace(const Vector3 & normal)
 	{
 	    double dot = this->dot(normal);
 	    *this = ( normal * (2.0*dot) ) - *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::refract(const Vector3 & normal, double eta) const
 	{
 	    double dot = this->dot(normal);
@@ -406,7 +434,7 @@ namespace gmath
 	    }
 	    return retVec;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::refractInPlace(const Vector3 & normal, double eta)
 	{
 	    double dot = this->dot(normal);
@@ -422,21 +450,21 @@ namespace gmath
 	        this->set(double(0.0), double(0.0), double(0.0));
 	    }
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Vector3::linearInterpolate(const Vector3 & other, double weight) const
 	{
 		return Vector3((other.x - x) * weight + x,
 							 (other.y - y) * weight + y,
 							 (other.z - z) * weight + z);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Vector3::linearInterpolateInPlace(const Vector3 & other, double weight)
 	{
 		x = (other.x - x) * weight + x;
 		y = (other.y - y) * weight + y;
 		z = (other.z - z) * weight + z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	std::string Vector3::toString() const
 	{
 	    std::stringstream oss;
@@ -444,7 +472,7 @@ namespace gmath
 
 	    return oss.str();
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 
 	// Special Vectors.
 	const Vector3 Vector3::XAXIS = Vector3(1.0, 0.0, 0.0);

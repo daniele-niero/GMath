@@ -1,11 +1,10 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <stdexcept>
 #include <math.h>
 #include "gmRoot.h"
-
-using namespace std;
 
 namespace gmath
 {
@@ -16,7 +15,8 @@ namespace gmath
 		Vector4();
 		Vector4(double inX, double inY, double inZ, double inW);
 		Vector4(const Vector4 & other);
-		Vector4(const double* list);
+		Vector4(const double* values);
+		Vector4(const std::vector<double>& values);
 
 		/*------ properties ------*/
 		double x, y, z, w;
@@ -57,6 +57,8 @@ namespace gmath
 			@param inZ The wanted value for z
 			@param inW The wanted value for w */
 		void set(double inX, double inY, double inZ, double inW);
+		void set(const double* values);
+		void set(const std::vector<double>& values);
 
 		/** Perform the dot product between this vector and the given vector */
 		double dot(const Vector4 & other) const;

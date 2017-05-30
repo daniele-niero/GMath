@@ -5,9 +5,9 @@ using namespace std;
 
 namespace gmath
 {
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	/*------ Constructors ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4()
 	{
 		_data[0]=1.0;  _data[1]=0.0;  _data[2]=0.0;  _data[3]=0.0;
@@ -15,7 +15,7 @@ namespace gmath
 		_data[8]=0.0;  _data[9]=0.0; _data[10]=1.0; _data[11]=0.0;
 		_data[12]=0.0; _data[13]=0.0; _data[14]=0.0; _data[15]=1.0;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(
 		double xx, double xy, double xz, double xw,
 		double yx, double yy, double yz, double yw,
@@ -27,12 +27,12 @@ namespace gmath
 		_data[8]=zx;  _data[9]=zy;  _data[10]=zz; _data[11]=zw;
 		_data[12]=px; _data[13]=py; _data[14]=pz; _data[15]=pw;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(const Matrix4 & other)
 	{
 		memcpy(_data, other._data, 16*sizeof(double));
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(
 		const Vector4 &row0,
 		const Vector4 &row1,
@@ -44,7 +44,7 @@ namespace gmath
 		memcpy(&_data[8],  row2.data(), 4*sizeof(double));
 		memcpy(&_data[12], row3.data(), 4*sizeof(double));
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(
 		const Vector3 &row0,
 		const Vector3 &row1,
@@ -56,7 +56,7 @@ namespace gmath
 		memcpy(&_data[8],  row2.data(), 3*sizeof(double));
 		memcpy(&_data[12], row3.data(), 3*sizeof(double));
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(
 		const Vector3 &row0,
 		const Vector3 &row1,
@@ -67,35 +67,40 @@ namespace gmath
 		memcpy(&_data[8],  row2.data(), 3*sizeof(double));
 		_data[12]=0.0; _data[13]=0.0; _data[14]=0.0;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(const Quaternion &quat)
 	{
 		quat.setMatrix4((*this));
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4::Matrix4(const Quaternion &quat, const Vector3 &pos)
 	{
 		quat.setMatrix4((*this));
 		this->setPosition(pos);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
-	Matrix4::Matrix4(const double* list)
+
+	Matrix4::Matrix4(const double* values)
 	{
-		memcpy(_data, list, 16*sizeof(double));
+		set(values);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
+	Matrix4::Matrix4(const std::vector<double>& values)
+	{
+		set(values);
+	}
+
 	/*------ Coordinates access ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double* Matrix4::data()
 	{
 		return &_data[0];
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	const double* Matrix4::data() const
 	{
 		return &_data[0];
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Matrix4::operator[] (int i) const
 	{
 		if (i>=0 && i<16)
@@ -106,7 +111,7 @@ namespace gmath
 			throw out_of_range("gMatrix3: index out of range");
 		}
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double& Matrix4::operator[] (int i)
 	{
 		if (i>=0 && i<16)
@@ -117,7 +122,7 @@ namespace gmath
 			throw out_of_range("gVector4: index out of range");
 		}
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Matrix4::operator() (int row, int col) const
 	{
 		if (row>=0 && row<4 && col>=0 && col<4)
@@ -129,7 +134,7 @@ namespace gmath
 			throw out_of_range("gMatrix4: row or column index out of range");
 		}
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double &Matrix4::operator() (int row, int col)
 	{
 		if (row>=0 && row<4 && col>=0 && col<4)
@@ -141,9 +146,9 @@ namespace gmath
 			throw out_of_range("gMatrix4: row or column index out of range");
 		}
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	/*------ Arithmetic operations ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator + (const double &value) const
 	{
 		Matrix4 retMatrix(
@@ -154,7 +159,7 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator + (const Matrix4 &other) const
 	{
 		const double* b = other.data();
@@ -166,7 +171,7 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator - (const double &value) const
 	{
 		Matrix4 retMatrix(
@@ -177,7 +182,7 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator - (const Matrix4 &other) const
 	{
 		const double* b = other.data();
@@ -189,7 +194,7 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator / (const double &value) const
 	{
 		Matrix4 retMatrix(
@@ -200,7 +205,7 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator * (const double &value) const
 	{
 		Matrix4 retMatrix(
@@ -211,7 +216,7 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::operator * (const Matrix4 &other) const
 	{
 		const double* b = other.data();
@@ -238,9 +243,9 @@ namespace gmath
 			);
 		return retMatrix;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	/*------ Arithmetic updates ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator += (const double &value)
 	{
 		 _data[0]+=value;  _data[1]+=value;  _data[2]+=value;  _data[3]+=value;
@@ -249,7 +254,7 @@ namespace gmath
 		_data[12]+=value; _data[13]+=value; _data[14]+=value; _data[15]+=value;
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator += (const Matrix4 &other)
 	{
 		const double* b = other.data();
@@ -260,7 +265,7 @@ namespace gmath
 		_data[12]+=b[12]; _data[13]+=b[13]; _data[14]+=b[14]; _data[15]+=b[15];
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator -= (const double &value)
 	{
 		 _data[0]-=value;  _data[1]-=value;  _data[2]-=value;  _data[3]-=value;
@@ -269,7 +274,7 @@ namespace gmath
 		_data[12]-=value; _data[13]-=value; _data[14]-=value; _data[15]-=value;
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator -= (const Matrix4 &other)
 	{
 		const double* b = other.data();
@@ -280,7 +285,7 @@ namespace gmath
 		_data[12]-=b[12]; _data[13]-=b[13]; _data[14]-=b[14]; _data[15]-=b[15];
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator /= (const double &value)
 	{
 		 _data[0]/=value;  _data[1]/=value;  _data[2]/=value;  _data[3]/=value;
@@ -289,7 +294,7 @@ namespace gmath
 		_data[12]/=value; _data[13]/=value; _data[14]/=value; _data[15]/=value;
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator *= (const double &value)
 	{
 		 _data[0]*=value;  _data[1]*=value;  _data[2]*=value;  _data[3]*=value;
@@ -298,7 +303,7 @@ namespace gmath
 		_data[12]*=value; _data[13]*=value; _data[14]*=value; _data[15]*=value;
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4& Matrix4::operator *= (const Matrix4 &other)
 	{
 		const double* b = other.data();
@@ -325,9 +330,9 @@ namespace gmath
 			);
 		return *this;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	/*------ Comparisons ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	bool Matrix4::operator == (const Matrix4 &other) const
 	{
 		const double* b = &other._data[0];
@@ -337,7 +342,7 @@ namespace gmath
 				fabs(_data[8]-b[8])<e && fabs(_data[9]-b[9])<e && fabs(_data[10]-b[10])<e && fabs(_data[11]-b[11])<e &&
 				fabs(_data[12]-b[12])<e && fabs(_data[13]-b[13])<e && fabs(_data[14]-b[14])<e && fabs(_data[15]-b[15])<e);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	bool Matrix4::operator != (const Matrix4 &other) const
 	{
 		const double* b = &other._data[0];
@@ -347,9 +352,9 @@ namespace gmath
 				fabs(_data[8]-b[8])>e || fabs(_data[9]-b[9])>e || fabs(_data[10]-b[10])>e || fabs(_data[11]-b[11])>e ||
 				fabs(_data[12]-b[12])>e || fabs(_data[13]-b[13])>e || fabs(_data[14]-b[14])>e || fabs(_data[15]-b[15])>e);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	/*------ Assignment ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::operator = (const Matrix4 &other)
 	{
 		_data[ 0] = other._data[0];
@@ -370,7 +375,7 @@ namespace gmath
 		_data[15] = other._data[15];
 	}
 	/*------ Methods ------*/
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setToIdentity()
 	{
 		_data[0] =1;  _data[1]=0;  _data[2]=0;  _data[3]=0;
@@ -378,7 +383,7 @@ namespace gmath
 		_data[8] =0;  _data[9]=0; _data[10]=1; _data[11]=0;
 		_data[12]=0; _data[13]=0; _data[14]=0; _data[15]=1;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::set(
 		double xx, double xy, double xz, double xw,
 		double yx, double yy, double yz, double yw,
@@ -390,7 +395,21 @@ namespace gmath
 		_data[8]=zx;  _data[9]=zy;  _data[10]=zz; _data[11]=zw;
 		_data[12]=px; _data[13]=py; _data[14]=pz; _data[15]=pw;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
+	void Matrix4::set(const double* values)
+	{
+		memcpy(_data, values, 16*sizeof(double));
+	}
+
+	void Matrix4::set(const std::vector<double>& values)
+	{
+		if (values.size()!=16) {
+			throw out_of_range("Matrix4: values must be of 16 elments");
+		}
+
+		memcpy(_data, values.data(), 16*sizeof(double));
+	}
+
 	Vector3 Matrix4::getRow(unsigned int i) const
 	{
 		if (i>3)
@@ -399,7 +418,7 @@ namespace gmath
 		}
 		return Vector3( _data[i*4], _data[i*4+1], _data[i*4+2] );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector4 Matrix4::getRow2(unsigned int i) const
 	{
 		if (i>3)
@@ -408,7 +427,7 @@ namespace gmath
 		}
 		return Vector4( _data[i*4], _data[i*4+1], _data[i*4+2], _data[i*4+3] );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setRow(unsigned int i, const Vector3 &vec)
 	{
 		if (i>3)
@@ -419,7 +438,7 @@ namespace gmath
 		_data[i*4+1] = vec.y;
 		_data[i*4+2] = vec.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setRow(unsigned int i, const Vector4 &vec)
 	{
 		if (i>4)
@@ -431,84 +450,84 @@ namespace gmath
 		_data[i*4+2] = vec.z;
 		_data[i*4+3] = vec.w;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Matrix4::getAxisX() const
 	{
 		return getRow(0);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Matrix4::getAxisY() const
 	{
 		return getRow(1);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Matrix4::getAxisZ() const
 	{
 		return getRow(2);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setAxisX(const Vector3 &vec)
 	{
 		setRow(0, vec);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setAxisY(const Vector3 &vec)
 	{
 		setRow(1, vec);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setAxisZ(const Vector3 &vec)
 	{
 		setRow(2, vec);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setPosition(const Vector3 &pos)
 	{
 		_data[12] = pos.x;
 		_data[13] = pos.y;
 		_data[14] = pos.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setPosition(double inX, double inY, double inZ)
 	{
 		_data[12] = inX;
 		_data[13] = inY;
 		_data[14] = inZ;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::addPosition(const Vector3 &pos)
 	{
 		_data[12] += pos.x;
 		_data[13] += pos.y;
 		_data[14] += pos.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::addPosition(double inX, double inY, double inZ)
 	{
 		_data[12] += inX;
 		_data[13] += inY;
 		_data[14] += inZ;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::translate (const Vector3 &pos)
 	{
 		_data[12] += pos.x * _data[0] + pos.y * _data[4] + pos.z * _data[8];
 		_data[13] += pos.x * _data[1] + pos.y * _data[5] + pos.z * _data[9];
 		_data[14] += pos.x * _data[2] + pos.y * _data[6] + pos.z * _data[10];
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::translate(double inX, double inY, double inZ)
 	{
 		_data[12] += inX * _data[0] + inY * _data[4] + inZ * _data[8];
 		_data[13] += inX * _data[1] + inY * _data[5] + inZ * _data[9];
 		_data[14] += inX * _data[2] + inY * _data[6] + inZ * _data[10];
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Matrix4::getPosition() const
 	{
 		return Vector3( _data[12], _data[13], _data[14] );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setRotation(const Matrix3& rotationMatrix)
 	{
 		const double* rot = &rotationMatrix.data()[0];
@@ -516,7 +535,7 @@ namespace gmath
 		_data[4]=rot[3];  _data[5]=rot[4];  _data[6]=rot[5];
 		_data[8]=rot[6];  _data[9]=rot[7];  _data[10]=rot[8];
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setRotation(const Quaternion& rotationQuat)
 	{
 		double xx = 2.0 * rotationQuat.x * rotationQuat.x;
@@ -534,7 +553,7 @@ namespace gmath
         _data[8]=xz+yw;     _data[9]=yz-xw;     _data[10]=1.0-xx-yy;
 
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setRotation(double angleX, double angleY, double angleZ, RotationOrder order)
 	{
 		double cx, sx, cy, sy, cz, sz;
@@ -583,14 +602,14 @@ namespace gmath
 			break;
 		}
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setRotation(const Euler &rotation, RotationOrder order)
 	{
 		// ensure euler is radians
 		Euler r = rotation.toRadians();
 		this->setRotation(r.x, r.y, r.z, order);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Matrix4::getScale() const
 	{
 		Vector3 x(_data[0], _data[1], _data[2]);
@@ -599,7 +618,7 @@ namespace gmath
 
 		return Vector3(x.length(), y.length(), z.length());
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setScale(const Vector3 &scale)
 	{
 		Vector3 x(_data[0], _data[1], _data[2]);
@@ -616,7 +635,7 @@ namespace gmath
 		_data[4]=y.x; _data[5]=y.y; _data[6]=y.z;
 		_data[8]=z.x; _data[9]=z.y; _data[10]=z.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::setScale(double sX, double sY, double sZ)
 	{
 		Vector3 x(_data[0], _data[1], _data[2]);
@@ -633,7 +652,7 @@ namespace gmath
 		_data[4]=y.x; _data[5]=y.y; _data[6]=y.z;
 		_data[8]=z.x; _data[9]=z.y; _data[10]=z.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::addScale(const Vector3 &scale)
 	{
 
@@ -641,14 +660,14 @@ namespace gmath
 		_data[4]+=scale.y; _data[5]+=scale.y; _data[6]+=scale.y;
 		_data[8]+=scale.z; _data[9]+=scale.z; _data[10]+=scale.z;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::addScale(double sX, double sY, double sZ)
 	{
 		_data[0]+=sX; _data[1]+=sX; _data[2]+=sX;
 		_data[4]+=sY; _data[5]+=sY; _data[6]+=sY;
 		_data[8]+=sZ; _data[9]+=sZ; _data[10]+=sZ;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix3 Matrix4::toMatrix3() const
 	{
 		Matrix3 rot(
@@ -657,21 +676,21 @@ namespace gmath
 			_data[8],  _data[9],  _data[10]);
 		return rot;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Quaternion Matrix4::toQuaternion() const
 	{
 		Quaternion quat;
 		quat.fromMatrix4( (*this) );
 		return quat;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Euler Matrix4::toEuler(RotationOrder order) const
 	{
 		Euler retEuler(Euler::radians);
 		this->toEuler(retEuler, order);
 		return retEuler;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::toMatrix3(Matrix3 &outMatrix3) const
 	{
 		outMatrix3.set(
@@ -679,43 +698,43 @@ namespace gmath
 			_data[4], _data[5], _data[6],
 			_data[8], _data[9], _data[10]);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::toQuaternion(Quaternion &outQuaternion) const
 	{
 		outQuaternion.fromMatrix4( (*this) );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::toEuler(Euler& eulerAngles, RotationOrder order) const
 	{
 		return this->toMatrix3().toEuler(eulerAngles, order);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::fromMatrix3(const Matrix3 &inMat3)
 	{
 		memcpy(&_data[0],  &inMat3.data()[0], 3*sizeof(double));
 		memcpy(&_data[4],  &inMat3.data()[3], 3*sizeof(double));
 		memcpy(&_data[8],  &inMat3.data()[6], 3*sizeof(double));
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::fromQuaternion(const Quaternion &inQuat)
 	{
 		*this = inQuat.toMatrix4();
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::fromEuler(const double &angleX, const double &angleY, const double &angleZ, RotationOrder order)
 	{
 		Matrix3 rotationMat;
 		rotationMat.fromEuler(angleX, angleY, angleZ, order);
 		this->fromMatrix3(rotationMat);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::fromEuler(const Euler &rotation, RotationOrder order)
 	{
 		// ensure euler is radians
 		Euler r = rotation.toRadians();
 		fromEuler(r.x, r.y, r.z, order);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Vector3 Matrix4::rotateVector(const Vector3 &vec) const
 	{
 		Vector3 retVec(
@@ -725,7 +744,7 @@ namespace gmath
 			);
 		return retVec;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::transpose() const
 	{
 		return Matrix4(
@@ -734,7 +753,7 @@ namespace gmath
 			_data[2], _data[6], _data[10], _data[14],
 			_data[3], _data[7], _data[11], _data[15] );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::transposeInPlace()
 	{
 		set(
@@ -743,7 +762,7 @@ namespace gmath
 			_data[2], _data[6], _data[10], _data[14],
 			_data[3], _data[7], _data[11], _data[15] );
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	double Matrix4::determinant() const
 	{
 		double a0 = _data[ 0]*_data[ 5] - _data[ 1]*_data[ 4];
@@ -761,7 +780,7 @@ namespace gmath
 		double det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
 		return det;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::inverse() const
 	{
 		Matrix4 inverseMat;
@@ -828,14 +847,14 @@ namespace gmath
 
 		return inverseMat;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::orthogonal() const
 	{
 		Matrix4 m(*this);
 		m.orthogonalInPlace();
 		return m;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::orthogonalInPlace() //primaryAxis, secondaryAxis)
 	{
 		// Code take it from WildMagig 5  -  www.geometrictools.com  -  here the matrix is transpose
@@ -890,7 +909,7 @@ namespace gmath
 		_data[9]  *= invLength;
 		_data[10] *= invLength;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::inverseInPlace()
 	{
 		double value[16];
@@ -957,7 +976,7 @@ namespace gmath
 			0, 0, 0, 0 );
 	   }
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::fromVectorToVector(const Vector3 &fromVec, const Vector3 &toVec)
 	{
 		Vector3 x, u, v;
@@ -1032,12 +1051,12 @@ namespace gmath
 			this->_data[10] = e + hvz*v.z;
 		}
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::lookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis, Axis secondaryAxis)
 	{
 		this->lookAt(this->getPosition(), pointAt, normal, primaryAxis, secondaryAxis);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::lookAt(const Vector3 &pos, const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis, Axis secondaryAxis)
 	{
 		Vector3 primary, secondary, terziary;
@@ -1120,14 +1139,14 @@ namespace gmath
 
 		this->setPosition(pos);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	Matrix4 Matrix4::createLookAt(const Vector3 &pos, const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis, Axis secondaryAxis)
 	{
 		Matrix4 mat;
 		mat.lookAt(pos, pointAt, normal, primaryAxis, secondaryAxis);
 		return mat;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	void Matrix4::fromAxisAngle(const Vector3 &axis, double angle)
 	{
 		double sqr_a = axis.x*axis.x;
@@ -1149,7 +1168,7 @@ namespace gmath
 		_data[4] = k1ab-k3c;    _data[5] = k1*sqr_b+k2; _data[6] = k1bc+k3a;
 		_data[8] = k1ac+k3b;    _data[9] = k1bc-k3a;    _data[10] = k1*sqr_c+k2;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 	std::string Matrix4::toString() const
 	{
 		std::stringstream oss;
@@ -1160,7 +1179,7 @@ namespace gmath
 
 		return oss.str();
 	}
-	/*-----------------------------------------------------------------------------------------------------------------*/
+
 
 	const Matrix4 Matrix4::IDENTITY = Matrix4(1.0, 0.0, 0.0, 0.0,
 	                                          0.0, 1.0, 0.0, 0.0,

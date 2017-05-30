@@ -1,19 +1,18 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmMatrix4.h"
 %}
 
 
-%typemap(out) double* data %{
-  $result = PyTuple_New(16); // use however you know the size here
-  for (int i = 0; i < 16; ++i) {
-    PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-  }
-%}
+namespace gmath {
+    class Matrix4;
+    %typemap(out) double* data %{
+        $result = PyTuple_New(16); // use however you know the size here
+        for (int i = 0; i < 16; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+}
 
 %include "gmMatrix4.h"
 
