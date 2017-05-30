@@ -56,6 +56,7 @@ namespace gmath
         Matrix4(const Quaternion& quat, const Vector3& pos);
 
         Matrix4(const double* list);
+        Matrix4(const std::vector<double>& values);
 
         /** Pointer access for direct copying. */
         double* data();

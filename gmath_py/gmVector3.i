@@ -1,26 +1,39 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmVector3.h"
 %}
 
+%include "exception.i"
+%include "std_string.i"
+//%include "std_vector.i"
+//namespace std {
+//  %template(DoubleVector) vector<double>;
+//}
 
-%typemap(out) double* data %{
-    $result = PyTuple_New(3); // use however you know the size here
-    for (int i = 0; i < 3; ++i) {
-        PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-    }
-%}
+namespace gmath {
+    class Vector3;
+
+    %typemap(out) double* data %{
+        $result = PyTuple_New(3); // use however you know the size here
+        for (int i = 0; i < 3; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+
+    %typemap(in) double const * values %{
+        for(Py_ssize_t i = 0; i < 3; ++i)
+            $1[i] = PyFloat_AsDouble(PySequence_GetItem($input, i));
+    %}
+}
+
 
 %include "gmVector3.h"
 
 // extending Vector3
 namespace gmath{
-
+    
     %extend Vector3{
+
         const double& __getitem__(int i) {
             return (*$self)[i];
         }

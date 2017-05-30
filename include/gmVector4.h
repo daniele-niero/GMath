@@ -1,11 +1,10 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <stdexcept>
 #include <math.h>
 #include "gmRoot.h"
-
-using namespace std;
 
 namespace gmath
 {
@@ -16,7 +15,8 @@ namespace gmath
 		Vector4();
 		Vector4(double inX, double inY, double inZ, double inW);
 		Vector4(const Vector4 & other);
-		Vector4(const double* list);
+		Vector4(const double* values);
+		Vector4(const std::vector<double>& values);
 
 		/*------ properties ------*/
 		double x, y, z, w;

@@ -3,7 +3,7 @@
 using namespace std;
 
 namespace gmath {
-    /*-----------------------------------------------------------------------------------*/
+
     Euler::Euler(Unit inUnit)
     {
         x=0.0;
@@ -12,34 +12,35 @@ namespace gmath {
 
 		unit = inUnit;
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Euler::Euler(const Euler& other)
     {
     	memcpy(&x, &other.x, 3*sizeof(double));
 		unit = other.unit;
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Euler::Euler(const double inX, const double inY, const double inZ, Unit inUnit)
     {
 		x = inX; y = inY; z = inZ;
 		unit = inUnit;
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Euler::Euler(const Vector3& vec, Unit inUnit)
     {
     	memcpy(&x, vec.data(), 3*sizeof(double));
 		unit = inUnit;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double* Euler::data()
     {
         return &x;
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     const double* Euler::data() const
     {
         return &x;
     }
+    
     /*------ Coordinate access ------*/
     double Euler::operator[] (int i) const
     {
@@ -48,7 +49,7 @@ namespace gmath {
         }
         return *(&x+i);
     }
-    /*-----------------------------------------------------------------------------------------------------------------*/
+
     double& Euler::operator[] (int i)
     {
         if (i>2) {
@@ -57,7 +58,7 @@ namespace gmath {
         return *(&x+i);
     }
 
-    /*-----------------------------------------------------------------------------------*/
+
     bool Euler::operator == (const Euler &other) const
     {
         return (
@@ -65,7 +66,7 @@ namespace gmath {
     		fabs(y-other.y)<EPSILON &&
     		fabs(z-other.z)<EPSILON );
     }
-    /*-----------------------------------------------------------------------------------*/
+
     bool Euler::operator != (const Euler &other) const
     {
     	return (
@@ -74,17 +75,17 @@ namespace gmath {
     		fabs(z-other.z)>EPSILON );
     }
 
-    /*-----------------------------------------------------------------------------------*/
+
     void Euler::set(const double inX, const double inY, const double inZ)
     {
     	x=inX; y=inY; z=inZ;
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Euler::Unit Euler::getUnit() const
     {
         return unit;
     }
-    /*-----------------------------------------------------------------------------------*/
+
     void Euler::setUnit(Unit inUnit)
     {
         if (unit!=inUnit)
@@ -104,7 +105,7 @@ namespace gmath {
             }
         }
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Euler Euler::toDegrees() const
     {
         if (unit==degrees)
@@ -121,7 +122,7 @@ namespace gmath {
     			);
         }
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Euler Euler::toRadians() const
     {
     	if (unit==radians)
@@ -138,12 +139,12 @@ namespace gmath {
     			);
         }
     }
-    /*-----------------------------------------------------------------------------------*/
+
     Vector3 Euler::toVector() const
     {
     	return Vector3(x, y, z);
     }
-    /*-----------------------------------------------------------------------------------*/
+
     std::string Euler::toString() const
     {
         std::stringstream oss;
