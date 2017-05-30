@@ -79,9 +79,14 @@ namespace gmath
 		this->setPosition(pos);
 	}
 
-	Matrix4::Matrix4(const double* list)
+	Matrix4::Matrix4(const double* values)
 	{
-		memcpy(_data, list, 16*sizeof(double));
+		set(values);
+	}
+
+	Matrix4::Matrix4(const std::vector<double>& values)
+	{
+		set(values);
 	}
 
 	/*------ Coordinates access ------*/
@@ -389,6 +394,20 @@ namespace gmath
 		_data[4]=yx;  _data[5]=yy;  _data[6]=yz;  _data[7]=yw;
 		_data[8]=zx;  _data[9]=zy;  _data[10]=zz; _data[11]=zw;
 		_data[12]=px; _data[13]=py; _data[14]=pz; _data[15]=pw;
+	}
+
+	void Matrix4::set(const double* values)
+	{
+		memcpy(_data, values, 16*sizeof(double));
+	}
+
+	void Matrix4::set(const std::vector<double>& values)
+	{
+		if (values.size()!=16) {
+			throw out_of_range("Matrix4: values must be of 16 elments");
+		}
+
+		memcpy(_data, values.data(), 16*sizeof(double));
 	}
 
 	Vector3 Matrix4::getRow(unsigned int i) const

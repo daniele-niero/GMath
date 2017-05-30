@@ -1,19 +1,17 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmQuaternion.h"
 %}
 
-
-%typemap(out) double* data %{
-  $result = PyTuple_New(4); // use however you know the size here
-  for (int i = 0; i < 4; ++i) {
-    PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-  }
-%}
+namespace gmath {
+    class Quaternion;
+    %typemap(out) double* data %{
+        $result = PyTuple_New(4); // use however you know the size here
+        for (int i = 0; i < 4; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+}
 
 %include "gmQuaternion.h"
 

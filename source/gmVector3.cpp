@@ -31,16 +31,12 @@ namespace gmath
 
 	Vector3::Vector3(const double* values)
 	{
-	    x = values[0];
-	    y = values[1];
-	    z = values[2];
+	    set(values);
 	}
 
 	Vector3::Vector3(const vector<double>& values) 
 	{
-        x = values[0];
-        y = values[1];
-        z = values[2];
+        set(values);
     }
 
 	/*------ Coordinate access ------*/
@@ -60,6 +56,8 @@ namespace gmath
 	    }
 	    return *(&x+i);
 	}
+
+	/*------ Data access ------*/
 
 	double* Vector3::data()
 	{
@@ -297,6 +295,16 @@ namespace gmath
 	    y = values[1];
 	    z = values[2];
 	}
+    
+    void Vector3::set(const std::vector<double>& values)
+    {
+        if (values.size()!=3)
+            throw out_of_range("Matrix3: values must be of 3 elements");
+        
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+    }
 
 	Vector3 Vector3::cross(const Vector3 & other) const
 	{

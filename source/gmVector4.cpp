@@ -29,12 +29,14 @@ namespace gmath {
         w = other.w;
     }
 
-    Vector4::Vector4(const double* list)
+    Vector4::Vector4(const double* values)
     {
-        x = list[0];
-        y = list[1];
-        z = list[2];
-        w = list[3];
+        set(values);
+    }
+
+    Vector4::Vector4(const std::vector<double>& values)
+    {
+        set(values);
     }
 
     /*------ Coordinates access ------*/
@@ -192,6 +194,25 @@ namespace gmath {
         y = inY;
         z = inZ;
         w = inW;
+    }
+
+    void Vector4::set(const double* values)
+	{
+	    x = values[0];
+	    y = values[1];
+	    z = values[2];
+	    w = values[3];
+	}
+    
+    void Vector4::set(const std::vector<double>& values)
+    {
+        if (values.size()!=4)
+            throw out_of_range("Matrix4: values must be of 4 elements");
+        
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+        this->w = values[3];
     }
 
     double Vector4::dot(const Vector4 & other) const

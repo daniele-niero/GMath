@@ -67,6 +67,9 @@ namespace gmath
             @param inZ The wanted value for z
             @param inW The wanted value for w */
         void set(double inX, double inY, double inZ, double inW);
+        void set(const double *values);
+        void set(const std::vector<double>& values);
+
         void setToIdentity();
 
         Vector3 getAxisY() const;

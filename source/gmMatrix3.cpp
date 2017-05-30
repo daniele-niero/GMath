@@ -5,8 +5,8 @@ using namespace std;
 
 namespace gmath
 {
-
 	/*------ constructors ------*/
+
 	Matrix3::Matrix3()
 	{
 		_data[0]=1.0; _data[1]=0.0; _data[2]=0.0;
@@ -44,10 +44,17 @@ namespace gmath
 		this->fromQuaternion(quat);
 	}
 
-	Matrix3::Matrix3(const double* list)
+	Matrix3::Matrix3(const double* values)
 	{
-		set(list);
+		set(values);
 	}
+
+	Matrix3::Matrix3(const std::vector<double>& values)
+	{
+		set(values);
+	}	
+
+	/*------ Data access ------*/
 
 	double* Matrix3::data()
 	{
@@ -60,6 +67,7 @@ namespace gmath
 	}
 
 	/*------ Coordinates access ------*/
+	
 	double Matrix3::operator[] (int i) const
 	{
 		if (i>=0 && i<9)
@@ -107,6 +115,7 @@ namespace gmath
 	}
 
 	/*------ Arithmetic operations ------*/
+
 	Matrix3 Matrix3::operator + (double value) const
 	{
 		Matrix3 retMatrix(
@@ -199,6 +208,7 @@ namespace gmath
 	}
 
 	/*------ Arithmetic updates ------*/
+
 	Matrix3& Matrix3::operator += (double value)
 	{
 		_data[0]+=value; _data[1]+=value; _data[2]+=value;
@@ -273,6 +283,7 @@ namespace gmath
 	}
 
 	/*------ Comparisons ------*/
+
 	bool Matrix3::operator == (const Matrix3 &other) const
 	{
 		const double* b = &other._data[0];
@@ -292,12 +303,14 @@ namespace gmath
 	}
 
 	/*------ Assignment ------*/
+
 	void Matrix3::operator = (const Matrix3 &other)
 	{
 		memcpy(_data, other._data, 9*sizeof(double));
 	}
 
 	/*------ methods ------*/
+
 	void Matrix3::setToIdentity()
 	{
 		_data[0]=1.0; _data[1]=0.0; _data[2]=0.0;
@@ -315,9 +328,18 @@ namespace gmath
 		_data[6]=zx; _data[7]=zy; _data[8]=zz;
 	}
 
-	void Matrix3::set(const double* list)
+	void Matrix3::set(const double* values)
 	{
-		memcpy(_data, list, 9*sizeof(double));
+		memcpy(_data, values, 9*sizeof(double));
+	}
+
+	void Matrix3::set(const std::vector<double>& values)
+	{
+		if (values.size()!=9) {
+			throw out_of_range("Matrix3: values must be of 9 elments");
+		}
+
+		memcpy(_data, values.data(), 9*sizeof(double));
 	}
 
 	Vector3 Matrix3::getRow(unsigned int i) const

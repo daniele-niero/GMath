@@ -57,6 +57,8 @@ namespace gmath
 			@param inZ The wanted value for z
 			@param inW The wanted value for w */
 		void set(double inX, double inY, double inZ, double inW);
+		void set(const double* values);
+		void set(const std::vector<double>& values);
 
 		/** Perform the dot product between this vector and the given vector */
 		double dot(const Vector4 & other) const;

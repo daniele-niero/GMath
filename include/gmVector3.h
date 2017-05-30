@@ -80,7 +80,7 @@ namespace gmath
 			    @param inZ The wanted value for z */
 			void set(double inX, double inY, double inZ);
 			void set(const double* values);
-
+			void set(const std::vector<double>& values);
 
 			/** Perform the cross product between this vector and the given vector */
 			Vector3 cross(const Vector3 & other) const;

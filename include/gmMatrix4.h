@@ -94,11 +94,14 @@ namespace gmath
         void operator = (const Matrix4 &other);
 
         /*------ Sets and Gets ------*/
-        void setToIdentity();
         void set(double xx, double xy, double xz, double xw,
                  double yx, double yy, double yz, double yw,
                  double zx, double zy, double zz, double zw,
                  double px, double py, double pz, double pw);
+        void set(const double* values);
+        void set(const std::vector<double>& values);
+
+        void setToIdentity();
 
         Vector3 getRow(unsigned int i) const;
         Vector4 getRow2(unsigned int i) const;

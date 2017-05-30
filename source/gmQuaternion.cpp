@@ -35,20 +35,12 @@ namespace gmath{
         this->w = w;
     }
 
-    Quaternion::Quaternion(const Quaternion &values)
+    Quaternion::Quaternion(const Quaternion &other)
     {
-        this->x = values.x;
-        this->y = values.y;
-        this->z = values.z;
-        this->w = values.w;
-    }
-
-    Quaternion::Quaternion(const double *list)
-    {
-        this->x = list[0];
-        this->y = list[1];
-        this->z = list[2];
-        this->w = list[3];
+        this->x = other.x;
+        this->y = other.y;
+        this->z = other.z;
+        this->w = other.w;
     }
 
     Quaternion::Quaternion(const Matrix3& inMat)
@@ -69,6 +61,16 @@ namespace gmath{
     Quaternion::Quaternion(double angleX, double angleY, double angleZ)
     {
         this->fromEuler(angleX, angleY, angleZ);
+    }
+
+    Quaternion::Quaternion(const double *values)
+    {
+        set(values);
+    }
+    
+    Quaternion::Quaternion(const std::vector<double>& values)
+    {
+        set(values);
     }
 
     /*------ Coordinate access ------*/
@@ -272,6 +274,25 @@ namespace gmath{
         y = inY;
         z = inZ;
         w = inW;
+    }
+
+    void Quaternion::set(const double *values)
+    {
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+        this->w = values[3];
+    }
+    
+    void Quaternion::set(const std::vector<double>& values)
+    {
+        if (values.size()!=4)
+            throw out_of_range("Quaternion: values must be of 4 elments");
+        
+        this->x = values[0];
+        this->y = values[1];
+        this->z = values[2];
+        this->w = values[3];
     }
 
     void Quaternion::setToIdentity()
