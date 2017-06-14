@@ -33,16 +33,6 @@ namespace gmath{
 
         // pure python extension 
         %pythoncode {
-            @staticmethod
-            def init(*args):
-                ''' Through this function is possible to initialise the class also with a Python list or tuple '''
-                if type(args[0]) in (list, tuple):
-                    a = args[0]
-                    if len(a) != 4:
-                        raise AttributeError('list must contains 4 values')
-                    args = a[0], a[1], a[2], a[3]
-                return Quaternion(*args)
-
             def __reduce__(self):
                 ''' provides pickle support '''
                 return self.__class__, self.data()

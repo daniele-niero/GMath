@@ -34,16 +34,6 @@ namespace gmath{
 
         // pure python extension
         %pythoncode {
-            @staticmethod
-            def init(*args):
-                ''' Through this function is possible to initialise the class also with a Python list or tuple '''
-                if type(args[0]) in (list, tuple):
-                    a = args[0]
-                    if len(a) != 9:
-                        raise AttributeError('list must contains 9 values')
-                    args = a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8]
-                return Matrix3(*args)
-            
             def __reduce__(self):
                 ''' provides pickle support '''
                 return self.__class__, self.data()
