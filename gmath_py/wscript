@@ -13,7 +13,7 @@ out = 'build'
 
 def options(ctx):
     ctx.load('compiler_cxx')
-    gr=ctx.add_option_group("Maya Configuration options")
+    gr=ctx.add_option_group("Maya Configuration Options")
     gr.add_option("--maya", 
                   action='store_true',
                   default=False,  
@@ -21,11 +21,17 @@ def options(ctx):
                         'If false, the following options will not be taken in consideration. '
                         'Also note that choosing Maya, the python options will be overridden to link against mayapy. '
                         '[default: %default]')
+    
+    gr=ctx.add_option_group("Swig Configuration Options")
+    gr.add_option("--swig", default='', dest='swig', help='Where to find Swig', type='string', action='store')
+
     ctx.load('maya', tooldir=r'../waftools')
     ctx.load('python', tooldir=r'../waftools')
 
 
 def configure(ctx):
+    ctx.env.SWIG = os.path.join(ctx.options.swig, 'swig')
+
     ctx.load('compiler_cxx')
     if ctx.options.maya:
         ctx.load('maya', tooldir=r'../waftools')
@@ -40,9 +46,9 @@ def build(ctx):
     from waflib.Build import POST_LAZY
     ctx.post_mode = POST_LAZY
 
-    maya = ''
-    if ctx.env.MAYA:
-        maya = '-DMAYA'
+    # maya = ''
+    # if ctx.env.MAYA:
+        # maya = '-DMAYA'
 
     Logs.warn(ctx.path)
 
@@ -52,10 +58,10 @@ def build(ctx):
                    buildNode.make_node('gmath.pyc'),
                    buildNode.make_node('gmRoot_wrap.cxx')]
 
-    if maya :
-        rule = 'swig -c++ -python -modern %s -I%s/../include -outdir . -outcurrentdir ${SRC}' %(maya, ctx.path.abspath())
+    if ctx.env.MAYA:
+        rule = '%s -c++ -python -modern -DPYMAYA -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
     else:
-        rule = 'swig -c++ -python -builtin -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %ctx.path.abspath()
+        rule = '%s -c++ -python -builtin -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
 
     ctx(rule=rule, 
         source='gmRoot.i', 
@@ -82,7 +88,7 @@ def build(ctx):
 
         includes = [os.path.join(ctx.path.abspath(), "../include"), ctx.env['PYTHON_INCLUDE']],
 
-        lib = ctx.env['PYTHON_LIB'],
+        lib = [ctx.env['PYTHON_LIB'], 'OpenMaya', 'Foundation'],
         libpath = ctx.env['PYTHON_LIBPATH'],
 
         install_path = ctx.env['PREFIX'],

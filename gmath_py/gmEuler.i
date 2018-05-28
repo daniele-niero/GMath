@@ -14,6 +14,13 @@ namespace gmath {
     %}
 }
 
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaEuler;
+    %ignore toMayaEuler;
+#endif
+
 %include "gmEuler.h"
 
 // extending Euler
@@ -38,7 +45,9 @@ namespace gmath{
         %pythoncode {
             def __reduce__(self):
                 """ provides pickle support """
-                return self.__class__, self.data()
+                data = list(self.data())
+                data.append(self.getUnit())
+                return self.__class__, data
 
             def __eq__(self, other):
                 if type(other) == type(self):
@@ -47,28 +56,16 @@ namespace gmath{
                     return False
         }
 
-        #ifdef MAYA
+        #if defined(CMAYA) || defined(PYMAYA)
+
         %pythoncode {
             def toMayaEuler(self):
                 return OpenMaya.MEulerRotation(self.x, self.y, self.z)
 
             def fromMayaEuler(self, mayaEul):
                 self.set(mayaEul.x, mayaEul.y, mayaEul.z)
-                return self
-
-            def toPymelEuler(self):
-                return pmdt.EulerRotation(self.x, self.y, self.z, unit=self.unit)
-
-            def fromPymelEuler(self, pymelEul):
-                pmUnit = pymelEul.unit
-                if pmUnit=='degrees':
-                    pmUnit=0
-                elif pmUnit=='radians':
-                    pmUnit=1
-                self.setUnit(pmUnit)
-                self.set(pymelEul.x, pymelEul.y, pymelEul.z)
-                return self
         }
+        
         #endif
     }
 }

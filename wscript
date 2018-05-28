@@ -64,6 +64,7 @@ def build(ctx):
         target='gmath',
         includes='include',
         source=source,
+        features = 'cxx cxxshlib',
         name="gmath-shared",
         install_path = ctx.env.LIBDIR
         )

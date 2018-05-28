@@ -3,6 +3,7 @@
 #include "gmVector3.h"
 %}
 
+
 namespace gmath {
     class Vector3;
     %typemap(out) double* data %{
@@ -13,6 +14,12 @@ namespace gmath {
     %}
 }
 
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaVector;
+    %ignore toMayaVector;
+#endif
 
 %include "gmVector3.h"
 
@@ -46,22 +53,16 @@ namespace gmath{
                     return False
         }
 
-        #ifdef MAYA
+        #if defined(CMAYA) || defined(PYMAYA)
+
         %pythoncode {
             def toMayaVector(self):
                 return OpenMaya.MVector(self.x, self.y, self.z)
 
             def fromMayaVector(self, mayaVector):
                 self.set(mayaVector.x, mayaVector.y, mayaVector.z)
-                return self
-
-            def toPymelVector(self):
-                return pmdt.Vector(self.x, self.y, self.z)
-
-            def fromPymelVector(self, pymelVector):
-                self.set(pymelVector.x, pymelVector.y, pymelVector.z)
-                return self
         }
+        
         #endif
     }
 }

@@ -83,12 +83,12 @@ namespace gmath
         Vector3 getRow(unsigned int i) const;
         void setRow(unsigned int i, const Vector3 &vec);
 
-    	Vector3 getAxisX() const;
-    	Vector3 getAxisY() const;
-    	Vector3 getAxisZ() const;
-    	void setAxisX(const Vector3& vec);
-    	void setAxisY(const Vector3& vec);
-    	void setAxisZ(const Vector3& vec);
+        Vector3 getAxisX() const;
+        Vector3 getAxisY() const;
+        Vector3 getAxisZ() const;
+        void setAxisX(const Vector3& vec);
+        void setAxisY(const Vector3& vec);
+        void setAxisZ(const Vector3& vec);
 
         void setScale(const Vector3 &scale);
         void setScale(double sX, double sY, double sZ);
@@ -97,14 +97,14 @@ namespace gmath
         Vector3 getScale() const;
 
         /** Remember to take out scale first */
-    	void fromQuaternion(const Quaternion& rotationQuat);
+        void fromQuaternion(const Quaternion& rotationQuat);
         Quaternion toQuaternion() const;
         void toQuaternion(Quaternion &outQuaternion) const;
 
-        void fromEuler(const double& angleX, const double& angleY, const double& angleZ, RotationOrder order=XYZ);
-        void fromEuler(const Euler &rotation, RotationOrder order=XYZ);
-        Euler toEuler(RotationOrder order=XYZ) const;
-        void toEuler(Euler& euler, RotationOrder order=XYZ) const;
+        void fromEuler(const double& angleX, const double& angleY, const double& angleZ, RotationOrder order=RotationOrder::XYZ);
+        void fromEuler(const Euler &rotation, RotationOrder order=RotationOrder::XYZ);
+        Euler toEuler(RotationOrder order=RotationOrder::XYZ) const;
+        void toEuler(Euler& euler, RotationOrder order=RotationOrder::XYZ) const;
 
         Matrix3 transpose() const;
         void transposeInPlace();
@@ -137,8 +137,8 @@ namespace gmath
 
             The resulting transformation is a rotation Matrix where the primaryAxis points to target.
             The secondaryAxis is as close as possible to the up vector. */
-        void lookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
-        static Matrix3 createLookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+        void lookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=Axis::POSZ, Axis secondaryAxis=Axis::POSY);
+        static Matrix3 createLookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=Axis::POSZ, Axis secondaryAxis=Axis::POSY);
 
         std::string toString() const;
 

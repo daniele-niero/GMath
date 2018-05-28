@@ -1,5 +1,8 @@
 
 %module gmath
+%begin %{
+#define SWIG_PYTHON_2_UNICODE
+%}
 
 %feature("autodoc", 1);
 
@@ -13,17 +16,37 @@ namespace std {
 
 %{
 #define SWIG_FILE_WITH_INIT
+//#include <memory>
 #include "gmRoot.h"
 %}
 
-#ifdef MAYA
+#if defined(CMAYA) || defined(PYMAYA)
 %pythoncode {
     MAYA_IMPLEMENTED = True
     try:
-        from maya import cmds, OpenMaya
-        import pymel.core.datatypes as pmdt
+        from maya import OpenMaya
+
+        def mpathFromString(dagName):
+            sl = OpenMaya.MSelectionList()
+            sl.add(dagName)
+            path = OpenMaya.MDagPath()
+            sl.getDagPath(0, path)
+            return path
+
+        def getMDagPath(arg):
+            dagpath = None 
+            if isinstance(arg, OpenMaya.MDagPath):
+                return arg
+            elif isinstance(arg, (str, unicode)):
+                return mpathFromString(arg)
+            elif hasattr(arg, '__apimdagpath__'): # this must be a pymel object
+                return arg.__apimdagpath__()
+            else:
+                raise RuntimeError('unsupported object type')
+
     except:
         MAYA_IMPLEMENTED = False
+
 }
 #endif
 
@@ -64,6 +87,16 @@ namespace std {
 %ignore GMathError;
 
 
+//%include <std_shared_ptr.i>
+//
+//%shared_ptr(gmath::Vector3)
+//%shared_ptr(gmath::Vector4)
+//%shared_ptr(gmath::Matrix3)
+//%shared_ptr(gmath::Matrix4)
+//%shared_ptr(gmath::Quaternion)
+//%shared_ptr(gmath::Xfo)
+
+
 %include "gmRoot.h"
 %include "gmVector3.i"
 %include "gmVector4.i"
@@ -72,4 +105,5 @@ namespace std {
 %include "gmMatrix3.i"
 %include "gmMatrix4.i"
 %include "gmXfo.i"
+%include "gmUsefulFunctions.i"
 

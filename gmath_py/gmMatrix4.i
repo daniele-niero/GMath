@@ -1,3 +1,4 @@
+
 %module gmath
 %{
 #include "gmMatrix4.h"
@@ -14,12 +15,50 @@ namespace gmath {
     %}
 }
 
+%ignore gmath::Matrix4::operator()(int,int);
+
+#ifdef CMAYA
+    // ignore these c++ functions and re-implement them in python
+    // this bypass essentially 2 problems:the compatibility problem between swig and whatever maya's return in python.
+    %ignore gmath::Matrix4::fromMayaMatrix;
+    %ignore gmath::Matrix4::toMayaMatrix;
+
+    // let's inject some code in these function to handle pymel objects
+
+    %pythonprepend getGlobalMatrix(const std::string &) %{  
+        try:
+            return _gmath.getGlobalMatrix(args[0].__apimdagpath__())
+        except:
+            pass %} 
+
+    %pythonprepend getLocalMatrix(const std::string &) %{
+        try:
+            return _gmath.getLocalMatrix(args[0].__apimdagpath__())
+        except:
+            pass %} 
+
+    %pythonprepend setGlobalMatrix(const std::string &, const Matrix4 &) %{
+        try:
+            return _gmath.setGlobalMatrix(args[0].__apimdagpath__(), args[1])
+        except:
+            pass %} 
+
+    %pythonprepend setLocalMatrix(const std::string &, const Matrix4 &) %{
+        try:
+            return _gmath.setLocalMatrix(args[0].__apimdagpath__(), args[1])
+        except:
+            pass %} 
+#endif
+
+
 %include "gmMatrix4.h"
 
-// extending Matrix4
-namespace gmath{
 
-    %extend Matrix4{
+// extending Matrix4
+namespace gmath {
+
+    %extend Matrix4 {
+
         const double& __getitem__(int i) {
             return (*$self)[i];
         }
@@ -48,7 +87,9 @@ namespace gmath{
                     return False
         }
 
-        #ifdef MAYA
+
+        #if defined(CMAYA) || defined(PYMAYA)
+
         %pythoncode {
             def toMayaMatrix(self):
                 mayaMat = OpenMaya.MMatrix()
@@ -61,55 +102,42 @@ namespace gmath{
                     mayaMat(1, 0), mayaMat(1, 1), mayaMat(1, 2), mayaMat(1, 3),
                     mayaMat(2, 0), mayaMat(2, 1), mayaMat(2, 2), mayaMat(2, 3),
                     mayaMat(3, 0), mayaMat(3, 1), mayaMat(3, 2), mayaMat(3, 3) )
-                return self
-
-            def toPymelMatrix(self):
-                pymelMat = pmdt.Matrix()
-                pymelMat.assign(self.data())
-                return pymelMat
-
-            def fromPymelMatrix(self, pymelMat):
-                self.set(
-                    pymelMat(0, 0), pymelMat(0, 1), pymelMat(0, 2), pymelMat(0, 3),
-                    pymelMat(1, 0), pymelMat(1, 1), pymelMat(1, 2), pymelMat(1, 3),
-                    pymelMat(2, 0), pymelMat(2, 1), pymelMat(2, 2), pymelMat(2, 3),
-                    pymelMat(3, 0), pymelMat(3, 1), pymelMat(3, 2), pymelMat(3, 3) )
-                return self
-        }
+            }
+        
         #endif
     }
 
-    #ifdef MAYA
-    %pythoncode {
-        def getGlobalMatrix(pymelNode):
-            "Get the global Matrix of a PyNode (Transform)"
-            matrix = pymelNode.__apimdagpath__().inclusiveMatrix()
-            gmatrix = Matrix4()
-            gmatrix.fromMayaMatrix(matrix)
-            return gmatrix
+    #if !defined(CMAYA) && defined(PYMAYA) 
 
+        %pythoncode {
+            def getGlobalMatrix(mayaObj):
+                path = getMDagPath(mayaObj)
+                gmatrix = Matrix4()
+                gmatrix.fromMayaMatrix(path.inclusiveMatrix())
+                return gmatrix
 
-        def setGlobalMatrix(pymelNode, gmathMatrix):
-            "Set the global Matrix of a PyNode (Transform)"
-            dagPath = pymelNode.__apimdagpath__()
-            parentInv = Matrix4().fromMayaMatrix(dagPath.exclusiveMatrixInverse())
-            localMatrix = gmathMatrix * parentInv
-            cmds.xform(pymelNode.name(), matrix=localMatrix.data())
+            def getLocalMatrix(mayaObj):
+                path = getMDagPath(mayaObj)
+                matrix = path.inclusiveMatrix() * path.exclusiveMatrixInverse()
+                gmatrix = Matrix4()
+                gmatrix.fromMayaMatrix(matrix)
+                return gmatrix
 
+            def setGlobalMatrix(mayaObj, gmatrix):
+                path = getMDagPath(mayaObj)
+                localMatrix = gmatrix.toMayaMatrix() * path.exclusiveMatrixInverse()
+                mtmatrix = OpenMaya.MTransformationMatrix(localMatrix)
+                mfnTransform = OpenMaya.MFnTransform(path)
+                mfnTransform.set(mtmatrix)
 
-        def getLocalMatrix(pymelNode):
-            "Get the local Matrix of a PyNode (Transform)"
-            dagPath = pymelNode.__apimdagpath__()
-            matrix = dagPath.inclusiveMatrix() * dagPath.exclusiveMatrixInverse()
-            gmatrix = Matrix4()
-            gmatrix.fromMayaMatrix(matrix)
-            return gmatrix
+            def setLocalMatrix(mayaObj, gmatrix):
+                path = getMDagPath(mayaObj)
+                mtmatrix = OpenMaya.MTransformationMatrix(gmatrix.toMayaMatrix())
+                mfnTransform = OpenMaya.MFnTransform(path)
+                mfnTransform.set(mtmatrix)
+        }
 
-
-        def setLocalMatrix(pymelNode, gmathMatrix):
-            "Set the local Matrix of a PyNode (Transform)"
-            cmds.xform(pymelNode.name(), matrix=gmathMatrix.data())
-    }
     #endif
-}
 
+}
+     

@@ -12,25 +12,25 @@ namespace gmath {
         y=0.0;
         z=0.0;
 
-		unit = inUnit;
+        unit = inUnit;
     }
 
     Euler::Euler(const Euler& other)
     {
-    	memcpy(&x, &other.x, 3*sizeof(double));
-		unit = other.unit;
+        memcpy(&x, &other.x, 3*sizeof(double));
+        unit = other.unit;
     }
 
     Euler::Euler(const double inX, const double inY, const double inZ, Unit inUnit)
     {
-		x = inX; y = inY; z = inZ;
-		unit = inUnit;
+        x = inX; y = inY; z = inZ;
+        unit = inUnit;
     }
 
     Euler::Euler(const Vector3& vec, Unit inUnit)
     {
-    	memcpy(&x, vec.data(), 3*sizeof(double));
-		unit = inUnit;
+        memcpy(&x, vec.data(), 3*sizeof(double));
+        unit = inUnit;
     }
 
     Euler::Euler(const double* values, Unit inUnit)
@@ -86,24 +86,24 @@ namespace gmath {
     bool Euler::operator == (const Euler &other) const
     {
         return (
-    		fabs(x-other.x)<EPSILON &&
-    		fabs(y-other.y)<EPSILON &&
-    		fabs(z-other.z)<EPSILON );
+            fabs(x-other.x)<EPSILON &&
+            fabs(y-other.y)<EPSILON &&
+            fabs(z-other.z)<EPSILON );
     }
 
     bool Euler::operator != (const Euler &other) const
     {
-    	return (
-    		fabs(x-other.x)>EPSILON ||
-    		fabs(y-other.y)>EPSILON ||
-    		fabs(z-other.z)>EPSILON );
+        return (
+            fabs(x-other.x)>EPSILON ||
+            fabs(y-other.y)>EPSILON ||
+            fabs(z-other.z)>EPSILON );
     }
 
     /*------ Methods ------*/
 
     void Euler::set(const double inX, const double inY, const double inZ)
     {
-    	x=inX; y=inY; z=inZ;
+        x=inX; y=inY; z=inZ;
     }
 
     void Euler::set(const double* values)
@@ -116,7 +116,7 @@ namespace gmath {
         x=values[0]; y=values[1]; z=values[2];
     }
 
-    Euler::Unit Euler::getUnit() const
+    Unit Euler::getUnit() const
     {
         return unit;
     }
@@ -126,7 +126,7 @@ namespace gmath {
         if (unit!=inUnit)
         {
             unit = inUnit;
-            if (inUnit==degrees)
+            if (inUnit==Unit::degrees)
             {
                 x = gmath::toDegrees(x);
                 y = gmath::toDegrees(y);
@@ -143,48 +143,48 @@ namespace gmath {
 
     Euler Euler::toDegrees() const
     {
-        if (unit==degrees)
+        if (unit==Unit::degrees)
         {
             return Euler( (*this) );
         }
         else
         {
-    	   return Euler(
-    			gmath::toDegrees(x),
-			    gmath::toDegrees(y),
-			    gmath::toDegrees(z),
-                degrees
-    			);
+           return Euler(
+                gmath::toDegrees(x),
+                gmath::toDegrees(y),
+                gmath::toDegrees(z),
+                Unit::degrees
+                );
         }
     }
 
     Euler Euler::toRadians() const
     {
-    	if (unit==radians)
+        if (unit==Unit::radians)
         {
             return Euler( (*this) );
         }
         else
         {
             return Euler(
-			    gmath::toRadians(x),
-			    gmath::toRadians(y),
-			    gmath::toRadians(z),
-                radians
-    			);
+                gmath::toRadians(x),
+                gmath::toRadians(y),
+                gmath::toRadians(z),
+                Unit::radians
+                );
         }
     }
 
     Vector3 Euler::toVector() const
     {
-    	return Vector3(x, y, z);
+        return Vector3(x, y, z);
     }
 
     std::string Euler::toString() const
     {
         std::stringstream oss;
         oss << "gmath::Euler(" << x << ", " << y << ", " << z << ");";
-        if (unit==degrees)
+        if (unit==Unit::degrees)
             oss << " - degrees -";
         else
             oss << " - radians -"; 

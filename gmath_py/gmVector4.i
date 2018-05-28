@@ -13,6 +13,12 @@ namespace gmath {
     %}
 }
 
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaPoint;
+    %ignore toMayaPoint;
+#endif
 
 %include "gmVector4.h"
 
@@ -44,6 +50,18 @@ namespace gmath{
                 else:
                     return False
         }
+
+        #if defined(CMAYA) || defined(PYMAYA)
+
+        %pythoncode {
+            def toMayaPoint(self):
+                return OpenMaya.MPoint(self.x, self.y, self.z, self.w)
+
+            def fromMayaPoint(self, mayaPoint):
+                self.set(mayaPoint.x, mayaPoint.y, mayaPoint.z, mayaPoint.w)
+        }
+
+        #endif
     }
 }
 

@@ -43,15 +43,15 @@ namespace gmath {
     double Vector4::operator[] (int i) const
     {
         if (i>3){
-            throw out_of_range("gVector4: index out of range");
+            throw out_of_range("gmath::Vector4: index out of range");
         }
         return *(&x+i);
     }
 
     double& Vector4::operator[] (int i)
     {
-        if (i==0){
-            throw out_of_range("gVector4: index out of range");
+        if (i>3){
+            throw out_of_range("gmath::Vector4: index out of range");
         }
         return *(&x+i);
     }
@@ -184,7 +184,7 @@ namespace gmath {
         x = other.x;
         y = other.y;
         z = other.z;
-        w = other.z;
+        w = other.w;
     }
     
     /*------ Methods ------*/
@@ -207,7 +207,7 @@ namespace gmath {
     void Vector4::set(const std::vector<double>& values)
     {
         if (values.size()!=4)
-            throw out_of_range("Matrix4: values must be of 4 elements");
+            throw out_of_range("gmath::Matrix4: values must be of 4 elements");
         
         this->x = values[0];
         this->y = values[1];
@@ -276,4 +276,17 @@ namespace gmath {
         return oss.str();
     }
 
+    #ifdef CMAYA
+        void Vector4::fromMayaPoint(const MPoint &mpoint)
+        {
+            double dest[4];
+            mpoint.get(dest);
+            this->set(dest);
+        }
+
+        MPoint Vector4::toMayaPoint() const 
+        {
+            return MPoint(this->data());
+        }
+    #endif
 }

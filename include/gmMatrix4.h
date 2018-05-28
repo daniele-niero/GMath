@@ -6,11 +6,20 @@
 #include "gmMatrix3.h"
 #include "gmEuler.h"
 
+#ifdef CMAYA
+    #include <maya/MMatrix.h>
+    #include <maya/MDagPath.h>
+    #include <maya/MSelectionList.h>
+    #include <maya/MString.h>
+    #include <maya/MTransformationMatrix.h>
+    #include <maya/MFnTransform.h>
+#endif
+
 namespace gmath
 {
 
-	// Quaternion forward declaration
-	class Quaternion;
+    // Quaternion forward declaration
+    class Quaternion;
 
     /**
     Matrix class (4x4).
@@ -127,8 +136,8 @@ namespace gmath
 
         void setRotation(const Matrix3& rotationMatrix);
         void setRotation(const Quaternion& rotationQuat);
-        void setRotation(const Euler &rotation, RotationOrder order=XYZ);
-        void setRotation(double angleX, double angleY, double angleZ, RotationOrder order=XYZ);
+        void setRotation(const Euler &rotation, RotationOrder order=RotationOrder::XYZ);
+        void setRotation(double angleX, double angleY, double angleZ, RotationOrder order=RotationOrder::XYZ);
 
         void setScale(const Vector3 &scale);
         void setScale(double sX, double sY, double sZ);
@@ -139,16 +148,16 @@ namespace gmath
         /** Remember to take out scale first */
         Matrix3 toMatrix3() const;
         Quaternion toQuaternion() const;
-        Euler toEuler(RotationOrder order=XYZ) const; 
+        Euler toEuler(RotationOrder order=RotationOrder::XYZ) const; 
         void toMatrix3(Matrix3 &outMatrix3) const;
         void toQuaternion(Quaternion &outQuaternion) const;
-        void toEuler(Euler &outEuler, RotationOrder order=XYZ) const;
+        void toEuler(Euler &outEuler, RotationOrder order=RotationOrder::XYZ) const;
 
-    	void fromMatrix3(const Matrix3 &inMat3);
-    	void fromQuaternion(const Quaternion &inQuat);
-    	void fromEuler(const double &angleX, const double &angleY, const double &angleZ, RotationOrder order=XYZ);
-    	void fromEuler(const Euler &inEuler, RotationOrder order=XYZ);
-    	
+        void fromMatrix3(const Matrix3 &inMat3);
+        void fromQuaternion(const Quaternion &inQuat);
+        void fromEuler(const double &angleX, const double &angleY, const double &angleZ, RotationOrder order=RotationOrder::XYZ);
+        void fromEuler(const Euler &inEuler, RotationOrder order=RotationOrder::XYZ);
+        
         Vector3 rotateVector(const Vector3 &vec) const;
 
         Matrix4 transpose() const;
@@ -181,10 +190,10 @@ namespace gmath
           *
           * The resulting transformation is a rotation Matrix where the primaryAxis points to target.
           * The secondaryAxis is as close as possible to the up vector. */
-        void lookAt(const Vector3 &pos, const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+        void lookAt(const Vector3 &pos, const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=Axis::POSZ, Axis secondaryAxis=Axis::POSY);
         // Like the previous lookAt but this one takes the position from the matrix itself
-        void lookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
-        static Matrix4 createLookAt(const Vector3 &pos, const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=POSZ, Axis secondaryAxis=POSY);
+        void lookAt(const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=Axis::POSZ, Axis secondaryAxis=Axis::POSY);
+        static Matrix4 createLookAt(const Vector3 &pos, const Vector3 &pointAt, const Vector3 &normal, Axis primaryAxis=Axis::POSZ, Axis secondaryAxis=Axis::POSY);
 
         void fromAxisAngle(const Vector3 &axis, double angle);
 
@@ -193,5 +202,6 @@ namespace gmath
         // Special Matrices.
         static const Matrix4 IDENTITY;
     };
-
 }
+
+

@@ -14,6 +14,8 @@ namespace gmath {
     %}
 }
 
+%ignore gmath::Matrix3::operator()(int,int);
+
 %include "gmMatrix3.h"
 
 // extending Matrix3

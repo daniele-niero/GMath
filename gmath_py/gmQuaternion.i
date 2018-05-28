@@ -13,6 +13,13 @@ namespace gmath {
     %}
 }
 
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaQuaternion;
+    %ignore toMayaQuaternion;
+#endif
+
 %include "gmQuaternion.h"
 
 // extending Quaternion
@@ -44,22 +51,16 @@ namespace gmath{
                     return False
         }
 
-        #ifdef MAYA
+        #if defined(CMAYA) || defined(PYMAYA)
+
         %pythoncode {
             def toMayaQuaternion(self):
                 return OpenMaya.MQuaternion(self.x, self.y, self.z, self.w)
 
             def fromMayaQuaternion(self, mayaQuat):
                 self.set(mayaQuat.x, mayaQuat.y, mayaQuat.z, mayaQuat.w)
-                return self
-
-            def toPymelQuaternion(self):
-                return pmdt.Quaternion(self.x, self.y, self.z, self.w)
-
-            def fromPymelQuaternion(self, pymelQuat):
-                self.set(pymelQuat.x, pymelQuat.y, pymelQuat.z, pymelQuat.w)
-                return self
         }
+
         #endif
     }
 }

@@ -11,6 +11,20 @@ namespace gmath
     // const double MIN = -DBL_MAX;
     // const double SMALLEST = DBL_MIN;
 
+    bool isAxisX(Axis axis)
+    {
+        return (axis == Axis::POSX || axis == Axis::NEGX);
+    }
+
+    bool isAxisY(Axis axis)
+    {
+        return (axis == Axis::POSY || axis == Axis::NEGY);
+    }
+
+    bool isAxisZ(Axis axis)
+    {
+        return (axis == Axis::POSZ || axis == Axis::NEGZ);
+    }
 
     double acos (double x)
     {
