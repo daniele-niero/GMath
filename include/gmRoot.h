@@ -43,83 +43,134 @@ SOFTWARE.
 #include <exception>
 
 #ifdef _MSC_VER
-	#ifndef INFINITY 
-		#define INFINITY (DBL_MAX+DBL_MAX)
-	#endif
-	#ifndef NAN
-		#define NAN (INFINITY-INFINITY)
-	#endif
+    #ifndef INFINITY 
+        #define INFINITY (DBL_MAX+DBL_MAX)
+    #endif
+    #ifndef NAN
+        #define NAN (INFINITY-INFINITY)
+    #endif
 #endif
 
 #ifdef LINUX
-	#include <memory.h>
+    #include <memory.h>
 #endif
 
 namespace gmath
 {
+    const double EPSILON =  1e-08;
+    const double PI =       4.0*atan(1.0);
+    const double HALFPI =   PI*0.5;
+    const double MAX =      DBL_MAX;
+    const double MIN =      -DBL_MAX;
+    const double SMALLEST = DBL_MIN;
 
-	class GMathError : public std::exception
-	{
-	public: 
-		static std::string prefix;
+    class GMathError : public std::exception
+    {
+    public: 
+        static std::string prefix;
 
-	private:
-		std::string message;
+    private:
+        std::string message;
 
-	public:
-		explicit GMathError( const std::string& m ) { message = GMathError::prefix+m; }
-		virtual ~GMathError() throw() {};
+    public:
+        explicit GMathError( const std::string& m ) { message = GMathError::prefix+m; }
+        virtual ~GMathError() throw() {};
 
-		virtual const char* what()  const throw()
-		{
-			return message.c_str();
-		}
+        virtual const char* what()  const throw()
+        {
+            return message.c_str();
+        }
 
-		std::string getMessage()
-		{
-			return this->message;
-		}
+        std::string getMessage()
+        {
+            return this->message;
+        }
 
-		std::string getPrefix()
-		{
-			return GMathError::prefix;
-		}
-		
-		void setPrefix(std::string inPref)
-		{
-			GMathError::prefix = inPref;
-		}
-	};
+        std::string getPrefix()
+        {
+            return GMathError::prefix;
+        }
+        
+        void setPrefix(std::string inPref)
+        {
+            GMathError::prefix = inPref;
+        }
+    };
+    
+    enum class Unit {
+        degrees,
+        radians
+    };
 
+    enum class RotationOrder {
+        XYZ = 0,
+        XZY = 1,
+        YXZ = 2,
+        YZX = 3,
+        ZXY = 4,
+        ZYX = 5
+    };
 
-	enum RotationOrder{
-		XYZ = 0,
-		XZY = 1,
-		YXZ = 2,
-		YZX = 3,
-		ZXY = 4,
-		ZYX = 5
-	};
+    enum class Axis {
+        NEGX = -1,
+        NEGY = -2,
+        NEGZ = -3,
+        POSX = 1,
+        POSY = 2,
+        POSZ = 3
+    };
 
+    enum class CartesianPlane {
+        XY = 0,
+        YZ = 1,
+        ZX = 2,
 
-	enum Axis{
-		NEGX = -1,
-		NEGY = -2,
-		NEGZ = -3,
-		POSX = 1,
-		POSY = 2,
-		POSZ = 3
-	};
+        YX = XY,
+        ZY = YZ,
+        XZ = ZX
+    };
 
-	double acos(double x);
-	double asin(double x);
-	double toRadians(double x);
-	double toDegrees(double x);
+    bool isAxisX(Axis axis);
+    bool isAxisY(Axis axis);
+    bool isAxisZ(Axis axis);
 
-	const double EPSILON = 	1e-08;
-    const double PI = 		4.0*atan(1.0);
-    const double HALFPI = 	PI*0.5;
-    const double MAX = 		DBL_MAX;
-    const double MIN = 		-DBL_MAX;
-    const double SMALLEST = DBL_MIN;;
+    double acos(double x);
+    double asin(double x);
+    double toRadians(double x);
+    double toDegrees(double x);
+
+    inline bool isCloseToZero(double x)
+    {
+        return abs(x) <= DBL_MIN;
+    }
+
+    inline bool almostEqual(double x, double y, double precision=DBL_MIN)
+    {
+        return abs(x-y) <= precision;
+    }
+
+    inline bool almostEqual(float x, float y, float precision=FLT_MIN)
+    {
+        return abs(x-y) <= precision;
+    }
+
+    inline bool almostEqual(int x, int y)
+    {
+        return abs(x-y) == 0;
+    }
+
+    inline double min(double a, double b)
+    {
+        return a < b ? a : b;
+    }
+
+    inline double max(double a, double b)
+    {
+        return a > b ? a : b;
+    }
+
+    inline double clamp(double value, double min, double max)
+    {
+        return gmath::min(gmath::max(value, min), max);
+    }
 }

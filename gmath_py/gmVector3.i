@@ -1,26 +1,33 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmVector3.h"
 %}
 
 
-%typemap(out) double* data %{
-    $result = PyTuple_New(3); // use however you know the size here
-    for (int i = 0; i < 3; ++i) {
-        PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-    }
-%}
+namespace gmath {
+    class Vector3;
+    %typemap(out) double* data %{
+        $result = PyTuple_New(3); // use however you know the size here
+        for (int i = 0; i < 3; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+}
+
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaVector;
+    %ignore toMayaVector;
+#endif
 
 %include "gmVector3.h"
 
 // extending Vector3
 namespace gmath{
-
+    
     %extend Vector3{
+
         const double& __getitem__(int i) {
             return (*$self)[i];
         }
@@ -35,16 +42,6 @@ namespace gmath{
 
         // pure python extension
         %pythoncode {
-            @staticmethod
-            def init(*args):
-                ''' Through this function is possible to initialise the class also with a Python list or tuple '''
-                if type(args[0]) in (list, tuple):
-                    a = args[0]
-                    if len(a) != 3:
-                        raise AttributeError('list must contains 3 values')
-                    args = a[0], a[1], a[2]
-                return Vector3(*args)
-
             def __reduce__(self):
                 ''' provides pickle support '''
                 return self.__class__, self.data()
@@ -56,22 +53,16 @@ namespace gmath{
                     return False
         }
 
-        #ifdef MAYA
+        #if defined(CMAYA) || defined(PYMAYA)
+
         %pythoncode {
             def toMayaVector(self):
                 return OpenMaya.MVector(self.x, self.y, self.z)
 
             def fromMayaVector(self, mayaVector):
                 self.set(mayaVector.x, mayaVector.y, mayaVector.z)
-                return self
-
-            def toPymelVector(self):
-                return pmdt.Vector(self.x, self.y, self.z)
-
-            def fromPymelVector(self, pymelVector):
-                self.set(pymelVector.x, pymelVector.y, pymelVector.z)
-                return self
         }
+        
         #endif
     }
 }

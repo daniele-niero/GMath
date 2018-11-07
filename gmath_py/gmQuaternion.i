@@ -1,19 +1,24 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmQuaternion.h"
 %}
 
+namespace gmath {
+    class Quaternion;
+    %typemap(out) double* data %{
+        $result = PyTuple_New(4); // use however you know the size here
+        for (int i = 0; i < 4; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+}
 
-%typemap(out) double* data %{
-  $result = PyTuple_New(4); // use however you know the size here
-  for (int i = 0; i < 4; ++i) {
-    PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-  }
-%}
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaQuaternion;
+    %ignore toMayaQuaternion;
+#endif
 
 %include "gmQuaternion.h"
 
@@ -35,16 +40,6 @@ namespace gmath{
 
         // pure python extension 
         %pythoncode {
-            @staticmethod
-            def init(*args):
-                ''' Through this function is possible to initialise the class also with a Python list or tuple '''
-                if type(args[0]) in (list, tuple):
-                    a = args[0]
-                    if len(a) != 4:
-                        raise AttributeError('list must contains 4 values')
-                    args = a[0], a[1], a[2], a[3]
-                return Quaternion(*args)
-
             def __reduce__(self):
                 ''' provides pickle support '''
                 return self.__class__, self.data()
@@ -56,22 +51,16 @@ namespace gmath{
                     return False
         }
 
-        #ifdef MAYA
+        #if defined(CMAYA) || defined(PYMAYA)
+
         %pythoncode {
             def toMayaQuaternion(self):
                 return OpenMaya.MQuaternion(self.x, self.y, self.z, self.w)
 
             def fromMayaQuaternion(self, mayaQuat):
                 self.set(mayaQuat.x, mayaQuat.y, mayaQuat.z, mayaQuat.w)
-                return self
-
-            def toPymelQuaternion(self):
-                return pmdt.Quaternion(self.x, self.y, self.z, self.w)
-
-            def fromPymelQuaternion(self, pymelQuat):
-                self.set(pymelQuat.x, pymelQuat.y, pymelQuat.z, pymelQuat.w)
-                return self
         }
+
         #endif
     }
 }

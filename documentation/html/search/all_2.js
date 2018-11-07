@@ -1,0 +1,11 @@
+var searchData=
+[
+  ['data',['data',['../classgmath_1_1Euler.html#ad6888e0eac2af5076eea1435e4f3dd80',1,'gmath::Euler::data()'],['../classgmath_1_1Euler.html#a6c4934f9e429c73bd56a08d7c6b7c465',1,'gmath::Euler::data() const'],['../classgmath_1_1Matrix3.html#a305864c032bcee3f374e85dfaf758dc3',1,'gmath::Matrix3::data()'],['../classgmath_1_1Matrix3.html#aec09b067b22bf99891c3440ad118a7fd',1,'gmath::Matrix3::data() const'],['../classgmath_1_1Matrix4.html#a45c1f45baefd319c51b78aa55c6b786e',1,'gmath::Matrix4::data()'],['../classgmath_1_1Matrix4.html#a1c0644d9e1f67afa6b275f4f16b0f21b',1,'gmath::Matrix4::data() const'],['../classgmath_1_1Quaternion.html#a4ccd2ecadbd587aac64ff8a0a62d6587',1,'gmath::Quaternion::data()'],['../classgmath_1_1Quaternion.html#a9760417662e7c9d7e43288b433944b6b',1,'gmath::Quaternion::data() const'],['../classgmath_1_1Vector3.html#ac8cd04f7bbfc00b5a1afb03c24516eff',1,'gmath::Vector3::data()'],['../classgmath_1_1Vector3.html#a7dd46ec855e1a6d08b1484d0c0e1c80d',1,'gmath::Vector3::data() const'],['../classgmath_1_1Vector4.html#af380583bf7688e512d1348d7e4096539',1,'gmath::Vector4::data()'],['../classgmath_1_1Vector4.html#a7fddf64efeb993dc05854f4357614e6a',1,'gmath::Vector4::data() const']]],
+  ['degrees',['degrees',['../namespacegmath.html#ac19fea6d08f03a88a7fb154cecc6761da18daee01fc6e54aacd7f4c2eef60ff4d',1,'gmath']]],
+  ['determinant',['determinant',['../classgmath_1_1Matrix3.html#a9145f616d3385479c109759954fb648d',1,'gmath::Matrix3::determinant()'],['../classgmath_1_1Matrix4.html#aeeb1e9a3d3032241a824eac5552c7d8f',1,'gmath::Matrix4::determinant()']]],
+  ['distance',['distance',['../classgmath_1_1Vector3.html#af397ab991efa39e98efecf23d5cd5a1f',1,'gmath::Vector3']]],
+  ['distanceto',['distanceTo',['../classgmath_1_1Xfo.html#ac463fc32b5ecad859945b80cb3b89b7e',1,'gmath::Xfo']]],
+  ['distancetoline',['distanceToLine',['../namespacegmath.html#a88944a271fc6eb16f34329609ee4964c',1,'gmath']]],
+  ['distancetoplane',['distanceToPlane',['../namespacegmath.html#ac205dff1f511d9595c5624f9315e6c88',1,'gmath']]],
+  ['dot',['dot',['../classgmath_1_1Quaternion.html#a6bfe80cc3a4d9c7ae112a36fd6d57e54',1,'gmath::Quaternion::dot()'],['../classgmath_1_1Vector3.html#a27224598c6ea98ee54a1026b857423a2',1,'gmath::Vector3::dot()'],['../classgmath_1_1Vector4.html#a898e3e8c30def8cd27228ba112de87e0',1,'gmath::Vector4::dot()']]]
+];

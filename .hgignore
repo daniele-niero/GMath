@@ -28,3 +28,4 @@ config.py
 msvs/
 waf-*
 gmath_py\configure.*
+gmath_py\guerrilla_build.bat

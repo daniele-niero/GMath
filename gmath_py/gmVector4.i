@@ -1,19 +1,24 @@
 %module gmath
-
-%include "exception.i"
-%include "std_string.i"
-
 %{
 #include "gmVector4.h"
 %}
 
+namespace gmath {
+    class Vector4;
+    %typemap(out) double* data %{
+        $result = PyTuple_New(4); // use however you know the size here
+        for (int i = 0; i < 4; ++i) {
+            PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
+        }
+    %}
+}
 
-%typemap(out) double* data %{
-  $result = PyTuple_New(4); // use however you know the size here
-  for (int i = 0; i < 4; ++i) {
-    PyTuple_SetItem($result, i, PyFloat_FromDouble($1[i]));
-  }
-%}
+#ifdef CMAYA
+    // ignore the c++ functions and re-implement them in python
+    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    %ignore fromMayaPoint;
+    %ignore toMayaPoint;
+#endif
 
 %include "gmVector4.h"
 
@@ -35,16 +40,6 @@ namespace gmath{
 
         // pure python extension
         %pythoncode {
-            @staticmethod
-            def init(*args):
-                ''' Through this function is possible to initialise the class also with a Python list or tuple '''
-                if type(args[0]) in (list, tuple):
-                    a = args[0]
-                    if len(a) != 4:
-                        raise AttributeError('list must contains 4 values')
-                    args = a[0], a[1], a[2], a[3]
-                return Vector4(*args)
-
             def __reduce__(self):
                 ''' provides pickle support '''
                 return self.__class__, self.data()
@@ -55,6 +50,18 @@ namespace gmath{
                 else:
                     return False
         }
+
+        #if defined(CMAYA) || defined(PYMAYA)
+
+        %pythoncode {
+            def toMayaPoint(self):
+                return OpenMaya.MPoint(self.x, self.y, self.z, self.w)
+
+            def fromMayaPoint(self, mayaPoint):
+                self.set(mayaPoint.x, mayaPoint.y, mayaPoint.z, mayaPoint.w)
+        }
+
+        #endif
     }
 }
 
