@@ -123,18 +123,53 @@ namespace gmath {
                 gmatrix.fromMayaMatrix(matrix)
                 return gmatrix
 
-            def setGlobalMatrix(mayaObj, gmatrix):
+            def setGlobalMatrix(mayaObj, gmatrix, withUndo=False):
+                '''
+                Args:
+                    mayaObj (str|MDagPath|PyObject): The target object
+                    gmatrix (GMath.Matrix4): The source Matrix
+                    withUndo (bool): if True this function will use Maya's commands instead of Maya's API.
+                        This allows an undo/redo pipeline but it can be slower.
+                        APIs should be in general faster but they come with no undo/redo pipeline (default: {False})
+                '''
                 path = getMDagPath(mayaObj)
-                localMatrix = gmatrix.toMayaMatrix() * path.exclusiveMatrixInverse()
-                mtmatrix = OpenMaya.MTransformationMatrix(localMatrix)
-                mfnTransform = OpenMaya.MFnTransform(path)
-                mfnTransform.set(mtmatrix)
+                if withUndo:
+                    parentGMatrix = gmath.Matrix4()
+                    parentGMatrix.fromMayaMatrix(path.exclusiveMatrixInverse())
+                    localMatrix = gmatrix * parentGMatrix
+                    objFullName = path.fullPathName()
+                    cmds.undoInfo(chunkName='GMathGlobalMatrixSet', openChunk=True)
+                    if path.apiType()==OpenMaya.MFn.kJoint:
+                        cmds.setAttr(objFullName+'.jointOrient', 0,0,0)
+                    cmds.xform(objFullName, matrix=localMatrix.data())
+                    cmds.undoInfo(chunkName='GMathGlobalMatrixSet', closeChunk=True)
+                else:
+                    localMatrix = gmatrix.toMayaMatrix() * path.exclusiveMatrixInverse()
+                    mtmatrix = OpenMaya.MTransformationMatrix(localMatrix)
+                    mfnTransform = OpenMaya.MFnTransform(path)
+                    mfnTransform.set(mtmatrix)
 
-            def setLocalMatrix(mayaObj, gmatrix):
+            def setLocalMatrix(mayaObj, gmatrix, withUndo=False):
+                '''
+                Args:
+                    mayaObj (str|MDagPath|PyObject): The target object
+                    gmatrix (GMath.Matrix4): The source Matrix
+                    withUndo (bool): if True this function will use Maya's commands instead of Maya's API.
+                        This allows an undo/redo pipeline but it can be slower.
+                        APIs should be in general faster but they come with no undo/redo pipeline (default: {False})
+                '''
                 path = getMDagPath(mayaObj)
-                mtmatrix = OpenMaya.MTransformationMatrix(gmatrix.toMayaMatrix())
-                mfnTransform = OpenMaya.MFnTransform(path)
-                mfnTransform.set(mtmatrix)
+                if withUndo:
+                    objFullName = path.fullPathName()
+                    cmds.undoInfo(chunkName='GMathGlobalMatrixSet', openChunk=True)
+                    if path.apiType()==OpenMaya.MFn.kJoint:
+                        cmds.setAttr(objFullName+'.jointOrient', 0,0,0)
+                    cmds.xform(objFullName, matrix=gmatrix.data())
+                    cmds.undoInfo(chunkName='GMathGlobalMatrixSet', closeChunk=True)
+                else:
+                    mtmatrix = OpenMaya.MTransformationMatrix(gmatrix.toMayaMatrix())
+                    mfnTransform = OpenMaya.MFnTransform(path)
+                    mfnTransform.set(mtmatrix)
         }
 
     #endif

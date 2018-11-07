@@ -144,9 +144,19 @@ namespace gmath
         return abs(x) <= DBL_MIN;
     }
 
-    inline bool almostEqual(double x, double y)
+    inline bool almostEqual(double x, double y, double precision=DBL_MIN)
     {
-        return abs(x-y) <= DBL_MIN;
+        return abs(x-y) <= precision;
+    }
+
+    inline bool almostEqual(float x, float y, float precision=FLT_MIN)
+    {
+        return abs(x-y) <= precision;
+    }
+
+    inline bool almostEqual(int x, int y)
+    {
+        return abs(x-y) == 0;
     }
 
     inline double min(double a, double b)

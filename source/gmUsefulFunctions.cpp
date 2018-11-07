@@ -2,6 +2,65 @@
 
 namespace gmath {
 
+    bool almostEqual(const Vector3 &a, const Vector3 &b, double precision) {
+        for (unsigned int i=0; i<3; i++) {
+            if (!almostEqual(a[i], b[i], precision))
+                return false;
+        }
+        return true;
+    }
+
+    bool almostEqual(const Euler &a, const Euler &b, double precision) {
+        for (unsigned int i=0; i<3; i++) {
+            if (!almostEqual(a[i], b[i], precision))
+                return false;
+        }
+        return true;
+    }
+
+    bool almostEqual(const Vector4 &a, const Vector4 &b, double precision) {
+        for (unsigned int i=0; i<4; i++) {
+            if (!almostEqual(a[i], b[i], precision))
+                return false;
+        }
+        return true;
+    }
+
+    bool almostEqual(const Quaternion &a, const Quaternion &b, double precision) {
+        for (unsigned int i=0; i<4; i++) {
+            if (!almostEqual(a[i], b[i], precision))
+                return false;
+        }
+        return true;
+    }
+
+    bool almostEqual(const Matrix3 &a, const Matrix3 &b, double precision) {
+        for (unsigned int i=0; i<9; i++) {
+            if (!almostEqual(a[i], b[i], precision))
+                return false;
+        }
+        return true;
+    }
+
+    bool almostEqual(const Matrix4 &a, const Matrix4 &b, double precision) {
+        for (unsigned int i=0; i<16; i++) {
+            if (!almostEqual(a[i], b[i], precision))
+                return false;
+        }
+        return true;
+    }
+
+    bool almostEqual(const Xfo &a, const Xfo &b, double precision) {
+        if (!almostEqual(a.tr, b.tr, precision))
+            return false;
+        if (!almostEqual(a.ori, b.ori, precision))
+            return false;
+        if (!almostEqual(a.sc, b.sc, precision))
+            return false;
+        return true;
+    }
+
+
     void aim(Matrix3& result, const Vector3& direction, const Vector3& upVector, Axis primaryAxis, Axis secondaryAxis)
     {
         Vector3 primary   = direction.normalize();

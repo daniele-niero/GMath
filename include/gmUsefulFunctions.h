@@ -1,13 +1,24 @@
 #pragma once
 
 #include "gmRoot.h"
+#include "gmEuler.h"
 #include "gmVector3.h"
+#include "gmVector4.h"
 #include "gmMatrix3.h"
+#include "gmMatrix4.h"
 #include "gmQuaternion.h"
 #include "gmXfo.h"
 
 namespace gmath
 {
+    bool almostEqual(const Vector3& a, const Vector3& b, double precision=DBL_MIN);
+    bool almostEqual(const Vector4& a, const Vector4& b, double precision=DBL_MIN);
+    bool almostEqual(const Euler& a, const Euler& b, double precision=DBL_MIN);
+    bool almostEqual(const Quaternion& a, const Quaternion& b, double precision=DBL_MIN);
+    bool almostEqual(const Matrix3& a, const Matrix3& b, double precision=DBL_MIN);
+    bool almostEqual(const Matrix4& a, const Matrix4& b, double precision=DBL_MIN);
+    bool almostEqual(const Xfo& a, const Xfo& b, double precision=DBL_MIN);
+
     enum class IntersectionType
     {
         UNDEFINED = 0,

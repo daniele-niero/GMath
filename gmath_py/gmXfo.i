@@ -87,11 +87,27 @@ namespace gmath{
             def getLocalXfo(mayaObj):
                 return Xfo(getLocalMatrix(mayaObj))
 
-            def setGlobalXfo(mayaObj, xfo):
-                setGlobalMatrix(mayaObj, xfo.toMatrix4())
+            def setGlobalXfo(mayaObj, xfo, withUndo=False):
+                '''
+                Args:
+                    mayaObj (str|MDagPath|PyObject): The target object
+                    xfo (GMath.Xfo): The source Xfo
+                    withUndo (bool): if True this function will use Maya's commands instead of Maya's API.
+                        This allows an undo/redo pipeline but it can be slower.
+                        APIs should be in general faster but they come with no undo/redo pipeline (default: {False})
+                '''
+                setGlobalMatrix(mayaObj, xfo.toMatrix4(), withUndo)
 
-            def setLocalXfo(mayaObj, xfo):
-                setLocalMatrix(mayaObj, xfo.toMatrix4())
+            def setLocalXfo(mayaObj, xfo, withUndo=False):
+                '''
+                Args:
+                    mayaObj (str|MDagPath|PyObject): The target object
+                    xfo (GMath.Xfo): The source Xfo
+                    withUndo (bool): if True this function will use Maya's commands instead of Maya's API.
+                        This allows an undo/redo pipeline but it can be slower.
+                        APIs should be in general faster but they come with no undo/redo pipeline (default: {False})
+                '''
+                setLocalMatrix(mayaObj, xfo.toMatrix4(), withUndo)
         }
 
     #endif

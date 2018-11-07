@@ -24,7 +24,7 @@ namespace std {
 %pythoncode {
     MAYA_IMPLEMENTED = True
     try:
-        from maya import OpenMaya
+        from maya import cmds, OpenMaya
 
         def mpathFromString(dagName):
             sl = OpenMaya.MSelectionList()
