@@ -44,10 +44,11 @@ var menudata={children:[
 {text:"r",url:"functions_func_r.html#index_r"},
 {text:"s",url:"functions_func_s.html#index_s"},
 {text:"t",url:"functions_func_t.html#index_t"},
+{text:"u",url:"functions_func_u.html#index_u"},
 {text:"v",url:"functions_func_v.html#index_v"},
 {text:"w",url:"functions_func_w.html#index_w"},
 {text:"x",url:"functions_func_x.html#index_x"},
 {text:"~",url:"functions_func_0x7e.html#index_0x7e"}]},
-{text:"Variables",url:"functions_vars.html"},
-{text:"Enumerations",url:"functions_enum.html"},
-{text:"Enumerator",url:"functions_eval.html"}]}]}]}
+{text:"Variables",url:"functions_vars.html"}]}]},
+{text:"Files",url:"files.html",children:[
+{text:"File List",url:"files.html"}]}]}
