@@ -1,7 +1,7 @@
 import os, sys
-
 from waflib import Logs
 from waflib import Utils
+import optparse
 
 
 APPNAME = '_gmath.py'
@@ -13,20 +13,28 @@ out = 'build'
 
 def options(ctx):
     ctx.load('compiler_cxx')
-    gr=ctx.add_option_group("Maya Configuration Options")
-    gr.add_option("--maya", 
+
+    gr=ctx.add_option_group("Maya configuration options")
+    gr.add_option("--maya",
                   action='store_true',
-                  default=False,  
-                  help='Set if you want to build gmath for Maya and link it against mayapy (Maya\'s python). ' 
-                        'If false, the following options will not be taken in consideration. '
+                  default=False,
+                  help='Set if you want to build gmath for Maya and link it against mayapy (Maya\'s python). '
+                        'If false, the options below will not be taken in consideration. '
                         'Also note that choosing Maya, the python options will be overridden to link against mayapy. '
                         '[default: %default]')
-    
-    gr=ctx.add_option_group("Swig Configuration Options")
-    gr.add_option("--swig", default='', dest='swig', help='Where to find Swig', type='string', action='store')
 
     ctx.load('maya', tooldir=r'../waftools')
     ctx.load('python', tooldir=r'../waftools')
+
+    gr=ctx.add_option_group("Swig configuration options")
+    gr.add_option("--swig", default='', dest='swig', help='Where to find Swig', type='string', action='store')
+
+
+    # change the default --prefix option
+    grp = ctx.get_option_group('configure options')
+    grp.add_option('--prefix', default='', dest='prefix', help=optparse.SUPPRESS_HELP)
+    grp.add_option('--install-path', default='', help='path to install gmath.py and _gmath.pyd')
+    grp.add_option('--extra-install-paths', default='', help='comma-separated list of installation paths to add to the main install path')
 
 
 def configure(ctx):
@@ -40,6 +48,15 @@ def configure(ctx):
 
     if sys.platform=='win32':
         ctx.env.append_value('CXXFLAGS', ['-EHsc'])
+
+    if not ctx.options.install_path:
+        ctx.options.install_path = ctx.env['PYTHON_SITEPACKAGES']
+    ctx.env['INSTALL_PATHS'] = [ctx.options.install_path]
+    if ctx.options.extra_install_paths:
+        for path in ctx.options.extra_install_paths.split(','):
+            ctx.env['INSTALL_PATHS'].append(path)
+    ctx.msg("Install Path(s)", ctx.env['INSTALL_PATHS'])
+
 
 
 def build(ctx):
@@ -61,12 +78,12 @@ def build(ctx):
     if ctx.env.MAYA:
         rule = '%s -c++ -python -modern -DPYMAYA -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
     else:
-        rule = '%s -c++ -python -builtin -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
+        rule = '%s -c++ -python -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
 
-    ctx(rule=rule, 
-        source='gmRoot.i', 
+    ctx(rule=rule,
+        source='gmRoot.i',
         target=swigTargets,
-        name='swig', 
+        name='swig',
         color='YELLOW')
 
     ctx.add_manual_dependency(
@@ -74,11 +91,18 @@ def build(ctx):
         ctx.path.ant_glob('*.i')
         )
 
-    ctx.install_files('${PREFIX}', [buildNode.find_node('gmath.py'), buildNode.find_node('gmath.pyc')])
+
+    libs = [ctx.env['PYTHON_LIB']]
+    if ctx.env.MAYA:
+        libs.append('OpenMaya')
+        libs.append('Foundation')
+
+    # # this prevent path with spaces to make the build failing
+    # ctx.env['LIBPATH'].append(ctx.env['PYTHON_LIBPATH'])
 
     ctx.add_group()
     ctx.shlib(
-        source = ctx.path.find_node("../source").ant_glob("*.cpp"), 
+        source = ctx.path.find_node("../source").ant_glob("*.cpp"),
         dynamic_source='*_wrap.cxx',
         target = '_gmath',
 
@@ -88,14 +112,17 @@ def build(ctx):
 
         includes = [os.path.join(ctx.path.abspath(), "../include"), ctx.env['PYTHON_INCLUDE']],
 
-        lib = [ctx.env['PYTHON_LIB'], 'OpenMaya', 'Foundation'],
-        libpath = ctx.env['PYTHON_LIBPATH'],
+        lib = libs,
+        libpath = [ctx.env['PYTHON_LIBPATH']],
 
-        install_path = ctx.env['PREFIX'],
+        install_path = None,
 
-        # after=swigTargets,
         use='swig'
         )
+
+    for install_path in ctx.env['INSTALL_PATHS']:
+        ctx.install_files(install_path, [buildNode.find_node('gmath.py'), buildNode.find_node('_gmath.pyd')])
+
 
 # support for the "dynamic_source" attribute follows
 # taken from waf playground/dynamic_build
@@ -114,6 +141,7 @@ def dynamic_post(self):
     if not dynamic_source:
         Logs.warn("*** nothing dynamically added ***")
     self.source.extend(dynamic_source)
+
 
 
 
