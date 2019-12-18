@@ -25,7 +25,8 @@ namespace gmath
         INTERSECTION = 1,
         NO_INTERSECTION = 2,
         PARRALLEL = 3,
-        LAYS_ON_PLANE = 4
+        LAYS_ON_PLANE = 4,
+        TOUCH_ON_ONE_POINT = 5
     };
 
     void aim(Matrix3& result, const Vector3& direction, const Vector3& upVector, Axis primaryAxis, Axis secondaryAxis);
@@ -63,4 +64,14 @@ namespace gmath
     IntersectionType intersectPlanePlane(Vector3& outP1, Vector3& outP2, const Vector3& plane1Point, const Vector3& plane1Normal, const Vector3& plane2Point, const Vector3& plane2Normal);
 
     IntersectionType intersectCirclePlane(Vector3& outP1, Vector3& outP2, const Vector3& circleCenter, const Vector3& circleNormal, const double& circleRadius, const Vector3& planeNormal, const Vector3& planePoint);
+
+    /**
+     @param result the point of intersection, if intersection occurs. When the solution will give two points, this
+                   will be the one along the direction of the line.
+     @param lineOrigin origin of the line
+     @param pointOnLine point on the line
+     @param sphereCenter the sphere center
+     @param sphereRadius the sphere radius
+     */
+    IntersectionType intersectLineSphere(Vector3& result, const Vector3& lineOrigin, const Vector3& pointOnLine, const Vector3& sphereCenter, const double& sphereRadius);
 }

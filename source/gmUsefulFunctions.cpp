@@ -1,5 +1,7 @@
 #include "gmUsefulFunctions.h"
 
+using namespace std;
+
 namespace gmath {
 
     bool almostEqual(const Vector3 &a, const Vector3 &b, double precision) {
@@ -299,5 +301,29 @@ namespace gmath {
         }
 
         return IntersectionType::NO_INTERSECTION;
+    }
+
+
+    IntersectionType intersectLineSphere(Vector3& result, const Vector3& lineOrigin, const Vector3& pointOnLine, const Vector3& sphereCenter, const double& sphereRadius) 
+    {
+        // line direction
+        Vector3 lineDirection = (pointOnLine-lineOrigin).normalize();
+        // sphere center in line space
+        Vector3 lineSphere = sphereCenter-lineOrigin;
+
+        double val = pow(lineDirection.dot(lineSphere), 2) - lineSphere.squaredLength() + pow(sphereRadius, 2);
+
+        if (val<0)
+            return IntersectionType::UNDEFINED;
+
+        // distance from line-center to contact point
+        double d = (lineDirection.dot(lineSphere)) + sqrt(val);
+
+        result.set( (lineDirection*d+lineOrigin).data() );
+
+        if (val==0)
+            return IntersectionType::TOUCH_ON_ONE_POINT;
+        else // must be > 0
+            return IntersectionType::INTERSECTION;
     }
 }
