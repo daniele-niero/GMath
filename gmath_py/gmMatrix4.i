@@ -134,7 +134,7 @@ namespace gmath {
                 '''
                 path = getMDagPath(mayaObj)
                 if withUndo:
-                    parentGMatrix = gmath.Matrix4()
+                    parentGMatrix = Matrix4()
                     parentGMatrix.fromMayaMatrix(path.exclusiveMatrixInverse())
                     localMatrix = gmatrix * parentGMatrix
                     objFullName = path.fullPathName()
