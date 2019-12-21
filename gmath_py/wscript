@@ -5,7 +5,7 @@ import optparse
 
 
 APPNAME = '_gmath.py'
-VERSION = '2.0'
+VERSION = '3.0'
 
 top = '.'
 out = 'build'
@@ -48,6 +48,8 @@ def configure(ctx):
 
     if sys.platform=='win32':
         ctx.env.append_value('CXXFLAGS', ['-EHsc'])
+    else:
+        ctx.env.append_value('CXXFLAGS', ['-std=c++11', '-stdlib=libc++'])
 
     if not ctx.options.install_path:
         ctx.options.install_path = ctx.env['PYTHON_SITEPACKAGES']

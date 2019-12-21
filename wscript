@@ -24,8 +24,10 @@ def configure(conf):
         conf.env.append_value('DEFINES', ['WINDOWS'])
     elif sys.platform=="darwin":
         conf.env.append_value('DEFINES', ['MAC'])
+        conf.env.append_value('CXXFLAGS', ['-std=c++11', '-stdlib=libc++'])
     elif sys.platform=="linux2":
         conf.env.append_value('DEFINES', ['LINUX'])
+        conf.env.append_value('CXXFLAGS', ['-std=c++11', '-stdlib=libc++'])
 
     debenv = conf.env.derive().detach()
     

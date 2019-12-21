@@ -38,7 +38,7 @@ SOFTWARE.
 #pragma once
 
 #include <float.h>
-#include <math.h>
+#include <cmath>
 #include <sstream>
 #include <exception>
 
@@ -61,7 +61,7 @@ namespace gmath
     const double PI =       4.0*atan(1.0);
     const double HALFPI =   PI*0.5;
     const double MAX =      DBL_MAX;
-    const double MIN =      -DBL_MAX;
+    const double MIN =     -DBL_MAX;
     const double SMALLEST = DBL_MIN;
 
     class GMathError : public std::exception
@@ -141,22 +141,22 @@ namespace gmath
 
     inline bool isCloseToZero(double x)
     {
-        return abs(x) <= DBL_MIN;
+        return std::abs(x) <= DBL_MIN;
     }
 
     inline bool almostEqual(double x, double y, double precision=DBL_MIN)
     {
-        return abs(x-y) <= precision;
+        return std::abs(x-y) <= precision;
     }
 
     inline bool almostEqual(float x, float y, float precision=FLT_MIN)
     {
-        return abs(x-y) <= precision;
+        return std::abs(x-y) <= precision;
     }
 
     inline bool almostEqual(int x, int y)
     {
-        return abs(x-y) == 0;
+        return std::abs(x-y) == 0;
     }
 
     inline double min(double a, double b)
