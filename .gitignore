@@ -16,17 +16,10 @@
 
 
 compile.py
+config.py
 lib/*
-build/*
-sub_projects/gmath_py/config.py
+**/build/*
 bin/
 *.exp
-.p4ignore
-config.py
-.waf-*
-.lock-waf_*
-msvs/
-waf-*
-gmath_py/configure.*
-gmath_py/guerrilla_build.bat
-gmath_py/build*
+**/.waf*
+**/.lock-waf_*
