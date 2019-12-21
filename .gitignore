@@ -12,6 +12,7 @@
 *.sconsign.dblite
 *.tmproj
 *.mchg
+*.sublime-*
 
 
 compile.py
