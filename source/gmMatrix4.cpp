@@ -374,7 +374,12 @@ namespace gmath
         _data[14] = other._data[14];
         _data[15] = other._data[15];
     }
+
     /*------ Methods ------*/
+
+    Matrix4 Matrix4::clone() const {
+        return Matrix4(*this);
+    }
 
     void Matrix4::setToIdentity()
     {

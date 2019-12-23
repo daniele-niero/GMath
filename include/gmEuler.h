@@ -29,6 +29,9 @@ namespace gmath
         bool operator == (const Euler &other) const; 
         bool operator != (const Euler &other) const;
 
+        /*------ Methods ------*/
+        Euler clone() const;
+        
         void set(const double inX, const double inY, const double inZ);
         void set(const double *values);
         void set(const std::vector<double>& values);

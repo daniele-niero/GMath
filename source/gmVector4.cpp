@@ -188,6 +188,11 @@ namespace gmath {
     }
     
     /*------ Methods ------*/
+
+    Vector4 Vector4::clone() const {
+        return Vector4(*this);
+    }
+    
     void Vector4::set(double inX, double inY, double inZ, double inW)
     {
         x = inX;

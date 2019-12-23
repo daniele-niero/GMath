@@ -79,6 +79,7 @@ namespace gmath
         void operator = (const Vector3& other);
 
         /*------ methods ------*/
+        Vector3 clone() const;
 
         /** Set the three properties (x, y, z), with the given arguments
             @param inX The wanted value for x

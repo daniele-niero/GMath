@@ -102,6 +102,8 @@ namespace gmath
         /*------ Assignment ------*/
         void operator = (const Matrix4 &other);
 
+        Matrix4 clone() const;
+
         /*------ Sets and Gets ------*/
         void set(double xx, double xy, double xz, double xw,
                  double yx, double yy, double yz, double yw,

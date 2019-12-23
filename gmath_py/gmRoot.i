@@ -10,6 +10,11 @@
 %include "std_except.i"
 %include "std_string.i"
 %include "std_vector.i"
+%include "std_shared_ptr.i"
+
+%shared_ptr(gmath::Vector3);
+%shared_ptr(gmath::Quaternion);
+
 namespace std {
   %template(DoubleVector) vector<double>;
 }

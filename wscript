@@ -14,12 +14,16 @@ def options(ctx):
     grp.add_option('--doc-out-path', default='./documentation',
                    help='documentation install path [default: %default]')
 
+    opt=ctx.add_option_group("Test Build")  
+    opt.add_option('--test-name', default='', )
+
 
 def configure(conf):
+    conf.msg("Platform", sys.platform)
+
     conf.load('compiler_cxx')
     conf.load('doxygen', tooldir="./waftools")
 
-    print sys.platform
     if sys.platform=="win32":
         conf.env.append_value('DEFINES', ['WINDOWS'])
     elif sys.platform=="darwin":
@@ -41,15 +45,16 @@ def configure(conf):
 
 
 from waflib.Build import BuildContext, InstallContext
-class debug(BuildContext):
+
+class Debug(BuildContext):
     '''Build the debug variant'''
     cmd = 'debug'
     variant = 'debug'
-class installdebug(InstallContext):
+
+class InstallDebug(InstallContext):
     '''Install the debug variant'''
     cmd = 'install-debug'
     variant = 'debug'
-
         
 def build(ctx):
     source = ctx.path.find_node("source").ant_glob("*.cpp")
@@ -77,3 +82,17 @@ def build(ctx):
             features="doxygen", 
             doxyfile='./resources/doxygen/doxy_config', 
             install_path=ctx.options.doc_out_path)
+
+
+# from waflib.Build import BuildContext, InstallContext
+
+
+def build_test(ctx):
+    ctx.recurse('./tests/testXfo', 'suka')
+
+# 
+class BuildTest(BuildContext):
+    '''Build the debug variant'''
+    cmd = 'build-test'
+    fun = 'build_test'
+    variant = 'build_test'

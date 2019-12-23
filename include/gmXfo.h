@@ -19,9 +19,9 @@ namespace gmath
     {
     public:
         /*------ properties ------*/
-        Quaternion ori;
-        Vector3 tr;
-        Vector3 sc;
+        shared_ptr<Quaternion> ori;
+        shared_ptr<Vector3> tr;
+        shared_ptr<Vector3> sc;
 
         /*------ constructors ------*/
         Xfo();
@@ -49,6 +49,8 @@ namespace gmath
         void operator = (const Xfo& other);
 
         /*------ methods ------*/
+        Xfo clone() const;
+        
         void setToIdentity();
         void fromMatrix4(const Matrix4& mat);
         Matrix4 toMatrix4() const;

@@ -242,6 +242,10 @@ namespace gmath{
     }
 
     /*------ Methods ------*/
+
+    Quaternion Quaternion::clone() const {
+        return Quaternion(*this);
+    }
     
     void Quaternion::set(double inX, double inY, double inZ, double inW)
     {
@@ -714,12 +718,14 @@ namespace gmath{
         return result;
     }
 
-    void Quaternion::slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath)
+    Quaternion& Quaternion::slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath)
     {   
-        Quaternion Q2 = q2;
-        if (q1.dot(q2)<0.0)
-        {
+        Quaternion Q2;
+        if ((*this).dot(q2)<0.0) {
             Q2 = -q2;
+        }
+        else {
+            Q2 = q2;
         }
 
         Quaternion qd = q1 - Q2;
@@ -734,14 +740,21 @@ namespace gmath{
         (*this) = 
             q1 * (sinx_over_x(s * a) / sinx_over_x(a) * s)  +
             Q2 * (sinx_over_x(t * a) / sinx_over_x(a) * t) ;
+        return *this;
+    }
+
+    Quaternion& Quaternion::slerpInPlace(const Quaternion &q2, double t, bool shortestPath) {
+        return slerpInPlace(*this, q2, t, shortestPath);
     }
 
     Quaternion Quaternion::slerp(const Quaternion &q2, double t, bool shortestPath) const
     {   
-        Quaternion Q2 = q2;
-        if ((*this).dot(q2)<0.0)
-        {
+        Quaternion Q2;
+        if ((*this).dot(q2)<0.0) {
             Q2 = -q2;
+        }
+        else {
+            Q2 = q2;
         }
 
         Quaternion qd = (*this) - Q2;

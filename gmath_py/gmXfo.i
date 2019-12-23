@@ -5,13 +5,15 @@
 #include "gmXfo.h"
 %}
 
+%include <std_shared_ptr.i>
+
 //%ignore gmath::Matrix4::operator()(int,int);
 
 
 #ifdef CMAYA 
     // only if gmath is build against  maya
     // ignore the c++ functions and re-implement them in python
-    // this bypass the compatibility problem between swig and whatever maya's return in python.
+    // this bypass the compatibility problem between swig and whatever maya returns in python.
     %ignore gmath::Xfo::fromMayaMatrix;
     %ignore gmath::Xfo::toMayaMatrix;
 
@@ -42,10 +44,6 @@
             pass %} 
 #endif
 
-// see below why
-// %ignore gmath::Xfo::tr;
-// %ignore gmath::Xfo::ori;
-// %ignore gmath::Xfo::sc;
 
 %include "gmXfo.h"
 

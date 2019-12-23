@@ -282,6 +282,10 @@ namespace gmath
     
     /*------ Methods ------*/
 
+    Vector3 Vector3::clone() const {
+        return Vector3(*this);
+    }
+
     void Vector3::set(double inX, double inY, double inZ)
     {
         x = inX;

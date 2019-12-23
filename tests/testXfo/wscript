@@ -1,0 +1,12 @@
+import os
+
+def suka(ctx):
+    ctx.program(
+        target    = os.path.basename(str(ctx.path)),
+        includes  ='../../include',
+        lib       = ['gmath'],
+        libpath   = ['../../lib'],
+        source    = 'testXfo.cpp',
+        name      = "testXfo",
+        install_path = './bin'
+        )

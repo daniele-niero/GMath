@@ -53,11 +53,11 @@ namespace gmath {
     }
 
     bool almostEqual(const Xfo &a, const Xfo &b, double precision) {
-        if (!almostEqual(a.tr, b.tr, precision))
+        if (!almostEqual(*a.tr, *b.tr, precision))
             return false;
-        if (!almostEqual(a.ori, b.ori, precision))
+        if (!almostEqual(*a.ori, *b.ori, precision))
             return false;
-        if (!almostEqual(a.sc, b.sc, precision))
+        if (!almostEqual(*a.sc, *b.sc, precision))
             return false;
         return true;
     }
@@ -133,7 +133,9 @@ namespace gmath {
 
     void aim(Xfo& result, const Vector3& direction, const Vector3& upVector, Axis primaryAxis, Axis secondaryAxis)
     {
-        aim(result.ori, direction, upVector, primaryAxis, secondaryAxis);
+        Quaternion q = Quaternion();
+        aim(q, direction, upVector, primaryAxis, secondaryAxis);
+        *result.ori = q;
     }
 
     void fastAim(Matrix3& result, const Vector3& direction, const Vector3& upVector)
@@ -156,7 +158,9 @@ namespace gmath {
 
     void fastAim(Xfo& result, const Vector3& direction, const Vector3& upVector)
     {
-        fastAim(result.ori, direction, upVector);
+        Quaternion q = Quaternion();
+        fastAim(q, direction, upVector);
+        *result.ori = q;
     }
 
 

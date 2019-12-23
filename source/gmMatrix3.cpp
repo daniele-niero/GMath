@@ -311,6 +311,10 @@ namespace gmath
 
     /*------ methods ------*/
 
+    Matrix3 Matrix3::clone() const {
+        return Matrix3(*this);
+    }
+
     void Matrix3::setToIdentity()
     {
         _data[0]=1.0; _data[1]=0.0; _data[2]=0.0;

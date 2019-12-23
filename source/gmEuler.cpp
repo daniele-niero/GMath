@@ -100,6 +100,9 @@ namespace gmath {
     }
 
     /*------ Methods ------*/
+    Euler Euler::clone() const {
+        return Euler(*this); 
+    }
 
     void Euler::set(const double inX, const double inY, const double inZ)
     {

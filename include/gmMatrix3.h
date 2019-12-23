@@ -73,6 +73,8 @@ namespace gmath
         void operator = (const Matrix3 &other);
 
         /*------ methods ------*/
+        Matrix3 clone() const;
+        
         void setToIdentity();
         void set(double xx, double xy, double xz,
                  double yx, double yy, double yz,

@@ -63,6 +63,7 @@ namespace gmath
         void operator = (const Quaternion & other);
 
         /*------ methods ------*/
+        Quaternion clone() const;
 
         /** Set the three properties (x, y, z, w), with the given arguments
             @param inX The wanted value for x
@@ -135,7 +136,8 @@ namespace gmath
 
             Spherical linear interpolation.
             Assumes q1 and q2 are normalized and that q1 != -q2. */
-        void slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath=true);
+        Quaternion& slerpInPlace(const Quaternion &q1, const Quaternion &q2, double t, bool shortestPath=true);
+        Quaternion& slerpInPlace(const Quaternion &q2, double t, bool shortestPath=true);
         Quaternion slerp(const Quaternion &q2, double t, bool shortestPath=true) const;
 
         std::string toString() const;
