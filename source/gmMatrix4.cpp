@@ -55,6 +55,7 @@ namespace gmath
         memcpy(&_data[4],  row1.data(), 3*sizeof(double));
         memcpy(&_data[8],  row2.data(), 3*sizeof(double));
         memcpy(&_data[12], row3.data(), 3*sizeof(double));
+        _data[3]=0.0; _data[7]=0.0; _data[11]=0.0; _data[15]=1.0;
     }
 
     Matrix4::Matrix4(
@@ -65,7 +66,8 @@ namespace gmath
         memcpy(&_data[0],  row0.data(), 3*sizeof(double));
         memcpy(&_data[4],  row1.data(), 3*sizeof(double));
         memcpy(&_data[8],  row2.data(), 3*sizeof(double));
-        _data[12]=0.0; _data[13]=0.0; _data[14]=0.0;
+        _data[3]=0.0; _data[7]=0.0; _data[11]=0.0;
+        _data[12]=0.0; _data[13]=0.0; _data[14]=0.0; _data[15]=1.0;
     }
 
     Matrix4::Matrix4(const Quaternion &quat)
