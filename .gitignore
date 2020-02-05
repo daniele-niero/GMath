@@ -13,6 +13,8 @@
 *.tmproj
 *.mchg
 *.sublime-*
+*.zip
+*.7z
 
 
 compile.py
@@ -21,5 +23,6 @@ lib/*
 **/build/*
 bin/
 *.exp
-**/.waf*
+**/waf*
 **/.lock-waf_*
+**/*.bat
