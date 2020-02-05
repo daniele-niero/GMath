@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "gmVector3.h"
 #include "gmQuaternion.h"
 #include "gmMatrix4.h"
