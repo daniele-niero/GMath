@@ -708,7 +708,7 @@ namespace gmath
 
     void Matrix4::toEuler(Euler& eulerAngles, RotationOrder order) const
     {
-        return this->toMatrix3().toEuler(eulerAngles, order);
+        this->toMatrix3().toEuler(eulerAngles, order);
     }
 
     void Matrix4::fromMatrix3(const Matrix3 &inMat3)
