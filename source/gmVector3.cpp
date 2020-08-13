@@ -433,8 +433,7 @@ namespace gmath
 
     double Vector3::angle(const Vector3 & other) const
     {
-        double ang = gmath::acos((dot(other))); 
-        return ang;
+        return gmath::acos( dot(other) / (this->length() * other.length()) ); 
     }
 
     Vector3 Vector3::reflect(const Vector3 & normal) const

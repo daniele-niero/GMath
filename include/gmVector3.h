@@ -118,8 +118,7 @@ namespace gmath
         Vector3 negate() const;
         Vector3& negateInPlace();
 
-        /** Return angle (in radians) between this vector and the given vector.
-            @note: Remember to normalize the vectors before to call this method. */
+        /** Return angle (in radians) between this vector and the given vector. */
         double angle(const Vector3& other) const;
 
         /** Return the reflection to a surface.
