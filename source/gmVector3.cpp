@@ -529,8 +529,8 @@ namespace gmath
     Vector3 Vector3::linearInterpolate(const Vector3 & other, double weight) const
     {
         return Vector3((other.x - x) * weight + x,
-                             (other.y - y) * weight + y,
-                             (other.z - z) * weight + z);
+                       (other.y - y) * weight + y,
+                       (other.z - z) * weight + z);
     }
 
     void Vector3::linearInterpolateInPlace(const Vector3 & other, double weight)
