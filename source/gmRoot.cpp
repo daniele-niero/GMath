@@ -28,12 +28,12 @@ namespace gmath
 
     double acos (double x)
     {
-        if (-(double)1 < x) {
-            if (x < (double)1) {
-                return (double) ::acos((double)x);
+        if (-1.0 < x) {
+            if (x < 1.0) {
+                return  acos(x);
             }
             else {
-                return (double)0;
+                return 0.0;
             }
         }
         else {
@@ -43,9 +43,9 @@ namespace gmath
 
     double asin (double x)
     {
-        if (-(double)1 < x) {
-            if (x < (double)1) {
-                return (double) ::asin((double)x);
+        if (-1.0 < x) {
+            if (x < 1.0) {
+                return asin(x);
             }
             else {
                 return HALFPI;
@@ -58,11 +58,11 @@ namespace gmath
 
     double toRadians(double x)
     {
-        return x*(PI/(double)180.0);
+        return x*(PI/180.0);
     }
 
     double toDegrees(double x)
     {
-        return x*((double)180.0/PI);
+        return x*(180.0/PI);
     }
 }
