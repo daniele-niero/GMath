@@ -674,8 +674,8 @@ namespace gmath
 
     void Matrix3::toEuler(Euler& euler, RotationOrder order) const
     {   
-        // ensure euler is radians
-        euler.setUnit(Unit::radians);
+        // store the original Unit. euler will be radians at the end or this function
+        Unit originalUnit = euler.getUnit();
 
         switch (order)
         {
@@ -871,6 +871,8 @@ namespace gmath
                 euler.x = 0;
             }
         }
+
+        euler.setUnit(originalUnit);
     }
 
     void Matrix3::fromVectorToVector(const Vector3 &fromVec, const Vector3 &toVec)
