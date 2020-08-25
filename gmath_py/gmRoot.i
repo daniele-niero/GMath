@@ -24,6 +24,7 @@ namespace std {
 %pythoncode {
     MAYA_IMPLEMENTED = True
     try:
+        from maya.api import OpenMaya as OpenMaya2
         from maya import cmds, OpenMaya
 
         def mpathFromString(dagName):

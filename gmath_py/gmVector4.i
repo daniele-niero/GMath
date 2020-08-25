@@ -59,6 +59,9 @@ namespace gmath{
 
             def fromMayaPoint(self, mayaPoint):
                 self.set(mayaPoint.x, mayaPoint.y, mayaPoint.z, mayaPoint.w)
+
+            def toMaya2Point(self):
+                return OpenMaya2.MPoint(self.x, self.y, self.z, self.w)
         }
 
         #endif

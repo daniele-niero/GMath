@@ -64,6 +64,10 @@ namespace gmath{
 
             def fromMayaEuler(self, mayaEul):
                 self.set(mayaEul.x, mayaEul.y, mayaEul.z)
+
+            def toMaya2Euler(self):
+                return OpenMaya2.MEulerRotation(self.x, self.y, self.z)
+
         }
         
         #endif

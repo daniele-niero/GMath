@@ -61,6 +61,9 @@ namespace gmath{
 
             def fromMayaVector(self, mayaVector):
                 self.set(mayaVector.x, mayaVector.y, mayaVector.z)
+
+            def toMaya2Vector(self):
+                return OpenMaya2.MVector(self.x, self.y, self.z)
         }
         
         #endif

@@ -97,12 +97,18 @@ namespace gmath {
                 return mayaMat
 
             def fromMayaMatrix(self, mayaMat):
-                self.set(
-                    mayaMat(0, 0), mayaMat(0, 1), mayaMat(0, 2), mayaMat(0, 3),
-                    mayaMat(1, 0), mayaMat(1, 1), mayaMat(1, 2), mayaMat(1, 3),
-                    mayaMat(2, 0), mayaMat(2, 1), mayaMat(2, 2), mayaMat(2, 3),
-                    mayaMat(3, 0), mayaMat(3, 1), mayaMat(3, 2), mayaMat(3, 3) )
-            }
+                if isinstance(mayaMat, OpenMaya2.MMatrix):
+                    self.set([i for i in mayaMat])
+                else:
+                    self.set(
+                        mayaMat(0, 0), mayaMat(0, 1), mayaMat(0, 2), mayaMat(0, 3),
+                        mayaMat(1, 0), mayaMat(1, 1), mayaMat(1, 2), mayaMat(1, 3),
+                        mayaMat(2, 0), mayaMat(2, 1), mayaMat(2, 2), mayaMat(2, 3),
+                        mayaMat(3, 0), mayaMat(3, 1), mayaMat(3, 2), mayaMat(3, 3) )
+
+            def toMaya2Matrix(self):
+                return OpenMaya2.MMatrix(self.data())
+        }
         
         #endif
     }

@@ -59,6 +59,9 @@ namespace gmath{
 
             def fromMayaQuaternion(self, mayaQuat):
                 self.set(mayaQuat.x, mayaQuat.y, mayaQuat.z, mayaQuat.w)
+
+            def toMaya2Quaternion(self):
+                return OpenMaya2.MQuaternion(self.x, self.y, self.z, self.w)
         }
 
         #endif
