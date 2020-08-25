@@ -30,7 +30,7 @@ namespace gmath
     {
         if (-1.0 < x) {
             if (x < 1.0) {
-                return  acos(x);
+                return std::acos(x);
             }
             else {
                 return 0.0;
@@ -45,7 +45,7 @@ namespace gmath
     {
         if (-1.0 < x) {
             if (x < 1.0) {
-                return asin(x);
+                return std::asin(x);
             }
             else {
                 return HALFPI;
