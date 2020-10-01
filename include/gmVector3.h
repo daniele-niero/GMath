@@ -115,8 +115,6 @@ namespace gmath
         Vector3 inverse() const;
         Vector3& inverseInPlace();
 
-        Vector3 negate() const;
-        Vector3& negateInPlace();
 
         /** Return angle (in radians) between this vector and the given vector. */
         double angle(const Vector3& other) const;

@@ -407,29 +407,17 @@ namespace gmath
 
     Vector3 Vector3::inverse() const 
     {
-        return Vector3(1.0/x, 1.0/y, 1.0/z);
+        return Vector3(-x, -y, -x);
     }
 
     Vector3& Vector3::inverseInPlace()
-    {
-        x = 1.0/x;
-        y = 1.0/y;
-        z = 1.0/z;
-        return *this;
-    }
-
-    Vector3 Vector3::negate() const
-    {
-        return Vector3(-x, -y, -z);
-    }
-
-    Vector3& Vector3::negateInPlace()
     {
         x = -x;
         y = -y;
         z = -z;
         return *this;
     }
+
 
     double Vector3::angle(const Vector3 & other) const
     {
