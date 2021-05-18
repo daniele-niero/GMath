@@ -157,7 +157,7 @@ namespace gmath
         Xfo result;
         result.ori = ori.inverse();
         result.sc = sc.inverse();
-        result.tr = result.ori.rotateVector(tr.negate()*result.sc);
+        result.tr = result.ori.rotateVector(tr.inverse()*result.sc);
         return result;
     }
 
@@ -172,7 +172,7 @@ namespace gmath
 
         ori.inverseInPlace();
         sc.inverseInPlace();
-        tr = ori.rotateVector(tr.negate()*sc);
+        tr = ori.rotateVector(tr.inverse()*sc);
         return *this;
     }
 

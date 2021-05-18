@@ -108,3 +108,102 @@ namespace std {
 %include "gmXfo.i"
 %include "gmUsefulFunctions.i"
 
+
+
+%pythoncode %{
+#--------------------------------------------------------------------#
+#  MANUAL PATCH TO PLAY NICE WITH GMATH PURE PYTHON VERSION          #
+#               (This is for Guerrilla Only)                         #
+#--------------------------------------------------------------------#
+
+PRECISION = EPSILON
+
+#--------------------- deal with python's enum ----------------------#
+
+py_enum_available = False
+
+try:
+    import enum
+    py_enum_available = True
+except ImportError:
+    try:
+        from DeciPyCommon.Libs.Extensions import Enum as enum
+        py_enum_available = True
+    except ImportError:
+        pass
+
+
+if py_enum_available:
+    class CartesianPlane(enum.IntEnum):
+        XY = 0
+        YZ = 1
+        ZX = 2
+        YX = 0
+        ZY = 1
+        XZ = 2
+
+        def normalVector(self):
+            ''' return the vector perpendicular to this plane '''
+            if self.value == 0:
+                return Vector3.ZAXIS
+            elif self.value == 1:
+                return Vector3.XAXIS
+            elif self.value == 2:
+                return Vector3.YAXIS
+
+
+    class Unit(enum.IntEnum):
+        Degrees = 0
+        Radians = 1
+
+
+    class RotationOrder(enum.IntEnum):
+        XYZ = 0
+        XZY = 1
+        YXZ = 2
+        YZX = 3
+        ZXY = 4
+        ZYX = 5
+
+
+    class Axis(enum.IntEnum):
+        NEGX = -1
+        NEGY = -2
+        NEGZ = -3
+        POSX =  1
+        POSY =  2
+        POSZ =  3
+
+        def asVecotor3(self):
+            ''' Gets a Vector3 instance from the Axis enumerator value '''
+            if self.value == 1:
+                return Vector3.XAXIS
+            elif self.value == 2:
+                return Vector3.YAXIS
+            elif self.value == 3:
+                return Vector3.ZAXIS
+            elif self.value == -1:
+                return -Vector3.XAXIS
+            elif self.value == -2:
+                return -Vector3.YAXIS
+            elif self.value == -3:
+                return -Vector3.ZAXIS
+
+        def isX(self):
+            ''' Returns if Axis is the X axis (positive or negative) '''
+            return abs(self.value) == 1
+
+        def isY(self):
+            ''' Returns if Axis is the Y axis (positive or negative) '''
+            return abs(self.value) == 2
+
+        def isZ(self):
+            ''' Returns if Axis is the Z axis (positive or negative) '''
+            return abs(self.value) == 3
+
+
+#----------------------------- clean up -----------------------------#
+
+del py_enum_available
+%}
+

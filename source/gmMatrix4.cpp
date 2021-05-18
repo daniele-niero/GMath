@@ -234,7 +234,7 @@ namespace gmath
             _data[4]*b[3] + _data[5]*b[7] + _data[6]*b[11] + _data[7]*b[15],
 
             _data[8]*b[0] + _data[9]*b[4] + _data[10]*b[8]  + _data[11]*b[12],
-            _data[8]*b[1] + _data[9]*b[5] + _data[10]*b[9]  +  _data[11]*b[13],
+            _data[8]*b[1] + _data[9]*b[5] + _data[10]*b[9]  + _data[11]*b[13],
             _data[8]*b[2] + _data[9]*b[6] + _data[10]*b[10] + _data[11]*b[14],
             _data[8]*b[3] + _data[9]*b[7] + _data[10]*b[11] + _data[11]*b[15],
 

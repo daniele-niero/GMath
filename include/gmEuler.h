@@ -9,8 +9,9 @@ namespace gmath
     {
     public:
         Euler(Unit inUnit=Unit::degrees);
-        Euler(const Euler& other);
         Euler(const double inX, const double inY, const double inZ, Unit inUnit=Unit::radians);
+        
+        Euler(const Euler& other);
         Euler(const Vector3& vec, Unit inUnit=Unit::radians);
         Euler(const double *values, Unit inUnit=Unit::radians);
         Euler(const std::vector<double>& values, Unit inUnit=Unit::radians);

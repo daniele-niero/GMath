@@ -28,9 +28,10 @@ namespace gmath
         Xfo(const Xfo& other);
         Xfo(const Vector3& tr);
         Xfo(const Quaternion& ori);
+        Xfo(const Matrix4& mat);
+        
         Xfo(const Vector3& tr, const Quaternion& ori);
         Xfo(const Quaternion& ori, const Vector3& tr, const Vector3& sc);
-        Xfo(const Matrix4& mat);
         Xfo(const double& eulerX, const double& eulerY, const double& eulerZ, 
             const double& trX, const double& trY, const double& trZ,
             const double& scX, const double& scY, const double& scZ);
