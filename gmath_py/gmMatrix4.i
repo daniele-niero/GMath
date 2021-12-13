@@ -96,18 +96,11 @@ namespace gmath {
                 OpenMaya.MScriptUtil.createMatrixFromList(self.data(), mayaMat) 
                 return mayaMat
 
-            def fromMayaMatrix(self, mayaMat):
-                if isinstance(mayaMat, OpenMaya2.MMatrix):
-                    self.set([i for i in mayaMat])
-                else:
-                    self.set(
-                        mayaMat(0, 0), mayaMat(0, 1), mayaMat(0, 2), mayaMat(0, 3),
-                        mayaMat(1, 0), mayaMat(1, 1), mayaMat(1, 2), mayaMat(1, 3),
-                        mayaMat(2, 0), mayaMat(2, 1), mayaMat(2, 2), mayaMat(2, 3),
-                        mayaMat(3, 0), mayaMat(3, 1), mayaMat(3, 2), mayaMat(3, 3) )
-
             def toMaya2Matrix(self):
                 return OpenMaya2.MMatrix(self.data())
+
+            def fromMayaMatrix(self, mayaMat):
+                self.set(getMMatrixData(mayaMat))
         }
         
         #endif
@@ -139,21 +132,33 @@ namespace gmath {
                         APIs should be in general faster but they come with no undo/redo pipeline (default: {False})
                 '''
                 path = getMDagPath(mayaObj)
+                if isinstance(path, OpenMaya.MDagPath):
+                    om = OpenMaya
+                    mmatrix = gmatrix.toMayaMatrix()
+                else:
+                    om = OpenMaya2
+                    mmatrix = gmatrix.toMaya2Matrix()
+
                 if withUndo:
                     parentGMatrix = Matrix4()
-                    parentGMatrix.fromMayaMatrix(path.exclusiveMatrixInverse())
-                    localMatrix = gmatrix * parentGMatrix
+                    parentGMatrix.fromMayaMatrix()
+                    localMatrix = mmatrix * path.exclusiveMatrixInverse()
+
                     objFullName = path.fullPathName()
+
                     cmds.undoInfo(chunkName='GMathGlobalMatrixSet', openChunk=True)
-                    if path.apiType()==OpenMaya.MFn.kJoint:
+
+                    if path.apiType() == om.MFn.kJoint:
                         cmds.setAttr(objFullName+'.jointOrient', 0,0,0)
-                    cmds.xform(objFullName, matrix=localMatrix.data())
+                    cmds.xform(objFullName, matrix=getMMatrixData(localMatrix))
+
                     cmds.undoInfo(chunkName='GMathGlobalMatrixSet', closeChunk=True)
                 else:
-                    localMatrix = gmatrix.toMayaMatrix() * path.exclusiveMatrixInverse()
-                    mtmatrix = OpenMaya.MTransformationMatrix(localMatrix)
-                    mfnTransform = OpenMaya.MFnTransform(path)
-                    mfnTransform.set(mtmatrix)
+                    localMatrix = mmatrix * path.exclusiveMatrixInverse()
+                    mtmatrix = om.MTransformationMatrix(localMatrix)
+                    mfnTransform = om.MFnTransform(path)
+                    setMFnTransform(mfnTransform, mtmatrix)
+
 
             def setLocalMatrix(mayaObj, gmatrix, withUndo=False):
                 '''
@@ -165,17 +170,27 @@ namespace gmath {
                         APIs should be in general faster but they come with no undo/redo pipeline (default: {False})
                 '''
                 path = getMDagPath(mayaObj)
+                if isinstance(path, OpenMaya.MDagPath):
+                    om = OpenMaya
+                    mmatrix = gmatrix.toMayaMatrix()
+                else:
+                    om = OpenMaya2
+                    mmatrix = gmatrix.toMaya2Matrix()
+
                 if withUndo:
                     objFullName = path.fullPathName()
+
                     cmds.undoInfo(chunkName='GMathGlobalMatrixSet', openChunk=True)
-                    if path.apiType()==OpenMaya.MFn.kJoint:
+
+                    if path.apiType() == om.MFn.kJoint:
                         cmds.setAttr(objFullName+'.jointOrient', 0,0,0)
-                    cmds.xform(objFullName, matrix=gmatrix.data())
+                    cmds.xform(objFullName, matrix=getMMatrixData(mmatrix))
+
                     cmds.undoInfo(chunkName='GMathGlobalMatrixSet', closeChunk=True)
                 else:
-                    mtmatrix = OpenMaya.MTransformationMatrix(gmatrix.toMayaMatrix())
-                    mfnTransform = OpenMaya.MFnTransform(path)
-                    mfnTransform.set(mtmatrix)
+                    mtmatrix = om.MTransformationMatrix(mmatrix)
+                    mfnTransform = om.MFnTransform(path)
+                    setMFnTransform(mfnTransform, mtmatrix)
         }
 
     #endif

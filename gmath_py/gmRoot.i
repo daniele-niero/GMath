@@ -35,15 +35,28 @@ namespace std {
             return path
 
         def getMDagPath(arg):
-            dagpath = None 
-            if isinstance(arg, OpenMaya.MDagPath):
+            if isinstance(arg, (OpenMaya.MDagPath, OpenMaya2.MDagPath)):
                 return arg
             elif isinstance(arg, (str, unicode)):
                 return mpathFromString(arg)
             elif hasattr(arg, '__apimdagpath__'): # this must be a pymel object
                 return arg.__apimdagpath__()
+            elif hasattr(arg, 'getDagPath'): # this must be a ggNodes object
+                return arg.getDagPath()
             else:
                 raise RuntimeError('unsupported object type')
+
+        def getMMatrixData(mmatrix):
+            if isinstance(mmatrix, OpenMaya.MMatrix):
+                return [mmatrix(row, col) for row in range(4) for col in range(4)]
+            else:
+                return [i for i in mmatrix]
+
+        def setMFnTransform(mfnTransform, mTraMatrix):
+            if isinstance(mfnTransform, OpenMaya.MFnTransform):
+                mfnTransform.set(mTraMatrix)
+            else:
+                mfnTransform.setTransformation(mTraMatrix)
 
     except:
         MAYA_IMPLEMENTED = False
@@ -200,7 +213,6 @@ if py_enum_available:
         def isZ(self):
             ''' Returns if Axis is the Z axis (positive or negative) '''
             return abs(self.value) == 3
-
 
 #----------------------------- clean up -----------------------------#
 
