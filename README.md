@@ -8,7 +8,7 @@ It's primary goal is not to be super fast (although it's not slow) but to be eas
 **GMath** is a small and stright forward library; cpp source files are in ./source and headers are in ./include.
 You can simply build your cpp application using them or you can build a library out of them.
 
-## Buil
+## Build
 
 **GMath** uses [**waf**](https://github.com/waf-project/waf) to configure and build.
 

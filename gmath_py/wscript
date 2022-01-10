@@ -77,10 +77,14 @@ def build(ctx):
                    buildNode.make_node('gmath.pyc'),
                    buildNode.make_node('gmRoot_wrap.cxx')]
 
-    if ctx.env.MAYA:
-        rule = '%s -c++ -python -modern -DPYMAYA -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
-    else:
-        rule = '%s -c++ -python -modern -I%s/../include -outdir . -outcurrentdir ${SRC}' %(ctx.env.SWIG, ctx.path.abspath())
+    with_py3  = ' -py3' if ctx.env.PYTHON_VERSION else ''
+    with_maya = ' -DPYMAYA' if ctx.env.MAYA else ''
+    rule = '{} -c++ -python{}{} -I{}/../include -outdir . -outcurrentdir'.format(ctx.env.SWIG,
+                                                                                 with_py3,
+                                                                                 with_maya,
+                                                                                 ctx.path.abspath())
+    rule += ' ${SRC}'
+    Logs.warn(rule)
 
     ctx(rule=rule,
         source='gmRoot.i',
@@ -99,8 +103,6 @@ def build(ctx):
         libs.append('OpenMaya')
         libs.append('Foundation')
 
-    # # this prevent path with spaces to make the build failing
-    # ctx.env['LIBPATH'].append(ctx.env['PYTHON_LIBPATH'])
 
     ctx.add_group()
     ctx.shlib(
