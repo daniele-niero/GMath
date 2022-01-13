@@ -60,7 +60,6 @@ def configure(ctx):
     ctx.msg("Install Path(s)", ctx.env['INSTALL_PATHS'])
 
 
-
 def build(ctx):
     from waflib.Build import POST_LAZY
     ctx.post_mode = POST_LAZY
@@ -71,7 +70,8 @@ def build(ctx):
                    buildNode.make_node('gmath.pyc'),
                    buildNode.make_node('gmRoot_wrap.cxx')]
 
-    with_py3  = ' -py3' if ctx.env.PYTHON_VERSION else ''
+
+    with_py3  = ' -py3 -DPYENUM' if float(ctx.env.PYTHON_VERSION) >= 3.0 else ''
     with_maya = ' -DPYMAYA' if ctx.env.MAYA else ''
     rule = '{} -c++ -python{}{} -I{}/../include -outdir . -outcurrentdir'.format(ctx.env.SWIG,
                                                                                  with_py3,
