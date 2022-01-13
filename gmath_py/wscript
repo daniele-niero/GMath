@@ -65,12 +65,6 @@ def build(ctx):
     from waflib.Build import POST_LAZY
     ctx.post_mode = POST_LAZY
 
-    # maya = ''
-    # if ctx.env.MAYA:
-        # maya = '-DMAYA'
-
-    Logs.warn(ctx.path)
-
     buildNode = ctx.path.ctx.bldnode
     buildNode.make_node('gmath.pyc').write('')
     swigTargets = [buildNode.make_node('gmath.py'),
@@ -84,7 +78,6 @@ def build(ctx):
                                                                                  with_maya,
                                                                                  ctx.path.abspath())
     rule += ' ${SRC}'
-    Logs.warn(rule)
 
     ctx(rule=rule,
         source='gmRoot.i',
