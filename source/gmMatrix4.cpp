@@ -338,7 +338,7 @@ namespace gmath
     bool Matrix4::operator == (const Matrix4 &other) const
     {
         const double* b = &other._data[0];
-        double e = gmath::EPSILON;
+        double e = gmath::PRECISION;
         return (fabs(_data[0]-b[0])<e && fabs(_data[1]-b[1])<e && fabs(_data[2]-b[2])<e && fabs(_data[3]-b[3])<e && 
                 fabs(_data[4]-b[4])<e && fabs(_data[5]-b[5])<e && fabs(_data[6]-b[6])<e && fabs(_data[7]-b[7])<e && 
                 fabs(_data[8]-b[8])<e && fabs(_data[9]-b[9])<e && fabs(_data[10]-b[10])<e && fabs(_data[11]-b[11])<e &&
@@ -348,7 +348,7 @@ namespace gmath
     bool Matrix4::operator != (const Matrix4 &other) const
     {
         const double* b = &other._data[0];
-        double e = gmath::EPSILON;
+        double e = gmath::PRECISION;
         return (fabs(_data[0]-b[0])>e || fabs(_data[1]-b[1])>e || fabs(_data[2]-b[2])>e || fabs(_data[3]-b[3])>e ||
                 fabs(_data[4]-b[4])>e || fabs(_data[5]-b[5])>e || fabs(_data[6]-b[6])>e || fabs(_data[7]-b[7])>e || 
                 fabs(_data[8]-b[8])>e || fabs(_data[9]-b[9])>e || fabs(_data[10]-b[10])>e || fabs(_data[11]-b[11])>e ||
@@ -801,7 +801,7 @@ namespace gmath
         double b5 = _data[10]*_data[15] - _data[11]*_data[14];
         double det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
 
-        if (fabs(det) > gmath::EPSILON)
+        if (fabs(det) > gmath::PRECISION)
         {
             inverseMat._data[ 0] = + _data[ 5]*b5 - _data[ 6]*b4 + _data[ 7]*b3;
             inverseMat._data[ 4] = - _data[ 4]*b5 + _data[ 6]*b2 - _data[ 7]*b1;
@@ -930,7 +930,7 @@ namespace gmath
         double b5 = _data[10]*_data[15] - _data[11]*_data[14];
         double det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
 
-        if (fabs(det) > gmath::EPSILON)
+        if (fabs(det) > gmath::PRECISION)
         {
             value[ 0] = + _data[ 5]*b5 - _data[ 6]*b4 + _data[ 7]*b3;
             value[ 4] = - _data[ 4]*b5 + _data[ 6]*b2 - _data[ 7]*b1;
@@ -985,7 +985,7 @@ namespace gmath
         double e = fromVec.dot(toVec);
         double f = fabs(e);
 
-        if (f > 1.0-gmath::EPSILON) // "from" and "to" vectors parallel or almost parallel
+        if (f > 1.0-gmath::PRECISION) // "from" and "to" vectors parallel or almost parallel
         {
             double fx = fabs(fromVec.x);
             double fy = fabs(fromVec.y);
@@ -1070,7 +1070,7 @@ namespace gmath
 
         /*
         double f = fabs( primary.dot(secondary) );
-        if (f > 1.0-gmath::EPSILON)
+        if (f > 1.0-gmath::PRECISION)
             throw GMathError("Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them."); */
         
         terziary = secondary.crossNormalize(primary);

@@ -11,7 +11,7 @@ namespace gmath{
     //--------------------------------------------------------------------------
     inline double sinx_over_x (double x)
     {
-        if (x * x < gmath::EPSILON)
+        if (x * x < gmath::PRECISION)
             return 1.0;
         else
             return  sin (x) / x;
@@ -217,18 +217,18 @@ namespace gmath{
 
     bool Quaternion::operator == (const Quaternion & other) const
     {
-        return (fabs(x-other.x) < gmath::EPSILON && 
-                fabs(y-other.y) < gmath::EPSILON && 
-                fabs(z-other.z) < gmath::EPSILON &&
-                fabs(w-other.w) < gmath::EPSILON);
+        return (fabs(x-other.x) < gmath::PRECISION && 
+                fabs(y-other.y) < gmath::PRECISION && 
+                fabs(z-other.z) < gmath::PRECISION &&
+                fabs(w-other.w) < gmath::PRECISION);
     }
 
     bool Quaternion::operator != (const Quaternion & other) const
     {
-        return (fabs(x-other.x) > gmath::EPSILON || 
-                fabs(y-other.y) > gmath::EPSILON || 
-                fabs(z-other.z) > gmath::EPSILON ||
-                fabs(w-other.w) < gmath::EPSILON);
+        return (fabs(x-other.x) > gmath::PRECISION || 
+                fabs(y-other.y) > gmath::PRECISION || 
+                fabs(z-other.z) > gmath::PRECISION ||
+                fabs(w-other.w) < gmath::PRECISION);
     }
 
     /*------ Assignments ------*/
@@ -444,7 +444,7 @@ namespace gmath{
         double sqrLength = x*x + y*y
             + z*z;
 
-        if (sqrLength > gmath::EPSILON)
+        if (sqrLength > gmath::PRECISION)
         {
             outAngle = (2)*acos(w);
             double invLength;
@@ -533,7 +533,7 @@ namespace gmath{
     {
         double len = length();
 
-        if (len > gmath::EPSILON)
+        if (len > gmath::PRECISION)
         {
             double invLength = (1)/len;
             w *= invLength;
@@ -555,7 +555,7 @@ namespace gmath{
         Quaternion retQuat;
         double len = length();
 
-        if (len > gmath::EPSILON)
+        if (len > gmath::PRECISION)
         {
             double invLength = (1)/len;
             retQuat.w = w*invLength;
@@ -606,7 +606,7 @@ namespace gmath{
         double sn = sin(angle);
         result.w = cos(angle);
 
-        if (fabs(sn) >= gmath::EPSILON)
+        if (fabs(sn) >= gmath::PRECISION)
         {
             double coeff = sn/angle;
 
@@ -639,7 +639,7 @@ namespace gmath{
         {
             double angle = acos(w);
             double sn = sin(angle);
-            if (fabs(sn) >= gmath::EPSILON)
+            if (fabs(sn) >= gmath::PRECISION)
             {
                 double coeff = angle/sn;
                 result.x = coeff*x;

@@ -4,7 +4,7 @@ namespace gmath
 {
 	std::string GMathError::prefix = "GMathError: ";
 
-    // const double EPSILON = 1e-08;
+    // const double PRECISION = 1e-08;
     // const double PI = 4.0*atan(1.0);
     // const double HALFPI = PI*0.5;
     // const double MAX = DBL_MAX;

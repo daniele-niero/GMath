@@ -164,18 +164,18 @@ namespace gmath {
     /*------ Comparisons ------*/
     bool Vector4::operator == (const Vector4 & other) const
     {
-        return (fabs(x-other.x) < gmath::EPSILON && 
-                fabs(y-other.y) < gmath::EPSILON && 
-                fabs(z-other.z) < gmath::EPSILON &&
-                fabs(w-other.w) < gmath::EPSILON);
+        return (fabs(x-other.x) < gmath::PRECISION && 
+                fabs(y-other.y) < gmath::PRECISION && 
+                fabs(z-other.z) < gmath::PRECISION &&
+                fabs(w-other.w) < gmath::PRECISION);
     }
 
     bool Vector4::operator != (const Vector4 & other) const
     {
-        return (fabs(x-other.x) > gmath::EPSILON || 
-                fabs(y-other.y) > gmath::EPSILON || 
-                fabs(z-other.z) > gmath::EPSILON ||
-                fabs(w-other.w) < gmath::EPSILON);
+        return (fabs(x-other.x) > gmath::PRECISION || 
+                fabs(y-other.y) > gmath::PRECISION || 
+                fabs(z-other.z) > gmath::PRECISION ||
+                fabs(w-other.w) < gmath::PRECISION);
     }
 
     /*------ Assignments ------*/
@@ -236,7 +236,7 @@ namespace gmath {
         double len = length();
 
         double nlen;
-        if (len < gmath::EPSILON)
+        if (len < gmath::PRECISION)
         {
             nlen = 1.0;
         }
@@ -253,7 +253,7 @@ namespace gmath {
         double len = length();
         
         double nlen;
-        if (len < gmath::EPSILON)
+        if (len < gmath::PRECISION)
         {
             nlen = 1.0;
         }

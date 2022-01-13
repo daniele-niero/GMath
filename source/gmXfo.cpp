@@ -69,7 +69,7 @@ namespace gmath
     {
         if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
         {
-            double relativePrecision = abs(this->sc.x)*EPSILON*10.0;
+            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
             if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
                 throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
@@ -87,7 +87,7 @@ namespace gmath
     {
         if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
         {
-            double relativePrecision = abs(this->sc.x)*EPSILON*10.0;
+            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
             if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
                 throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
@@ -149,7 +149,7 @@ namespace gmath
     {
         if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
         {
-            double relativePrecision = abs(this->sc.x)*EPSILON*10.0;
+            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
             if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
                 throw GMathError("Xfo.inverse: Cannot invert xfo with non-uniform scaling without causing shearing. Try using inverseTransformVector, use Mat44s instead");
         }
@@ -165,7 +165,7 @@ namespace gmath
     {
         if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
         {
-            double relativePrecision = abs(this->sc.x)*EPSILON*10.0;
+            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
             if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
                 throw GMathError("Xfo.inverseInPlace: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
