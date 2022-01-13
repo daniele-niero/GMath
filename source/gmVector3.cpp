@@ -259,16 +259,16 @@ namespace gmath
 
     bool Vector3::operator == (const Vector3 & other) const
     {
-        return (fabs(x-other.x) < gmath::PRECISION && 
-                fabs(y-other.y) < gmath::PRECISION && 
-                fabs(z-other.z) < gmath::PRECISION);
+        return (almostEqual(x, other.x) && 
+                almostEqual(y, other.y) && 
+                almostEqual(z, other.z));
     }
 
     bool Vector3::operator != (const Vector3 & other) const
     {
-        return (fabs(x-other.x) > gmath::PRECISION || 
-                fabs(y-other.y) > gmath::PRECISION || 
-                fabs(z-other.z) > gmath::PRECISION);
+        return (!almostEqual(x, other.x) || 
+                !almostEqual(y, other.y) || 
+                !almostEqual(z, other.z));
     }
 
     /*------ Assignments ------*/
@@ -372,7 +372,7 @@ namespace gmath
     {
         double len = length();
         double nlen;
-        if (len < gmath::PRECISION)
+        if (isCloseToZero(len))
         {
             nlen = 1.0;
         }
@@ -389,7 +389,7 @@ namespace gmath
         double len = length();
 
         double nlen;
-        if (len < gmath::PRECISION)
+        if (isCloseToZero(len))
         {
             nlen = 1.0;
         }
@@ -465,7 +465,7 @@ namespace gmath
         double k = 1.0 - eta*eta*(1.0 - dot*dot);
 
         Vector3 retVec;
-        if (k >= gmath::PRECISION)
+        if (!isCloseToZero(k))
         {
             retVec = *this * eta;
             retVec -= normal * (eta*dot + sqrt(k));
@@ -478,7 +478,7 @@ namespace gmath
         double dot = this->dot(normal);
         double k = 1.0 - eta*eta*(1.0 - dot*dot);
 
-        if (k >= gmath::PRECISION)
+        if (!isCloseToZero(k))
         {
             *this *= eta;
             *this -= normal * (eta*dot + sqrt(k));

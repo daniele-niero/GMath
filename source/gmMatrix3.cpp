@@ -287,19 +287,17 @@ namespace gmath
     bool Matrix3::operator == (const Matrix3 &other) const
     {
         const double* b = &other._data[0];
-        double e = gmath::PRECISION;
-        return (fabs(_data[0]-b[0])<e && fabs(_data[1]-b[1])<e && fabs(_data[2]-b[2])<e &&
-                fabs(_data[3]-b[3])<e && fabs(_data[4]-b[4])<e && fabs(_data[5]-b[5])<e &&
-                fabs(_data[6]-b[6])<e && fabs(_data[7]-b[7])<e && fabs(_data[8]-b[8])<e);
+        return (almostEqual(_data[0], b[0]) && almostEqual(_data[1], b[1]) && almostEqual(_data[2], b[2]) &&
+                almostEqual(_data[3], b[3]) && almostEqual(_data[4], b[4]) && almostEqual(_data[5], b[5]) &&
+                almostEqual(_data[6], b[6]) && almostEqual(_data[7], b[7]) && almostEqual(_data[8], b[8]));
     }
 
     bool Matrix3::operator != (const Matrix3 &other) const
     {
         const double* b = &other._data[0];
-        double e = gmath::PRECISION;
-        return (fabs(_data[0]-b[0])>e || fabs(_data[1]-b[1])>e || fabs(_data[2]-b[3])>e ||
-                fabs(_data[3]-b[3])>e || fabs(_data[0]-b[0])>e || fabs(_data[0]-b[0])>e ||
-                fabs(_data[0]-b[0])>e || fabs(_data[0]-b[0])>e || fabs(_data[0]-b[0])>e);
+        return (!almostEqual(_data[0], b[0]) || !almostEqual(_data[1], b[1]) || !almostEqual(_data[2], b[3]) ||
+                !almostEqual(_data[3], b[3]) || !almostEqual(_data[0], b[0]) || !almostEqual(_data[0], b[0]) ||
+                !almostEqual(_data[0], b[0]) || !almostEqual(_data[0], b[0]) || !almostEqual(_data[0], b[0]));
     }
 
     /*------ Assignment ------*/
@@ -410,8 +408,8 @@ namespace gmath
 
     double Matrix3::determinant() const
     {
-        double det;
-        det = _data[0] * ( _data[4]*_data[8] - _data[7]*_data[5] )
+        double det = 
+              _data[0] * ( _data[4]*_data[8] - _data[7]*_data[5] )
             - _data[1] * ( _data[3]*_data[8] - _data[6]*_data[5] )
             + _data[2] * ( _data[3]*_data[7] - _data[6]*_data[4] );
         return det;
@@ -420,15 +418,14 @@ namespace gmath
     Matrix3 Matrix3::inverse() const
     {
         Matrix3 retMatrix;
-        double invDet = 1/determinant();
 
-        if ( invDet < gmath::PRECISION )
+        if ( isCloseToZero(determinant()) )
         {
-            retMatrix = *this;
-            retMatrix.setToIdentity();
+            throw GMathError("The determinant of this matrix is 0.0, causing an invalid division");
         }
         else
         {
+            double invDet = 1.0/determinant();
             retMatrix._data[0] =   _data[4]*_data[8] - _data[5]*_data[7]  / invDet;
             retMatrix._data[1] = -(_data[1]*_data[8] - _data[7]*_data[2]) / invDet;
             retMatrix._data[2] =   _data[1]*_data[5] - _data[4]*_data[2]  / invDet;
@@ -447,15 +444,14 @@ namespace gmath
 
     void Matrix3::inverseInPlace()
     {
-        double m[9];
-        double invDet = 1/determinant();
-
-        if ( invDet < gmath::PRECISION )
+        if ( isCloseToZero(determinant()) )
         {
-            this->setToIdentity();
+            throw GMathError("The determinant of this matrix is 0.0, causing an invalid division");
         }
         else
         {
+            double m[9];
+            double invDet = 1.0/determinant();
             m[0] =   _data[4]*_data[8] - _data[5]*_data[7]  / invDet;
             m[1] = -(_data[1]*_data[8] - _data[7]*_data[2]) / invDet;
             m[2] =   _data[1]*_data[5] - _data[4]*_data[2]  / invDet;
@@ -881,7 +877,7 @@ namespace gmath
         double e = fromVec.dot(toVec);
         double f = fabs(e);
 
-        if (f > 1.0-gmath::PRECISION) // "from" and "to" vectors parallel or almost parallel
+        if (almostEqual(f, 1.0)) // "from" and "to" vectors parallel or almost parallel
         {
             double fx = fabs(fromVec.x);
             double fy = fabs(fromVec.y);
@@ -960,11 +956,6 @@ namespace gmath
         primary.normalizeInPlace();
         secondary.normalizeInPlace();
 
-        /*
-        double f = fabs( primary.dot(secondary) );
-        if (f > 1.0-gmath::PRECISION)
-            throw GMathError("gMatrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them.");
-        */
         
         terziary = secondary.crossNormalize(primary);
         secondary = primary.crossNormalize(terziary);

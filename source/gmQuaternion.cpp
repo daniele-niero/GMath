@@ -11,7 +11,7 @@ namespace gmath{
     //--------------------------------------------------------------------------
     inline double sinx_over_x (double x)
     {
-        if (x * x < gmath::PRECISION)
+        if (almostEqual(x, 0.0))
             return 1.0;
         else
             return  sin (x) / x;
@@ -217,18 +217,18 @@ namespace gmath{
 
     bool Quaternion::operator == (const Quaternion & other) const
     {
-        return (fabs(x-other.x) < gmath::PRECISION && 
-                fabs(y-other.y) < gmath::PRECISION && 
-                fabs(z-other.z) < gmath::PRECISION &&
-                fabs(w-other.w) < gmath::PRECISION);
+        return (almostEqual(x, other.x) && 
+                almostEqual(y, other.y) && 
+                almostEqual(z, other.z) &&
+                almostEqual(w, other.w));
     }
 
     bool Quaternion::operator != (const Quaternion & other) const
     {
-        return (fabs(x-other.x) > gmath::PRECISION || 
-                fabs(y-other.y) > gmath::PRECISION || 
-                fabs(z-other.z) > gmath::PRECISION ||
-                fabs(w-other.w) < gmath::PRECISION);
+        return (!almostEqual(x, other.x) || 
+                !almostEqual(y, other.y) || 
+                !almostEqual(z, other.z) ||
+                !almostEqual(w, other.w));
     }
 
     /*------ Assignments ------*/
@@ -439,12 +439,17 @@ namespace gmath{
     void Quaternion::toAxisAngle (Vector3& outAxis, double& outAngle) const
     {
         // The quaternion representing the rotation is
-        //   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
+        // q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
 
-        double sqrLength = x*x + y*y
-            + z*z;
+        double sqrLength = x*x + y*y + z*z;
 
-        if (sqrLength > gmath::PRECISION)
+        if (isCloseToZero(sqrLength))
+        {
+            // Angle is 0 (mod 2*gmath::PI), so any axis will do.
+            outAngle = 0;
+            outAxis.set(1, 0, 0);
+        }
+        else
         {
             outAngle = (2)*acos(w);
             double invLength;
@@ -455,12 +460,6 @@ namespace gmath{
             outAxis.x = x*invLength;
             outAxis.y = y*invLength;
             outAxis.z = z*invLength;
-        }
-        else
-        {
-            // Angle is 0 (mod 2*gmath::PI), so any axis will do.
-            outAngle = 0;
-            outAxis.set(1, 0, 0);
         }
     }
 
@@ -533,20 +532,20 @@ namespace gmath{
     {
         double len = length();
 
-        if (len > gmath::PRECISION)
-        {
-            double invLength = (1)/len;
-            w *= invLength;
-            x *= invLength;
-            y *= invLength;
-            z *= invLength;
-        }
-        else
+        if (isCloseToZero(len))
         {
             w = 0;
             x = 0;
             y = 0;
             z = 0;
+        }
+        else
+        {
+            double invLength = 1.0/len;
+            w *= invLength;
+            x *= invLength;
+            y *= invLength;
+            z *= invLength;
         }
     }
 
@@ -555,21 +554,22 @@ namespace gmath{
         Quaternion retQuat;
         double len = length();
 
-        if (len > gmath::PRECISION)
-        {
-            double invLength = (1)/len;
-            retQuat.w = w*invLength;
-            retQuat.x = x*invLength;
-            retQuat.y = y*invLength;
-            retQuat.z = z*invLength;
-        }
-        else
+        if (isCloseToZero(len))
         {
             retQuat.w = 0;
             retQuat.x = 0;
             retQuat.y = 0;
             retQuat.z = 0;
         }
+        else
+        {
+            double invLength = 1.0/len;
+            retQuat.w = w*invLength;
+            retQuat.x = x*invLength;
+            retQuat.y = y*invLength;
+            retQuat.z = z*invLength;
+        }
+
         return retQuat;
     }
 
@@ -606,7 +606,14 @@ namespace gmath{
         double sn = sin(angle);
         result.w = cos(angle);
 
-        if (fabs(sn) >= gmath::PRECISION)
+        if (isCloseToZero(sn))
+        {
+            result.x = x;
+            result.y = y;
+            result.z = z;
+            //result.w = w;
+        }
+        else
         {
             double coeff = sn/angle;
 
@@ -614,13 +621,6 @@ namespace gmath{
             result.y = coeff*y;
             result.z = coeff*z;
             //result.w = coeff*w;
-        }
-        else
-        {
-            result.x = x;
-            result.y = y;
-            result.z = z;
-            //result.w = w;
         }
 
         return result;
@@ -639,7 +639,7 @@ namespace gmath{
         {
             double angle = acos(w);
             double sn = sin(angle);
-            if (fabs(sn) >= gmath::PRECISION)
+            if (!isCloseToZero(sn))
             {
                 double coeff = angle/sn;
                 result.x = coeff*x;

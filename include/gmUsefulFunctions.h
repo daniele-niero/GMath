@@ -11,13 +11,13 @@
 
 namespace gmath
 {
-    bool almostEqual(const Vector3& a, const Vector3& b, double precision=DBL_MIN);
-    bool almostEqual(const Vector4& a, const Vector4& b, double precision=DBL_MIN);
-    bool almostEqual(const Euler& a, const Euler& b, double precision=DBL_MIN);
-    bool almostEqual(const Quaternion& a, const Quaternion& b, double precision=DBL_MIN);
-    bool almostEqual(const Matrix3& a, const Matrix3& b, double precision=DBL_MIN);
-    bool almostEqual(const Matrix4& a, const Matrix4& b, double precision=DBL_MIN);
-    bool almostEqual(const Xfo& a, const Xfo& b, double precision=DBL_MIN);
+    bool almostEqual(const Vector3& a,    const Vector3& b,    double relativePrecision=1e-09, double absolutePrecision=0.0);
+    bool almostEqual(const Vector4& a,    const Vector4& b,    double relativePrecision=1e-09, double absolutePrecision=0.0);
+    bool almostEqual(const Euler& a,      const Euler& b,      double relativePrecision=1e-09, double absolutePrecision=0.0);
+    bool almostEqual(const Quaternion& a, const Quaternion& b, double relativePrecision=1e-09, double absolutePrecision=0.0);
+    bool almostEqual(const Matrix3& a,    const Matrix3& b,    double relativePrecision=1e-09, double absolutePrecision=0.0);
+    bool almostEqual(const Matrix4& a,    const Matrix4& b,    double relativePrecision=1e-09, double absolutePrecision=0.0);
+    bool almostEqual(const Xfo& a,        const Xfo& b,        double relativePrecision=1e-09, double absolutePrecision=0.0);
 
     enum class IntersectionType
     {

@@ -86,17 +86,17 @@ namespace gmath {
     bool Euler::operator == (const Euler &other) const
     {
         return (
-            fabs(x-other.x)<PRECISION &&
-            fabs(y-other.y)<PRECISION &&
-            fabs(z-other.z)<PRECISION );
+            almostEqual(x, other.x) &&
+            almostEqual(y, other.y) &&
+            almostEqual(z, other.z) );
     }
 
     bool Euler::operator != (const Euler &other) const
     {
         return (
-            fabs(x-other.x)>PRECISION ||
-            fabs(y-other.y)>PRECISION ||
-            fabs(z-other.z)>PRECISION );
+            !almostEqual(x, other.x) ||
+            !almostEqual(y, other.y) ||
+            !almostEqual(z, other.z) );
     }
 
     /*------ Methods ------*/

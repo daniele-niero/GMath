@@ -58,7 +58,7 @@ SOFTWARE.
 namespace gmath
 {
     // const double EPSILON   =  1e-08;
-    const double PRECISION =  1e-08;
+    const double PRECISION =  1e-09;
     const double PI        =  4.0*atan(1.0);
     const double HALFPI    =  PI*0.5;
     const double MAX       =  DBL_MAX;
@@ -140,26 +140,6 @@ namespace gmath
     double toRadians(double x);
     double toDegrees(double x);
 
-    inline bool isCloseToZero(double x)
-    {
-        return std::abs(x) <= DBL_MIN;
-    }
-
-    inline bool almostEqual(double x, double y, double precision=DBL_MIN)
-    {
-        return std::abs(x-y) <= precision;
-    }
-
-    inline bool almostEqual(float x, float y, float precision=FLT_MIN)
-    {
-        return std::abs(x-y) <= precision;
-    }
-
-    inline bool almostEqual(int x, int y)
-    {
-        return std::abs(x-y) == 0;
-    }
-
     inline double min(double a, double b)
     {
         return a < b ? a : b;
@@ -170,8 +150,20 @@ namespace gmath
         return a > b ? a : b;
     }
 
-    inline double clamp(double value, double min, double max)
+    inline double clamp(double value, double lowerBound, double upperBound)
     {
-        return gmath::min(gmath::max(value, min), max);
+        return min(max(value, lowerBound), upperBound);
     }
+
+    // Taken straight from python math.isclose
+    inline bool almostEqual(double x, double y, double relativePrecision=1e-09, double absolutePrecision=0.0)
+    {
+        return std::fabs(x-y) <= max(relativePrecision * max(std::fabs(x), std::fabs(y)), absolutePrecision);
+    }
+
+    inline bool isCloseToZero(double x)
+    {
+        return almostEqual(x, 0.0);
+    }
+
 }

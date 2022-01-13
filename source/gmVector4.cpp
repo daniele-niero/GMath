@@ -164,18 +164,18 @@ namespace gmath {
     /*------ Comparisons ------*/
     bool Vector4::operator == (const Vector4 & other) const
     {
-        return (fabs(x-other.x) < gmath::PRECISION && 
-                fabs(y-other.y) < gmath::PRECISION && 
-                fabs(z-other.z) < gmath::PRECISION &&
-                fabs(w-other.w) < gmath::PRECISION);
+        return (almostEqual(x, other.x) && 
+                almostEqual(y, other.y) && 
+                almostEqual(z, other.z) &&
+                almostEqual(w, other.w));
     }
 
     bool Vector4::operator != (const Vector4 & other) const
     {
-        return (fabs(x-other.x) > gmath::PRECISION || 
-                fabs(y-other.y) > gmath::PRECISION || 
-                fabs(z-other.z) > gmath::PRECISION ||
-                fabs(w-other.w) < gmath::PRECISION);
+        return (!almostEqual(x, other.x) || 
+                !almostEqual(y, other.y) || 
+                !almostEqual(z, other.z) ||
+                !almostEqual(w, other.w));
     }
 
     /*------ Assignments ------*/
@@ -236,7 +236,7 @@ namespace gmath {
         double len = length();
 
         double nlen;
-        if (len < gmath::PRECISION)
+        if (isCloseToZero(len))
         {
             nlen = 1.0;
         }
@@ -253,7 +253,7 @@ namespace gmath {
         double len = length();
         
         double nlen;
-        if (len < gmath::PRECISION)
+        if (isCloseToZero(len))
         {
             nlen = 1.0;
         }

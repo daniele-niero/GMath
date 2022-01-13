@@ -338,21 +338,19 @@ namespace gmath
     bool Matrix4::operator == (const Matrix4 &other) const
     {
         const double* b = &other._data[0];
-        double e = gmath::PRECISION;
-        return (fabs(_data[0]-b[0])<e && fabs(_data[1]-b[1])<e && fabs(_data[2]-b[2])<e && fabs(_data[3]-b[3])<e && 
-                fabs(_data[4]-b[4])<e && fabs(_data[5]-b[5])<e && fabs(_data[6]-b[6])<e && fabs(_data[7]-b[7])<e && 
-                fabs(_data[8]-b[8])<e && fabs(_data[9]-b[9])<e && fabs(_data[10]-b[10])<e && fabs(_data[11]-b[11])<e &&
-                fabs(_data[12]-b[12])<e && fabs(_data[13]-b[13])<e && fabs(_data[14]-b[14])<e && fabs(_data[15]-b[15])<e);
+        return (almostEqual(_data[0],  b[0])  && almostEqual(_data[1] , b[1])  && almostEqual(_data[2],  b[2])  && almostEqual(_data[3],  b[3])  && 
+                almostEqual(_data[4],  b[4])  && almostEqual(_data[5] , b[5])  && almostEqual(_data[6],  b[6])  && almostEqual(_data[7],  b[7])  && 
+                almostEqual(_data[8],  b[8])  && almostEqual(_data[9] , b[9])  && almostEqual(_data[10], b[10]) && almostEqual(_data[11], b[11]) &&
+                almostEqual(_data[12], b[12]) && almostEqual(_data[13], b[13]) && almostEqual(_data[14], b[14]) && almostEqual(_data[15], b[15]) );
     }
 
     bool Matrix4::operator != (const Matrix4 &other) const
     {
         const double* b = &other._data[0];
-        double e = gmath::PRECISION;
-        return (fabs(_data[0]-b[0])>e || fabs(_data[1]-b[1])>e || fabs(_data[2]-b[2])>e || fabs(_data[3]-b[3])>e ||
-                fabs(_data[4]-b[4])>e || fabs(_data[5]-b[5])>e || fabs(_data[6]-b[6])>e || fabs(_data[7]-b[7])>e || 
-                fabs(_data[8]-b[8])>e || fabs(_data[9]-b[9])>e || fabs(_data[10]-b[10])>e || fabs(_data[11]-b[11])>e ||
-                fabs(_data[12]-b[12])>e || fabs(_data[13]-b[13])>e || fabs(_data[14]-b[14])>e || fabs(_data[15]-b[15])>e);
+        return (!almostEqual(_data[0],  b[0])  || !almostEqual(_data[1] , b[1])  || !almostEqual(_data[2],  b[2])  || !almostEqual(_data[3],  b[3])  && 
+                !almostEqual(_data[4],  b[4])  || !almostEqual(_data[5] , b[5])  || !almostEqual(_data[6],  b[6])  || !almostEqual(_data[7],  b[7])  && 
+                !almostEqual(_data[8],  b[8])  || !almostEqual(_data[9] , b[9])  || !almostEqual(_data[10], b[10]) || !almostEqual(_data[11], b[11]) &&
+                !almostEqual(_data[12], b[12]) || !almostEqual(_data[13], b[13]) || !almostEqual(_data[14], b[14]) || !almostEqual(_data[15], b[15]) );
     }
 
     /*------ Assignment ------*/
@@ -765,43 +763,47 @@ namespace gmath
             _data[3], _data[7], _data[11], _data[15] );
     }
 
+    void Matrix4::determinantStep1(double& a0, double& a1, double& a2, double& a3, double& a4, double& a5, double& b0, double& b1, double& b2, double& b3, double& b4, double& b5) const
+    {
+        a0 = _data[ 0] * _data[ 5] - _data[ 1] * _data[ 4];
+        a1 = _data[ 0] * _data[ 6] - _data[ 2] * _data[ 4];
+        a2 = _data[ 0] * _data[ 7] - _data[ 3] * _data[ 4];
+        a3 = _data[ 1] * _data[ 6] - _data[ 2] * _data[ 5];
+        a4 = _data[ 1] * _data[ 7] - _data[ 3] * _data[ 5];
+        a5 = _data[ 2] * _data[ 7] - _data[ 3] * _data[ 6];
+        b0 = _data[ 8] * _data[13] - _data[ 9] * _data[12];
+        b1 = _data[ 8] * _data[14] - _data[10] * _data[12];
+        b2 = _data[ 8] * _data[15] - _data[11] * _data[12];
+        b3 = _data[ 9] * _data[14] - _data[10] * _data[13];
+        b4 = _data[ 9] * _data[15] - _data[11] * _data[13];
+        b5 = _data[10] * _data[15] - _data[11] * _data[14];
+    }
+
+    double Matrix4::determinantStep2(double a0, double a1, double a2, double a3, double a4, double a5, double b0, double b1, double b2, double b3, double b4, double b5) const
+    {
+        return a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
+    }
+
     double Matrix4::determinant() const
     {
-        double a0 = _data[ 0]*_data[ 5] - _data[ 1]*_data[ 4];
-        double a1 = _data[ 0]*_data[ 6] - _data[ 2]*_data[ 4];
-        double a2 = _data[ 0]*_data[ 7] - _data[ 3]*_data[ 4];
-        double a3 = _data[ 1]*_data[ 6] - _data[ 2]*_data[ 5];
-        double a4 = _data[ 1]*_data[ 7] - _data[ 3]*_data[ 5];
-        double a5 = _data[ 2]*_data[ 7] - _data[ 3]*_data[ 6];
-        double b0 = _data[ 8]*_data[13] - _data[ 9]*_data[12];
-        double b1 = _data[ 8]*_data[14] - _data[10]*_data[12];
-        double b2 = _data[ 8]*_data[15] - _data[11]*_data[12];
-        double b3 = _data[ 9]*_data[14] - _data[10]*_data[13];
-        double b4 = _data[ 9]*_data[15] - _data[11]*_data[13];
-        double b5 = _data[10]*_data[15] - _data[11]*_data[14];
-        double det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
-        return det;
+        double a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5;
+        determinantStep1(a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5);
+        return determinantStep2(a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5);
     }
 
     Matrix4 Matrix4::inverse() const
     {
         Matrix4 inverseMat;
 
-        double a0 = _data[ 0]*_data[ 5] - _data[ 1]*_data[ 4];
-        double a1 = _data[ 0]*_data[ 6] - _data[ 2]*_data[ 4];
-        double a2 = _data[ 0]*_data[ 7] - _data[ 3]*_data[ 4];
-        double a3 = _data[ 1]*_data[ 6] - _data[ 2]*_data[ 5];
-        double a4 = _data[ 1]*_data[ 7] - _data[ 3]*_data[ 5];
-        double a5 = _data[ 2]*_data[ 7] - _data[ 3]*_data[ 6];
-        double b0 = _data[ 8]*_data[13] - _data[ 9]*_data[12];
-        double b1 = _data[ 8]*_data[14] - _data[10]*_data[12];
-        double b2 = _data[ 8]*_data[15] - _data[11]*_data[12];
-        double b3 = _data[ 9]*_data[14] - _data[10]*_data[13];
-        double b4 = _data[ 9]*_data[15] - _data[11]*_data[13];
-        double b5 = _data[10]*_data[15] - _data[11]*_data[14];
-        double det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
+        double a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5;
+        determinantStep1(a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5);
+        double det = determinantStep2(a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5);
 
-        if (fabs(det) > gmath::PRECISION)
+        if (isCloseToZero(det))
+        {
+            throw GMathError("The determinant of this matrix is 0.0, causing an invalid division");
+        }
+        else
         {
             inverseMat._data[ 0] = + _data[ 5]*b5 - _data[ 6]*b4 + _data[ 7]*b3;
             inverseMat._data[ 4] = - _data[ 4]*b5 + _data[ 6]*b2 - _data[ 7]*b1;
@@ -820,7 +822,7 @@ namespace gmath
             inverseMat._data[11] = - _data[ 8]*a4 + _data[ 9]*a2 - _data[11]*a0;
             inverseMat._data[15] = + _data[ 8]*a3 - _data[ 9]*a1 + _data[10]*a0;
 
-            double invDet = (1)/det;
+            double invDet = 1.0/det;
             inverseMat._data[ 0] *= invDet;
             inverseMat._data[ 1] *= invDet;
             inverseMat._data[ 2] *= invDet;
@@ -837,14 +839,6 @@ namespace gmath
             inverseMat._data[13] *= invDet;
             inverseMat._data[14] *= invDet;
             inverseMat._data[15] *= invDet;
-        }
-        else
-        {
-            inverseMat.set(
-                    0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0, 0,
-                    0, 0, 0, 0 );
         }
 
         return inverseMat;
@@ -916,21 +910,15 @@ namespace gmath
     {
         double value[16];
 
-        double a0 = _data[ 0]*_data[ 5] - _data[ 1]*_data[ 4];
-        double a1 = _data[ 0]*_data[ 6] - _data[ 2]*_data[ 4];
-        double a2 = _data[ 0]*_data[ 7] - _data[ 3]*_data[ 4];
-        double a3 = _data[ 1]*_data[ 6] - _data[ 2]*_data[ 5];
-        double a4 = _data[ 1]*_data[ 7] - _data[ 3]*_data[ 5];
-        double a5 = _data[ 2]*_data[ 7] - _data[ 3]*_data[ 6];
-        double b0 = _data[ 8]*_data[13] - _data[ 9]*_data[12];
-        double b1 = _data[ 8]*_data[14] - _data[10]*_data[12];
-        double b2 = _data[ 8]*_data[15] - _data[11]*_data[12];
-        double b3 = _data[ 9]*_data[14] - _data[10]*_data[13];
-        double b4 = _data[ 9]*_data[15] - _data[11]*_data[13];
-        double b5 = _data[10]*_data[15] - _data[11]*_data[14];
-        double det = a0*b5 - a1*b4 + a2*b3 + a3*b2 - a4*b1 + a5*b0;
+        double a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5;
+        determinantStep1(a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5);
+        double det = determinantStep2(a0, a1, a2, a3, a4, a5, b0, b1, b2, b3, b4, b5);
 
-        if (fabs(det) > gmath::PRECISION)
+        if (isCloseToZero(det))
+        {
+            throw GMathError("The determinant of this matrix is 0.0, causing an invalid division");
+        }
+        else
         {
             value[ 0] = + _data[ 5]*b5 - _data[ 6]*b4 + _data[ 7]*b3;
             value[ 4] = - _data[ 4]*b5 + _data[ 6]*b2 - _data[ 7]*b1;
@@ -949,7 +937,7 @@ namespace gmath
             value[11] = - _data[ 8]*a4 + _data[ 9]*a2 - _data[11]*a0;
             value[15] = + _data[ 8]*a3 - _data[ 9]*a1 + _data[10]*a0;
 
-            double invDet = (1)/det;
+            double invDet = 1.0/det;
             value[ 0] *= invDet;
             value[ 1] *= invDet;
             value[ 2] *= invDet;
@@ -969,14 +957,6 @@ namespace gmath
 
             memcpy(_data, value, 16*sizeof(double));
         }
-       else
-       {
-        set(
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-            0, 0, 0, 0 );
-       }
     }
 
     void Matrix4::fromVectorToVector(const Vector3 &fromVec, const Vector3 &toVec)
@@ -985,7 +965,7 @@ namespace gmath
         double e = fromVec.dot(toVec);
         double f = fabs(e);
 
-        if (f > 1.0-gmath::PRECISION) // "from" and "to" vectors parallel or almost parallel
+        if (almostEqual(f, 1.0)) // "from" and "to" vectors parallel or almost parallel
         {
             double fx = fabs(fromVec.x);
             double fy = fabs(fromVec.y);
@@ -1068,10 +1048,6 @@ namespace gmath
         primary.normalizeInPlace();
         secondary.normalizeInPlace();
 
-        /*
-        double f = fabs( primary.dot(secondary) );
-        if (f > 1.0-gmath::PRECISION)
-            throw GMathError("Matrix4:\n\ttarget vector and up vector are perpendicular, impossible to create a matrix out of them."); */
         
         terziary = secondary.crossNormalize(primary);
         secondary = primary.crossNormalize(terziary);

@@ -67,11 +67,9 @@ namespace gmath
     /*------ Arithmetic operations ------*/
     Xfo Xfo::operator * (const Xfo & other) const
     {
-        if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
+        if (!(almostEqual(this->sc.x, this->sc.y) && almostEqual(this->sc.x, this->sc.z)))
         {
-            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
-            if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
-                throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
+            throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
 
         Xfo result;
@@ -85,11 +83,9 @@ namespace gmath
     /*------ Arithmetic updates ------*/
     Xfo& Xfo::operator *= (const Xfo & other)
     {
-        if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
+        if (!(almostEqual(this->sc.x, this->sc.y) && almostEqual(this->sc.x, this->sc.z)))
         {
-            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
-            if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
-                throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
+            throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
 
         this->tr = other.tr + other.ori.rotateVector(this->tr*other.sc);
@@ -147,11 +143,9 @@ namespace gmath
 
     Xfo Xfo::inverse() const
     {
-        if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
+        if (!(almostEqual(this->sc.x, this->sc.y) && almostEqual(this->sc.x, this->sc.z)))
         {
-            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
-            if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
-                throw GMathError("Xfo.inverse: Cannot invert xfo with non-uniform scaling without causing shearing. Try using inverseTransformVector, use Mat44s instead");
+            throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
 
         Xfo result;
@@ -163,11 +157,9 @@ namespace gmath
 
     Xfo& Xfo::inverseInPlace()
     {
-        if(this->sc.x != this->sc.y || this->sc.x != this->sc.z)
+        if (!(almostEqual(this->sc.x, this->sc.y) && almostEqual(this->sc.x, this->sc.z)))
         {
-            double relativePrecision = abs(this->sc.x)*PRECISION*10.0;
-            if( abs(this->sc.x - this->sc.y) > relativePrecision || abs(this->sc.x - this->sc.z) > relativePrecision ) 
-                throw GMathError("Xfo.inverseInPlace: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
+            throw GMathError("Xfo operator *: Cannot multiply to xfos when having non-uniform scaling without causing shearing. Use Matrix4s instead.");
         }
 
         ori.inverseInPlace();

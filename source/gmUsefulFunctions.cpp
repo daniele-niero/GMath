@@ -4,60 +4,60 @@ using namespace std;
 
 namespace gmath {
 
-    bool almostEqual(const Vector3 &a, const Vector3 &b, double precision) {
+    bool almostEqual(const Vector3 &a, const Vector3 &b, double relativePrecision, double absolutePrecision) {
         for (unsigned int i=0; i<3; i++) {
-            if (!almostEqual(a[i], b[i], precision))
+            if (!almostEqual(a[i], b[i], relativePrecision, absolutePrecision))
                 return false;
         }
         return true;
     }
 
-    bool almostEqual(const Euler &a, const Euler &b, double precision) {
+    bool almostEqual(const Euler &a, const Euler &b, double relativePrecision, double absolutePrecision) {
         for (unsigned int i=0; i<3; i++) {
-            if (!almostEqual(a[i], b[i], precision))
+            if (!almostEqual(a[i], b[i], relativePrecision, absolutePrecision))
                 return false;
         }
         return true;
     }
 
-    bool almostEqual(const Vector4 &a, const Vector4 &b, double precision) {
+    bool almostEqual(const Vector4 &a, const Vector4 &b, double relativePrecision, double absolutePrecision) {
         for (unsigned int i=0; i<4; i++) {
-            if (!almostEqual(a[i], b[i], precision))
+            if (!almostEqual(a[i], b[i], relativePrecision, absolutePrecision))
                 return false;
         }
         return true;
     }
 
-    bool almostEqual(const Quaternion &a, const Quaternion &b, double precision) {
+    bool almostEqual(const Quaternion &a, const Quaternion &b, double relativePrecision, double absolutePrecision) {
         for (unsigned int i=0; i<4; i++) {
-            if (!almostEqual(a[i], b[i], precision))
+            if (!almostEqual(a[i], b[i], relativePrecision, absolutePrecision))
                 return false;
         }
         return true;
     }
 
-    bool almostEqual(const Matrix3 &a, const Matrix3 &b, double precision) {
+    bool almostEqual(const Matrix3 &a, const Matrix3 &b, double relativePrecision, double absolutePrecision) {
         for (unsigned int i=0; i<9; i++) {
-            if (!almostEqual(a[i], b[i], precision))
+            if (!almostEqual(a[i], b[i], relativePrecision, absolutePrecision))
                 return false;
         }
         return true;
     }
 
-    bool almostEqual(const Matrix4 &a, const Matrix4 &b, double precision) {
+    bool almostEqual(const Matrix4 &a, const Matrix4 &b, double relativePrecision, double absolutePrecision) {
         for (unsigned int i=0; i<16; i++) {
-            if (!almostEqual(a[i], b[i], precision))
+            if (!almostEqual(a[i], b[i], relativePrecision, absolutePrecision))
                 return false;
         }
         return true;
     }
 
-    bool almostEqual(const Xfo &a, const Xfo &b, double precision) {
-        if (!almostEqual(a.tr, b.tr, precision))
+    bool almostEqual(const Xfo &a, const Xfo &b, double relativePrecision, double absolutePrecision) {
+        if (!almostEqual(a.tr, b.tr, relativePrecision, absolutePrecision))
             return false;
-        if (!almostEqual(a.ori, b.ori, precision))
+        if (!almostEqual(a.ori, b.ori, relativePrecision, absolutePrecision))
             return false;
-        if (!almostEqual(a.sc, b.sc, precision))
+        if (!almostEqual(a.sc, b.sc, relativePrecision, absolutePrecision))
             return false;
         return true;
     }

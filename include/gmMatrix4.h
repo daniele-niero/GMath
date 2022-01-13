@@ -163,6 +163,11 @@ namespace gmath
         Matrix4 transpose() const;
         void transposeInPlace();
 
+    private:
+        void determinantStep1(double& a0, double& a1, double& a2, double& a3, double& a4, double& a5, double& b0, double& b1, double& b2, double& b3, double& b4, double& b5) const;
+        double determinantStep2(double a0, double a1, double a2, double a3, double a4, double a5, double b0, double b1, double b2, double b3, double b4, double b5) const;
+
+    public:
         /** The determinant of a matrix is a floating point value which is used to
             indicate whether the matrix has an inverse or not. If zero, then no inverse exists. */
         double determinant() const;
